@@ -1,0 +1,1 @@
+<p class="foot-txt">copyright&#169 2015 sister制作委員会</p>
