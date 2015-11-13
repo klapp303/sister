@@ -31,7 +31,13 @@
 
 		echo $this->Html->css(array(
         'common',
-        'detail'
+        'detail',
+        'diary'
+    ));
+
+    echo $this->Html->script(array(
+        'jquery-1.11.3.min',
+        'jquery-migrate-1.2.1.min'
     ));
 
 		echo $this->fetch('meta');
@@ -44,15 +50,18 @@
 		<div id="header">
 			<?php echo $this->element('sister_header'); ?>
 		</div>
-		<div id="content">
+		<div id="menu_side">
+			<?php echo $this->element('sister_menu'); ?>
+      <?php echo $this->element('sister_searchbox'); ?>
+      <?php echo $this->element('sister_calendar'); ?>
+		</div>
+    <div id="content_main">
 
 			<?php echo $this->Flash->render(); ?>
 
-      <?php echo $this->element('bourbon_house'); ?>
-
 			<?php echo $this->fetch('content'); ?>
 		</div>
-		<div id="footer">
+    <div id="footer" class="cf">
       <?php echo $this->element('sister_footer'); ?>
 		</div>
 	</div>

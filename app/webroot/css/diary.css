@@ -1,0 +1,10 @@
+@charset "utf-8";
+/* 検索box用 */
+#searchbox {
+    width: 200px;
+}
+
+/* カレンダー用 */
+#calendar {
+    width: 200px;
+}

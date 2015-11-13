@@ -24,7 +24,7 @@
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php echo 'sister'; ?>
+		<?php echo '虹妹ｐｒｐｒ'; ?>
 	</title>
 	<?php
 //		echo $this->Html->meta('icon');
