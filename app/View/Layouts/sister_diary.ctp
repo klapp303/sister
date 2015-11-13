@@ -49,19 +49,19 @@
 	<div id="container">
 		<div id="header">
 			<?php echo $this->element('sister_header'); ?>
+      <?php echo $this->element('sister_menu'); ?>
 		</div>
 		<div id="menu_side">
-			<?php echo $this->element('sister_menu'); ?>
       <?php echo $this->element('sister_searchbox'); ?>
       <?php echo $this->element('sister_calendar'); ?>
 		</div>
-    <div id="content_main">
+    <div id="content">
 
 			<?php echo $this->Flash->render(); ?>
 
 			<?php echo $this->fetch('content'); ?>
 		</div>
-    <div id="footer" class="cf">
+    <div id="footer">
       <?php echo $this->element('sister_footer'); ?>
 		</div>
 	</div>

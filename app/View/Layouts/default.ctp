@@ -43,6 +43,7 @@
 	<div id="container">
 		<div id="header">
 			<?php echo $this->element('sister_header'); ?>
+      <?php echo $this->element('sister_menu'); ?>
 		</div>
 		<div id="content">
 
