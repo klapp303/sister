@@ -1,4 +1,51 @@
 @charset "utf-8";
+/* 日記用 */
+.article {
+    background-color: #F5FFF5;
+    margin-bottom: 30px;
+    border: solid 1px #000000;
+    box-shadow: -1px 1px 1px #A4A4A4;
+}
+
+.art-header {
+    padding: 5px;
+}
+
+.art-header >h3 {
+    margin: 0;
+}
+
+.art-header >h3 >a {
+    text-decoration: none;
+}
+
+.art-header >h3 >a:link,
+.art-header >h3 >a:visited,
+.art-header >h3 >a:hover,
+.art-header >h3 >a:active {
+    color: #000000;
+}
+
+.art-body {
+    font-size: 14px;
+    padding: 10px;
+}
+
+.art-footer {
+    font-size: 12px;
+    padding: 5px;
+}
+
+.article >hr {
+    margin: 0 auto;
+    width: 95%;
+      /* 埋め込みデザイン */
+      border: 0;
+      height: 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
 /* 検索box用 */
 #searchbox {
     width: 200px;

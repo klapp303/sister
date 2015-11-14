@@ -53,7 +53,7 @@ class DiaryController extends AppController {
 
   public function beforeFilter() {
       parent::beforeFilter();
-      $this->layout = 'sister_diary';
+      $this->layout = 'sister_partition';
       //$this->Sample->Behaviors->disable('SoftDelete'); //SoftDeleteのデータも取得する
   }
 

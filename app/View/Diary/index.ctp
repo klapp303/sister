@@ -1,10 +1,13 @@
 <?php foreach ($diary_lists AS $diary_list) { ?>
 <div class="article">
-  <div class="title"><h3><?php echo $diary_list['Diary']['title']; ?></h3></div>
-  
-  <div class="text"><?php echo nl2br($diary_list['Diary']['text']); ?></div>
-  
-  <div class="date"><?php echo $diary_list['Diary']['date']; ?></div>
+  <div class="art-header"><h3><?php echo $this->Html->link($diary_list['Diary']['title'], '#'); ?></h3></div>
+  <hr>
+  <div class="art-body"><?php echo nl2br($diary_list['Diary']['text']); ?></div>
+  <hr>
+  <div class="art-footer">
+    <span>イベントレポ</span>
+    <span class="fr"><?php echo $diary_list['Diary']['date']; ?></span>
+  </div>
 </div>
 <?php } ?>
 

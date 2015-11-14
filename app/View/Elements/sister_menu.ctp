@@ -1,7 +1,7 @@
 <ul class="menu-list">
-  <li><?php echo $this->Html->link('メニュー1', '#'); ?></li>
-  <li><?php echo $this->Html->link('メニュー2', '#'); ?></li>
-  <li><?php echo $this->Html->link('メニュー3', '#'); ?></li>
+  <li><?php echo $this->Html->link('ご案内', '/pages/'); ?></li>
+  <li><?php echo $this->Html->link('ゲーム etc', '#'); ?></li>
+  <li><?php echo $this->Html->link('音楽 etc', '#'); ?></li>
+  <li><?php echo $this->Html->link('中の人 etc', '#'); ?></li>
   <li><?php echo $this->Html->link('ブログ', '/diary/'); ?></li>
-  <li><?php echo $this->Html->link('オプション', '/pages/'); ?></li>
 </ul>

@@ -55,13 +55,13 @@
       <?php echo $this->element('sister_searchbox'); ?>
       <?php echo $this->element('sister_calendar'); ?>
 		</div>
-    <div id="content">
+    <div id="content_main">
 
 			<?php echo $this->Flash->render(); ?>
 
 			<?php echo $this->fetch('content'); ?>
 		</div>
-    <div id="footer">
+    <div id="footer" class="cf">
       <?php echo $this->element('sister_footer'); ?>
 		</div>
 	</div>
