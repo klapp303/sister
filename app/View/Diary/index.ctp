@@ -1,6 +1,7 @@
+<?php echo $this->Html->css('diary', array('inline' => FALSE)); ?>
 <?php foreach ($diary_lists AS $diary_list) { ?>
 <div class="article">
-  <div class="art-header"><h3><?php echo $this->Html->link($diary_list['Diary']['title'], '#'); ?></h3></div>
+  <div class="art-header"><h3><?php echo $this->Html->link($diary_list['Diary']['title'], '/diary/'.$diary_list['Diary']['id']); ?></h3></div>
   <hr>
   <div class="art-body"><?php echo nl2br($diary_list['Diary']['text']); ?></div>
   <hr>

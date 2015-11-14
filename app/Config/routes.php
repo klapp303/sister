@@ -32,13 +32,17 @@
 	/*Router::connect('/pages/*',
           array('controller' => 'Pages', 'action' => 'index'));*/
 
-  Router::connect('/sample/:id',
-          array('controller' => 'Samples', 'action' => 'index'),
+  Router::connect('/diary/:id',
+          array('controller' => 'Diary', 'action' => 'index'),
           array('id' => '[0-9]+')); //idを数字のみに制限
 
-  Router::connect('/user/:id',
-          array('controller' => 'Users', 'action' => 'index'),
-          array('id' => '[0-9]+')); //idを数字のみに制限
+  Router::connect('/diary/:year_id/:month_id',
+          array('controller' => 'Diary', 'action' => 'index'),
+          array('year_id' => '[0-9]+', 'month_id' => '[0-9]+')); //idを数字のみに制限
+
+  Router::connect('/diary/:year_id/:month_id/:date_id',
+          array('controller' => 'Diary', 'action' => 'index'),
+          array('year_id' => '[0-9]+', 'month_id' => '[0-9]+', 'date_id' => '[0-9]+')); //idを数字のみに制限
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on
