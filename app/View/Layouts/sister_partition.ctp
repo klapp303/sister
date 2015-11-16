@@ -37,7 +37,8 @@
     echo $this->Html->script(array(
         'jquery-1.11.3.min',
         'jquery-migrate-1.2.1.min',
-        'jquery-menu'
+        'jquery-menu',
+        'sidemenu_fix'
     ));
 
 		echo $this->fetch('meta');
@@ -51,16 +52,18 @@
 			<?php echo $this->element('sister_header'); ?>
       <?php echo $this->element('sister_menu'); ?>
 		</div>
-		<div id="menu_side">
-      <?php echo $this->element('sister_searchbox'); ?>
-      <?php echo $this->element('sister_calendar'); ?>
-		</div>
     <div id="content_main">
 
 			<?php echo $this->Flash->render(); ?>
 
 			<?php echo $this->fetch('content'); ?>
 		</div>
+    <div id="content_side">
+		<div id="menu_side">
+      <?php echo $this->element('sister_searchbox'); ?>
+      <?php echo $this->element('sister_calendar'); ?>
+		</div>
+    </div>
     <div id="footer" class="cf">
       <?php echo $this->element('sister_footer'); ?>
 		</div>
