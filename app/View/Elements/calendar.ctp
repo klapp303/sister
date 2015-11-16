@@ -3,7 +3,7 @@
   $last_day = date('t', mktime(0, 0, 0, $month, 1, $year));
   $last_week = date('w', mktime(0,0, 0, $month, $last_day, $year));
 ?>
-<div id="calendar">
+<div id="calendar" class="side-menu_block">
   <div class="cal-header">
     <span class="cal-link fl"><?php echo $this->Html->link('<<', '/diary/'.$prev_year.'/'.$prev_month); ?></span>
     <?php echo $year.'年'.$month.'月'; ?>

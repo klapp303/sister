@@ -48,39 +48,14 @@
 
 /* 検索box用 */
 #searchbox {
-    width: 200px;
     padding: 10px 0;
     text-align: center;
-    background-color: #0B243B;
-    border-radius: 3px;
-      /* グラデーションここから */
-      background-image: -moz-linear-gradient(top, #0b243b, #0b3861);
-      background-image: -ms-linear-gradient(top, #0b243b, #0b3861);
-      background-image: -o-linear-gradient(top, #0b243b, #0b3861);
-      background-image: -webkit-linear-gradient(top, #0b243b, #0b3861);
-      background-image: linear-gradient(top, #0b243b, #0b3861);
-      background-clip: padding-box;
-      /* グラデーションここまで */
-    box-shadow: -1px 1px 10px #32B4C3;
 }
 
 /* カレンダー用 */
 #calendar {
-    width: 200px;
-    margin-top: 20px;
     padding: 10px 0;
     text-align: center;
-    background-color: #0B243B;
-    border-radius: 3px;
-      /* グラデーションここから */
-      background-image: -moz-linear-gradient(top, #0b243b, #0b3861);
-      background-image: -ms-linear-gradient(top, #0b243b, #0b3861);
-      background-image: -o-linear-gradient(top, #0b243b, #0b3861);
-      background-image: -webkit-linear-gradient(top, #0b243b, #0b3861);
-      background-image: linear-gradient(top, #0b243b, #0b3861);
-      background-clip: padding-box;
-      /* グラデーションここまで */
-    box-shadow: -1px 1px 10px #32B4C3;
 }
 
 .cal-header >span >a {
@@ -111,5 +86,22 @@
 .cal-body >table >tbody >tr >td >a:visited,
 .cal-body >table >tbody >tr >td >a:hover,
 .cal-body >table >tbody >tr >td >a:active {
+    color: #ffffff;
+}
+
+/* タグメニュー用 */
+#submenu_tag {
+    padding: 10px 0;
+    text-align: left;
+}
+
+#submenu_tag >ul >li >a {
+    text-decoration: none;
+}
+
+#submenu_tag >ul >li >a:link,
+#submenu_tag >ul >li >a:visited,
+#submenu_tag >ul >li >a:hover,
+#submenu_tag >ul >li >a:active {
     color: #ffffff;
 }

@@ -60,8 +60,9 @@
 		</div>
     <div id="content_side">
 		<div id="menu_side">
-      <?php echo $this->element('sister_searchbox'); ?>
-      <?php echo $this->element('sister_calendar'); ?>
+      <?php echo $this->element('searchbox'); ?>
+      <?php echo $this->element('calendar'); ?>
+      <?php echo $this->element('submenu_tag'); ?>
 		</div>
     </div>
     <div id="footer" class="cf">
