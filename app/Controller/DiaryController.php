@@ -58,6 +58,9 @@ class DiaryController extends AppController {
   }
 
   public function index() {
+      $year = date('Y');
+      $month = date('m');
+
       //diaryページの日記一覧を設定
       $this->Paginator->settings = array(
           'conditions' => array('Diary.publish' => 0)
@@ -90,6 +93,8 @@ class DiaryController extends AppController {
             ),
             'order' => array('Diary.date' => 'desc')
         ));
+        $year = $this->request->params['year_id']; //カレンダー用に定義
+        $month = $this->request->params['month_id']; //カレンダー用に定義
         if (!empty($diary_lists)) { //データが存在する場合
           $this->set('diary_lists', $diary_lists);
         } else { //データが存在しない場合
@@ -107,11 +112,40 @@ class DiaryController extends AppController {
             ),
             'order' => array('Diary.date' => 'desc')
         ));
+        $year = $this->request->params['year_id']; //カレンダー用に定義
+        $month = $this->request->params['month_id']; //カレンダー用に定義
         if (!empty($diary_lists)) { //データが存在する場合
           $this->set('diary_lists', $diary_lists);
         } else { //データが存在しない場合
           $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
         }
       }
+
+      //カレンダー用
+      $diary_cal_lists = $this->Diary->find('list', array( //任意月の日記リストを取得
+          'conditions' => array(
+              'Diary.date >=' => date($year.'-'.$month.'-01'),
+              'Diary.date <=' => date($year.'-'.$month.'-31'),
+              'publish' => 0
+          ),
+          'fields' => 'Diary.date'
+      ));
+      foreach ($diary_cal_lists AS &$diary_cal_date) {
+        $diary_date = new DateTime($diary_cal_date);
+        $diary_cal_date = $diary_date->format('d');
+      }
+      $this->set('year', $year);
+      $this->set('month', $month);
+      $this->set('diary_cal_lists', $diary_cal_lists);
+      
+      //カレンダー前月来月リンク用
+      $prev_year = date('Y', strtotime($year.'-'.$month.'-01 -1 month'));
+      $prev_month = date('m', strtotime($year.'-'.$month.'-01 -1 month'));
+      $this->set('prev_year', $prev_year);
+      $this->set('prev_month', $prev_month);
+      $next_year = date('Y', strtotime($year.'-'.$month.'-01 +1 month'));
+      $next_month = date('m', strtotime($year.'-'.$month.'-01 +1 month'));
+      $this->set('next_year', $next_year);
+      $this->set('next_month', $next_month);
   }
 }

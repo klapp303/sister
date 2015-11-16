@@ -54,4 +54,32 @@
 /* カレンダー用 */
 #calendar {
     width: 200px;
+    text-align: center;
+}
+
+.cal-header >span >a {
+    text-decoration: none;
+}
+
+.cal-header >span >a:link,
+.cal-header >span >a:visited,
+.cal-header >span >a:hover,
+.cal-header >span >a:active {
+    color: #ffffff;
+}
+
+.sat {
+    color: #58ACFA;
+}
+
+.cal-body >table >tbody >tr >td >a {
+    //text-decoration: none;
+    font-weight: bold;
+}
+
+.cal-body >table >tbody >tr >td >a:link,
+.cal-body >table >tbody >tr >td >a:visited,
+.cal-body >table >tbody >tr >td >a:hover,
+.cal-body >table >tbody >tr >td >a:active {
+    color: #ffffff;
 }
