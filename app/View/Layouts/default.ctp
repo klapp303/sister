@@ -34,6 +34,12 @@
         'detail'
     ));
 
+    echo $this->Html->script(array(
+        'jquery-1.11.3.min',
+        'jquery-migrate-1.2.1.min',
+        'jquery-menu'
+    ));
+
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
