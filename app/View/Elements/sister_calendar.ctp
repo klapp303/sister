@@ -5,9 +5,9 @@
 ?>
 <div id="calendar">
   <div class="cal-header">
-    <span class="fl"><?php echo $this->Html->link('<<', '/diary/'.$prev_year.'/'.$prev_month); ?></span>
+    <span class="cal-link fl"><?php echo $this->Html->link('<<', '/diary/'.$prev_year.'/'.$prev_month); ?></span>
     <?php echo $year.'年'.$month.'月'; ?>
-    <span class="fr"><?php echo $this->Html->link('>>', '/diary/'.$next_year.'/'.$next_month); ?></span>
+    <span class="cal-link fr"><?php echo $this->Html->link('>>', '/diary/'.$next_year.'/'.$next_month); ?></span>
   </div>
   <div class="cal-body cf">
     <table>

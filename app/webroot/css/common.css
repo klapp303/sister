@@ -111,25 +111,13 @@ body {
     float: right;
     position: relative;
     margin:0 ;
-    margin-top: 10px;
+    margin-top: 30px;
 }
 
 #menu_side {
-    background-color: #0B243B;
-    border-radius: 3px;
-      /* グラデーションここから */
-      background-image: -moz-linear-gradient(top, #0b243b, #0b3861);
-      background-image: -ms-linear-gradient(top, #0b243b, #0b3861);
-      background-image: -o-linear-gradient(top, #0b243b, #0b3861);
-      background-image: -webkit-linear-gradient(top, #0b243b, #0b3861);
-      background-image: linear-gradient(top, #0b243b, #0b3861);
-      background-clip: padding-box;
-      /* グラデーションここまで */
     color: #ffffff;
     width: 200px;
     margin: 0;
-    text-align: left;
-    box-shadow: -1px 1px 10px #32B4C3;
 }
 
 /* content */
