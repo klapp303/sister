@@ -6,7 +6,7 @@
   <div class="art-body"><?php echo nl2br($diary_list['Diary']['text']); ?></div>
   <hr>
   <div class="art-footer">
-    <span>イベントレポ</span>
+    <span><?php echo $this->Html->link($diary_list['DiaryGenre']['title'], '/diary/genre/'.$diary_list['Diary']['genre_id']); ?></span>
     <span class="fr"><?php echo $diary_list['Diary']['date']; ?></span>
   </div>
 </div>

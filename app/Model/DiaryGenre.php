@@ -3,19 +3,19 @@
 App::uses('AppModel', 'Model');
 
 /**
- * Diary Model.
+ * DiaryGenre Model.
  */
-class Diary extends AppModel {
-  public $useTable = 'diaries';
-  public $actsAs = array('SoftDelete'/*, 'Search.Searchable'*/);
+class DiaryGenre extends AppModel {
+  public $useTable = 'diary_genres';
+  //public $actsAs = array('SoftDelete');
 
-  public $belongsTo = array(
-      'DiaryGenre' => array(
-          'className' => 'DiaryGenre', //関連付けるModel
+  /*public $belongsTo = array(
+      'SamplesGenre' => array(
+          'className' => 'SamplesGenre', //関連付けるModel
           'foreignKey' => 'genre_id', //関連付けるためのfield、関連付け先は上記Modelのid
           'fields' => 'title' //関連付け先Modelの使用field
       )
-  );
+  );*/
 
   /*public $validate = array(
       'title' => array(
@@ -28,10 +28,5 @@ class Diary extends AppModel {
           'allowEmpty' => true,
           'message' => '数値を正しく入力してください。'
       )
-  );*/
-
-  /*public $filtetArgs = array(
-      'id' => array('type' => 'value'),
-      'title' => array('type' => 'value')
   );*/
 }

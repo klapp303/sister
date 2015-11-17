@@ -44,6 +44,10 @@
           array('controller' => 'Diary', 'action' => 'index'),
           array('year_id' => '[0-9]+', 'month_id' => '[0-9]+', 'date_id' => '[0-9]+')); //idを数字のみに制限
 
+  Router::connect('/diary/genre/:genre_id',
+          array('controller' => 'Diary', 'action' => 'genre'),
+          array('id' => '[0-9]+')); //idを数字のみに制限
+
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.
