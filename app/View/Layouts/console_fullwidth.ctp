@@ -31,7 +31,8 @@
 
 		echo $this->Html->css(array(
         'console_common',
-        'console_detail'
+        'console_detail',
+        'console'
     ));
 
     echo $this->Html->script(array(

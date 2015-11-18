@@ -1,4 +1,5 @@
 <?php if (preg_match('#/console/photo/sub_pop#', $_SERVER['REQUEST_URI'])) { ?>
+<?php echo $this->Html->css('console', array('inline' => FALSE)); ?>
 <?php } else { //sub_popでない場合 ?>
 <h3>画像のアップロード</h3>
 
@@ -35,20 +36,20 @@
     <tr><th class="tbl-num">id<?php echo $this->Paginator->sort('Photo.id', '▼'); ?></th>
         <th>プレビュー</th>
         <th>ファイル名</th>
-        <th>日付<?php echo $this->Paginator->sort('Photo.created', '▼'); ?></th>
+        <th class="tbl-date">日付<?php echo $this->Paginator->sort('Photo.created', '▼'); ?></th>
         <?php if (preg_match('#/console/photo/sub_pop#', $_SERVER['REQUEST_URI'])) { ?>
         <?php } else { //sub_popでない場合 ?>
-        <th>action</th>
+        <th class="tbl-act_photo">action</th>
         <?php } ?></tr>
     
     <?php foreach ($photo_lists AS $photo_list) { ?>
     <tr><td class="tbl-num"><?php echo $photo_list['Photo']['id']; ?></td>
-        <td>ここにプレビュー</td>
+        <td class="tbl-tmb_photo"><img src="/files/photo/<?php echo $photo_list['Photo']['name']; ?>" alt="" class="img_photo"></td>
         <td><?php echo $photo_list['Photo']['name']; ?></td>
         <td class="tbl-date"><?php echo $photo_list['Photo']['created']; ?></td>
         <?php if (preg_match('#/console/photo/sub_pop#', $_SERVER['REQUEST_URI'])) { ?>
         <?php } else { //sub_popでない場合 ?>
-        <td><?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'photo_delete', $photo_list['Photo']['id']), null, '本当に「'.$photo_list['Photo']['name'].'」を削除しますか'); ?></td>
+        <td class="tbl-act_photo"><?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'photo_delete', $photo_list['Photo']['id']), null, '本当に「'.$photo_list['Photo']['name'].'」を削除しますか'); ?></td>
         <?php } ?></tr>
     <?php } ?>
   </table>

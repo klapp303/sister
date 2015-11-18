@@ -171,7 +171,7 @@ class ConsoleController extends AppController {
       }
 
       $this->Paginator->settings = array(
-          'limit' => 20,
+          'limit' => 10,
           'order' => array('Photo.id' => 'desc')
       );
       $photo_lists = $this->Paginator->paginate('Photo');

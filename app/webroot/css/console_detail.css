@@ -117,10 +117,16 @@
 
 .tbl-num {
     text-align: right;
+    width: 40px;
+}
+
+.tbl-date {
+    width: 110px;
 }
 
 .tbl-ico {
     text-align: center;
+    width: 70px;
 }
 
 /* ページリンク */
