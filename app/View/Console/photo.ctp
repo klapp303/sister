@@ -1,3 +1,5 @@
+<?php if (preg_match('#/console/photo/sub_pop#', $_SERVER['REQUEST_URI'])) { ?>
+<?php } else { //sub_popでない場合 ?>
 <h3>画像のアップロード</h3>
 
   <table>
@@ -18,6 +20,7 @@
     </tr>
     <?php echo $this->Form->end(); ?><!-- form end -->
   </table>
+<?php } ?>
 
 <h3>画像一覧</h3>
 
@@ -28,18 +31,24 @@
       'last' => '＞' //最終ページへのリンク
   )); ?>
 
-  <table>
+  <table class="<?php if (preg_match('#/console/photo/sub_pop#', $_SERVER['REQUEST_URI'])) {} else {echo 'detail-list-min';} ?>">
     <tr><th class="tbl-num">id<?php echo $this->Paginator->sort('Photo.id', '▼'); ?></th>
         <th>プレビュー</th>
         <th>ファイル名</th>
         <th>日付<?php echo $this->Paginator->sort('Photo.created', '▼'); ?></th>
-        <th>action</th></tr>
+        <?php if (preg_match('#/console/photo/sub_pop#', $_SERVER['REQUEST_URI'])) { ?>
+        <?php } else { //sub_popでない場合 ?>
+        <th>action</th>
+        <?php } ?></tr>
     
     <?php foreach ($photo_lists AS $photo_list) { ?>
     <tr><td class="tbl-num"><?php echo $photo_list['Photo']['id']; ?></td>
         <td>ここにプレビュー</td>
         <td><?php echo $photo_list['Photo']['name']; ?></td>
         <td class="tbl-date"><?php echo $photo_list['Photo']['created']; ?></td>
-        <td><button type="button" class="">選択する</button></td></tr>
+        <?php if (preg_match('#/console/photo/sub_pop#', $_SERVER['REQUEST_URI'])) { ?>
+        <?php } else { //sub_popでない場合 ?>
+        <td><?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'photo_delete', $photo_list['Photo']['id']), null, '本当に「'.$photo_list['Photo']['name'].'」を削除しますか'); ?></td>
+        <?php } ?></tr>
     <?php } ?>
   </table>

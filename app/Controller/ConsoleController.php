@@ -165,8 +165,10 @@ class ConsoleController extends AppController {
       }
   }
 
-  public function photo() {
-      $this->layout = 'sub_pop';
+  public function photo($mode = null) {
+      if ($mode == 'sub_pop') {
+        $this->layout = 'sub_pop';
+      }
 
       $this->Paginator->settings = array(
           'limit' => 20,
@@ -174,6 +176,40 @@ class ConsoleController extends AppController {
       );
       $photo_lists = $this->Paginator->paginate('Photo');
       $this->set('photo_lists', $photo_lists);
+  }
+
+  public function photo_add() {
+      if ($this->request->is('post')) {
+        $this->Photo->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->Photo->validates()) { //validate成功の処理
+          $this->Photo->save($this->request->data); //validate成功でsave
+          if ($this->Photo->save($this->request->data)) {
+            $this->Session->setFlash('画像を追加しました。', 'flashMessage');
+          } else {
+            $this->Session->setFlash('追加できませんでした。', 'flashMessage');
+          }
+        } else { //validate失敗の処理
+          $this->Session->setFlash('ファイルに不備があります。', 'flashMessage');
+        }
+      }
+
+      $this->redirect('/console/photo/');
+  }
+
+  public function photo_delete($id = null){
+      if (empty($id)) {
+        throw new NotFoundException(__('存在しないデータです。'));
+      }
+    
+      if ($this->request->is('post')) {
+        $this->Photo->Behaviors->enable('SoftDelete');
+        if ($this->Photo->delete($id)) {
+          $this->Session->setFlash('削除しました。', 'flashMessage');
+        } else {
+          $this->Session->setFlash('削除できませんでした。', 'flashMessage');
+        }
+        $this->redirect('/console/photo/');
+      }
   }
 
   public function diary_genre() {

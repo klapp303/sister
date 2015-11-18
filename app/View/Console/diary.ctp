@@ -28,7 +28,7 @@
       <td></td>
       <td><button type="button" id="main_pop" class="js-insert" data="<?php echo 'sample.jpg'; ?>">画像を挿入</button>
           <input type="text" class="js-insert_data">
-          <?php echo $this->Html->link('画像一覧を確認', '/console/photo/', array('target' => 'sub_pop', 'onClick' => 'disp("/console/photo/")')); ?></td>
+          <?php echo $this->Html->link('画像一覧を確認', array('controller' => 'console', 'action' => 'photo', $mode = 'sub_pop'), array('target' => 'sub_pop', 'onClick' => 'disp("/console/photo/")')); ?></td>
     </tr>
     <tr>
       <td>記事</td>

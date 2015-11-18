@@ -17,18 +17,12 @@ class Photo extends AppModel {
       )
   );*/
 
-  /*public $validate = array(
-      'title' => array(
+  public $validate = array(
+      'name' => array(
           'rule' => 'notBlank',
           'required' => 'create'
-      ),
-      'amount' => array(
-          'rule' => 'numeric',
-          'required' => false,
-          'allowEmpty' => true,
-          'message' => '数値を正しく入力してください。'
       )
-  );*/
+  );
 
   /*public $filtetArgs = array(
       'id' => array('type' => 'value'),
