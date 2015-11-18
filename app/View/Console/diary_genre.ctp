@@ -24,7 +24,8 @@
     </tr>
     
     <tr>
-      <td><?php if (preg_match('#/console/diary_genre/edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
+      <td></td>
+      <td class="tbl-button"><?php if (preg_match('#/console/diary_genre/edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
             <?php echo $this->Form->submit('修正する'); ?>
           <?php } else { //登録用 ?>
             <?php echo $this->Form->submit('登録する'); ?>
@@ -45,12 +46,12 @@
   <table class="detail-list-min">
     <tr><th class="tbl-num">id<?php echo $this->Paginator->sort('DiaryGenre.id', '▼'); ?></th>
         <th>ジャンル名</th>
-        <th>action</th></tr>
+        <th class="tbl-act_genre">action</th></tr>
     
     <?php foreach ($diary_genre_lists AS $diary_genre_list) { ?>
     <tr><td class="tbl-num"><?php echo $diary_genre_list['DiaryGenre']['id']; ?></td>
         <td><?php echo $diary_genre_list['DiaryGenre']['title']; ?></td>
-        <td><?php echo $this->Html->link('日記の確認', '/diary/genre/'.$diary_genre_list['DiaryGenre']['id'], array('target' => '_blank')); ?><br>
+        <td class="tbl-act_genre"><?php echo $this->Html->link('日記の確認', '/diary/genre/'.$diary_genre_list['DiaryGenre']['id'], array('target' => '_blank')); ?><br>
             <?php echo $this->Html->link('修正', '/console/diary_genre/edit/'.$diary_genre_list['DiaryGenre']['id']); ?>
             <?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'diary_genre_delete', $diary_genre_list['DiaryGenre']['id']), null, '本当に「'.$diary_genre_list['DiaryGenre']['title'].'」を削除しますか'); ?></td></tr>
     <?php } ?>

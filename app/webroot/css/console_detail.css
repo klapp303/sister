@@ -129,6 +129,14 @@
     width: 70px;
 }
 
+.tbl-button {
+    text-align: right;
+}
+
+.tbl-button >.submit >input {
+    margin-right: 10px;
+}
+
 /* ページリンク */
 .link-page a {
     font-size: 15px;

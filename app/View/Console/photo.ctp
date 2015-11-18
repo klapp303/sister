@@ -17,7 +17,8 @@
     </tr>
     
     <tr>
-      <td><?php echo $this->Form->submit('追加する'); ?></td>
+      <td></td>
+      <td class="tbl-button"><?php echo $this->Form->submit('追加する'); ?></td>
     </tr>
     <?php echo $this->Form->end(); ?><!-- form end -->
   </table>

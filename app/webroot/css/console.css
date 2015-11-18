@@ -4,6 +4,11 @@
     width: 100px;
 }
 
+/* diary_genreページ用 */
+.tbl-act_genre {
+    width: 100px;
+}
+
 /* photoページ用 */
 .tbl-tmb_photo {
     text-align: center;

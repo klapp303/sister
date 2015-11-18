@@ -48,7 +48,8 @@
     </tr>
     
     <tr>
-      <td><?php if (preg_match('#/console/diary/edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
+      <td></td>
+      <td class="tbl-button"><?php if (preg_match('#/console/diary/edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
             <?php echo $this->Form->submit('修正する'); ?>
           <?php } else { //登録用 ?>
             <?php echo $this->Form->submit('作成する'); ?>
