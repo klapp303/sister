@@ -137,3 +137,29 @@ body {
     padding-left: 5px;
     padding-right: 5px;
 }
+
+/* container_pop */
+#container_pop {
+    background-color: #dcdcdc;
+    width: 480px;
+    box-shadow: -1px 1px 10px #E2FFFF;
+}
+
+/* content_pop */
+#content_pop {
+    background-color: #dcdcdc;
+    color: #000000;
+    width: 480px;
+    margin: 0;
+}
+
+#content_pop >table, #content_pop >form {
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+#content_pop >table >tbody >tr >th, #content_pop >table >tbody >tr >td,
+#content_pop >table >tr >th, #content_pop >table >tr >td {
+    padding-left: 5px;
+    padding-right: 5px;
+}

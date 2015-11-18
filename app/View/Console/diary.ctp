@@ -1,3 +1,5 @@
+<?php echo $this->Html->script('jquery-file_insert', array('inline' => FALSE)); ?>
+<?php echo $this->Html->script('sub_pop', array('inline' => FALSE)); ?>
 <h3>日記の作成</h3>
 
   <table>
@@ -23,8 +25,14 @@
       <td><?php echo $this->Form->input('title', array('type' => 'text', 'label' => false, 'size' => 49)); ?></td>
     </tr>
     <tr>
+      <td></td>
+      <td><button type="button" id="main_pop" class="js-insert" data="<?php echo 'sample.jpg'; ?>">画像を挿入</button>
+          <input type="text" class="js-insert_data">
+          <?php echo $this->Html->link('画像一覧を確認', '/console/photo/', array('target' => 'sub_pop', 'onClick' => 'disp("/console/photo/")')); ?></td>
+    </tr>
+    <tr>
       <td>記事</td>
-      <td><?php echo $this->Form->input('text', array('type' => 'textarea', 'label' => false, 'cols' => 50, 'rows' => 30)); ?></td>
+      <td><?php echo $this->Form->input('text', array('type' => 'textarea', 'label' => false, 'cols' => 50, 'rows' => 30, 'class' => 'js-insert_area')); ?></td>
     </tr>
     <tr>
       <td>日付</td>

@@ -35,7 +35,7 @@ class ConsoleController extends AppController {
  *
  * @var array
  */
-	public $uses = array('Diary', 'DiaryGenre'); //使用するModel
+	public $uses = array('Diary', 'DiaryGenre', 'Photo'); //使用するModel
 
 /**
  * Displays a view
@@ -163,6 +163,17 @@ class ConsoleController extends AppController {
         }
         $this->redirect('/console/diary/');
       }
+  }
+
+  public function photo() {
+      $this->layout = 'sub_pop';
+
+      $this->Paginator->settings = array(
+          'limit' => 20,
+          'order' => array('Photo.id' => 'desc')
+      );
+      $photo_lists = $this->Paginator->paginate('Photo');
+      $this->set('photo_lists', $photo_lists);
   }
 
   public function diary_genre() {

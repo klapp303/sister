@@ -46,6 +46,13 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+.img_diary {/* 記事内の画像サイズ用 */
+    width: auto;
+    height: auto;
+    max-width: 540px;
+    max-height: 540px;
+}
+
 /* 検索box用 */
 #searchbox {
     padding: 10px 0;
