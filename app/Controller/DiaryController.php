@@ -61,7 +61,7 @@ class DiaryController extends AppController {
       $this->Paginator->settings = array(
           'limit' => 5,
           'conditions' => array('Diary.publish' => 1),
-          'order' => array('Diary.date' => 'desc')
+          'order' => array('Diary.date' => 'desc', 'Diary.id' => 'desc')
       );
       $diary_lists = $this->Paginator->paginate('Diary');
       $this->set('diary_lists', $diary_lists);
@@ -89,7 +89,7 @@ class DiaryController extends AppController {
                 'Diary.date <=' => date($this->request->params['year_id'].'-'.$this->request->params['month_id'].'-31 23:59:59'),
                 'Diary.publish' => 1
             ),
-            'order' => array('Diary.date' => 'desc')
+            'order' => array('Diary.date' => 'desc', 'Diary.id' => 'desc')
         ));
         $year = $this->request->params['year_id']; //カレンダー用に定義
         $month = $this->request->params['month_id']; //カレンダー用に定義
@@ -108,7 +108,7 @@ class DiaryController extends AppController {
                 'Diary.date <=' => date($this->request->params['year_id'].'-'.$this->request->params['month_id'].'-'.$this->request->params['date_id'].' 23:59:59'),
                 'Diary.publish' => 1
             ),
-            'order' => array('Diary.date' => 'desc')
+            'order' => array('Diary.date' => 'desc', 'Diary.id' => 'desc')
         ));
         $year = $this->request->params['year_id']; //カレンダー用に定義
         $month = $this->request->params['month_id']; //カレンダー用に定義
@@ -180,7 +180,7 @@ class DiaryController extends AppController {
                 'Diary.publish' => 1,
                 'Diary.genre_id' => $this->request->params['genre_id']
             ),
-            'order' => array('Diary.date' => 'desc')
+            'order' => array('Diary.date' => 'desc', 'Diary.id' => 'desc')
         );
         $diary_lists = $this->Paginator->paginate('Diary');
         if (!empty($diary_lists)) { //データが存在する場合
