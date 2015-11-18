@@ -67,6 +67,13 @@ class ConsoleController extends AppController {
       );
       $diary_lists = $this->Paginator->paginate('Diary');
       $this->set('diary_lists', $diary_lists);
+      
+      //ジャンル選択肢用
+      $genre_lists = $this->DiaryGenre->find('list', array(
+          'fields' => 'title',
+          'order' => array('DiaryGenre.id' => 'asc')
+      ));
+      $this->set('genre_lists', $genre_lists);
 
       /*if (isset($this->request->params['id']) == TRUE) { //パラメータにidがあれば詳細ページを表示
         $diary_detail = $this->Diary->find('first', array(
@@ -81,71 +88,80 @@ class ConsoleController extends AppController {
       }*/
   }
 
-  /*public function add() {
+  public function diary_add() {
       if ($this->request->is('post')) {
-        $this->Sample->set($this->request->data); //postデータがあればModelに渡してvalidate
-        if ($this->Sample->validates()) { //validate成功の処理
-          $this->Sample->save($this->request->data); //validate成功でsave
-          if ($this->Sample->save($this->request->data)) {
-            $this->Session->setFlash('登録しました。', 'flashMessage');
+        $this->Diary->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->Diary->validates()) { //validate成功の処理
+          $this->Diary->save($this->request->data); //validate成功でsave
+          if ($this->Diary->save($this->request->data)) {
+            $this->Session->setFlash('日記を作成しました。', 'flashMessage');
           } else {
-            $this->Session->setFlash('登録できませんでした。', 'flashMessage');
+            $this->Session->setFlash('作成できませんでした。', 'flashMessage');
           }
         } else { //validate失敗の処理
-          $this->render('index'); //validate失敗でindexを表示
+          $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
         }
       }
 
-      $this->redirect('/samples/');
-  }*/
+      $this->redirect('/console/diary/');
+  }
 
-  /*public function edit($id = null) {
-//      $sample_lists = $this->Sample->find('all', array(
-//          'order' => array('date' => 'desc')
-//      ));
-      $this->Paginator->settings = $this->paginate;
-      $sample_lists = $this->Paginator->paginate('Sample');
-      //$sample_counts = count($sample_lists);
-      $this->set('sample_lists', $sample_lists);
-      //$this->set('sample_counts', $sample_counts);
+  public function diary_edit() {
+      $this->Paginator->settings = array(
+          'limit' => 20,
+          'order' => array('Diary.id' => 'desc')
+      );
+      $diary_lists = $this->Paginator->paginate('Diary');
+      $this->set('diary_lists', $diary_lists);
+      
+      //ジャンル選択肢用
+      $genre_lists = $this->DiaryGenre->find('list', array(
+          'fields' => 'title',
+          'order' => array('DiaryGenre.id' => 'asc')
+      ));
+      $this->set('genre_lists', $genre_lists);
 
+      //日記の編集用
       if (empty($this->request->data)) {
-        $this->request->data = $this->Sample->findById($id); //postデータがなければ$idからデータを取得
+        $id = $this->request->params['id'];
+        $this->request->data = $this->Diary->findById($id); //postデータがなければ$idからデータを取得
         if (!empty($this->request->data)) { //データが存在する場合
           $this->set('id', $id); //viewに渡すために$idをセット
         } else { //データが存在しない場合
           $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
         }
       } else {
-        $this->Sample->set($this->request->data); //postデータがあればModelに渡してvalidate
-        if ($this->Sample->validates()) { //validate成功の処理
-          $this->Sample->save($this->request->data); //validate成功でsave
-          if ($this->Sample->save($id)) {
+        $id = $this->request->data['Diary']['id'];
+        $this->Diary->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->Diary->validates()) { //validate成功の処理
+          $this->Diary->save($this->request->data); //validate成功でsave
+          if ($this->Diary->save($id)) {
             $this->Session->setFlash('修正しました。', 'flashMessage');
           } else {
             $this->Session->setFlash('修正できませんでした。', 'flashMessage');
           }
-          $this->redirect('/samples/');
+          $this->redirect('/console/diary/');
         } else { //validate失敗の処理
-          $this->set('id', $this->request->data['Sample']['id']); //viewに渡すために$idをセット
-//          $this->render('index'); //validate失敗でindexを表示
+          $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+          $this->set('id', $this->request->data['Diary']['id']); //viewに渡すために$idをセット
         }
       }
-  }*/
+      $this->render('/console/diary/');
+  }
 
-  /*public function delete($id = null){
+  public function diary_delete($id = null){
       if (empty($id)) {
         throw new NotFoundException(__('存在しないデータです。'));
       }
     
       if ($this->request->is('post')) {
-        $this->Sample->Behaviors->enable('SoftDelete');
-        if ($this->Sample->delete($id)) {
+        $this->Diary->Behaviors->enable('SoftDelete');
+        if ($this->Diary->delete($id)) {
           $this->Session->setFlash('削除しました。', 'flashMessage');
         } else {
           $this->Session->setFlash('削除できませんでした。', 'flashMessage');
         }
-        $this->redirect('/samples/');
+        $this->redirect('/console/diary/');
       }
-  }*/
+  }
 }

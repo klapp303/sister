@@ -46,6 +46,11 @@
 
   Router::connect('/diary/genre/:genre_id',
           array('controller' => 'Diary', 'action' => 'genre'),
+          array('genre_id' => '[0-9]+')); //idを数字のみに制限
+
+
+  Router::connect('/console/diary/edit/:id',
+          array('controller' => 'Console', 'action' => 'diary_edit'),
           array('id' => '[0-9]+')); //idを数字のみに制限
 
 /**
