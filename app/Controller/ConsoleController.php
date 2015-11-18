@@ -164,4 +164,95 @@ class ConsoleController extends AppController {
         $this->redirect('/console/diary/');
       }
   }
+
+  public function diary_genre() {
+      $this->Paginator->settings = array(
+          'limit' => 20,
+          'order' => array('DiaryGenre.id' => 'asc')
+      );
+      $diary_genre_lists = $this->Paginator->paginate('DiaryGenre');
+      $this->set('diary_genre_lists', $diary_genre_lists);
+
+      /*if (isset($this->request->params['id']) == TRUE) { //パラメータにidがあれば詳細ページを表示
+        $diary_detail = $this->Diary->find('first', array(
+            'conditions' => array('Diary.id' => $this->request->params['id'])
+        ));
+        if (!empty($diary_detail)) { //データが存在する場合
+          $this->set('diary_detail', $diary_detail);
+          $this->render('detail');
+        } else { //データが存在しない場合
+          $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+        }
+      }*/
+  }
+
+  public function diary_genre_add() {
+      if ($this->request->is('post')) {
+        $this->DiaryGenre->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->DiaryGenre->validates()) { //validate成功の処理
+          $this->DiaryGenre->save($this->request->data); //validate成功でsave
+          if ($this->DiaryGenre->save($this->request->data)) {
+            $this->Session->setFlash('ジャンルを追加しました。', 'flashMessage');
+          } else {
+            $this->Session->setFlash('追加できませんでした。', 'flashMessage');
+          }
+        } else { //validate失敗の処理
+          $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+        }
+      }
+
+      $this->redirect('/console/diary_genre/');
+  }
+
+  public function diary_genre_edit() {
+      $this->Paginator->settings = array(
+          'limit' => 20,
+          'order' => array('DiaryGenre.id' => 'asc')
+      );
+      $diary_genre_lists = $this->Paginator->paginate('DiaryGenre');
+      $this->set('diary_genre_lists', $diary_genre_lists);
+
+      //日記ジャンルの編集用
+      if (empty($this->request->data)) {
+        $id = $this->request->params['id'];
+        $this->request->data = $this->DiaryGenre->findById($id); //postデータがなければ$idからデータを取得
+        if (!empty($this->request->data)) { //データが存在する場合
+          $this->set('id', $id); //viewに渡すために$idをセット
+        } else { //データが存在しない場合
+          $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+        }
+      } else {
+        $id = $this->request->data['DiaryGenre']['id'];
+        $this->DiaryGenre->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->DiaryGenre->validates()) { //validate成功の処理
+          $this->DiaryGenre->save($this->request->data); //validate成功でsave
+          if ($this->DiaryGenre->save($id)) {
+            $this->Session->setFlash('修正しました。', 'flashMessage');
+          } else {
+            $this->Session->setFlash('修正できませんでした。', 'flashMessage');
+          }
+          $this->redirect('/console/diary_genre/');
+        } else { //validate失敗の処理
+          $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+          $this->set('id', $this->request->data['DiaryGenre']['id']); //viewに渡すために$idをセット
+        }
+      }
+      $this->render('/console/diary_genre/');
+  }
+
+  public function diary_genre_delete($id = null){
+      if (empty($id)) {
+        throw new NotFoundException(__('存在しないデータです。'));
+      }
+    
+      if ($this->request->is('post')) {
+        $this->DiaryGenre->Behaviors->enable('SoftDelete');
+        if ($this->DiaryGenre->delete($id)) {
+          $this->Session->setFlash('削除しました。', 'flashMessage');
+        } else {
+          $this->Session->setFlash('削除できませんでした。', 'flashMessage');
+        }
+        $this->redirect('/console/diary_genre/');
+      }
+  }
 }

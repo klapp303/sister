@@ -17,16 +17,10 @@ class DiaryGenre extends AppModel {
       )
   );*/
 
-  /*public $validate = array(
+  public $validate = array(
       'title' => array(
           'rule' => 'notBlank',
           'required' => 'create'
-      ),
-      'amount' => array(
-          'rule' => 'numeric',
-          'required' => false,
-          'allowEmpty' => true,
-          'message' => '数値を正しく入力してください。'
       )
-  );*/
+  );
 }
