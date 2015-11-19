@@ -179,20 +179,20 @@ class ConsoleController extends AppController {
   }
 
   public function photo_add() {
-      if ($this->request->is('post')) {
-        $this->Photo->set($this->request->data); //postデータがあればModelに渡してvalidate
-        if ($this->Photo->validates()) { //validate成功の処理
-          $this->Photo->save($this->request->data); //validate成功でsave
-          if ($this->Photo->save($this->request->data)) {
+      if (!empty($this->data)) {
+        $upload_dir = '../webroot/files/photo/'; //保存するディレクトリ
+        $upload_pass = $upload_dir.basename($this->data['Photo']['name']['name']);
+        if (move_uploaded_file($this->data['Photo']['name']['tmp_name'], $upload_pass)) { //ファイルを保存
+          $this->Photo->set('name', $this->data['Photo']['name']['name']);
+          if ($this->Photo->save()) { //ファイル名を保存
             $this->Session->setFlash('画像を追加しました。', 'flashMessage');
           } else {
-            $this->Session->setFlash('追加できませんでした。', 'flashMessage');
+            $this->Session->setFlash('ファイル名に不備があります。', 'flashMessage');
           }
-        } else { //validate失敗の処理
-          $this->Session->setFlash('ファイルに不備があります。', 'flashMessage');
+        } else {
+          $this->Session->setFlash('追加できませんでした。', 'flashMessage');
         }
       }
-
       $this->redirect('/console/photo/');
   }
 

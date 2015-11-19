@@ -5,15 +5,15 @@
 
   <table>
       <?php echo $this->Form->create('Photo', array( //使用するModel
-          'type' => 'post', //デフォルトはpost送信
+          'enctype' => 'multipart/form-data', //fileアップロードの場合
           'url' => array('controller' => 'console', 'action' => 'photo_add'), //Controllerのactionを指定
           'inputDefaults' => array('div' => '')
           )
       ); ?><!-- form start -->
     
     <tr>
-      <td>ファイル名</td>
-      <td><?php echo $this->Form->input('name', array('type' => 'text', 'label' => false, 'size' => 20)); ?></td>
+      <td>画像ファイル</td>
+      <td><?php echo $this->Form->input('Photo.name', array('type' => 'file', 'label' => false)); ?></td>
     </tr>
     
     <tr>
