@@ -66,6 +66,10 @@
     width: 160px;
 }
 
+.menu-title {
+    font-weight: bold;
+}
+
 .menu-list a, .menu-title {
     text-decoration: none;
       /* リンククリックの範囲をboxにする */
@@ -98,7 +102,7 @@
 }
 
 .menu-list-sub >li {
-    font-size: 14px;
+    font-size: 12px;
     text-align: right;
 }
 
