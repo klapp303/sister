@@ -8,6 +8,9 @@
 
 /app/tmp
 
+/app/webroot/files/banner
+/app/webroot/files/photo
+
 /lib/Cake/Console/Templates/skel/tmp/
 
 /plugins
