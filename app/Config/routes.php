@@ -59,6 +59,9 @@
   Router::connect('/console/information/edit/:id',
           array('controller' => 'Console', 'action' => 'information_edit'),
           array('id' => '[0-9]+')); //idを数字のみに制限
+  Router::connect('/console/banner/edit/:id',
+          array('controller' => 'Console', 'action' => 'banner_edit'),
+          array('id' => '[0-9]+')); //idを数字のみに制限
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on

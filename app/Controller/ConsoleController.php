@@ -35,7 +35,7 @@ class ConsoleController extends AppController {
  *
  * @var array
  */
-	public $uses = array('Diary', 'DiaryGenre', 'Photo', 'Information'); //使用するModel
+	public $uses = array('Diary', 'DiaryGenre', 'Photo', 'Information', 'Banner'); //使用するModel
 
 /**
  * Displays a view
@@ -379,6 +379,85 @@ class ConsoleController extends AppController {
           $this->Session->setFlash('削除できませんでした。', 'flashMessage');
         }
         $this->redirect('/console/information/');
+      }
+  }
+
+  public function banner() {
+      $this->Paginator->settings = array(
+          'limit' => 20,
+          'order' => array('Banner.id' => 'desc')
+      );
+      $banner_lists = $this->Paginator->paginate('Banner');
+      $this->set('banner_lists', $banner_lists);
+  }
+
+  public function banner_add() {
+      if ($this->request->is('post')) {
+        $this->Banner->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->Banner->validates()) { //validate成功の処理
+          $this->Banner->save($this->request->data); //validate成功でsave
+          if ($this->Banner->save($this->request->data)) {
+            $this->Session->setFlash('バナーを追加しました。', 'flashMessage');
+          } else {
+            $this->Session->setFlash('追加できませんでした。', 'flashMessage');
+          }
+        } else { //validate失敗の処理
+          $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+        }
+      }
+
+      $this->redirect('/console/banner/');
+  }
+
+  public function banner_edit() {
+      $this->Paginator->settings = array(
+          'limit' => 20,
+          'order' => array('Banner.id' => 'desc')
+      );
+      $banner_lists = $this->Paginator->paginate('Banner');
+      $this->set('banner_lists', $banner_lists);
+
+      //バナーの編集用
+      if (empty($this->request->data)) {
+        $id = $this->request->params['id'];
+        $this->request->data = $this->Banner->findById($id); //postデータがなければ$idからデータを取得
+        if (!empty($this->request->data)) { //データが存在する場合
+          $this->set('id', $id); //viewに渡すために$idをセット
+        } else { //データが存在しない場合
+          $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+        }
+      } else {
+        $id = $this->request->data['Banner']['id'];
+        $this->Banner->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->Banner->validates()) { //validate成功の処理
+          $this->Banner->save($this->request->data); //validate成功でsave
+          if ($this->Banner->save($id)) {
+            $this->Session->setFlash('修正しました。', 'flashMessage');
+          } else {
+            $this->Session->setFlash('修正できませんでした。', 'flashMessage');
+          }
+          $this->redirect('/console/banner/');
+        } else { //validate失敗の処理
+          $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+          $this->set('id', $this->request->data['Banner']['id']); //viewに渡すために$idをセット
+        }
+      }
+      $this->render('/console/banner/');
+  }
+
+  public function banner_delete($id = null){
+      if (empty($id)) {
+        throw new NotFoundException(__('存在しないデータです。'));
+      }
+    
+      if ($this->request->is('post')) {
+        $this->Banner->Behaviors->enable('SoftDelete');
+        if ($this->Banner->delete($id)) {
+          $this->Session->setFlash('削除しました。', 'flashMessage');
+        } else {
+          $this->Session->setFlash('削除できませんでした。', 'flashMessage');
+        }
+        $this->redirect('/console/banner/');
       }
   }
 }

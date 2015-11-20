@@ -31,3 +31,21 @@
 .tbl-act_information {
     width: 80px;
 }
+
+/* bannerページ用 */
+.tbl-tmb_banner {
+    text-align: center;
+    width: 120px;
+    max-height: 120px;
+}
+
+.tbl-act_banner {
+    width: 100px;
+}
+
+.img_banner {/* コンソール内の画像サイズ用 */
+    width: auto;
+    height: auto;
+    max-width: 120px;
+    max-height: 120px;
+}
