@@ -36,7 +36,7 @@ class ConsoleController extends AppController {
  *
  * @var array
  */
-	public $uses = array('Diary', 'DiaryGenre', 'Photo', 'Information', 'Banner', 'Link'); //使用するModel
+	public $uses = array('Diary', 'DiaryGenre', 'Photo', 'Information', 'Banner', 'Link', 'Administrator'); //使用するModel
 
 /**
  * Displays a view
@@ -563,6 +563,85 @@ class ConsoleController extends AppController {
           $this->Session->setFlash('削除できませんでした。', 'flashMessage');
         }
         $this->redirect('/console/link/');
+      }
+  }
+
+  public function admin() {
+      $this->Paginator->settings = array(
+          'limit' => 20,
+          'order' => array('Administrator.id' => 'asc')
+      );
+      $admin_lists = $this->Paginator->paginate('Administrator');
+      $this->set('admin_lists', $admin_lists);
+  }
+
+  public function admin_add() {
+      if ($this->request->is('post')) {
+        $this->Administrator->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->Administrator->validates()) { //validate成功の処理
+          $this->Administrator->save($this->request->data); //validate成功でsave
+          if ($this->Administrator->save($this->request->data)) {
+            $this->Session->setFlash('管理者を追加しました。', 'flashMessage');
+          } else {
+            $this->Session->setFlash('追加できませんでした。', 'flashMessage');
+          }
+        } else { //validate失敗の処理
+          $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+        }
+      }
+
+      $this->redirect('/console/admin/');
+  }
+
+  /*public function admin_edit() {
+      $this->Paginator->settings = array(
+          'limit' => 20,
+          'order' => array('Administrator.id' => 'asc')
+      );
+      $admin_lists = $this->Paginator->paginate('Administrator');
+      $this->set('admin_lists', $admin_lists);
+
+      //管理者の編集用
+      if (empty($this->request->data)) {
+        $id = $this->request->params['id'];
+        $this->request->data = $this->Administrator->findById($id); //postデータがなければ$idからデータを取得
+        if (!empty($this->request->data)) { //データが存在する場合
+          $this->set('id', $id); //viewに渡すために$idをセット
+        } else { //データが存在しない場合
+          $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+        }
+      } else {
+        $id = $this->request->data['Administrator']['id'];
+        $this->Administrator->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->Administrator->validates()) { //validate成功の処理
+          $this->Administrator->save($this->request->data); //validate成功でsave
+          if ($this->Administrator->save($id)) {
+            $this->Session->setFlash('修正しました。', 'flashMessage');
+          } else {
+            $this->Session->setFlash('修正できませんでした。', 'flashMessage');
+          }
+          $this->redirect('/console/admin/');
+        } else { //validate失敗の処理
+          $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+          $this->set('id', $this->request->data['Administrator']['id']); //viewに渡すために$idをセット
+        }
+      }
+      $this->render('/console/admin/');
+  }*/
+
+  public function admin_delete($id = null){
+      if (empty($id)) {
+        throw new NotFoundException(__('存在しないデータです。'));
+      }
+    
+      if ($this->request->is('post')) {
+        $this->Administrator->Behaviors->enable('SoftDelete');
+        if ($this->Administrator->delete($id)) {
+          $this->Session->setFlash('削除しました。', 'flashMessage');
+        } else {
+          $this->Session->setFlash('削除できませんでした。', 'flashMessage');
+        }
+        $this->redirect('/console/admin/');
       }
   }
 }

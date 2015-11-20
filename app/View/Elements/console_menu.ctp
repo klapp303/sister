@@ -23,7 +23,7 @@
   </li>
   <li class="js-menu_4 cursor-def"><span class="menu-title">オプション</span>
     <ul class="menu-list-sub js-hide_4">
-      <li><?php echo $this->Html->link('管理者の追加', '/console/#/'); ?></li>
+      <li><?php echo $this->Html->link('管理者の追加', '/console/admin/'); ?></li>
       <li><?php echo $this->Html->link('ログアウト', '/console/#/'); ?></li>
     </ul>
   </li>

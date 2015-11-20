@@ -54,3 +54,8 @@
 .tbl-act_link {
     width: 80px;
 }
+
+/* adminページ用 */
+.tbl-act_admin {
+    width: 50px;
+}
