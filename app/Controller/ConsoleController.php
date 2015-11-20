@@ -35,7 +35,7 @@ class ConsoleController extends AppController {
  *
  * @var array
  */
-	public $uses = array('Diary', 'DiaryGenre', 'Photo'); //使用するModel
+	public $uses = array('Diary', 'DiaryGenre', 'Photo', 'Information'); //使用するModel
 
 /**
  * Displays a view
@@ -300,6 +300,85 @@ class ConsoleController extends AppController {
           $this->Session->setFlash('削除できませんでした。', 'flashMessage');
         }
         $this->redirect('/console/diary_genre/');
+      }
+  }
+
+  public function information() {
+      $this->Paginator->settings = array(
+          'limit' => 20,
+          'order' => array('Information.id' => 'desc')
+      );
+      $information_lists = $this->Paginator->paginate('Information');
+      $this->set('information_lists', $information_lists);
+  }
+
+  public function information_add() {
+      if ($this->request->is('post')) {
+        $this->Information->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->Information->validates()) { //validate成功の処理
+          $this->Information->save($this->request->data); //validate成功でsave
+          if ($this->Information->save($this->request->data)) {
+            $this->Session->setFlash('お知らせを追加しました。', 'flashMessage');
+          } else {
+            $this->Session->setFlash('追加できませんでした。', 'flashMessage');
+          }
+        } else { //validate失敗の処理
+          $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+        }
+      }
+
+      $this->redirect('/console/information/');
+  }
+
+  public function information_edit() {
+      $this->Paginator->settings = array(
+          'limit' => 20,
+          'order' => array('Information.id' => 'desc')
+      );
+      $information_lists = $this->Paginator->paginate('Information');
+      $this->set('information_lists', $information_lists);
+
+      //お知らせの編集用
+      if (empty($this->request->data)) {
+        $id = $this->request->params['id'];
+        $this->request->data = $this->Information->findById($id); //postデータがなければ$idからデータを取得
+        if (!empty($this->request->data)) { //データが存在する場合
+          $this->set('id', $id); //viewに渡すために$idをセット
+        } else { //データが存在しない場合
+          $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+        }
+      } else {
+        $id = $this->request->data['Information']['id'];
+        $this->Information->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->Information->validates()) { //validate成功の処理
+          $this->Information->save($this->request->data); //validate成功でsave
+          if ($this->Information->save($id)) {
+            $this->Session->setFlash('修正しました。', 'flashMessage');
+          } else {
+            $this->Session->setFlash('修正できませんでした。', 'flashMessage');
+          }
+          $this->redirect('/console/information/');
+        } else { //validate失敗の処理
+          $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+          $this->set('id', $this->request->data['Information']['id']); //viewに渡すために$idをセット
+        }
+      }
+      $this->render('/console/information/');
+  }
+
+  public function information_delete($id = null){
+      if (empty($id)) {
+        throw new NotFoundException(__('存在しないデータです。'));
+      }
+    
+      if ($this->request->is('post')) {
+        $this->Information->Behaviors->enable('SoftDelete');
+        if ($this->Information->delete($id)) {
+          $this->Session->setFlash('削除しました。', 'flashMessage');
+        } else {
+          $this->Session->setFlash('削除できませんでした。', 'flashMessage');
+        }
+        $this->redirect('/console/information/');
       }
   }
 }

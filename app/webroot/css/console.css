@@ -26,3 +26,8 @@
     max-width: 120px;
     max-height: 120px;
 }
+
+/* informationページ用 */
+.tbl-act_information {
+    width: 80px;
+}

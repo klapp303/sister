@@ -56,6 +56,10 @@
           array('controller' => 'Console', 'action' => 'diary_genre_edit'),
           array('id' => '[0-9]+')); //idを数字のみに制限
 
+  Router::connect('/console/information/edit/:id',
+          array('controller' => 'Console', 'action' => 'information_edit'),
+          array('id' => '[0-9]+')); //idを数字のみに制限
+
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.
