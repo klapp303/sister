@@ -1,0 +1,17 @@
+@charset "utf-8";
+/* ログインフォーム用 */
+.LoginForm >tbody >tr >td >label {
+    margin-left: 20px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.LoginForm >tbody >tr >td >input {
+    margin-bottom: 10px;
+}
+
+.LoginForm >tbody >tr >td >.submit {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 113px;
+}

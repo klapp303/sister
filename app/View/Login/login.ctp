@@ -1,3 +1,4 @@
+<?php echo $this->Html->css('login', array('inline' => FALSE)); ?>
 <h3>ログイン</h3>
 
   <table class="LoginForm">
