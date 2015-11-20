@@ -1,3 +1,4 @@
+<?php echo $this->Html->script('jquery-tmb', array('inline' => FALSE)); ?>
 <?php if (preg_match('#/console/photo/sub_pop#', $_SERVER['REQUEST_URI'])) { ?>
 <?php echo $this->Html->css('console', array('inline' => FALSE)); ?>
 <?php } else { //sub_popでない場合 ?>

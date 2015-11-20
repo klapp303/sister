@@ -1,3 +1,4 @@
+<?php echo $this->Html->script('jquery-tmb', array('inline' => FALSE)); ?>
 <h3>バナーの追加</h3>
 
   <table>
@@ -28,7 +29,7 @@
       <td>バナー画像</td>
       <td><?php if (preg_match('#/console/banner/edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
           <?php echo $this->Form->input('Banner.delete_name', array('type' => 'hidden', 'label' => false, 'value' => $image_name)); ?>
-          <img src="/files/banner/<?php echo $image_name; ?>" class="img_banner"><br>
+          <img src="/files/banner/<?php echo $image_name; ?>" class="img_banner js-tmb_pre">
           <?php } ?>
           <?php echo $this->Form->input('Banner.file', array('type' => 'file', 'label' => false)); ?></td>
     </tr>

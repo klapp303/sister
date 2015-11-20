@@ -344,3 +344,11 @@
 .js-hide_3, .js-hide_4 { /* サブメニュー用 */
     display: none;
 }
+
+/* jQuery-tmb */
+.js-tmb {
+    width: auto;
+    height: auto;
+    max-width: 120px;
+    max-height: 120px;
+}
