@@ -13,7 +13,7 @@
     
     <tr>
       <td>画像ファイル</td>
-      <td><?php echo $this->Form->input('Photo.name', array('type' => 'file', 'label' => false)); ?></td>
+      <td><?php echo $this->Form->input('Photo.file', array('type' => 'file', 'label' => false)); ?></td>
     </tr>
     
     <tr>

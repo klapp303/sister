@@ -19,6 +19,7 @@
  */
 
 App::uses('AppController', 'Controller');
+App::uses('File', 'Utility'); //ファイルAPI用
 
 /**
  * Static content controller
@@ -181,9 +182,9 @@ class ConsoleController extends AppController {
   public function photo_add() {
       if (!empty($this->data)) {
         $upload_dir = '../webroot/files/photo/'; //保存するディレクトリ
-        $upload_pass = $upload_dir.basename($this->data['Photo']['name']['name']);
-        if (move_uploaded_file($this->data['Photo']['name']['tmp_name'], $upload_pass)) { //ファイルを保存
-          $this->Photo->set('name', $this->data['Photo']['name']['name']);
+        $upload_pass = $upload_dir.basename($this->data['Photo']['file']['name']);
+        if (move_uploaded_file($this->data['Photo']['file']['tmp_name'], $upload_pass)) { //ファイルを保存
+          $this->Photo->set('name', $this->data['Photo']['file']['name']);
           if ($this->Photo->save()) { //ファイル名を保存
             $this->Session->setFlash('画像を追加しました。', 'flashMessage');
           } else {
@@ -393,9 +394,18 @@ class ConsoleController extends AppController {
 
   public function banner_add() {
       if ($this->request->is('post')) {
+        $this->request->data['Banner']['image_name'] = $this->data['Banner']['file']['name'];
         $this->Banner->set($this->request->data); //postデータがあればModelに渡してvalidate
         if ($this->Banner->validates()) { //validate成功の処理
-          $this->Banner->save($this->request->data); //validate成功でsave
+          /* ファイルの保存ここから */
+          $upload_dir = '../webroot/files/banner/'; //保存するディレクトリ
+          $upload_pass = $upload_dir.basename($this->data['Banner']['file']['name']);
+          if (move_uploaded_file($this->data['Banner']['file']['tmp_name'], $upload_pass)) { //ファイルを保存
+          /* ファイルの保存ここまで */
+            $this->Banner->save($this->request->data); //validate成功でsave
+          } else {
+            $this->Session->setFlash('画像ファイルに不備があります。', 'flashMessage');
+          }
           if ($this->Banner->save($this->request->data)) {
             $this->Session->setFlash('バナーを追加しました。', 'flashMessage');
           } else {
@@ -423,6 +433,7 @@ class ConsoleController extends AppController {
         $this->request->data = $this->Banner->findById($id); //postデータがなければ$idからデータを取得
         if (!empty($this->request->data)) { //データが存在する場合
           $this->set('id', $id); //viewに渡すために$idをセット
+          $this->set('image_name', $this->request->data['Banner']['image_name']); //viewに渡すためにファイル名をセット
         } else { //データが存在しない場合
           $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
         }
@@ -430,6 +441,21 @@ class ConsoleController extends AppController {
         $id = $this->request->data['Banner']['id'];
         $this->Banner->set($this->request->data); //postデータがあればModelに渡してvalidate
         if ($this->Banner->validates()) { //validate成功の処理
+          /* ファイルの保存ここから */
+          if ($this->data['Banner']['file']['error'] != 4) { //新しいファイルがある場合
+            $upload_dir = '../webroot/files/banner/'; //保存するディレクトリ
+            $upload_pass = $upload_dir.basename($this->data['Banner']['file']['name']);
+            if (move_uploaded_file($this->data['Banner']['file']['tmp_name'], $upload_pass)) { //ファイルを保存
+              $this->request->data['Banner']['image_name'] = $this->data['Banner']['file']['name'];
+              $file = new File(WWW_ROOT.'files/banner/'.$this->request->data['Banner']['delete_name']); //前のファイルを削除
+              $file->delete();
+              $file->close();
+            } else {
+              $this->Session->setFlash('画像ファイルに不備があります。', 'flashMessage');
+              $this->redirect('/console/banner/edit/'.$id);
+            }
+          }
+          /* ファイルの保存ここまで */
           $this->Banner->save($this->request->data); //validate成功でsave
           if ($this->Banner->save($id)) {
             $this->Session->setFlash('修正しました。', 'flashMessage');

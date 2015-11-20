@@ -4,6 +4,7 @@
     <?php if (preg_match('#/console/banner/edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
       <?php echo $this->Form->create('Banner', array( //使用するModel
           'type' => 'put', //変更はput
+          'enctype' => 'multipart/form-data', //fileアップロードの場合
           'url' => array('controller' => 'console', 'action' => 'banner_edit'), //Controllerのactionを指定
           'inputDefaults' => array('div' => '')
           )
@@ -12,6 +13,7 @@
     <?php } else { //登録用 ?>
       <?php echo $this->Form->create('Banner', array( //使用するModel
           'type' => 'post', //デフォルトはpost送信
+          'enctype' => 'multipart/form-data', //fileアップロードの場合
           'url' => array('controller' => 'console', 'action' => 'banner_add'), //Controllerのactionを指定
           'inputDefaults' => array('div' => '')
           )
@@ -24,7 +26,11 @@
     </tr>
     <tr>
       <td>バナー画像</td>
-      <td><?php echo $this->Form->input('image_name', array('type' => 'text', 'label' => false, 'size' => 49)); ?></td>
+      <td><?php if (preg_match('#/console/banner/edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
+          <?php echo $this->Form->input('Banner.delete_name', array('type' => 'hidden', 'label' => false, 'value' => $image_name)); ?>
+          <img src="/files/banner/<?php echo $image_name; ?>" class="img_banner"><br>
+          <?php } ?>
+          <?php echo $this->Form->input('Banner.file', array('type' => 'file', 'label' => false)); ?></td>
     </tr>
     <tr>
       <td>リンク先URL</td>
