@@ -106,24 +106,34 @@
 }
 
 .menu-list-sub li {
-    background-color: #0B243B;
+    background-color: #696969!important;
+    border-radius: 3px;
+      /* グラデーションここから */
+      background-image: -moz-linear-gradient(top, #000000, #696969);
+      background-image: -ms-linear-gradient(top, #000000, #696969);
+      background-image: -o-linear-gradient(top, #000000, #696969);
+      background-image: -webkit-linear-gradient(top, #000000, #696969);
+      background-image: linear-gradient(top, #000000, #696969);
+      background-clip: padding-box;
+      /* グラデーションここまで */
+    box-shadow: -1px 1px 10px #696969;
 }
 
 /* サイドメニュー */
 .side-menu_block {
     width: 200px;
     margin-bottom: 20px;
-    background-color: #0B243B!important;
+    background-color: #696969!important;
     border-radius: 3px;
       /* グラデーションここから */
-      background-image: -moz-linear-gradient(top, #0b243b, #0b3861);
-      background-image: -ms-linear-gradient(top, #0b243b, #0b3861);
-      background-image: -o-linear-gradient(top, #0b243b, #0b3861);
-      background-image: -webkit-linear-gradient(top, #0b243b, #0b3861);
-      background-image: linear-gradient(top, #0b243b, #0b3861);
+      background-image: -moz-linear-gradient(top, #000000, #696969);
+      background-image: -ms-linear-gradient(top, #000000, #696969);
+      background-image: -o-linear-gradient(top, #000000, #696969);
+      background-image: -webkit-linear-gradient(top, #000000, #696969);
+      background-image: linear-gradient(top, #000000, #696969);
       background-clip: padding-box;
       /* グラデーションここまで */
-    box-shadow: -1px 1px 10px #32B4C3;
+    box-shadow: -1px 1px 10px #696969;
 }
 
 /* コンテンツ */
