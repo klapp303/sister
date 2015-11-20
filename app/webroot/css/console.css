@@ -40,7 +40,7 @@
 }
 
 .tbl-act_banner {
-    width: 100px;
+    width: 80px;
 }
 
 .img_banner {/* コンソール内の画像サイズ用 */
@@ -48,4 +48,9 @@
     height: auto;
     max-width: 120px;
     max-height: 120px;
+}
+
+/* linkページ用 */
+.tbl-act_link {
+    width: 80px;
 }
