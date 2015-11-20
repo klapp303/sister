@@ -46,7 +46,29 @@ class ConsoleController extends AppController {
  *	or MissingViewException in debug mode.
  */
 
-  public $components = array('Paginator');
+  public $components = array(
+      'Paginator',
+      'Flash', //ここからログイン認証用
+      'Auth' => array(
+          'loginAction' => array(
+              'controller' => 'Login',
+              'action' => 'login'
+          ),
+          'loginRedirect' => array(
+              'controller' => 'Console',
+              'action' => 'index'
+          ),
+          'logoutRedirect' => array(
+              'controller' => 'Login',
+              'action' => 'login'
+          ),
+          'authenticate' => array(
+              'Form' => array(
+                  'passwordHasher' => 'Blowfish',
+              )
+          )
+      ),
+  );
   public $paginate = array(
       'limit' => 20,
       'order' => array('date' => 'desc')

@@ -4,6 +4,7 @@
       <li><?php echo $this->Html->link('お知らせを更新する', '/console/information/'); ?></li>
       <li><?php echo $this->Html->link('バナーを設定する', '/console/banner/'); ?></li>
       <li><?php echo $this->Html->link('リンクを設定する', '/console/link/'); ?></li>
+      <li><?php echo $this->Html->link('サイトを確認する', '/', array('target' => '_blank')); ?></li>
     </ul>
   </li>
   <li class="js-menu_2 cursor-def"><span class="menu-title">コンテンツ管理</span>
@@ -24,7 +25,7 @@
   <li class="js-menu_4 cursor-def"><span class="menu-title">オプション</span>
     <ul class="menu-list-sub js-hide_4">
       <li><?php echo $this->Html->link('管理者の追加', '/console/admin/'); ?></li>
-      <li><?php echo $this->Html->link('ログアウト', '/console/#/'); ?></li>
+      <li><?php echo $this->Html->link('ログアウト', '/logout/'); ?></li>
     </ul>
   </li>
 </ul>
