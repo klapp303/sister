@@ -2,19 +2,34 @@
 
 <img src="/files/top_maia.jpg" alt="" class="img_top">
 
-<h3>コンテンツ1</h3>
+<div class="side_top">
+  <?php echo $this->element('twitter'); ?>
+  <?php echo $this->element('banner_maker'); ?>
+</div>
 
-<h3>コンテンツ2</h3>
+<div class="sis-com_top">
+  <?php echo $sister_comment[0]['SisterComment']['comment']; ?>
+</div>
 
-<h3>コンテンツ3</h3>
+<div class="part_top">
+  <hr class="hr_top">
+  <h3 class="h_top">お知らせ</h3>
+</div>
 
-<P>
-  本文が入ります。<br>
-  本文が入ります。<br>
-  本文が入ります。<br>
-  本文が入ります。<br>
-  本文が入ります。<br>
-  本文が入ります。<br>
-  本文が入ります。<br>
-  本文が入ります。
-</P>
+<div class="inform_top">
+  <?php foreach ($information_lists AS $information_list) {
+    echo $information_list['Information']['title'].'<br><div class="inform-date">'.$information_list['Information']['date_from'].'</div>';
+    echo '<hr>';
+  } ?>
+</div>
+
+<div class="part_top">
+  <hr class="hr_top">
+  <h3 class="h_top">バナー</h3>
+</div>
+
+<div class="banner_top">
+  <?php foreach ($banner_lists AS $banner_list) {
+    echo '<a href="'.$banner_list['Banner']['link_url'].'" alt="'.$banner_list['Banner']['title'].'" target="_blank"><img src="/files/banner/'.$banner_list['Banner']['image_name'].'"></a><br>';
+  } ?>
+</div>

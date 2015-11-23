@@ -35,7 +35,7 @@ class TopController extends AppController {
  *
  * @var array
  */
-	public $uses = array(); //使用するModel
+	public $uses = array('SisterComment', 'Information', 'Banner'); //使用するModel
 
 /**
  * Displays a view
@@ -51,5 +51,36 @@ class TopController extends AppController {
   }
 
   public function index() {
+      //TOPランダムコメント用
+      $sister_comment = $this->SisterComment->find('all', array(
+          'conditions' => array('SisterComment.publish' => 1),
+          'order' => 'rand()',
+          'limit' => 1
+      ));
+      $this->set('sister_comment', $sister_comment);
+
+      //お知らせ用
+      $information_lists = $this->Information->find('all', array(
+          'conditions' => array(
+              array('or' => array(
+                  'Information.date_from <' => date('Y-m-d'),
+                  'Information.date_from' => null
+              )),
+              array('or' => array(
+                  'Information.date_to >' => date('Y-m-d'),
+                  'Information.date_to' => null
+              )),
+              'Information.publish' => 1
+          ),
+          'order' => array('Information.id' => 'desc')
+      ));
+      $this->set('information_lists', $information_lists);
+      
+      //バナー用
+      $banner_lists = $this->Banner->find('all', array(
+          'conditions' => array('Banner.publish' => 1),
+          'order' => array('Banner.id' => 'desc')
+      ));
+      $this->set('banner_lists', $banner_lists);
   }
 }
