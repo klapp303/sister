@@ -35,6 +35,10 @@
 	/*Router::connect('/pages/*',
           array('controller' => 'Pages', 'action' => 'index'));*/
 
+  Router::connect('/information/', array('controller' => 'Pages', 'action' => 'information'));
+  Router::connect('/author/', array('controller' => 'Pages', 'action' => 'author'));
+  Router::connect('/link/', array('controller' => 'Pages', 'action' => 'link'));
+
   Router::connect('/diary/:id',
           array('controller' => 'Diary', 'action' => 'index'),
           array('id' => '[0-9]+')); //idを数字のみに制限

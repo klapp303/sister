@@ -35,7 +35,7 @@ class PagesController extends AppController {
  *
  * @var array
  */
-	public $uses = array('User', 'SampleGenre'); //使用するModel
+	public $uses = array('Link'); //使用するModel
 
 /**
  * Displays a view
@@ -47,27 +47,23 @@ class PagesController extends AppController {
 
   public function beforeFilter() {
       parent::beforeFilter();
-      $this->layout = 'project_fullwidth';
+      $this->layout = 'sister_fullwidth';
   }
 
   public function index() {
   }
 
-  /*public function user_lists() {
-      $user_lists = $this->User->find('all', array(
-          'order' => array('id' => 'asc'),
-          'conditions' => array('id !=' => 1) //管理者データは非表示
-      ));
-      $this->set('user_lists', $user_lists);
-  }*/
-
-  public function sample_genres() {
-      $sample_genre_lists = $this->SampleGenre->find('all', array(
-          'order' => array('id' => 'asc')
-      ));
-      $this->set('sample_genre_lists', $sample_genre_lists);
+  public function information() {
   }
 
-  public function history() {
+  public function author() {
+  }
+
+  public function link() {
+      $link_lists = $this->Link->find('all', array(
+          'conditions' => array('Link.publish' => 1),
+          'order' => array('Link.id' => 'asc')
+      ));
+      $this->set('link_lists', $link_lists);
   }
 }
