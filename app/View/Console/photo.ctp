@@ -34,7 +34,11 @@
       'last' => '＞' //最終ページへのリンク
   )); ?>
 
-  <table class="<?php if (preg_match('#/console/photo/sub_pop#', $_SERVER['REQUEST_URI'])) {} else {echo 'detail-list-min';} ?>">
+  <table class="<?php if (preg_match('#/console/photo/sub_pop#', $_SERVER['REQUEST_URI'])) {
+    echo 'detail-list-pop';
+  } else {
+    echo 'detail-list-min';
+  } ?>">
     <tr><th class="tbl-num">id<?php echo $this->Paginator->sort('Photo.id', '▼'); ?></th>
         <th>プレビュー</th>
         <th>ファイル名</th>

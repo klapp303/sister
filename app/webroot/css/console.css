@@ -27,6 +27,10 @@
     max-height: 120px;
 }
 
+.detail-list-pop {
+    width: 550px;
+}
+
 /* informationページ用 */
 .tbl-act_information {
     width: 80px;

@@ -50,6 +50,19 @@
     padding: 10px 5px 10px 5px;
     margin: 0;
     text-align: center;
+    cursor: default;
+}
+
+.foot-txt a {
+    text-decoration: none;
+    cursor: default;
+}
+
+.foot-txt a:link,
+.foot-txt a:visited,
+.foot-txt a:hover,
+.foot-txt a:active {
+    color: #ffffff;
 }
 
 /* メニュー */
