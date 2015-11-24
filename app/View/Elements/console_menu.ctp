@@ -9,9 +9,11 @@
   </li>
   <li class="js-menu_2 cursor-def"><span class="menu-title">コンテンツ管理</span>
     <ul class="menu-list-sub js-hide_2">
-      <li><?php echo $this->Html->link('メニュー1', '/console/#/'); ?></li>
-      <li><?php echo $this->Html->link('メニュー2', '/console/#/'); ?></li>
-      <li><?php echo $this->Html->link('メニュー3', '/console/#/'); ?></li>
+      <li><?php echo $this->Html->link('エロゲレビューを書く', '/console/#/'); ?></li>
+      <li><?php echo $this->Html->link('メーカーバナーの管理', '/console/#/'); ?></li>
+      <li><?php echo $this->Html->link('音楽レビューを書く', '/console/#/'); ?></li>
+      <li><?php echo $this->Html->link('おとちん情報の追加', '/console/#/'); ?></li>
+      <li><?php echo $this->Html->link('あやち情報の追加', '/console/#/'); ?></li>
     </ul>
   </li>
   <li class="js-menu_3 cursor-def"><span class="menu-title">ブログ管理</span>

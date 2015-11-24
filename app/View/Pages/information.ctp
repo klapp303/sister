@@ -24,15 +24,15 @@
   <tr><td></td><td class="tbl-titke-d_info">エロゲレビュー</td>
       <td class="tbl-text_info">えちぃゲームのレビューです。気まぐれ更新。</td></tr>
   <tr><td></td><td class="tbl-titke-d_info">モンハンメモ</td>
-      <td class="tbl-text_info">何かできたらなぁって。妹成分ほぼないです。</td></tr>
+      <td class="tbl-text_info">そのうち何かできたらなぁって。妹成分ほぼないです。</td></tr>
 </table>
 
 <table class="tbl_info">
   <tr><th colspan="3" class="tbl-title-h_info">音楽 etc</th></tr>
   <tr><td></td><td class="tbl-titke-d_info">音楽レビュー</td>
       <td class="tbl-text_info">楽曲とか円盤のレビューです。気まぐれ更新。</td></tr>
-  <tr><td></td><td class="tbl-titke-d_info">作曲者からみる</td>
-      <td class="tbl-text_info">ページとしてまとまるのかまだ分からないです＞＜</td></tr>
+  <!--tr><td></td><td class="tbl-titke-d_info">作曲者からみる</td>
+      <td class="tbl-text_info">ページとしてまとまるのかまだ分からないです＞＜</td></tr-->
 </table>
 
 <table class="tbl_info">
