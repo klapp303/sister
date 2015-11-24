@@ -39,18 +39,19 @@
   Router::connect('/author/', array('controller' => 'Pages', 'action' => 'author'));
   Router::connect('/link/', array('controller' => 'Pages', 'action' => 'link'));
 
+  Router::connect('/game/erg/:id',
+          array('controller' => 'Game', 'action' => 'erg'),
+          array('id' => '[0-9]+')); //idを数字のみに制限
+
   Router::connect('/diary/:id',
           array('controller' => 'Diary', 'action' => 'index'),
           array('id' => '[0-9]+')); //idを数字のみに制限
-
   Router::connect('/diary/:year_id/:month_id',
           array('controller' => 'Diary', 'action' => 'index'),
           array('year_id' => '[0-9]+', 'month_id' => '[0-9]+')); //idを数字のみに制限
-
   Router::connect('/diary/:year_id/:month_id/:date_id',
           array('controller' => 'Diary', 'action' => 'index'),
           array('year_id' => '[0-9]+', 'month_id' => '[0-9]+', 'date_id' => '[0-9]+')); //idを数字のみに制限
-
   Router::connect('/diary/genre/:genre_id',
           array('controller' => 'Diary', 'action' => 'genre'),
           array('genre_id' => '[0-9]+')); //idを数字のみに制限
