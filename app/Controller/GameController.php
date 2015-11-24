@@ -106,5 +106,6 @@ class GameController extends AppController {
   }
 
   public function mh() {
+      $this->render('/mh/index/');
   }
 }
