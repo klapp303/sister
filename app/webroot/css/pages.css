@@ -1,20 +1,48 @@
 @charset "utf-8";
-/* オプション一覧用 */
-.list_option {
-    list-style-type: none;
+/* informationページ用 */
+.tbl_info {
+    width: 720px;
 }
 
-.list_option >li {
-    height: 40px;
+.tbl-title-h_info {
+    width: 30%;
+    text-align: left;
+}
+
+.tbl-title-d_info {
+    width: 20%;
+}
+
+.tbl-text_info {
+    width: 70%;
+}
+
+/* サイトリンク一覧用 */
+.tbl_link {
+    width: 720px;
+    margin-bottom: 30px!important;
+    border-collapse: collapse;
+}
+
+.tbl_link >tbody >tr >th,
+.tbl_link >tbody >tr >td {
+    border: 1px solid #000000;
+}
+
+.tbl_link >tbody >tr >th {
+    background-color: #F5F5FF;
+}
+
+.tbl-title_link {
+    width: 35%;
+}
+
+.tbl-text_link {
+    width: 65%;
 }
 
 /* コンテンツ説明文用 */
-.intro_pages {
-    height: 150px;
-    margin-left: 20px;
-}
-
-.intro_pages >p {
-    margin-right: 20px;
-    margin-bottom: 30px;
+.intro_link,
+.intro_info {
+    margin: 0 20px 30px 20px;
 }

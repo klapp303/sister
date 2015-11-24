@@ -1,4 +1,4 @@
-<?php echo $this->Html->css('link', array('inline' => FALSE)); ?>
+<?php echo $this->Html->css('pages', array('inline' => FALSE)); ?>
 <h3>サイトリンク</h3>
 
 <?php if ($link_friends) { ?>
