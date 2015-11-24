@@ -8,7 +8,7 @@
 </div>
 
 <div class="sis-com_top">
-  <?php echo $sister_comment[0]['SisterComment']['comment']; ?>
+  <?php echo nl2br($sister_comment[0]['SisterComment']['comment']); ?>
 </div>
 
 <div class="part_top">

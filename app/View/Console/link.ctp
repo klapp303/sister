@@ -32,6 +32,10 @@
       <td><?php echo $this->Form->input('description', array('type' => 'textarea', 'label' => false, 'cols' => 50, 'rows' => 10, 'class' => 'js-insert_area')); ?></td>
     </tr>
     <tr>
+      <td>分類</td>
+      <td><?php echo $this->Form->input('category', array('type' => 'select', 'label' => false, 'options' => array('myself' => '自分', 'friends' => '友人', 'develop' => '開発', 'others' => 'その他'))); ?></td>
+    </tr>
+    <tr>
       <td>状態</td>
       <td><?php echo $this->Form->input('publish', array('type' => 'select', 'label' => false, 'options' => array(0 => '非公開', 1 => '公開'))); ?></td>
     </tr>
@@ -60,14 +64,19 @@
     <tr><th class="tbl-num">id<?php echo $this->Paginator->sort('Link.id', '▼'); ?></th>
         <th>タイトル</th>
         <th>説明</th>
-        <th class="tbl-ico">状態</th>
+        <th class="tbl-ico">分類<br>
+                            状態</th>
         <th class="tbl-act_link">action</th></tr>
     
     <?php foreach ($link_lists AS $link_list) { ?>
     <tr><td class="tbl-num"><?php echo $link_list['Link']['id']; ?></td>
         <td><?php echo $link_list['Link']['title']; ?></td>
         <td><?php echo $link_list['Link']['description']; ?></td>
-        <td class="tbl-ico"><?php if ($link_list['Link']['publish'] == 0) {echo '<span class="icon-false">非公開</span>';}
+        <td class="tbl-ico"><?php if ($link_list['Link']['category'] == 'myself') {echo '自分';}
+                            elseif ($link_list['Link']['category'] == 'friends') {echo '友人';}
+                            elseif ($link_list['Link']['category'] == 'develop') {echo '開発';}
+                            elseif ($link_list['Link']['category'] == 'others') {echo 'その他';} ?><br>
+                            <?php if ($link_list['Link']['publish'] == 0) {echo '<span class="icon-false">非公開</span>';}
                               elseif ($link_list['Link']['publish'] == 1) {echo '<span class="icon-true">公開</span>';} ?></td>
         <td class="tbl-act_link"><?php echo $this->Html->link('修正', '/console/link/edit/'.$link_list['Link']['id']); ?>
                                  <?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'link_delete', $link_list['Link']['id']), null, '本当に#'.$link_list['Link']['id'].'を削除しますか'); ?></td></tr>
