@@ -17,6 +17,38 @@
     width: 70%;
 }
 
+.tbl-last_info {
+    margin-bottom: 50px!important;
+}
+
+/* authorページ用 */
+.tbl_prof {
+    width:720px;
+    margin-bottom: 50px!important;
+    border-collapse: collapse;
+}
+
+.tbl-title_prof,
+.tbl-text_prof {
+    border: 1px solid #000000;
+}
+
+.tbl-title_prof {
+    width: 35%;
+    background-color: #F5F5FF;
+}
+
+.tbl-text_prof {
+    width: 65%;
+}
+
+.img_prof {
+    width: 200px;
+    height: 200px;
+    margin-right: 30px;
+    float: right;
+}
+
 /* サイトリンク一覧用 */
 .tbl_link {
     width: 720px;
@@ -42,7 +74,8 @@
 }
 
 /* コンテンツ説明文用 */
-.intro_link,
-.intro_info {
-    margin: 0 20px 30px 20px;
+.intro_info,
+.intro_prof,
+.intro_link {
+    margin: 0 20px 50px 20px;
 }

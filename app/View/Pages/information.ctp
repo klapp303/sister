@@ -3,8 +3,8 @@
 
 <p class="intro_info">
   ここは妹と厨二成分が大好きな管理人による徒然サイトです。<br>
-  上にあります各メニューからそれぞれのページへどうぞ。<br>
-  それぞれのページのの詳しい説明は下のとおりになります。
+  上にございます各メニューからそれぞれのページへどうぞ。<br>
+  各ページの詳しい説明は下を見ればいいんじゃないかな。
 </p>
 
 <h3>サイトマップ</h3>
@@ -43,6 +43,6 @@
       <td class="tbl-text_info">声優、竹達彩奈さんを応援するページです。</td></tr>
 </table>
 
-<table class="tbl_info">
+<table class="tbl_info tbl-last_info">
   <tr><th class="tbl-title-h_info">ブログ</th><td class="tbl-text_info">管理人の日記です。イベントレポ多め。</td></tr>
 </table>
