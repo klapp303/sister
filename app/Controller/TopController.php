@@ -35,7 +35,7 @@ class TopController extends AppController {
  *
  * @var array
  */
-	public $uses = array('SisterComment', 'Information', 'Banner'); //使用するModel
+	public $uses = array('SisterComment', 'Information', 'Banner', 'Maker'); //使用するModel
 
 /**
  * Displays a view
@@ -82,5 +82,12 @@ class TopController extends AppController {
           'order' => array('Banner.id' => 'desc')
       ));
       $this->set('banner_lists', $banner_lists);
+
+      //メーカーバナー用
+      $maker_lists = $this->Maker->find('all', array(
+          'conditions' => array('Maker.publish' => 1),
+          'order' => array('Maker.title' => 'asc')
+      ));
+      $this->set('maker_lists', $maker_lists);
   }
 }
