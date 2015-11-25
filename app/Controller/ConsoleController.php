@@ -36,7 +36,7 @@ class ConsoleController extends AppController {
  *
  * @var array
  */
-	public $uses = array('Diary', 'DiaryGenre', 'Photo', 'Information', 'Banner', 'Link', 'Administrator'); //使用するModel
+	public $uses = array('Diary', 'DiaryGenre', 'Photo', 'Information', 'Banner', 'Link', 'Administrator', 'Maker'); //使用するModel
 
 /**
  * Displays a view
@@ -664,6 +664,110 @@ class ConsoleController extends AppController {
           $this->Session->setFlash('削除できませんでした。', 'flashMessage');
         }
         $this->redirect('/console/admin/');
+      }
+  }
+
+  public function maker() {
+      $this->Paginator->settings = array(
+          'limit' => 20,
+          'order' => array('Maker.id' => 'desc')
+      );
+      $maker_lists = $this->Paginator->paginate('Maker');
+      $this->set('maker_lists', $maker_lists);
+  }
+
+  public function maker_add() {
+      if ($this->request->is('post')) {
+        $this->request->data['Maker']['image_name'] = $this->data['Maker']['file']['name'];
+        $this->Maker->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->Maker->validates()) { //validate成功の処理
+          /* ファイルの保存ここから */
+          $upload_dir = '../webroot/files/maker/'; //保存するディレクトリ
+          $upload_pass = $upload_dir.basename($this->data['Maker']['file']['name']);
+          if (move_uploaded_file($this->data['Maker']['file']['tmp_name'], $upload_pass)) { //ファイルを保存
+          /* ファイルの保存ここまで */
+            $this->Maker->save($this->request->data); //validate成功でsave
+          } else {
+            $this->Session->setFlash('画像ファイルに不備があります。', 'flashMessage');
+          }
+          if ($this->Maker->save($this->request->data)) {
+            $this->Session->setFlash('メーカーを追加しました。', 'flashMessage');
+          } else {
+            $this->Session->setFlash('追加できませんでした。', 'flashMessage');
+          }
+        } else { //validate失敗の処理
+          $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+        }
+      }
+
+      $this->redirect('/console/maker/');
+  }
+
+  public function maker_edit() {
+      $this->Paginator->settings = array(
+          'limit' => 20,
+          'order' => array('Maker.id' => 'desc')
+      );
+      $maker_lists = $this->Paginator->paginate('Maker');
+      $this->set('maker_lists', $maker_lists);
+
+      //バナーの編集用
+      if (empty($this->request->data)) {
+        $id = $this->request->params['id'];
+        $this->request->data = $this->Maker->findById($id); //postデータがなければ$idからデータを取得
+        if (!empty($this->request->data)) { //データが存在する場合
+          $this->set('id', $id); //viewに渡すために$idをセット
+          $this->set('image_name', $this->request->data['Maker']['image_name']); //viewに渡すためにファイル名をセット
+        } else { //データが存在しない場合
+          $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+        }
+      } else {
+        $id = $this->request->data['Maker']['id'];
+        $this->Maker->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->Maker->validates()) { //validate成功の処理
+          /* ファイルの保存ここから */
+          if ($this->data['Maker']['file']['error'] != 4) { //新しいファイルがある場合
+            $upload_dir = '../webroot/files/maker/'; //保存するディレクトリ
+            $upload_pass = $upload_dir.basename($this->data['Maker']['file']['name']);
+            if (move_uploaded_file($this->data['Maker']['file']['tmp_name'], $upload_pass)) { //ファイルを保存
+              $this->request->data['Maker']['image_name'] = $this->data['Maker']['file']['name'];
+              $file = new File(WWW_ROOT.'files/maker/'.$this->request->data['Maker']['delete_name']); //前のファイルを削除
+              $file->delete();
+              $file->close();
+            } else {
+              $this->Session->setFlash('画像ファイルに不備があります。', 'flashMessage');
+              $this->redirect('/console/maker/edit/'.$id);
+            }
+          }
+          /* ファイルの保存ここまで */
+          $this->Maker->save($this->request->data); //validate成功でsave
+          if ($this->Maker->save($id)) {
+            $this->Session->setFlash('修正しました。', 'flashMessage');
+          } else {
+            $this->Session->setFlash('修正できませんでした。', 'flashMessage');
+          }
+          $this->redirect('/console/maker/');
+        } else { //validate失敗の処理
+          $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+          $this->set('id', $this->request->data['Maker']['id']); //viewに渡すために$idをセット
+        }
+      }
+      $this->render('/console/maker/');
+  }
+
+  public function maker_delete($id = null){
+      if (empty($id)) {
+        throw new NotFoundException(__('存在しないデータです。'));
+      }
+    
+      if ($this->request->is('post')) {
+        $this->Maker->Behaviors->enable('SoftDelete');
+        if ($this->Maker->delete($id)) {
+          $this->Session->setFlash('削除しました。', 'flashMessage');
+        } else {
+          $this->Session->setFlash('削除できませんでした。', 'flashMessage');
+        }
+        $this->redirect('/console/maker/');
       }
   }
 }

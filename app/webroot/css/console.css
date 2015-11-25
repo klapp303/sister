@@ -59,6 +59,24 @@
     width: 80px;
 }
 
+/* makerページ用 */
+.tbl-tmb_maker {
+    text-align: center;
+    width: 120px;
+    max-height: 120px;
+}
+
+.tbl-act_maker {
+    width: 80px;
+}
+
+.img_maker {/* コンソール内の画像サイズ用 */
+    width: auto;
+    height: auto;
+    max-width: 120px;
+    max-height: 120px;
+}
+
 /* adminページ用 */
 .tbl-act_admin {
     width: 50px;
