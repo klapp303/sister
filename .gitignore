@@ -9,6 +9,7 @@
 /app/tmp
 
 /app/webroot/files/banner
+/app/webroot/files/maker
 /app/webroot/files/photo
 
 /lib/Cake/Console/Templates/skel/tmp/
