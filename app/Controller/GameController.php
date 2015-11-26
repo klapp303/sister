@@ -106,6 +106,11 @@ class GameController extends AppController {
   }
 
   public function mh() {
-      $this->render('/mh/index/');
+      // viewの設定
+      if (isset($this->request->params['page']) == TRUE) {
+        $this->render('/mh/'.$this->request->params['page']);
+      } else {
+        $this->render('/mh/index/');
+      }
   }
 }
