@@ -1,0 +1,28 @@
+@charset "utf-8";
+/* コンテンツ説明文用 */
+.intro_erg {
+    margin: 0 20px 30px 20px;
+}
+
+/* ゲーム一覧用 */
+.game-list {
+    width: 740px;
+}
+
+.game-list >tbody >tr >th,
+.game-list >tbody >tr >td {
+    border: 1px solid #000000;
+}
+
+.game-list >tbody >tr >th {
+    background-color: #F5F5FF;
+    text-align: left;
+}
+
+.game-list >tbody >tr >.tbl-date {
+    width: 70px;
+}
+
+.game-list >tbody >tr >.tbl-num {
+    width: 50px;
+}

@@ -9,13 +9,18 @@ class Game extends AppModel {
   public $useTable = 'games';
   public $actsAs = array('SoftDelete'/*, 'Search.Searchable'*/);
 
-  /*public $belongsTo = array(
-      'SamplesGenre' => array(
-          'className' => 'SamplesGenre', //関連付けるModel
-          'foreignKey' => 'genre_id', //関連付けるためのfield、関連付け先は上記Modelのid
-          'fields' => 'title' //関連付け先Modelの使用field
+  public $belongsTo = array(
+      'Maker' => array(
+          'className' => 'Maker', //関連付けるModel
+          'foreignKey' => 'maker_id', //関連付けるためのfield、関連付け先は上記Modelのid
+          //'fields' => 'title' //関連付け先Modelの使用field
       )
-  );*/
+  );
+
+  public $virtualFields = array(
+      //各pointを2乗して加算、/8+37で満点ならば99.5
+      'point' => 'ROUND((scenario_point * scenario_point + music_point * music_point + chara_point * chara_point + still_point * still_point + config_point * config_point)/8)+37'
+  );
 
   public $validate = array(
       'title' => array(
