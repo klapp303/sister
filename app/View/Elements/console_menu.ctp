@@ -2,6 +2,7 @@
   <li class="js-menu_1 cursor-def"><span class="menu-title">サイト管理</span>
     <ul class="menu-list-sub js-hide_1">
       <li><?php echo $this->Html->link('お知らせを更新する', '/console/information/'); ?></li>
+      <li><?php echo $this->Html->link('セリフを登録する', '/console/comment/'); ?></li>
       <li><?php echo $this->Html->link('バナーを設定する', '/console/banner/'); ?></li>
       <li><?php echo $this->Html->link('リンクを設定する', '/console/link/'); ?></li>
       <li><?php echo $this->Html->link('サイトを確認する', '/', array('target' => '_blank')); ?></li>

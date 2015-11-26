@@ -36,6 +36,15 @@
     width: 80px;
 }
 
+/* commentページ用 */
+.tbl-chara_comment {
+    width: 100px;
+}
+
+.tbl-act_comment {
+    width: 80px;
+}
+
 /* bannerページ用 */
 .tbl-tmb_banner {
     text-align: center;

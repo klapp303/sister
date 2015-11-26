@@ -36,7 +36,7 @@ class ConsoleController extends AppController {
  *
  * @var array
  */
-	public $uses = array('Diary', 'DiaryGenre', 'Photo', 'Information', 'Banner', 'Link', 'Administrator', 'Maker'); //使用するModel
+	public $uses = array('Diary', 'DiaryGenre', 'Photo', 'Information', 'SisterComment', 'Banner', 'Link', 'Administrator', 'Maker'); //使用するModel
 
 /**
  * Displays a view
@@ -402,6 +402,85 @@ class ConsoleController extends AppController {
           $this->Session->setFlash('削除できませんでした。', 'flashMessage');
         }
         $this->redirect('/console/information/');
+      }
+  }
+
+  public function comment() {
+      $this->Paginator->settings = array(
+          'limit' => 20,
+          'order' => array('SisterComment.id' => 'desc')
+      );
+      $comment_lists = $this->Paginator->paginate('SisterComment');
+      $this->set('comment_lists', $comment_lists);
+  }
+
+  public function comment_add() {
+      if ($this->request->is('post')) {
+        $this->SisterComment->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->SisterComment->validates()) { //validate成功の処理
+          $this->SisterComment->save($this->request->data); //validate成功でsave
+          if ($this->SisterComment->save($this->request->data)) {
+            $this->Session->setFlash('セリフを登録しました。', 'flashMessage');
+          } else {
+            $this->Session->setFlash('追加できませんでした。', 'flashMessage');
+          }
+        } else { //validate失敗の処理
+          $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+        }
+      }
+
+      $this->redirect('/console/comment/');
+  }
+
+  public function comment_edit() {
+      $this->Paginator->settings = array(
+          'limit' => 20,
+          'order' => array('SisterComment.id' => 'desc')
+      );
+      $comment_lists = $this->Paginator->paginate('SisterComment');
+      $this->set('comment_lists', $comment_lists);
+
+      //セリフの編集用
+      if (empty($this->request->data)) {
+        $id = $this->request->params['id'];
+        $this->request->data = $this->SisterComment->findById($id); //postデータがなければ$idからデータを取得
+        if (!empty($this->request->data)) { //データが存在する場合
+          $this->set('id', $id); //viewに渡すために$idをセット
+        } else { //データが存在しない場合
+          $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+        }
+      } else {
+        $id = $this->request->data['SisterComment']['id'];
+        $this->SisterComment->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->SisterComment->validates()) { //validate成功の処理
+          $this->SisterComment->save($this->request->data); //validate成功でsave
+          if ($this->SisterComment->save($id)) {
+            $this->Session->setFlash('修正しました。', 'flashMessage');
+          } else {
+            $this->Session->setFlash('修正できませんでした。', 'flashMessage');
+          }
+          $this->redirect('/console/comment/');
+        } else { //validate失敗の処理
+          $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+          $this->set('id', $this->request->data['SisterComment']['id']); //viewに渡すために$idをセット
+        }
+      }
+      $this->render('/console/comment/');
+  }
+
+  public function comment_delete($id = null){
+      if (empty($id)) {
+        throw new NotFoundException(__('存在しないデータです。'));
+      }
+    
+      if ($this->request->is('post')) {
+        $this->SisterComment->Behaviors->enable('SoftDelete');
+        if ($this->SisterComment->delete($id)) {
+          $this->Session->setFlash('削除しました。', 'flashMessage');
+        } else {
+          $this->Session->setFlash('削除できませんでした。', 'flashMessage');
+        }
+        $this->redirect('/console/comment/');
       }
   }
 

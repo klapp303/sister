@@ -69,6 +69,9 @@
   Router::connect('/console/information/edit/:id',
           array('controller' => 'Console', 'action' => 'information_edit'),
           array('id' => '[0-9]+')); //idを数字のみに制限
+  Router::connect('/console/comment/edit/:id',
+          array('controller' => 'Console', 'action' => 'comment_edit'),
+          array('id' => '[0-9]+')); //idを数字のみに制限
   Router::connect('/console/banner/edit/:id',
           array('controller' => 'Console', 'action' => 'banner_edit'),
           array('id' => '[0-9]+')); //idを数字のみに制限
