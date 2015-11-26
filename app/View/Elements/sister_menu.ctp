@@ -12,16 +12,17 @@
       <li><?php echo $this->Html->link('モンハンメモ', '/game/mh/'); ?></li>
     </ul>
   </li>
-  <li class="js-menu_3 cursor-def"><span class="menu-title">音楽 etc</span>
+  <li><?php echo $this->Html->link('音楽', '#'); ?></li>
+  <!--li class="js-menu_3 cursor-def"><span class="menu-title">音楽 etc</span>
     <ul class="menu-list-sub js-hide_3">
-      <li><?php echo $this->Html->link('音楽レビュー', '#'); ?></li>
-      <!--li--><!--?php echo $this->Html->link('作曲者からみる', '#'); ?--><!--/li-->
+      <li><?php /*echo $this->Html->link('音楽レビュー', '#');*/ ?></li>
+      <li><?php /*echo $this->Html->link('作曲者からみる', '#');*/ ?></li>
     </ul>
-  </li>
+  </li-->
   <li class="js-menu_4 cursor-def"><span class="menu-title">声優 etc</span>
     <ul class="menu-list-sub js-hide_4">
       <li><?php echo $this->Html->link('おとちん', '#'); ?></li>
-      <li><?php echo $this->Html->link('あやち', '#'); ?></li>
+      <!--li><?php /*echo $this->Html->link('あやち', '#');*/ ?></li-->
     </ul>
   </li>
   <li><?php echo $this->Html->link('ブログ', '/diary/'); ?></li>
