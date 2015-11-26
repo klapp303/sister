@@ -36,7 +36,7 @@ class ConsoleController extends AppController {
  *
  * @var array
  */
-	public $uses = array('Diary', 'DiaryGenre', 'Photo', 'Information', 'SisterComment', 'Banner', 'Link', 'Administrator', 'Maker'); //使用するModel
+	public $uses = array('Diary', 'DiaryGenre', 'Photo', 'Information', 'SisterComment', 'Banner', 'Link', 'Administrator', 'Game', 'Maker'); //使用するModel
 
 /**
  * Displays a view
@@ -97,18 +97,6 @@ class ConsoleController extends AppController {
           'order' => array('DiaryGenre.id' => 'asc')
       ));
       $this->set('genre_lists', $genre_lists);
-
-      /*if (isset($this->request->params['id']) == TRUE) { //パラメータにidがあれば詳細ページを表示
-        $diary_detail = $this->Diary->find('first', array(
-            'conditions' => array('Diary.id' => $this->request->params['id'])
-        ));
-        if (!empty($diary_detail)) { //データが存在する場合
-          $this->set('diary_detail', $diary_detail);
-          $this->render('detail');
-        } else { //データが存在しない場合
-          $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
-        }
-      }*/
   }
 
   public function diary_add() {
@@ -743,6 +731,99 @@ class ConsoleController extends AppController {
           $this->Session->setFlash('削除できませんでした。', 'flashMessage');
         }
         $this->redirect('/console/admin/');
+      }
+  }
+
+  public function game() {
+      $this->Paginator->settings = array(
+          'limit' => 20,
+          'order' => array('Game.id' => 'desc')
+      );
+      $game_lists = $this->Paginator->paginate('Game');
+      $this->set('game_lists', $game_lists);
+      
+      //メーカー選択肢用
+      $maker_lists = $this->Maker->find('list', array(
+          'fields' => 'title',
+          'order' => array('Maker.id' => 'asc')
+      ));
+      $this->set('maker_lists', $maker_lists);
+  }
+
+  public function game_add() {
+      if ($this->request->is('post')) {
+        $this->Game->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->Game->validates()) { //validate成功の処理
+          $this->Game->save($this->request->data); //validate成功でsave
+          if ($this->Game->save($this->request->data)) {
+            $this->Session->setFlash('レビューを作成しました。', 'flashMessage');
+          } else {
+            $this->Session->setFlash('作成できませんでした。', 'flashMessage');
+          }
+        } else { //validate失敗の処理
+          $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+        }
+      }
+
+      $this->redirect('/console/game/');
+  }
+
+  public function game_edit() {
+      $this->Paginator->settings = array(
+          'limit' => 20,
+          'order' => array('Game.id' => 'desc')
+      );
+      $game_lists = $this->Paginator->paginate('Game');
+      $this->set('game_lists', $game_lists);
+      
+      //メーカー選択肢用
+      $maker_lists = $this->Maker->find('list', array(
+          'fields' => 'title',
+          'order' => array('Maker.id' => 'asc')
+      ));
+      $this->set('maker_lists', $maker_lists);
+
+      //レビューの編集用
+      if (empty($this->request->data)) {
+        $id = $this->request->params['id'];
+        $this->request->data = $this->Game->findById($id); //postデータがなければ$idからデータを取得
+        if (!empty($this->request->data)) { //データが存在する場合
+          $this->set('id', $id); //viewに渡すために$idをセット
+        } else { //データが存在しない場合
+          $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+        }
+      } else {
+        $id = $this->request->data['Game']['id'];
+        $this->Game->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->Game->validates()) { //validate成功の処理
+          $this->Game->save($this->request->data); //validate成功でsave
+          if ($this->Game->save($id)) {
+            $this->Session->setFlash('修正しました。', 'flashMessage');
+          } else {
+            $this->Session->setFlash('修正できませんでした。', 'flashMessage');
+          }
+          $this->redirect('/console/game/');
+        } else { //validate失敗の処理
+          $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+          $this->set('id', $this->request->data['Game']['id']); //viewに渡すために$idをセット
+        }
+      }
+      $this->render('/console/game/');
+  }
+
+  public function game_delete($id = null){
+      if (empty($id)) {
+        throw new NotFoundException(__('存在しないデータです。'));
+      }
+    
+      if ($this->request->is('post')) {
+        $this->Game->Behaviors->enable('SoftDelete');
+        if ($this->Game->delete($id)) {
+          $this->Session->setFlash('削除しました。', 'flashMessage');
+        } else {
+          $this->Session->setFlash('削除できませんでした。', 'flashMessage');
+        }
+        $this->redirect('/console/game/');
       }
   }
 

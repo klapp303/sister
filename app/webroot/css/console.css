@@ -68,6 +68,19 @@
     width: 80px;
 }
 
+/* gameページ用 */
+.tbl-date_game {
+    width: 70px;
+}
+
+.tbl-num_game {
+    width: 50px;
+}
+
+.tbl-act_game {
+    width: 100px;
+}
+
 /* makerページ用 */
 .tbl-tmb_maker {
     text-align: center;
