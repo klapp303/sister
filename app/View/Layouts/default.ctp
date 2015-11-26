@@ -57,7 +57,9 @@
 
       <?php echo $this->element('bourbon_house'); ?>
 
+      <?php if (env('SERVER_ADDR') == '127.0.0.1') { ?>
 			<?php echo $this->fetch('content'); ?>
+      <?php } ?>
 		</div>
 		<div id="footer">
       <?php echo $this->element('sister_footer'); ?>
