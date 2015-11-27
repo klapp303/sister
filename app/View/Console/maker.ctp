@@ -29,7 +29,7 @@
       <td>バナー画像</td>
       <td><?php if (preg_match('#/console/maker/edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
           <?php echo $this->Form->input('Maker.delete_name', array('type' => 'hidden', 'label' => false, 'value' => $image_name)); ?>
-          <img src="/files/maker/<?php echo $image_name; ?>" class="img_maker js-tmb_pre">
+          <?php echo $this->Html->image('../files/maker/'.$image_name, array('class' => 'img_maker js-tmb_pre')); ?>
           <?php } ?>
           <?php echo $this->Form->input('Maker.file', array('type' => 'file', 'label' => false)); ?></td>
     </tr>
@@ -70,7 +70,8 @@
     
     <?php foreach ($maker_lists AS $maker_list) { ?>
     <tr><td class="tbl-num"><?php echo $maker_list['Maker']['id']; ?></td>
-        <td class="tbl-tmb_maker"><a href="<?php echo $maker_list['Maker']['link_url']; ?>" target="_blank"><img src="/files/maker/<?php echo $maker_list['Maker']['image_name']; ?>" alt="<?php echo $maker_list['Maker']['title']; ?>" class="img_maker"</td>
+        <td class="tbl-tmb_maker"><a href="<?php echo $maker_list['Maker']['link_url']; ?>" target="_blank">
+            <?php echo $this->Html->image('../files/maker/'.$maker_list['Maker']['image_name'], array('alt' => $maker_list['Maker']['title'], 'class' => 'img_maker')); ?></td>
         <td class="tbl-ico"><?php if ($maker_list['Maker']['publish'] == 0) {echo '<span class="icon-false">非表示</span>';}
                               elseif ($maker_list['Maker']['publish'] == 1) {echo '<span class="icon-true">表示</span>';} ?></td>
         <td class="tbl-act_maker"><?php echo $this->Html->link('修正', '/console/maker/edit/'.$maker_list['Maker']['id']); ?>

@@ -1,7 +1,7 @@
 <?php echo $this->Html->css('pages', array('inline' => FALSE)); ?>
 <h3>プロフィール</h3>
 
-<img src="/files/author_cafe.jpg" class="img_prof">
+<?php echo $this->Html->image('../files/author_cafe.jpg', array('class' => 'img_prof')); ?>
 
 <p class="intro_prof">
   どうも。管理人です。<br>

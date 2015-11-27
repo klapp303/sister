@@ -5,7 +5,8 @@
   <tr><th class="tbl-num_erg">評価</th><th colspan="2" class="tbl-tmb_erg">メーカー</th><th class="tbl-date_erg">発売日</th><th>サイトURL</th></tr>
   <tr>
     <td class="tbl-num_erg"><?php echo $game_detail['Game']['point']; ?></td>
-    <td class="tbl-tmb_erg"><a href="<?php echo $game_detail['Maker']['link_url']; ?>" target="_blank"><img src="/files/maker/<?php echo $game_detail['Maker']['image_name']; ?>" alt="<?php echo $game_detail['Maker']['title']; ?>" class="img-maker_erg"></a></td>
+    <td class="tbl-tmb_erg"><a href="<?php echo $game_detail['Maker']['link_url']; ?>" target="_blank">
+        <?php echo $this->Html->image('../files/maker/'.$game_detail['Maker']['image_name'], array('alt' => $game_detail['Maker']['title'], 'class' => 'img-maker_erg')); ?></a></td>
     <td> <?php echo $game_detail['Maker']['title']; ?></td>
     <td class="tbl-date_erg"><?php echo $game_detail['Game']['release_date']; ?></td>
     <td><?php echo $game_detail['Game']['link_url']; ?></td>

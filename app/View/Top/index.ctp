@@ -1,6 +1,6 @@
 <?php echo $this->Html->css('top', array('inline' => FALSE)); ?>
 
-<img src="/files/top_maia.jpg" alt="" class="img_top">
+<?php echo $this->Html->image('../files/top_maia.jpg', array('class' => 'img_top')); ?>
 
 <div class="side_top">
   <?php echo $this->element('twitter'); ?>
@@ -29,7 +29,9 @@
 </div>
 
 <div class="banner_top">
-  <?php foreach ($banner_lists AS $banner_list) {
-    echo '<a href="'.$banner_list['Banner']['link_url'].'" alt="'.$banner_list['Banner']['title'].'" target="_blank"><img src="/files/banner/'.$banner_list['Banner']['image_name'].'"></a><br>';
-  } ?>
+  <?php foreach ($banner_lists AS $banner_list) { ?>
+    <a href="<?php echo $banner_list['Banner']['link_url']; ?>" alt="<?php echo $banner_list['Banner']['title']; ?>" target="_blank">
+    <?php echo $this->Html->image('../files/banner/'.$banner_list['Banner']['image_name'], array('class' => '')); ?>
+    </a><br>
+  <?php } ?>
 </div>

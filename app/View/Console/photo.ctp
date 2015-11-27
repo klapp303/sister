@@ -50,7 +50,7 @@
     
     <?php foreach ($photo_lists AS $photo_list) { ?>
     <tr><td class="tbl-num"><?php echo $photo_list['Photo']['id']; ?></td>
-        <td class="tbl-tmb_photo"><img src="/files/photo/<?php echo $photo_list['Photo']['name']; ?>" alt="" class="img_photo"></td>
+        <td class="tbl-tmb_photo"><?php echo $this->Html->image('../files/photo/'.$photo_list['Photo']['name'], array('alt' => '', 'class' => 'img_photo')); ?></td>
         <td><?php echo $photo_list['Photo']['name']; ?></td>
         <td class="tbl-date"><?php echo $photo_list['Photo']['created']; ?></td>
         <?php if (preg_match('#/console/photo/sub_pop#', $_SERVER['REQUEST_URI'])) { ?>

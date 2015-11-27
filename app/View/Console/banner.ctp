@@ -29,7 +29,7 @@
       <td>バナー画像</td>
       <td><?php if (preg_match('#/console/banner/edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
           <?php echo $this->Form->input('Banner.delete_name', array('type' => 'hidden', 'label' => false, 'value' => $image_name)); ?>
-          <img src="/files/banner/<?php echo $image_name; ?>" class="img_banner js-tmb_pre">
+          <?php echo $this->Html->image('../files/banner/'.$image_name, array('class' => 'img_banner js-tmb_pre')); ?>
           <?php } ?>
           <?php echo $this->Form->input('Banner.file', array('type' => 'file', 'label' => false)); ?></td>
     </tr>
@@ -80,7 +80,8 @@
     
     <?php foreach ($banner_lists AS $banner_list) { ?>
     <tr><td class="tbl-num"><?php echo $banner_list['Banner']['id']; ?></td>
-        <td class="tbl-tmb_banner"><a href="<?php echo $banner_list['Banner']['link_url']; ?>" target="_blank"><img src="/files/banner/<?php echo $banner_list['Banner']['image_name']; ?>" alt="<?php echo $banner_list['Banner']['title']; ?>" class="img_banner"</td>
+        <td class="tbl-tmb_banner"><a href="<?php echo $banner_list['Banner']['link_url']; ?>" target="_blank">
+            <?php echo $this->Html->image('../files/banner/'.$banner_list['Banner']['image_name'], array('alt' => $banner_list['Banner']['title'], 'class' => 'img_banner')); ?></td>
         <td class="tbl-date"><?php echo $banner_list['Banner']['date_from']; ?><?php if ($banner_list['Banner']['date_from']) {echo '～'; } ?>
                              <?php if ($banner_list['Banner']['date_to']) {echo '<br>～'; } ?><?php echo $banner_list['Banner']['date_to']; ?></td>
         <td class="tbl-ico"><?php if ($banner_list['Banner']['publish'] == 0) {echo '<span class="icon-false">非公開</span>';}
