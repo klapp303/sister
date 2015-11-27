@@ -26,3 +26,59 @@
 .game-list >tbody >tr >.tbl-num {
     width: 50px;
 }
+
+/* ゲームレビュー用 */
+.title_erg {
+    text-align: center;
+}
+
+.detail-list_erg {
+    width: 720px;
+    margin-bottom: 30px!important;
+    border-collapse: collapse;
+}
+
+.detail-list_erg >tbody >tr >th,
+.detail-list_erg >tbody >tr >td {
+    border: 1px solid #000000;
+}
+
+.detail-list_erg >tbody >tr >th {
+    background-color: #F5F5FF;
+}
+
+.tbl-num_erg {
+    width: 130px;
+    text-align: center;
+}
+
+.tbl-tmb_erg {
+    width:  120px;
+}
+
+.img-maker_erg {/* 画像サイズ用 */
+    width: auto;
+    height: auto;
+    max-width: 120px;
+    max-height: 120px;
+}
+
+.tbl-date_erg {
+    width: 100px;
+}
+
+.detail-point_erg >tbody >tr >th {
+    width: 20%;
+}
+
+.detail-point_erg >tbody >tr >td {
+    text-align: center;
+}
+
+.point {
+    margin-left: 20px;
+}
+
+.review {
+    margin: 20px 20px 50px 20px;
+}
