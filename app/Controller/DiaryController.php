@@ -242,6 +242,6 @@ class DiaryController extends AppController {
       ));
       $this->set('diary_counts_all', $diary_counts_all);
 
-      $this->render('/diary/index');
+      $this->render('index');
   }
 }

@@ -193,7 +193,7 @@ class ConsoleController extends AppController {
           $this->set('id', $this->request->data['Diary']['id']); //viewに渡すために$idをセット
         }
       }
-      $this->render('/console/diary/');
+      $this->render('diary');
   }
 
   public function diary_delete($id = null){
@@ -331,7 +331,7 @@ class ConsoleController extends AppController {
           $this->set('id', $this->request->data['DiaryGenre']['id']); //viewに渡すために$idをセット
         }
       }
-      $this->render('/console/diary_genre/');
+      $this->render('diary_genre');
   }
 
   public function diary_genre_delete($id = null){
@@ -410,7 +410,7 @@ class ConsoleController extends AppController {
           $this->set('id', $this->request->data['Information']['id']); //viewに渡すために$idをセット
         }
       }
-      $this->render('/console/information/');
+      $this->render('information');
   }
 
   public function information_delete($id = null){
@@ -489,7 +489,7 @@ class ConsoleController extends AppController {
           $this->set('id', $this->request->data['SisterComment']['id']); //viewに渡すために$idをセット
         }
       }
-      $this->render('/console/comment/');
+      $this->render('comment');
   }
 
   public function comment_delete($id = null){
@@ -593,7 +593,7 @@ class ConsoleController extends AppController {
           $this->set('id', $this->request->data['Banner']['id']); //viewに渡すために$idをセット
         }
       }
-      $this->render('/console/banner/');
+      $this->render('banner');
   }
 
   public function banner_delete($id = null){
@@ -672,7 +672,7 @@ class ConsoleController extends AppController {
           $this->set('id', $this->request->data['Link']['id']); //viewに渡すために$idをセット
         }
       }
-      $this->render('/console/link/');
+      $this->render('link');
   }
 
   public function link_delete($id = null){
@@ -751,7 +751,7 @@ class ConsoleController extends AppController {
           $this->set('id', $this->request->data['Administrator']['id']); //viewに渡すために$idをセット
         }
       }
-      $this->render('/console/admin/');
+      $this->render('admin');
   }*/
 
   public function admin_delete($id = null){
@@ -844,7 +844,7 @@ class ConsoleController extends AppController {
           $this->set('id', $this->request->data['Game']['id']); //viewに渡すために$idをセット
         }
       }
-      $this->render('/console/game/');
+      $this->render('game');
   }
 
   public function game_delete($id = null){
@@ -948,7 +948,7 @@ class ConsoleController extends AppController {
           $this->set('id', $this->request->data['Maker']['id']); //viewに渡すために$idをセット
         }
       }
-      $this->render('/console/maker/');
+      $this->render('maker');
   }
 
   public function maker_delete($id = null){
