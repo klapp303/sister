@@ -81,6 +81,11 @@
     width: 100px;
 }
 
+.js-hide_11, .js-hide_12, .js-hide_13,
+.js-hide_14, .js-hide_15 { /* レビューボックス用 */
+    display: none;
+}
+
 /* makerページ用 */
 .tbl-tmb_maker {
     text-align: center;

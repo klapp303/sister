@@ -1,4 +1,5 @@
 <?php echo $this->Html->script('jquery-tmb', array('inline' => FALSE)); ?>
+<?php echo $this->Html->script('jquery-reviewbox', array('inline' => FALSE)); ?>
 <h3>エロゲレビューの作成</h3>
 
   <table>
@@ -39,41 +40,46 @@
     <?php $point_lists = array(10=>10, 9=>9, 8=>8, 7=>7, 6=>6, 5=>5, 4=>4, 3=>3, 2=>2, 1=>1); ?>
     <tr>
       <td>シナリオ</td>
-      <td><?php echo $this->Form->input('scenario_point', array('type' => 'select', 'label' => false, 'options' => $point_lists)); ?></td>
+      <td><?php echo $this->Form->input('scenario_point', array('type' => 'select', 'label' => false, 'options' => $point_lists)); ?>
+          <button class="js-button_11">レビューを書く</button></td>
     </tr>
-    <tr>
+    <tr class="js-hide_11">
       <td>シナリオレビュー</td>
       <td><?php echo $this->Form->input('scenario_review', array('type' => 'textarea', 'label' => false, 'cols' => 50, 'rows' => 10, 'class' => 'js-insert_area')); ?></td>
     </tr>
     <tr>
       <td>音楽</td>
-      <td><?php echo $this->Form->input('music_point', array('type' => 'select', 'label' => false, 'options' => $point_lists)); ?></td>
+      <td><?php echo $this->Form->input('music_point', array('type' => 'select', 'label' => false, 'options' => $point_lists)); ?>
+          <button class="js-button_12">レビューを書く</button></td>
     </tr>
-    <tr>
+    <tr class="js-hide_12">
       <td>音楽レビュー</td>
       <td><?php echo $this->Form->input('music_review', array('type' => 'textarea', 'label' => false, 'cols' => 50, 'rows' => 10, 'class' => 'js-insert_area')); ?></td>
     </tr>
     <tr>
       <td>キャラ</td>
-      <td><?php echo $this->Form->input('chara_point', array('type' => 'select', 'label' => false, 'options' => $point_lists)); ?></td>
+      <td><?php echo $this->Form->input('chara_point', array('type' => 'select', 'label' => false, 'options' => $point_lists)); ?>
+          <button class="js-button_13">レビューを書く</button></td>
     </tr>
-    <tr>
+    <tr class="js-hide_13">
       <td>キャラレビュー</td>
       <td><?php echo $this->Form->input('chara_review', array('type' => 'textarea', 'label' => false, 'cols' => 50, 'rows' => 10, 'class' => 'js-insert_area')); ?></td>
     </tr>
     <tr>
       <td>絵</td>
-      <td><?php echo $this->Form->input('still_point', array('type' => 'select', 'label' => false, 'options' => $point_lists)); ?></td>
+      <td><?php echo $this->Form->input('still_point', array('type' => 'select', 'label' => false, 'options' => $point_lists)); ?>
+          <button class="js-button_14">レビューを書く</button></td>
     </tr>
-    <tr>
+    <tr class="js-hide_14">
       <td>絵レビュー</td>
       <td><?php echo $this->Form->input('still_review', array('type' => 'textarea', 'label' => false, 'cols' => 50, 'rows' => 10, 'class' => 'js-insert_area')); ?></td>
     </tr>
     <tr>
       <td>システム</td>
-      <td><?php echo $this->Form->input('config_point', array('type' => 'select', 'label' => false, 'options' => $point_lists)); ?></td>
+      <td><?php echo $this->Form->input('config_point', array('type' => 'select', 'label' => false, 'options' => $point_lists)); ?>
+          <button class="js-button_15">レビューを書く</button></td>
     </tr>
-    <tr>
+    <tr class="js-hide_15">
       <td>システムレビュー</td>
       <td><?php echo $this->Form->input('config_review', array('type' => 'textarea', 'label' => false, 'cols' => 50, 'rows' => 10, 'class' => 'js-insert_area')); ?></td>
     </tr>
