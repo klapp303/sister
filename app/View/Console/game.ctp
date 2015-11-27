@@ -109,35 +109,37 @@
       'last' => '＞' //最終ページへのリンク
   )); ?>
 
-  <table class="detail-list-min">
+<div class="detail-list-scr">
+  <table class="tbl-list_game">
     <tr><th class="tbl-num">id<?php echo $this->Paginator->sort('Game.id', '▼'); ?></th>
-        <th>タイトル<?php echo $this->Paginator->sort('Game.title', '▼'); ?></th>
-        <th>メーカー<?php echo $this->Paginator->sort('Maker.title', '▼'); ?></th>
-        <th class="tbl-date_game">発売日<?php echo $this->Paginator->sort('Game.release_date', '▼'); ?></th>
-        <th class="tbl-num_game">評価<?php echo $this->Paginator->sort('Game.point', '▼'); ?></th>
-        <th class="tbl-num_game">シナ<br>リオ<?php echo $this->Paginator->sort('Game.scenario_point', '▼'); ?></th>
-        <th class="tbl-num_game">音楽<?php echo $this->Paginator->sort('Game.music_point', '▼'); ?></th>
-        <th class="tbl-num_game">キャラ<br>　　<?php echo $this->Paginator->sort('Game.chara_point', '▼'); ?></th>
-        <th class="tbl-num_game">&nbsp;絵<?php echo $this->Paginator->sort('Game.still_point', '▼'); ?></th>
-        <th class="tbl-num_game">シス<br>テム<?php echo $this->Paginator->sort('Game.config_point', '▼'); ?></th>
-        <th class="tbl-ico">状態</th>
+        <th class="tbl-title_game">タイトル<?php echo $this->Paginator->sort('Game.title', '▼'); ?><br>
+            メーカー<?php echo $this->Paginator->sort('Maker.title', '▼'); ?></th>
+        <th class="tbl-date_game">状態　<br>
+                                  発売日<?php echo $this->Paginator->sort('Game.release_date', '▼'); ?></th>
+        <th class="tbl-num_game">評価<?php echo $this->Paginator->sort('Game.point', '▼'); ?><br>
+                                 シナ<br>リオ<?php echo $this->Paginator->sort('Game.scenario_point', '▼'); ?></th>
+        <th class="tbl-num_game">音楽<?php echo $this->Paginator->sort('Game.music_point', '▼'); ?><br>
+                                 キャラ<br>　　<?php echo $this->Paginator->sort('Game.chara_point', '▼'); ?></th>
+        <th class="tbl-num_game">&nbsp;絵<?php echo $this->Paginator->sort('Game.still_point', '▼'); ?><br>
+                                 シス<br>テム<?php echo $this->Paginator->sort('Game.config_point', '▼'); ?></th>
         <th class="tbl-act_game">action</th></tr>
     
     <?php foreach ($game_lists AS $game_list) { ?>
     <tr><td class="tbl-num"><?php echo $game_list['Game']['id']; ?></td>
-        <td><?php echo $game_list['Game']['title']; ?></td>
-        <td><?php echo $game_list['Maker']['title']; ?></td>
-        <td class="tbl-date_game"><?php echo $game_list['Game']['release_date']; ?></td>
-        <td class="tbl-num_game"><?php echo $game_list['Game']['point']; ?></td>
-        <td class="tbl-num_game"><?php echo $game_list['Game']['scenario_point']; ?></td>
-        <td class="tbl-num_game"><?php echo $game_list['Game']['music_point']; ?></td>
-        <td class="tbl-num_game"><?php echo $game_list['Game']['chara_point']; ?></td>
-        <td class="tbl-num_game"><?php echo $game_list['Game']['still_point']; ?></td>
-        <td class="tbl-num_game"><?php echo $game_list['Game']['config_point']; ?></td>
-        <td class="tbl-ico"><?php if ($game_list['Game']['publish'] == 0) {echo '<span class="icon-false">非公開</span>';}
-                              elseif ($game_list['Game']['publish'] == 1) {echo '<span class="icon-true">公開</span>';} ?></td>
+        <td><?php echo $game_list['Game']['title']; ?><br>
+            （<?php echo $game_list['Maker']['title']; ?>）</td>
+        <td class="tbl-date_game"><?php if ($game_list['Game']['publish'] == 0) {echo '<span class="icon-false">非公開</span>';}
+                                    elseif ($game_list['Game']['publish'] == 1) {echo '<span class="icon-true">公開</span>';} ?><br>
+                                  <?php echo $game_list['Game']['release_date']; ?></td>
+        <td class="tbl-num_game"><?php echo $game_list['Game']['point']; ?><br>
+                                 <?php echo $game_list['Game']['scenario_point']; ?></td>
+        <td class="tbl-num_game"><?php echo $game_list['Game']['music_point']; ?><br>
+                                 <?php echo $game_list['Game']['chara_point']; ?></td>
+        <td class="tbl-num_game"><?php echo $game_list['Game']['still_point']; ?><br>
+                                 <?php echo $game_list['Game']['config_point']; ?></td>
         <td class="tbl-act_game"><?php echo $this->Html->link('レビューの確認', '/game/erg/'.$game_list['Game']['id'], array('target' => '_blank')); ?><br>
-                                  <?php echo $this->Html->link('修正', '/console/game/edit/'.$game_list['Game']['id']); ?>
-                                  <?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'game_delete', $game_list['Game']['id']), null, '本当に#'.$game_list['Game']['id'].'を削除しますか'); ?></td></tr>
+                                 <?php echo $this->Html->link('修正', '/console/game/edit/'.$game_list['Game']['id']); ?>
+                                 <?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'game_delete', $game_list['Game']['id']), null, '本当に#'.$game_list['Game']['id'].'を削除しますか'); ?></td></tr>
     <?php } ?>
   </table>
+</div>

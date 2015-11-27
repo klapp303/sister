@@ -69,16 +69,37 @@
 }
 
 /* gameページ用 */
+.detail-list-scr {
+    overflow-x: scroll;
+}
+
+.tbl-list_game {
+    width: 720px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.tbl-list_game >tbody >tr >th,
+.tbl-list_game >tbody >tr >td {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.tbl-title_game {
+    width: 200px;
+}
+
 .tbl-date_game {
     width: 70px;
 }
 
 .tbl-num_game {
     width: 50px;
+    text-align: left;
 }
 
 .tbl-act_game {
-    width: 100px;
+    width: 120px;
 }
 
 .js-hide_11, .js-hide_12, .js-hide_13,
