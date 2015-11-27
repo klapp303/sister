@@ -1,4 +1,32 @@
 @charset "utf-8";
+/* コンソールTOPページ用 */
+.tbl-csl_top {
+    width: 540px;
+    margin-bottom: 30px!important;
+    border-collapse: collapse;
+}
+
+.tbl-csl_top >tbody >tr >th,
+.tbl-csl_top >tbody >tr >td {
+    border: 1px solid #000000;
+}
+
+.tbl-csl_top >tbody >tr >td {
+    background-color: #F5F5FF;
+}
+
+.tbl-num_top {
+    width: 80px;
+}
+
+td.tbl-num_top {
+    text-align: right;
+}
+
+.tbl-date_top {
+    width: 180px;
+}
+
 /* diaryページ用 */
 .tbl-act_diary {
     width: 100px;

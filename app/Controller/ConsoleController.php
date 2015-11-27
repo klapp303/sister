@@ -81,6 +81,42 @@ class ConsoleController extends AppController {
   }
 
   public function index() {
+      //ダッシュボード用（件数取得）
+      $this->set('comment_count', $this->SisterComment->find('count'));
+      $this->set('comment_p_count', $this->SisterComment->find('count', array('conditions' => array('SisterComment.publish' => 1))));
+      
+      $this->set('banner_count', $this->Banner->find('count'));
+      $this->set('banner_p_count', $this->Banner->find('count', array('conditions' => array('Banner.publish' => 1))));
+      
+      $this->set('game_count', $this->Game->find('count'));
+      $this->set('game_p_count', $this->Game->find('count', array('conditions' => array('Game.publish' => 1))));
+      
+      $this->set('maker_count', $this->Maker->find('count'));
+      $this->set('maker_p_count', $this->Maker->find('count', array('conditions' => array('Maker.publish' => 1))));
+      
+      $this->set('diary_count', $this->Diary->find('count'));
+      $this->set('diary_p_count', $this->Diary->find('count', array('conditions' => array('Diary.publish' => 1))));
+      
+      $this->set('photo_count', $this->Photo->find('count'));
+      
+      //ダッシュボード用（最終更新）
+      $comment_last = $this->SisterComment->find('first', array('order' => array('SisterComment.modified' => 'desc')));
+      $this->set('comment_lastupdate', $comment_last['SisterComment']['modified']);
+      
+      $banner_last = $this->Banner->find('first', array('order' => array('Banner.modified' => 'desc')));
+      $this->set('banner_lastupdate', $banner_last['Banner']['modified']);
+      
+      $game_last = $this->Game->find('first', array('order' => array('Game.modified' => 'desc')));
+      $this->set('game_lastupdate', $game_last['Game']['modified']);
+      
+      $maker_last = $this->Maker->find('first', array('order' => array('Maker.modified' => 'desc')));
+      $this->set('maker_lastupdate', $maker_last['Maker']['modified']);
+      
+      $diary_last = $this->Diary->find('first', array('order' => array('Diary.modified' => 'desc')));
+      $this->set('diary_lastupdate', $diary_last['Diary']['modified']);
+      
+      $photo_last = $this->Photo->find('first', array('order' => array('Photo.modified' => 'desc')));
+      $this->set('photo_lastupdate', $photo_last['Photo']['modified']);
   }
 
   public function diary() {
