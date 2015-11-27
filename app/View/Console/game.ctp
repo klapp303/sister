@@ -83,6 +83,14 @@
       <td>システムレビュー</td>
       <td><?php echo $this->Form->input('config_review', array('type' => 'textarea', 'label' => false, 'cols' => 50, 'rows' => 10, 'class' => 'js-insert_area')); ?></td>
     </tr>
+    <tr>
+      <td>評価</td>
+      <td><button class="js-button_16">レビューを書く</button></td>
+    </tr>
+    <tr class="js-hide_16">
+      <td>レビュー</td>
+      <td><?php echo $this->Form->input('review', array('type' => 'textarea', 'label' => false, 'cols' => 50, 'rows' => 10, 'class' => 'js-insert_area')); ?></td>
+    </tr>
     
     <tr>
       <td>状態</td>

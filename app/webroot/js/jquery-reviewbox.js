@@ -24,4 +24,9 @@ jQuery(function($) {
         $('.js-hide_15').toggle();
       });
     });
+    $(function() {
+      $('.js-button_16').click(function(){
+        $('.js-hide_16').toggle();
+      });
+    });
 });
