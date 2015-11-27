@@ -24,6 +24,6 @@ jQuery(function($) {
         alert('画像ファイルを選んでください');
         return false;
       }
-      $('.js-insert_area').insertAtCaret('<img src="/sister/files/photo/' + img_name + '" alt="" class="img_diary">');
+      $('.js-insert_area').insertAtCaret('<img src="/files/photo/' + img_name + '" alt="" class="img_diary">');
     });
 });
