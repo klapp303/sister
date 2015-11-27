@@ -63,11 +63,11 @@ class TopController extends AppController {
       $information_lists = $this->Information->find('all', array(
           'conditions' => array(
               array('or' => array(
-                  'Information.date_from <' => date('Y-m-d'),
+                  'Information.date_from <=' => date('Y-m-d'),
                   'Information.date_from' => null
               )),
               array('or' => array(
-                  'Information.date_to >' => date('Y-m-d'),
+                  'Information.date_to >=' => date('Y-m-d'),
                   'Information.date_to' => null
               )),
               'Information.publish' => 1
@@ -78,7 +78,17 @@ class TopController extends AppController {
       
       //バナー用
       $banner_lists = $this->Banner->find('all', array(
-          'conditions' => array('Banner.publish' => 1),
+          'conditions' => array(
+              array('or' => array(
+                  'Banner.date_from <=' => date('Y-m-d'),
+                  'Banner.date_from' => null
+              )),
+              array('or' => array(
+                  'Banner.date_to >=' => date('Y-m-d'),
+                  'Banner.date_to' => null
+              )),
+              'Banner.publish' => 1
+          ),
           'order' => array('Banner.id' => 'desc')
       ));
       $this->set('banner_lists', $banner_lists);
