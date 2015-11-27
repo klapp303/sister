@@ -37,8 +37,7 @@
 
     echo $this->Html->script(array(
         'jquery-1.11.3.min',
-        'jquery-migrate-1.2.1.min',
-        'jquery-console_menu'
+        'jquery-migrate-1.2.1.min'
     ));
 
 		echo $this->fetch('meta');
