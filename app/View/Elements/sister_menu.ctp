@@ -48,7 +48,7 @@ jQuery(function($) {
       <li><?php echo $this->Html->link('モンハンメモ', '/game/mh/'); ?></li>
     </ul>
   </li>
-  <li><?php echo $this->Html->link('音楽', '#'); ?></li>
+  <li><?php echo $this->Html->link('音楽 etc', '#'); ?></li>
   <!--li class="js-menu_3 cursor-def"><span class="menu-title">音楽 etc</span>
     <ul class="menu-list-sub js-hide_3">
       <li><?php /*echo $this->Html->link('音楽レビュー', '#');*/ ?></li>
