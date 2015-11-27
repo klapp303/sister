@@ -43,7 +43,17 @@
     </tr>
     <tr>
       <td>公開終了日（任意）</td>
-      <td><?php echo $this->Form->input('date_to', array('type' => 'date', 'label' => false, 'dateFormat' => 'YMD', 'monthNames' => false, 'separator' => '/', 'maxYear' => date('Y')+1, 'minYear' => 2015)); ?></td>
+      <?php if (preg_match('#/console/banner/edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
+      <?php if ($this->request->data['Banner']['date_to'] == null) { //値がnull ?>
+      <td><?php echo $this->Form->input('date_to', array('type' => 'date', 'label' => false, 'dateFormat' => 'YMD', 'monthNames' => false, 'separator' => '/', 'maxYear' => date('Y')+1, 'minYear' => 2015, 'class' => 'js-input_date_to', 'disabled' => 'disabled')); ?>
+      <input type="checkbox" class="js-checkbox_date_to" checked="checked">null</td>
+      <?php } else { //値が!null ?>
+      <td><?php echo $this->Form->input('date_to', array('type' => 'date', 'label' => false, 'dateFormat' => 'YMD', 'monthNames' => false, 'separator' => '/', 'maxYear' => date('Y')+1, 'minYear' => 2015, 'class' => 'js-input_date_to')); ?>
+      <input type="checkbox" class="js-checkbox_date_to">null</td>
+      <?php }} else { //登録用 ?>
+      <td><?php echo $this->Form->input('date_to', array('type' => 'date', 'label' => false, 'dateFormat' => 'YMD', 'monthNames' => false, 'separator' => '/', 'maxYear' => date('Y')+1, 'minYear' => 2015, 'class' => 'js-input_date_to')); ?>
+      <input type="checkbox" class="js-checkbox_date_to">null</td>
+      <?php } ?>
     </tr>
     <tr>
       <td>状態</td>
