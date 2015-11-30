@@ -56,11 +56,12 @@ class DiaryController extends AppController {
   public function index() {
       $year = date('Y');
       $month = date('m');
+      $hidden_id = 4; //日記一覧では非表示にするジャンル
 
       //diaryページの日記一覧を設定
       $this->Paginator->settings = array(
           'limit' => 5,
-          'conditions' => array('Diary.publish' => 1),
+          'conditions' => array('Diary.publish' => 1, 'Diary.genre_id !=' => $hidden_id),
           'order' => array('Diary.date' => 'desc', 'Diary.id' => 'desc')
       );
       $diary_lists = $this->Paginator->paginate('Diary');
@@ -87,7 +88,8 @@ class DiaryController extends AppController {
             'conditions' => array(
                 'Diary.date >=' => date($this->request->params['year_id'].'-'.$this->request->params['month_id'].'-01 00:00:00'),
                 'Diary.date <=' => date($this->request->params['year_id'].'-'.$this->request->params['month_id'].'-31 23:59:59'),
-                'Diary.publish' => 1
+                'Diary.publish' => 1,
+                'Diary.genre_id !=' => $hidden_id
             ),
             'order' => array('Diary.date' => 'desc', 'Diary.id' => 'desc')
         ));
@@ -106,7 +108,8 @@ class DiaryController extends AppController {
             'conditions' => array(
                 'Diary.date >=' => date($this->request->params['year_id'].'-'.$this->request->params['month_id'].'-'.$this->request->params['date_id'].' 00:00:00'),
                 'Diary.date <=' => date($this->request->params['year_id'].'-'.$this->request->params['month_id'].'-'.$this->request->params['date_id'].' 23:59:59'),
-                'Diary.publish' => 1
+                'Diary.publish' => 1,
+                'Diary.genre_id !=' => $hidden_id
             ),
             'order' => array('Diary.date' => 'desc', 'Diary.id' => 'desc')
         ));
@@ -124,7 +127,8 @@ class DiaryController extends AppController {
           'conditions' => array(
               'Diary.date >=' => date($year.'-'.$month.'-01'),
               'Diary.date <=' => date($year.'-'.$month.'-31'),
-              'Diary.publish' => 1
+              'Diary.publish' => 1,
+              'Diary.genre_id !=' => $hidden_id
           ),
           'fields' => 'Diary.date'
       ));
@@ -171,6 +175,7 @@ class DiaryController extends AppController {
   public function genre() {
       $year = date('Y');
       $month = date('m');
+      $hidden_id = 4; //日記一覧では非表示にするジャンル
 
       //パラメータにgenre_idがあればジャンル別一覧ページを表示
       if (isset($this->request->params['genre_id']) == TRUE) {
@@ -199,7 +204,8 @@ class DiaryController extends AppController {
           'conditions' => array(
               'Diary.date >=' => date($year.'-'.$month.'-01'),
               'Diary.date <=' => date($year.'-'.$month.'-31'),
-              'Diary.publish' => 1
+              'Diary.publish' => 1,
+              'Diary.genre_id !=' => $hidden_id
           ),
           'fields' => 'Diary.date'
       ));
