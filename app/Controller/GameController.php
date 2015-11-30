@@ -110,7 +110,7 @@ class GameController extends AppController {
       if (isset($this->request->params['page']) == TRUE) {
         $this->render('/mh/'.$this->request->params['page']);
       } else {
-        $this->render('/mh/index/');
+        $this->render('/mh/index');
       }
   }
 }
