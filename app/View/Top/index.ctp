@@ -17,6 +17,7 @@
 </div>
 
 <div class="inform_top">
+  最終更新日<div class="inform-date"><?php echo $last_update; ?></div><hr>
   <?php foreach ($information_lists AS $information_list) {
     echo $information_list['Information']['title'].'<br><div class="inform-date">'.$information_list['Information']['date_from'].'</div>';
     echo '<hr>';

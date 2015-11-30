@@ -35,7 +35,7 @@ class TopController extends AppController {
  *
  * @var array
  */
-	public $uses = array('SisterComment', 'Information', 'Banner', 'Maker'); //使用するModel
+	public $uses = array('SisterComment', 'Information', 'Banner', 'Maker', 'Game', 'Diary'); //使用するModel
 
 /**
  * Displays a view
@@ -60,6 +60,31 @@ class TopController extends AppController {
       $this->set('sister_comment', $sister_comment);
 
       //お知らせ用
+      /* 最終更新日の取得ここから */
+      $last_update = '2014-11-28'; //サイト公開日を初期値に設定
+      $contents = array('Information', 'Banner'); //公開日を設定できるコンテンツ
+      foreach ($contents AS $content) {
+        $last_data = $this->$content->find('first', array(
+            'conditions' => array($content.'.date_from <=' => date('Y-m-d'), $content.'.publish' => 1),
+            'order' => array($content.'.date_from' => 'desc')
+        ));
+        if ($last_data) {
+          if ($last_update <= $last_data[$content]['date_from']) {$last_update = $last_data[$content]['date_from'];}
+        }
+      }
+      $articles = array('Game', 'Diary'); //作成日で管理する記事
+      foreach ($articles AS $article) {
+        $last_data = $this->$article->find('first', array(
+            'conditions' => array($article.'.created <=' => date('Y-m-d'), $article.'.publish' => 1),
+            'order' => array($article.'.created' => 'desc')
+        ));
+        if ($last_data) {
+          if ($last_update <= $last_data[$article]['created']) {$last_update = $last_data[$article]['created'];}
+        }
+      }
+      $last_update = mb_strimwidth($last_update, 0, 10);
+      $this->set('last_update', $last_update);
+      /* 最終更新部の取得ここまで */
       $information_lists = $this->Information->find('all', array(
           'conditions' => array(
               array('or' => array(
