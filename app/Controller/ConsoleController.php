@@ -396,6 +396,11 @@ class ConsoleController extends AppController {
         }
       } else {
         $id = $this->request->data['Information']['id'];
+        /* nullにチェック時の処理ここから */
+        if (isset($this->request->data['date_to']) == true && $this->request->data['date_to'] == 'on') {
+          $this->request->data['Information']['date_to'] = null;
+        }
+        /* nullにチェック時の処理ここまで */
         $this->Information->set($this->request->data); //postデータがあればModelに渡してvalidate
         if ($this->Information->validates()) { //validate成功の処理
           $this->Information->save($this->request->data); //validate成功でsave
@@ -564,6 +569,11 @@ class ConsoleController extends AppController {
         }
       } else {
         $id = $this->request->data['Banner']['id'];
+        /* nullにチェック時の処理ここから */
+        if (isset($this->request->data['date_to']) == true && $this->request->data['date_to'] == 'on') {
+          $this->request->data['Banner']['date_to'] = null;
+        }
+        /* nullにチェック時の処理ここまで */
         $this->Banner->set($this->request->data); //postデータがあればModelに渡してvalidate
         if ($this->Banner->validates()) { //validate成功の処理
           /* ファイルの保存ここから */

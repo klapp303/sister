@@ -36,9 +36,9 @@
       <?php if ($this->request->data['Information']['date_to'] == null) { //値がnull ?>
       <td><?php echo $this->Form->input('date_to', array('type' => 'date', 'label' => false, 'dateFormat' => 'YMD', 'monthNames' => false, 'separator' => '/', 'maxYear' => date('Y')+1, 'minYear' => 2015, 'class' => 'js-input_date_to', 'disabled' => 'disabled')); ?>
       <input type="checkbox" class="js-checkbox_date_to" checked="checked">null</td>
-      <?php } else { //値が!null ?>
+      <?php } else { //値が!nullではない ?>
       <td><?php echo $this->Form->input('date_to', array('type' => 'date', 'label' => false, 'dateFormat' => 'YMD', 'monthNames' => false, 'separator' => '/', 'maxYear' => date('Y')+1, 'minYear' => 2015, 'class' => 'js-input_date_to')); ?>
-      <input type="checkbox" class="js-checkbox_date_to">null</td>
+      <input type="checkbox" class="js-checkbox_date_to" name="date_to">null</td>
       <?php }} else { //登録用 ?>
       <td><?php echo $this->Form->input('date_to', array('type' => 'date', 'label' => false, 'dateFormat' => 'YMD', 'monthNames' => false, 'separator' => '/', 'maxYear' => date('Y')+1, 'minYear' => 2015, 'class' => 'js-input_date_to')); ?>
       <input type="checkbox" class="js-checkbox_date_to">null</td>
