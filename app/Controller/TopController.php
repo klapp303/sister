@@ -75,7 +75,7 @@ class TopController extends AppController {
       $articles = array('Game', 'Diary'); //作成日で管理する記事
       foreach ($articles AS $article) {
         $last_data = $this->$article->find('first', array(
-            'conditions' => array($article.'.created <=' => date('Y-m-d'), $article.'.publish' => 1),
+            'conditions' => array($article.'.created <=' => date('Y-m-d', strtotime('+1 day')), $article.'.publish' => 1),
             'order' => array($article.'.created' => 'desc')
         ));
         if ($last_data) {
