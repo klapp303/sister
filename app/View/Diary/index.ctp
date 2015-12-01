@@ -13,6 +13,11 @@
 <?php } ?>
 
 <?php if (isset($this->request->params['id']) == FALSE && isset($this->request->params['year_id']) == FALSE) { ?>
+  <?php if (isset($this->request->params['genre_id']) == TRUE) { //ジャンル別一覧時のページリンク ?>
+    <?php $this->Paginator->options(array(
+        'url' => array('controller' => 'Diary', 'action' => 'genre', 'genre_id' => $this->request->params['genre_id'])
+    )); ?>
+  <?php } ?>
 <?php echo $this->Paginator->numbers(array(
     'modulus' => 4, //現在ページから左右あわせてインクルードする個数
     'separator' => '|', //デフォルト値のセパレーター
