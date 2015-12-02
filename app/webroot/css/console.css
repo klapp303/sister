@@ -38,6 +38,22 @@ td.tbl-num_top {
 }
 
 /* photoページ用 */
+.detail-list-scr {
+    overflow-x: scroll;
+}
+
+.tbl-list_photo {
+    width: 720px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.tbl-list_photo >tbody >tr >th,
+.tbl-list_photo >tbody >tr >td {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 .tbl-tmb_photo {
     text-align: center;
     width: 120px;
