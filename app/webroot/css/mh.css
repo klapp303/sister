@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* コンテンツ説明文用 */
 .intro_mh {
-    margin: 0 20px 30px 20px;
+    margin: 0 20px 50px 20px;
 }
 
 /* ページリンク用 */
@@ -12,4 +12,27 @@
 
 .link-page >li {
     margin-bottom: 10px;
+}
+
+/* 画像用 */
+.img_mh {
+    width: 300px;
+}
+
+/* テキスト用 */
+.txt_mh {
+    margin-left: 20px;
+    margin-bottom: 50px;
+}
+
+/* startページ用 */
+.list_mh_start {
+    list-style-type: none;
+    margin-top: 0;
+    margin-bottom: 50px;
+}
+
+.list_mh_start >li {
+    float: left;
+    margin-right: 20px;
 }

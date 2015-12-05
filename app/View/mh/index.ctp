@@ -3,9 +3,10 @@
 
 <p class="intro_mh">
   最新作のMHワロスが 2015/11/28 に発売！<br>
-  製品版が出ない事には何も始まらないんです＞＜
+  主にワロスについての管理人的メモ。<br>
+  まとまったデータとかキークエとかは各Wikiへどうぞ(´ー｀)
 </p>
 
-<!--ul class="link-page">
-  <li--><!--?php echo $this->Html->link('⇨ モンハンタイマー', '/game/mh/timer/'); ?--><!--/li>
-</ul-->
+<ul class="link-page">
+  <li><?php echo $this->Html->link('⇨ MHX最初の20時間', '/game/mh/start/'); ?></li>
+</ul>
