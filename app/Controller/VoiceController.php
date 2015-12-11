@@ -65,8 +65,14 @@ class VoiceController extends AppController {
         // actorデータの取得
         $actor =$this->request->params['actor'];
         $Actor = ucfirst($actor);
-        $detail = $this->$Actor->find('first', array('conditions' => 1));
-        $this->set(compact('actor', 'Actor', 'detail'));
+        $detail = $this->$Actor->find('first', array(
+            'conditions' => array('id' => 1, 'publish' => 1)
+        ));
+        if ($detail) {
+          $this->set(compact('actor', 'Actor', 'detail'));
+        } else { //データがない場合
+          $this->redirect('/');
+        }
         // viewの設定
         $this->set('actor', $this->request->params['actor']);
         $this->render('voices');
@@ -92,7 +98,7 @@ class VoiceController extends AppController {
         // viewの設定
         $this->render('lists');
       } else {
-        //$this->redirect('/');
+        $this->redirect('/');
       }
   }
 }
