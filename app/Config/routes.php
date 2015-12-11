@@ -42,8 +42,11 @@
   Router::connect('/game/erg/:id',
           array('controller' => 'Game', 'action' => 'erg'),
           array('id' => '[0-9]+')); //idを数字のみに制限
-  
   Router::connect('/game/mh/:page', array('controller' => 'Game', 'action' => 'mh'));
+
+  Router::connect('/voice/:actor', array('controller' => 'Voice', 'action' => 'voice'));
+  Router::connect('/voice/:actor/:genre', array('controller' => 'Voice', 'action' => 'lists'));
+  Router::connect('/Voice/:actor/:genre/*', array('controller' => 'Voice', 'action' => 'lists')); //paginator用
 
   Router::connect('/diary/:id',
           array('controller' => 'Diary', 'action' => 'index'),

@@ -57,8 +57,8 @@ jQuery(function($) {
   </li-->
   <li class="js-menu_4 cursor-def"><span class="menu-title">声優 etc</span>
     <ul class="menu-list-sub js-hide_4">
-      <li><?php echo $this->Html->link('おとちん', '#'); ?></li>
-      <!--li><?php /*echo $this->Html->link('あやち', '#');*/ ?></li-->
+      <li><?php echo $this->Html->link('おとちん', '/voice/otochin/'); ?></li>
+      <!--li><?php /*echo $this->Html->link('あやち', '/voice/ayachi/');*/ ?></li-->
     </ul>
   </li>
   <li><?php echo $this->Html->link('ブログ', '/diary/'); ?></li>

@@ -1,0 +1,26 @@
+@charset "utf-8";
+/* コンテンツ説明文用 */
+.intro_voice {
+    margin: 0 20px 50px 20px;
+}
+
+/* ページリンク用 */
+.link-page {
+    list-style-type: none;
+    margin-bottom: 50px;
+}
+
+.link-page >li {
+    margin-bottom: 10px;
+}
+
+/* 画像用 */
+/*.img_voice {
+    width: 300px;
+}*/
+
+/* テキスト用 */
+/*.txt_voice {
+    margin-left: 20px;
+    margin-bottom: 50px;
+}*/

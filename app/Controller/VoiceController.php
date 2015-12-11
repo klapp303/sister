@@ -28,14 +28,14 @@ App::uses('AppController', 'Controller');
  * @package       app.Controller
  * @link http://book.cakephp.org/2.0/en/controllers/pages-controller.html
  */
-class GameController extends AppController {
+class VoiceController extends AppController {
 
 /**
  * This controller does not use a model
  *
  * @var array
  */
-	public $uses = array('Game'); //使用するModel
+	public $uses = array('Otochin'); //使用するModel
 
 /**
  * Displays a view
@@ -48,7 +48,7 @@ class GameController extends AppController {
   public $components = array('Paginator');
   public $paginate = array(
       'limit' => 20,
-      'order' => array('date' => 'desc')
+      'order' => array('id' => 'desc')
   );
 
   public function beforeFilter() {
@@ -60,33 +60,39 @@ class GameController extends AppController {
   /*public function index() {
   }*/
 
-  public function erg() {
-      $this->Paginator->settings = array(
-          'conditions' => array('Game.publish' => 1),
-          'order' => array('Game.title' => 'asc')
-      );
-      $game_lists = $this->Paginator->paginate('Game');
-      $this->set('game_lists', $game_lists);
-
-      if (isset($this->request->params['id']) == TRUE) { //パラメータにidがあれば詳細ページを表示
-        $game_detail = $this->Game->find('first', array(
-            'conditions' => array('Game.id' => $this->request->params['id'])
-        ));
-        if (!empty($game_detail)) { //データが存在する場合
-          $this->set('game_detail', $game_detail);
-          $this->render('review');
-        } else { //データが存在しない場合
-          $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
-        }
+  public function voice() {
+      if (isset($this->request->params['actor']) == TRUE) {
+        // actorデータの取得
+        $actor =$this->request->params['actor'];
+        $Actor = ucfirst($actor);
+        $detail = $this->$Actor->find('first', array('conditions' => 1));
+        $this->set(compact('actor', 'Actor', 'detail'));
+        // viewの設定
+        $this->set('actor', $this->request->params['actor']);
+        $this->render('voices');
+      } else {
+        $this->redirect('/');
       }
   }
 
-  public function mh() {
-      // viewの設定
-      if (isset($this->request->params['page']) == TRUE) {
-        $this->render('/mh/'.$this->request->params['page']);
+  public function lists() {
+      if (isset($this->request->params['actor']) == TRUE && isset($this->request->params['genre']) == TRUE) {
+        // よく使用するのでactor、genreを設定しておく
+        $actor = $this->request->params['actor'];
+        $Actor = ucfirst($actor);
+        $genre = $this->request->params['genre'];
+        $this->set(compact('actor', 'Actor', 'genre'));
+        // 出演作品一覧の取得
+        $this->Paginator->settings = array(
+            'conditions' => array($Actor.'.publish' => 1, 'genre' => $genre, 'id !=' => 1),
+            'order' => array($Actor.'.date_from' => 'desc')
+        );
+        ${'lists'} = $this->Paginator->paginate($Actor);
+        $this->set('lists', ${'lists'});
+        // viewの設定
+        $this->render('lists');
       } else {
-        $this->render('/mh/index');
+        //$this->redirect('/');
       }
   }
 }
