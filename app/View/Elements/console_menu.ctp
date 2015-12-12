@@ -37,8 +37,8 @@ jQuery(function($) {
       <li><?php echo $this->Html->link('エロゲレビューを書く', '/console/game/'); ?></li>
       <li><?php echo $this->Html->link('メーカーバナーの管理', '/console/maker/'); ?></li>
       <li><?php echo $this->Html->link('音楽レビューを書く', '/console/#/'); ?></li>
-      <li><?php echo $this->Html->link('おとちん情報の追加', '/console/#/'); ?></li>
-      <li><?php echo $this->Html->link('あやち情報の追加', '/console/#/'); ?></li>
+      <li><?php echo $this->Html->link('おとちん情報の追加', '/console/voice/otochin/'); ?></li>
+      <li><?php echo $this->Html->link('あやち情報の追加', '/console/voice/ayachi/'); ?></li>
     </ul>
   </li>
   <li class="js-menu_3 cursor-def"><span class="menu-title">ブログ管理</span>

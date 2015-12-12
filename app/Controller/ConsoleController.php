@@ -36,7 +36,7 @@ class ConsoleController extends AppController {
  *
  * @var array
  */
-	public $uses = array('Diary', 'DiaryGenre', 'Photo', 'Information', 'SisterComment', 'Banner', 'Link', 'Administrator', 'Game', 'Maker'); //使用するModel
+	public $uses = array('Diary', 'DiaryGenre', 'Photo', 'Information', 'SisterComment', 'Banner', 'Link', 'Administrator', 'Game', 'Maker', 'Otochin'); //使用するModel
 
 /**
  * Displays a view
@@ -974,6 +974,106 @@ class ConsoleController extends AppController {
           $this->Session->setFlash('削除できませんでした。', 'flashMessage');
         }
         $this->redirect('/console/maker/');
+      }
+  }
+
+  public function voice() {
+      if (isset($this->request->params['actor']) == TRUE) {
+        $actor = $this->request->params['actor'];
+        $Actor = ucfirst($actor);
+        $this->set(compact('actor', 'Actor'));
+        $this->Paginator->settings = array(
+            'limit' => 20,
+            'order' => array($Actor.'.date_from' => 'desc'),
+            'conditions' => array($Actor.'.id !=' => 1)
+        );
+        $product_lists = $this->Paginator->paginate($Actor);
+        $this->set('product_lists', $product_lists);
+        $this->render('voice');
+      }
+  }
+
+  public function voice_add() {
+      if ($this->request->is('post')) {
+        $name = array_keys($this->request->data);
+        $Actor = $name[0];
+        $actor = lcfirst($Actor);
+        $this->$Actor->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->$Actor->validates()) { //validate成功の処理
+          $this->$Actor->save($this->request->data); //validate成功でsave
+          if ($this->$Actor->save($this->request->data)) {
+            $this->Session->setFlash('作品を登録しました。', 'flashMessage');
+          } else {
+            $this->Session->setFlash('登録できませんでした。', 'flashMessage');
+          }
+        } else { //validate失敗の処理
+          $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+        }
+      }
+
+      $this->redirect('/console/voice/'.$actor);
+  }
+
+  public function voice_edit() {
+      if (isset($this->request->params['actor']) == TRUE) {
+        $actor = $this->request->params['actor'];
+        $Actor = ucfirst($actor);
+        $this->set(compact('actor', 'Actor'));
+        $this->Paginator->settings = array(
+            'limit' => 20,
+            'order' => array($Actor.'.date_from' => 'desc'),
+            'conditions' => array($Actor.'.id !=' => 1)
+        );
+        $product_lists = $this->Paginator->paginate($Actor);
+        $this->set('product_lists', $product_lists);
+      }
+
+      //出演作品の編集用
+      if (empty($this->request->data)) {
+        $id = $this->request->params['id'];
+        $this->request->data = $this->$Actor->findById($id); //postデータがなければ$idからデータを取得
+        if (!empty($this->request->data)) { //データが存在する場合
+          $this->set('id', $id); //viewに渡すために$idをセット
+        } else { //データが存在しない場合
+          $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+        }
+      } else {
+        $name = array_keys($this->request->data);
+        $Actor = $name[0];
+        $actor = lcfirst($Actor);
+        $id = $this->request->data[$Actor]['id'];
+        $this->$Actor->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->$Actor->validates()) { //validate成功の処理
+          $this->$Actor->save($this->request->data); //validate成功でsave
+          if ($this->$Actor->save($id)) {
+            $this->Session->setFlash('修正しました。', 'flashMessage');
+          } else {
+            $this->Session->setFlash('修正できませんでした。', 'flashMessage');
+          }
+          $this->redirect('/console/voice/'.$actor);
+        } else { //validate失敗の処理
+          $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+          $this->set('id', $this->request->data[$Actor]['id']); //viewに渡すために$idをセット
+        }
+      }
+      $this->render('voice');
+  }
+
+  public function voice_delete($id = null){
+      if (empty($id)) {
+        throw new NotFoundException(__('存在しないデータです。'));
+      }
+    
+      if ($this->request->is('post')) {
+        $actor = $this->request->params['pass'][1];
+        $Actor = ucfirst($actor);
+        $this->$Actor->Behaviors->enable('SoftDelete');
+        if ($this->$Actor->delete($id)) {
+          $this->Session->setFlash('削除しました。', 'flashMessage');
+        } else {
+          $this->Session->setFlash('削除できませんでした。', 'flashMessage');
+        }
+        $this->redirect('/console/voice/'.$actor);
       }
   }
 }
