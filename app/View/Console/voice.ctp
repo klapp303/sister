@@ -117,6 +117,9 @@
 
 <h3>出演作品一覧</h3>
 
+  <?php $this->Paginator->options(array(
+      'url' => array('controller' => 'Console', 'action' => 'voice', $actor)
+  )); ?>
   <?php echo $this->Paginator->numbers(array(
       'modulus' => 4, //現在ページから左右あわせてインクルードする個数
       'separator' => '|', //デフォルト値のセパレーター
