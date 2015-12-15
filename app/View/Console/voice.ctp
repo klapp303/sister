@@ -127,28 +127,30 @@
       'last' => '＞' //最終ページへのリンク
   )); ?>
 
-  <table class="detail-list-min">
+<div class="detail-list-scr">
+  <table class="tbl-list_voice">
     <tr><th class="tbl-num">id<?php echo $this->Paginator->sort($Actor.'.id', '▼'); ?></th>
-        <th class="tbl-date">日付<?php echo $this->Paginator->sort($Actor.'.date_from', '▼'); ?></th>
-        <th>作品名<?php echo $this->Paginator->sort($Actor.'.title', '▼'); ?></th>
-        <th>キャラ<?php echo $this->Paginator->sort($Actor.'.charactor', '▼'); ?></th>
+        <th class="tbl-title_voice">作品名<?php echo $this->Paginator->sort($Actor.'.title', '▼'); ?></th>
+        <th class="tbl-chara_voice">キャラ<?php echo $this->Paginator->sort($Actor.'.charactor', '▼'); ?></th>
+        <th class="tbl-date_voice">状態<br>
+                                   日付<?php echo $this->Paginator->sort($Actor.'.date_from', '▼'); ?></th>
+        <th class="tbl-ico">ジャンル</th>
         <th>備考</th>
-        <th>ジャンル</th>
-        <th class="tbl-ico">状態</th>
-        <th class="tbl-act_comment">action</th></tr>
+        <th class="tbl-act_voice">action</th></tr>
     
     <?php foreach ($product_lists AS $product_list) { ?>
     <tr><td class="tbl-num"><?php echo $product_list[$Actor]['id']; ?></td>
-        <td class="tbl-date"><?php echo $product_list[$Actor]['date_from']; ?></td>
-        <td><?php echo $product_list[$Actor]['title']; ?></td>
-        <td><?php echo $product_list[$Actor]['charactor']; ?></td>
+        <td class="tbl-title_voice"><?php echo $product_list[$Actor]['title']; ?></td>
+        <td class="tbl-chara_voice"><?php echo $product_list[$Actor]['charactor']; ?></td>
+        <td class="tbl-date_voice"><?php if ($product_list[$Actor]['publish'] == 0) {echo '<span class="icon-false">非公開</span>';}
+                                     elseif ($product_list[$Actor]['publish'] == 1) {echo '<span class="icon-true">公開</span>';} ?><br>
+                                   <?php echo $product_list[$Actor]['date_from']; ?></td>
+        <td class="tbl-ico"><?php if ($product_list[$Actor]['genre'] == 'anime') {echo 'アニメ';}
+                              elseif ($product_list[$Actor]['genre'] == 'game') {echo 'ゲーム';}
+                              elseif ($product_list[$Actor]['genre'] == 'other') {echo 'その他';} ?></td>
         <td><?php echo $product_list[$Actor]['note']; ?></td>
-        <td><?php if ($product_list[$Actor]['genre'] == 'anime') {echo 'アニメ';}
-              elseif ($product_list[$Actor]['genre'] == 'game') {echo 'ゲーム';}
-              elseif ($product_list[$Actor]['genre'] == 'other') {echo 'その他';} ?></td>
-        <td class="tbl-ico"><?php if ($product_list[$Actor]['publish'] == 0) {echo '<span class="icon-false">非公開</span>';}
-                              elseif ($product_list[$Actor]['publish'] == 1) {echo '<span class="icon-true">公開</span>';} ?></td>
-        <td class="tbl-act_comment"><?php echo $this->Html->link('修正', '/console/voice/'.$actor.'/edit/'.$product_list[$Actor]['id']); ?>
+        <td class="tbl-act_voice"><?php echo $this->Html->link('修正', '/console/voice/'.$actor.'/edit/'.$product_list[$Actor]['id']); ?>
                                   <?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'voice_delete', $product_list[$Actor]['id'], $actor), null, '本当に#'.$product_list[$Actor]['id'].'を削除しますか'); ?></td></tr>
     <?php } ?>
   </table>
+</div>

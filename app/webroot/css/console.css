@@ -27,6 +27,10 @@ td.tbl-num_top {
     width: 180px;
 }
 
+.detail-list-scr {/* scroll一覧用 */
+    overflow-x: scroll;
+}
+
 /* diaryページ用 */
 .tbl-act_diary {
     width: 100px;
@@ -113,10 +117,6 @@ td.tbl-num_top {
 }
 
 /* gameページ用 */
-.detail-list-scr {
-    overflow-x: scroll;
-}
-
 .tbl-list_game {
     width: 720px;
     margin-left: 20px;
@@ -176,6 +176,35 @@ td.tbl-num_top {
 
 .prof-list_voice >tbody >tr {
     text-align: center;
+}
+
+.tbl-list_voice {
+    width: 920px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.tbl-list_voice >tbody >tr >th,
+.tbl-list_voice >tbody >tr >td {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.tbl-title_voice {
+    width: 200px;
+}
+
+.tbl-chara_voice {
+    width: 120px;
+}
+
+.tbl-date_voice {
+    width: 80px;
+    text-align: center;
+}
+
+.tbl-act_voice {
+    width: 120px;
 }
 
 /* adminページ用 */
