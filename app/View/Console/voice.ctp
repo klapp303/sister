@@ -1,3 +1,52 @@
+<?php if (empty($profile) || $id == 1) { //プロフィール情報の場合 ?>
+<h3>プロフィール情報の登録</h3>
+
+  <table>
+    <?php if ($id == 1) { //編集用 ?>
+      <?php echo $this->Form->create($Actor, array( //使用するModel
+          'type' => 'put', //変更はput
+          'url' => array('controller' => 'console', 'action' => 'voice_edit'), //Controllerのactionを指定
+          'inputDefaults' => array('div' => '')
+          )
+      ); ?>
+      <?php echo $this->Form->input('id', array('type' => 'hidden', 'label' => false, 'value' => $id)); ?>
+    <?php } else { //登録用 ?>
+      <?php echo $this->Form->create($Actor, array( //使用するModel
+          'type' => 'post', //デフォルトはpost送信
+          'url' => array('controller' => 'console', 'action' => 'voice_add'), //Controllerのactionを指定
+          'inputDefaults' => array('div' => '')
+          )
+      ); ?>
+    <?php } ?><!-- form start -->
+    
+    <tr>
+      <td>名前</td>
+      <td><?php echo $this->Form->input('title', array('type' => 'text', 'label' => false, 'size' => 49)); ?></td>
+    </tr>
+    <tr>
+      <td>呼称</td>
+      <td><?php echo $this->Form->input('charactor', array('type' => 'text', 'label' => false, 'size' => 49)); ?></td>
+    </tr>
+    <tr>
+      <td>プロフィール</td>
+      <td><?php echo $this->Form->input('note', array('type' => 'textarea', 'label' => false, 'cols' => 50, 'rows' => 10)); ?></td>
+    </tr>
+    <tr>
+      <td>状態</td>
+      <td><?php echo $this->Form->input('publish', array('type' => 'select', 'label' => false, 'options' => array(0 => '非公開', 1 => '公開'))); ?></td>
+    </tr>
+    
+    <tr>
+      <td></td>
+      <td class="tbl-button"><?php if ($id == 1) { //編集用 ?>
+          <?php echo $this->Form->submit('変更する'); ?>
+        <?php } else { //登録用 ?>
+          <?php echo $this->Form->submit('登録する'); ?>
+        <?php } ?></td>
+    </tr>
+    <?php echo $this->Form->end(); ?><!-- form end -->
+  </table>
+<?php } else { //出演作品の場合 ?>
 <h3>出演作品の登録</h3>
 
   <table>
@@ -53,6 +102,18 @@
     </tr>
     <?php echo $this->Form->end(); ?><!-- form end -->
   </table>
+<?php } ?>
+
+<?php if (!empty($profile)) { ?>
+<h3>プロフィール情報</h3>
+
+  <table class="prof-list_voice">
+    <tr><td class="tbl-ico"><?php if ($profile[$Actor]['publish'] == 0) {echo '<span class="icon-false">非公開</span>';}
+                              elseif ($profile[$Actor]['publish'] == 1) {echo '<span class="icon-true">公開</span>';} ?></td>
+        <td><?php echo $this->Html->link('変更する', '/console/voice/'.$actor.'/edit/1'); ?></td>
+        <td><?php echo $this->Html->link('確認する', '/voice/'.$actor, array('target' => '_blank')); ?></td></tr>
+  </table>
+<?php } ?>
 
 <h3>出演作品一覧</h3>
 

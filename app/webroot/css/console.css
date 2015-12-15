@@ -169,6 +169,15 @@ td.tbl-num_top {
     max-height: 120px;
 }
 
+/* voiceページ用 */
+.prof-list_voice {
+    width: 300px;
+}
+
+.prof-list_voice >tbody >tr {
+    text-align: center;
+}
+
 /* adminページ用 */
 .tbl-act_admin {
     width: 50px;

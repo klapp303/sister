@@ -36,7 +36,7 @@ class ConsoleController extends AppController {
  *
  * @var array
  */
-	public $uses = array('Diary', 'DiaryGenre', 'Photo', 'Information', 'SisterComment', 'Banner', 'Link', 'Administrator', 'Game', 'Maker', 'Otochin'); //使用するModel
+	public $uses = array('Diary', 'DiaryGenre', 'Photo', 'Information', 'SisterComment', 'Banner', 'Link', 'Administrator', 'Game', 'Maker', 'Otochin', 'Ayachi'); //使用するModel
 
 /**
  * Displays a view
@@ -982,6 +982,13 @@ class ConsoleController extends AppController {
         $actor = $this->request->params['actor'];
         $Actor = ucfirst($actor);
         $this->set(compact('actor', 'Actor'));
+        /* データベースからプロフィール情報（id=1）の取得ここから */
+        $profile = $this->$Actor->find('first', array(
+            'conditions' => array($Actor.'.id' => 1)
+        ));
+        $id = null; //PHPエラー回避のため
+        $this->set(compact('profile', 'id'));
+        /* データベースからプロフィール情報（id=1）の取得ここまで */
         $this->Paginator->settings = array(
             'limit' => 20,
             'order' => array($Actor.'.date_from' => 'desc'),
@@ -1019,6 +1026,12 @@ class ConsoleController extends AppController {
         $actor = $this->request->params['actor'];
         $Actor = ucfirst($actor);
         $this->set(compact('actor', 'Actor'));
+        /* データベースからプロフィール情報（id=1）の取得ここから */
+        $profile = $this->$Actor->find('first', array(
+            'conditions' => array($Actor.'.id' => 1)
+        ));
+        $this->set('profile', $profile);
+        /* データベースからプロフィール情報（id=1）の取得ここまで */
         $this->Paginator->settings = array(
             'limit' => 20,
             'order' => array($Actor.'.date_from' => 'desc'),
