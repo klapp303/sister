@@ -70,7 +70,7 @@ class VoiceController extends AppController {
         ));
         if ($detail) {
           $this->set(compact('actor', 'Actor', 'detail'));
-        } else { //データがない場合
+        } else { //公開されたデータがない場合
           $this->redirect('/');
         }
         // viewの設定
@@ -88,6 +88,12 @@ class VoiceController extends AppController {
         $Actor = ucfirst($actor);
         $genre = $this->request->params['genre'];
         $this->set(compact('actor', 'Actor', 'genre'));
+        $detail = $this->$Actor->find('first', array(
+            'conditions' => array('id' => 1, 'publish' => 1)
+        ));
+        if (!$detail) { //公開されたデータがない場合
+          $this->redirect('/');
+        }
         // 出演作品一覧の取得
         $this->Paginator->settings = array(
             'conditions' => array($Actor.'.publish' => 1, 'genre' => $genre, 'id !=' => 1),
