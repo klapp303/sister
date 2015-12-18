@@ -791,7 +791,7 @@ class ConsoleController extends AppController {
       //メーカー選択肢用
       $maker_lists = $this->Maker->find('list', array(
           'fields' => 'title',
-          'order' => array('Maker.id' => 'asc')
+          'order' => array('Maker.title' => 'asc')
       ));
       $this->set('maker_lists', $maker_lists);
   }
@@ -825,7 +825,7 @@ class ConsoleController extends AppController {
       //メーカー選択肢用
       $maker_lists = $this->Maker->find('list', array(
           'fields' => 'title',
-          'order' => array('Maker.id' => 'asc')
+          'order' => array('Maker.title' => 'asc')
       ));
       $this->set('maker_lists', $maker_lists);
 
