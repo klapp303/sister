@@ -44,7 +44,7 @@
           <button type="button" class="js-button_11">レビューを書く</button></td>
     </tr>
     <tr class="js-hide_11">
-      <td>シナリオレビュー</td>
+      <td>シナリオ<br>レビュー</td>
       <td><?php echo $this->Form->input('scenario_review', array('type' => 'textarea', 'label' => false, 'cols' => 50, 'rows' => 10, 'class' => 'js-insert_area')); ?></td>
     </tr>
     <tr>
@@ -53,7 +53,7 @@
           <button type="button" class="js-button_12">レビューを書く</button></td>
     </tr>
     <tr class="js-hide_12">
-      <td>音楽レビュー</td>
+      <td>音楽<br>レビュー</td>
       <td><?php echo $this->Form->input('music_review', array('type' => 'textarea', 'label' => false, 'cols' => 50, 'rows' => 10, 'class' => 'js-insert_area')); ?></td>
     </tr>
     <tr>
@@ -62,7 +62,7 @@
           <button type="button" class="js-button_13">レビューを書く</button></td>
     </tr>
     <tr class="js-hide_13">
-      <td>キャラレビュー</td>
+      <td>キャラ<br>レビュー</td>
       <td><?php echo $this->Form->input('chara_review', array('type' => 'textarea', 'label' => false, 'cols' => 50, 'rows' => 10, 'class' => 'js-insert_area')); ?></td>
     </tr>
     <tr>
@@ -71,7 +71,7 @@
           <button type="button" class="js-button_14">レビューを書く</button></td>
     </tr>
     <tr class="js-hide_14">
-      <td>絵レビュー</td>
+      <td>絵<br>レビュー</td>
       <td><?php echo $this->Form->input('still_review', array('type' => 'textarea', 'label' => false, 'cols' => 50, 'rows' => 10, 'class' => 'js-insert_area')); ?></td>
     </tr>
     <tr>
@@ -80,7 +80,7 @@
           <button type="button" class="js-button_15">レビューを書く</button></td>
     </tr>
     <tr class="js-hide_15">
-      <td>システムレビュー</td>
+      <td>システム<br>レビュー</td>
       <td><?php echo $this->Form->input('config_review', array('type' => 'textarea', 'label' => false, 'cols' => 50, 'rows' => 10, 'class' => 'js-insert_area')); ?></td>
     </tr>
     <tr>
