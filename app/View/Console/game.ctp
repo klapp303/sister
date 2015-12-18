@@ -41,7 +41,7 @@
     <tr>
       <td>シナリオ</td>
       <td><?php echo $this->Form->input('scenario_point', array('type' => 'select', 'label' => false, 'options' => $point_lists)); ?>
-          <button class="js-button_11">レビューを書く</button></td>
+          <button type="button" class="js-button_11">レビューを書く</button></td>
     </tr>
     <tr class="js-hide_11">
       <td>シナリオレビュー</td>
@@ -50,7 +50,7 @@
     <tr>
       <td>音楽</td>
       <td><?php echo $this->Form->input('music_point', array('type' => 'select', 'label' => false, 'options' => $point_lists)); ?>
-          <button class="js-button_12">レビューを書く</button></td>
+          <button type="button" class="js-button_12">レビューを書く</button></td>
     </tr>
     <tr class="js-hide_12">
       <td>音楽レビュー</td>
@@ -59,7 +59,7 @@
     <tr>
       <td>キャラ</td>
       <td><?php echo $this->Form->input('chara_point', array('type' => 'select', 'label' => false, 'options' => $point_lists)); ?>
-          <button class="js-button_13">レビューを書く</button></td>
+          <button type="button" class="js-button_13">レビューを書く</button></td>
     </tr>
     <tr class="js-hide_13">
       <td>キャラレビュー</td>
@@ -68,7 +68,7 @@
     <tr>
       <td>絵</td>
       <td><?php echo $this->Form->input('still_point', array('type' => 'select', 'label' => false, 'options' => $point_lists)); ?>
-          <button class="js-button_14">レビューを書く</button></td>
+          <button type="button" class="js-button_14">レビューを書く</button></td>
     </tr>
     <tr class="js-hide_14">
       <td>絵レビュー</td>
@@ -77,7 +77,7 @@
     <tr>
       <td>システム</td>
       <td><?php echo $this->Form->input('config_point', array('type' => 'select', 'label' => false, 'options' => $point_lists)); ?>
-          <button class="js-button_15">レビューを書く</button></td>
+          <button type="button" class="js-button_15">レビューを書く</button></td>
     </tr>
     <tr class="js-hide_15">
       <td>システムレビュー</td>
@@ -85,7 +85,7 @@
     </tr>
     <tr>
       <td>評価</td>
-      <td><button class="js-button_16">レビューを書く</button></td>
+      <td><button type="button" class="js-button_16">レビューを書く</button></td>
     </tr>
     <tr class="js-hide_16">
       <td>レビュー</td>
