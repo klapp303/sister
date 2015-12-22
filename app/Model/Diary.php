@@ -29,7 +29,37 @@ class Diary extends AppModel {
   );
 
   public $filterArgs = array(
-      'title' => array('type' => 'like', 'field' => 'Diary.title'),
-      'text' => array('type' => 'like', 'field' => 'Diary.text')
+      /*'title' => array('type' => 'like', 'field' => 'Diary.title'),*/
+      /*'text' => array('type' => 'like', 'field' => 'Diary.text'),*/
+      'search_word' => array('type' => 'query', 'method' => 'multiWordSearch')
   );
+
+  //マルチ検索のフィルタ設定
+  public function multiWordSearch($data = array()) {
+      $keyword = mb_convert_kana($data['search_word'], "s", "UTF-8");
+      $keywords = explode(' ', $keyword);
+      
+      if (count($keywords) < 2) {
+        $conditions = array(
+            'OR' => array(
+                //検索対象のフィールドを設定
+                $this->alias.'.title LIKE' => '%' . $keyword . '%',
+                $this->alias.'.text LIKE' => '%' . $keyword . '%'
+            )
+        );
+      }else{
+        $conditions['AND'] = array();
+        foreach ($keywords as $count => $keyword) {
+          $condition = array(
+              'OR' => array(
+                  //検索対象のフィールドを設定
+                  $this->alias.'.title LIKE' => '%' . $keyword . '%',
+                  $this->alias.'.text LIKE' => '%' . $keyword . '%'
+              )
+          );
+          array_push($conditions['AND'], $condition);
+        }
+      }
+      return $conditions;
+  }
 }

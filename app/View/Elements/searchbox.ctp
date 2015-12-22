@@ -7,7 +7,7 @@
       )
   ); ?>
   
-  <?php echo $this->Form->input('Diary.text', array('type' => 'text')); ?>
+  <?php echo $this->Form->input('search_word', array('type' => 'text', 'label' => '日記検索')); ?>
   
   <?php echo $this->Form->submit('検索する'); ?>
   <?php echo $this->Form->end(); ?>
