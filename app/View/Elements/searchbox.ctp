@@ -1,4 +1,3 @@
-<!-- 未使用 -->
 <div id="searchbox" class="side-menu_block">
   <?php echo $this->Form->create('Diary', array( //使用するModel
       'type' => 'post', //デフォルトはpost送信
