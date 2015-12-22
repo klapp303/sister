@@ -7,7 +7,7 @@ App::uses('AppModel', 'Model');
  */
 class Diary extends AppModel {
   public $useTable = 'diaries';
-  public $actsAs = array('SoftDelete'/*, 'Search.Searchable'*/);
+  public $actsAs = array('SoftDelete', 'Search.Searchable');
 
   public $belongsTo = array(
       'DiaryGenre' => array(
@@ -28,8 +28,8 @@ class Diary extends AppModel {
       )
   );
 
-  /*public $filtetArgs = array(
-      'id' => array('type' => 'value'),
-      'title' => array('type' => 'value')
-  );*/
+  public $filterArgs = array(
+      'title' => array('type' => 'like', 'field' => 'Diary.title'),
+      'text' => array('type' => 'like', 'field' => 'Diary.text')
+  );
 }

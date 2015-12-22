@@ -24,7 +24,7 @@ class Photo extends AppModel {
       )
   );
 
-  /*public $filtetArgs = array(
+  /*public $filterArgs = array(
       'id' => array('type' => 'value'),
       'title' => array('type' => 'value')
   );*/
