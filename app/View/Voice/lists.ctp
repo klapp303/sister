@@ -4,7 +4,7 @@
          elseif ($genre == 'other') {echo '作品';} ?>一覧</h3>
 
   <?php $this->Paginator->options(array(
-      'url' => array('controller' => 'Voice', 'action' => $actor, $genre)
+      'url' => array('controller' => 'voice', 'action' => $actor, $genre)
   )); ?>
   <?php echo $this->Paginator->numbers(array(
       'modulus' => 4, //現在ページから左右あわせてインクルードする個数
