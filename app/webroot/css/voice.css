@@ -24,3 +24,36 @@
     margin-left: 20px;
     margin-bottom: 50px;
 }*/
+
+/* 作品一覧用 */
+.voice-list {
+    width: 740px;
+}
+
+.voice-list >tbody >tr >th,
+.voice-list >tbody >tr >td {
+    border: 1px solid #000000;
+}
+
+.game-list >tbody >tr >th {
+    background-color: #F5F5FF;
+    text-align: left;
+}
+
+.tbl-date_voice {
+    width: 80px;
+    text-align: center;
+}
+
+.tbl-ico_voice {
+    width: 60px;
+    text-align: center;
+}
+
+.tbl-title_voice {
+    width: 300px;
+}
+
+.tbl-chara_voice {
+    width: 120px;
+}
