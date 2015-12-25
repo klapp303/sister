@@ -29,6 +29,12 @@
     <td class="tbl-num_top"><?php echo $maker_p_count; ?>件</td>
     <td class="tbl-date_top"><?php echo $maker_lastupdate; ?></td>
   </tr>
+  <tr>
+    <td>おとちん</td>
+    <td class="tbl-num_top"><?php echo $otochin_count; ?>件</td>
+    <td class="tbl-num_top"><?php echo $otochin_p_count; ?>件</td>
+    <td class="tbl-date_top"><?php echo $otochin_lastupdate; ?></td>
+  </tr>
 </table>
 <table class="tbl-csl_top">
   <tr>

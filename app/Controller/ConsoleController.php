@@ -94,6 +94,9 @@ class ConsoleController extends AppController {
       $this->set('maker_count', $this->Maker->find('count'));
       $this->set('maker_p_count', $this->Maker->find('count', array('conditions' => array('Maker.publish' => 1))));
       
+      $this->set('otochin_count', $this->Otochin->find('count', array('conditions' => array('Otochin.id !=' => 1))));
+      $this->set('otochin_p_count', $this->Otochin->find('count', array('conditions' => array('Otochin.publish' => 1, 'Otochin.id !=' => 1))));
+      
       $this->set('diary_count', $this->Diary->find('count'));
       $this->set('diary_p_count', $this->Diary->find('count', array('conditions' => array('Diary.publish' => 1))));
       
@@ -111,6 +114,9 @@ class ConsoleController extends AppController {
       
       $maker_last = $this->Maker->find('first', array('order' => array('Maker.modified' => 'desc')));
       $this->set('maker_lastupdate', $maker_last['Maker']['modified']);
+      
+      $maker_last = $this->Otochin->find('first', array('order' => array('Otochin.modified' => 'desc'), 'conditions' => array('Otochin.id !=' => 1)));
+      $this->set('otochin_lastupdate', $maker_last['Otochin']['modified']);
       
       $diary_last = $this->Diary->find('first', array('order' => array('Diary.modified' => 'desc')));
       $this->set('diary_lastupdate', $diary_last['Diary']['modified']);
