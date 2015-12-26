@@ -92,10 +92,12 @@
           array('controller' => 'Console', 'action' => 'maker_edit'),
           array('id' => '[0-9]+')); //idを数字のみに制限
   Router::connect('/console/voice/:actor', array('controller' => 'Console', 'action' => 'voice'));
-  Router::connect('/console/voice/:actor/*', array('controller' => 'Console', 'action' => 'voice')); //paginator用
+  //Router::connect('/console/voice/:actor/sort:Otochin.title/direction:desc', array('controller' => 'Console', 'action' => 'voice')); //paginator用
   Router::connect('/console/voice/:actor/edit/:id',
           array('controller' => 'Console', 'action' => 'voice_edit'),
           array('id' => '[0-9]+')); //idを数字のみに制限
+  /* 競合するので記述の順番を変更 */
+  Router::connect('/console/voice/:actor/*', array('controller' => 'Console', 'action' => 'voice')); //paginator用
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on
