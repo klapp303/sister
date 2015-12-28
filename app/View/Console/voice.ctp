@@ -1,3 +1,4 @@
+<?php echo $this->Html->script('jquery-select_select', array('inline' => FALSE)); ?>
 <?php if (empty($profile) || $id == 1) { //プロフィール情報の場合 ?>
 <h3>プロフィール情報の登録</h3>
 
@@ -81,11 +82,44 @@
     </tr>
     <tr>
       <td>ジャンル</td>
-      <td><?php echo $this->Form->input('genre', array('type' => 'select', 'label' => false, 'options' => array('anime' => 'アニメ', 'game' => 'ゲーム', 'other' => 'その他'))); ?></td>
+      <td><?php echo $this->Form->input('genre', array('type' => 'select', 'label' => false, 'id' => 'lv1Pulldown', 'options' => array('' => '', 'anime' => 'アニメ', 'game' => 'ゲーム', 'other' => 'その他'))); ?></td>
     </tr>
     <tr>
       <td>ハード（任意）</td>
-      <td><?php echo $this->Form->input('hard', array('type' => 'select', 'label' => false, 'options' => array('' => '', 'tv' => 'TV', 'ova' => 'OVA', 'pc' => 'PC', 'ps3' => 'PS3', 'ps2' => 'PS2', 'ps' => 'PS', 'psvita' => 'PSvita', 'psp' => 'PSP', 'xbox' => 'Xbox', 'app' => 'スマホ'))); ?></td>
+      <!--td><?php /*echo $this->Form->input('hard', array('type' => 'select', 'label' => false, 'options' => array('' => '', 'tv' => 'TV', 'ova' => 'OVA', 'pc' => 'PC', 'ps3' => 'PS3', 'ps2' => 'PS2', 'ps' => 'PS', 'psvita' => 'PSvita', 'psp' => 'PSP', 'xbox' => 'Xbox', 'app' => 'スマホ')));*/ ?></td-->
+      <?php if (preg_match('#/console/voice/'.$actor.'/edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
+      <td>
+        <select name="data[Otochin][hard]" id="lv2Pulldown" disabled="disabled">
+          <?php if (!$this->request->data[$Actor]['hard']) {echo '<option>ジャンルを選択してください</option>';} ?>
+          <option value="tv" class="panime" <?php if ($this->request->data[$Actor]['hard'] == 'tv') {echo 'selected="selected"';} ?>>TV</option>
+          <option value="ova" class="panime" <?php if ($this->request->data[$Actor]['hard'] == 'ova') {echo 'selected="selected"';} ?>>OVA</option>
+          <option value="pc" class="pgame" <?php if ($this->request->data[$Actor]['hard'] == 'pc') {echo 'selected="selected"';} ?>>PC</option>
+          <option value="ps3" class="pgame" <?php if ($this->request->data[$Actor]['hard'] == 'ps3') {echo 'selected="selected"';} ?>>PS3</option>
+          <option value="ps2" class="pgame" <?php if ($this->request->data[$Actor]['hard'] == 'ps2') {echo 'selected="selected"';} ?>>PS2</option>
+          <option value="ps" class="pgame" <?php if ($this->request->data[$Actor]['hard'] == 'ps') {echo 'selected="selected"';} ?>>PS</option>
+          <option value="psvita" class="pgame" <?php if ($this->request->data[$Actor]['hard'] == 'psvita') {echo 'selected="selected"';} ?>>PSvita</option>
+          <option value="psp" class="pgame" <?php if ($this->request->data[$Actor]['hard'] == 'psp') {echo 'selected="selected"';} ?>>PSP</option>
+          <option value="xbox" class="pgame" <?php if ($this->request->data[$Actor]['hard'] == 'xbox') {echo 'selected="selected"';} ?>>Xbox</option>
+          <option value="app" class="pgame" <?php if ($this->request->data[$Actor]['hard'] == 'app') {echo 'selected="selected"';} ?>>スマホ</option>
+        </select>
+      </td>
+      <?php } else { //登録用 ?>
+      <td>
+        <select name="data[Otochin][hard]" id="lv2Pulldown" disabled="disabled">
+          <option>ジャンルを選択してください</option>
+          <option value="tv" class="panime">TV</option>
+          <option value="ova" class="panime">OVA</option>
+          <option value="pc" class="pgame">PC</option>
+          <option value="ps3" class="pgame">PS3</option>
+          <option value="ps2" class="pgame">PS2</option>
+          <option value="ps" class="pgame">PS</option>
+          <option value="psvita" class="pgame">PSvita</option>
+          <option value="psp" class="pgame">PSP</option>
+          <option value="xbox" class="pgame">Xbox</option>
+          <option value="app" class="pgame">スマホ</option>
+        </select>
+      </td>
+      <?php } ?>
     </tr>
     <tr>
       <td>日付</td>
