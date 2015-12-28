@@ -25,6 +25,10 @@ class Otochin extends AppModel {
       'charactor' => array(
           'rule' => 'notBlank',
           'required' => 'create'
+      ),
+      'genre' => array(
+          'rule' => 'notBlank',
+          'required' => 'create'
       )
   );
 
