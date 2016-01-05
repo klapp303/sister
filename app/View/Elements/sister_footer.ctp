@@ -1,1 +1,1 @@
-<p class="foot-txt">copyright&#169 2015 <?php echo $this->Html->link('虹妹ｐｒｐｒ推進委員会', '/console/', array('target' => '_blank')); ?></p>
+<p class="foot-txt">copyright&#169 2015-2016 <?php echo $this->Html->link('虹妹ｐｒｐｒ推進委員会', '/console/', array('target' => '_blank')); ?></p>
