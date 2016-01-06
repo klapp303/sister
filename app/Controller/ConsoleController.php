@@ -94,8 +94,17 @@ class ConsoleController extends AppController {
       $this->set('maker_count', $this->Maker->find('count'));
       $this->set('maker_p_count', $this->Maker->find('count', array('conditions' => array('Maker.publish' => 1))));
       
-      $this->set('otochin_count', $this->Otochin->find('count', array('conditions' => array('Otochin.id !=' => 1))));
-      $this->set('otochin_p_count', $this->Otochin->find('count', array('conditions' => array('Otochin.publish' => 1, 'Otochin.id !=' => 1))));
+      $actors = array('otochin');
+      foreach ($actors AS $actor) {
+        $Actor = ucfirst($actor);
+        $this->set($actor.'_count', $this->$Actor->find('count', array('conditions' => array($Actor.'.id !=' => 1))));
+        $this->set($actor.'_p_count', $this->$Actor->find('count', array('conditions' => array($Actor.'.publish' => 1, $Actor.'.id !=' => 1))));
+        //コンテンツ自体が非公開の場合
+        ${$actor.'_prof'} = $this->$Actor->find('first', array('conditions' => array($Actor.'.id' => 1)));
+        if (isset(${$actor.'_prof'}) == true && ${$actor.'_prof'}[$Actor]['publish'] == 0) {
+          $this->set($actor.'_p_count', 0);
+        }
+      }
       
       $this->set('diary_count', $this->Diary->find('count'));
       $this->set('diary_p_count', $this->Diary->find('count', array('conditions' => array('Diary.publish' => 1))));
@@ -104,25 +113,25 @@ class ConsoleController extends AppController {
       
       //ダッシュボード用（最終更新）
       $comment_last = $this->SisterComment->find('first', array('order' => array('SisterComment.modified' => 'desc')));
-      $this->set('comment_lastupdate', $comment_last['SisterComment']['modified']);
+      $this->set('comment_lastupdate', ($comment_last)? $comment_last['SisterComment']['modified'] : null);
       
       $banner_last = $this->Banner->find('first', array('order' => array('Banner.modified' => 'desc')));
-      $this->set('banner_lastupdate', $banner_last['Banner']['modified']);
+      $this->set('banner_lastupdate', ($banner_last)? $banner_last['Banner']['modified'] : null);
       
       $game_last = $this->Game->find('first', array('order' => array('Game.modified' => 'desc')));
-      $this->set('game_lastupdate', $game_last['Game']['modified']);
+      $this->set('game_lastupdate', ($game_last)? $game_last['Game']['modified'] : null);
       
       $maker_last = $this->Maker->find('first', array('order' => array('Maker.modified' => 'desc')));
-      $this->set('maker_lastupdate', $maker_last['Maker']['modified']);
+      $this->set('maker_lastupdate', ($maker_last)? $maker_last['Maker']['modified'] : null);
       
-      $maker_last = $this->Otochin->find('first', array('order' => array('Otochin.modified' => 'desc'), 'conditions' => array('Otochin.id !=' => 1)));
-      $this->set('otochin_lastupdate', $maker_last['Otochin']['modified']);
+      $otochin_last = $this->Otochin->find('first', array('order' => array('Otochin.modified' => 'desc'), 'conditions' => array('Otochin.id !=' => 1)));
+      $this->set('otochin_lastupdate', ($otochin_last)? $otochin_last['Otochin']['modified'] : null);
       
       $diary_last = $this->Diary->find('first', array('order' => array('Diary.modified' => 'desc')));
-      $this->set('diary_lastupdate', $diary_last['Diary']['modified']);
+      $this->set('diary_lastupdate', ($diary_last)? $diary_last['Diary']['modified'] : null);
       
       $photo_last = $this->Photo->find('first', array('order' => array('Photo.modified' => 'desc')));
-      $this->set('photo_lastupdate', $photo_last['Photo']['modified']);
+      $this->set('photo_lastupdate', ($photo_last)? $photo_last['Photo']['modified'] : null);
   }
 
   public function diary() {
