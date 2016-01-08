@@ -20,6 +20,7 @@
 
 App::uses('AppController', 'Controller');
 App::uses('File', 'Utility'); //ファイルAPI用
+App::uses('Folder', 'Utility'); //フォルダAPI用
 
 /**
  * Static content controller
@@ -94,6 +95,10 @@ class ConsoleController extends AppController {
       $this->set('maker_count', $this->Maker->find('count'));
       $this->set('maker_p_count', $this->Maker->find('count', array('conditions' => array('Maker.publish' => 1))));
       
+      $folder = new Folder('../View/mh');
+      $mh = $folder->read();
+      $this->set('mh_count', count($mh[1])-1);
+      
       $actors = array('otochin');
       foreach ($actors AS $actor) {
         $Actor = ucfirst($actor);
@@ -124,8 +129,29 @@ class ConsoleController extends AppController {
       $maker_last = $this->Maker->find('first', array('order' => array('Maker.modified' => 'desc')));
       $this->set('maker_lastupdate', ($maker_last)? $maker_last['Maker']['modified'] : null);
       
-      $otochin_last = $this->Otochin->find('first', array('order' => array('Otochin.modified' => 'desc'), 'conditions' => array('Otochin.id !=' => 1)));
-      $this->set('otochin_lastupdate', ($otochin_last)? $otochin_last['Otochin']['modified'] : null);
+      $mh_last = $this->Information->find('first', array(
+          'conditions' => array(
+              array('or' => array(
+                  'Information.date_from <=' => date('Y-m-d'),
+                  'Information.date_from' => null
+              )),
+              /*array('or' => array(
+                  'Information.date_to >=' => date('Y-m-d'),
+                  'Information.date_to' => null
+              )),*/
+              'Information.publish' => 1,
+              'Information.title LIKE' => '%'.'モンハンメモ'.'%'
+          ),
+          'order' => array('Information.id' => 'desc')
+      ));
+      $this->set('mh_lastupdate', ($mh_last)? $mh_last['Information']['created'] : null);
+      
+      $actors = array('otochin');
+      foreach ($actors AS $actor) {
+        $Actor = ucfirst($actor);
+        ${$actor.'_last'} = $this->$Actor->find('first', array('order' => array($Actor.'.modified' => 'desc'), 'conditions' => array($Actor.'.id !=' => 1)));
+        $this->set($actor.'_lastupdate', (${$actor.'_last'})? ${$actor.'_last'}[$Actor]['modified'] : null);
+      }
       
       $diary_last = $this->Diary->find('first', array('order' => array('Diary.modified' => 'desc')));
       $this->set('diary_lastupdate', ($diary_last)? $diary_last['Diary']['modified'] : null);
