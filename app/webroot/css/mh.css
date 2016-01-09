@@ -36,3 +36,30 @@
     float: left;
     margin-right: 20px;
 }
+
+/* skillページ用 */
+.list_mh_skill {
+    list-style-type: none;
+    margin-top: 0;
+    margin-bottom: 50px;
+}
+
+.list_mh_skill >li {
+    float: left;
+    margin-right: 15px;
+}
+
+.name-skill {
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.txt-skill {
+    margin-left: 50px;
+}
+
+.star-skill {
+    text-align: center;
+    margin-top: 70px;
+    margin-right: 20px;
+}
