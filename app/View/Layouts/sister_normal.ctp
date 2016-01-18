@@ -42,6 +42,12 @@
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
+
+    /*if (env('SERVER_ADDR') !== '127.0.0.1') {
+      if (preg_match('#/login/#', $_SERVER['REQUEST_URI'])==0) {
+        echo $this->element('google_analytics');
+      }
+    }*/
 	?>
 </head>
 <body>
