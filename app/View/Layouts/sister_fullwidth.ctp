@@ -24,7 +24,7 @@
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php echo '虹妹ｐｒｐｒ'; ?>
+		<?php echo $this->element('common_tag', array('title' => 'normal')); ?>
 	</title>
 	<?php
 //		echo $this->Html->meta('icon');

@@ -24,7 +24,12 @@
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php echo '虹妹ｐｒｐｒ'; ?>
+    <?php if (preg_match('#/login/#', $_SERVER['REQUEST_URI'])) {
+      echo $this->element('common_tag', array('title' => 'short'));
+      echo ' -ログイン-';
+    } else {
+      echo $this->element('common_tag', array('title' => 'normal'));
+    } ?>
 	</title>
 	<?php
 //		echo $this->Html->meta('icon');

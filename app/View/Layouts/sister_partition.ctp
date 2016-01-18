@@ -24,7 +24,12 @@
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php echo '虹妹ｐｒｐｒ'; ?>
+    <?php if (isset($this->request['id']) == TRUE && isset($diary_lists[0]['Diary']['title']) == TRUE) {
+      echo $this->element('common_tag', array('title' => 'short'));
+      echo ' '.$diary_lists[0]['Diary']['title'];
+    } else {
+      echo $this->element('common_tag', array('title' => 'normal'));
+    } ?>
 	</title>
 	<?php
 //		echo $this->Html->meta('icon');
