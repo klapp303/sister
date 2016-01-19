@@ -1,65 +1,71 @@
-<script>
-jQuery(function($) {
-    $('.js-menu_1').hover(
-              function() {
-              $('.js-hide_1').show();
-              },
-              function() {
-              $('.js-hide_1').hide();
-              }
-      );
-    $('.js-menu_2').hover(
-            function() {
-              $('.js-hide_2').show();
-            },
-            function() {
-              $('.js-hide_2').hide();
-    }
-    );
-    $('.js-menu_3').hover(
-            function() {
-              $('.js-hide_3').show();
-            },
-            function() {
-              $('.js-hide_3').hide();
-            }
-    );
-    $('.js-menu_4').hover(
-            function() {
-              $('.js-hide_4').show();
-            },
-            function() {
-              $('.js-hide_4').hide();
-            }
-    );
-});
-</script>
+<?php
+  $array_menu = array(
+      1 => array(
+          'title' => 'ご案内',
+          'link' => '#',
+          'menu' => array(
+              1 => array('label' => 'このサイトについて', 'link' => '/information/'),
+              2 => array('label' => '管理人について', 'link' => '/author/'),
+              3 => array('label' => 'リンク', 'link' => '/link/')
+          )
+      ),
+      2 => array(
+          'title' => 'ゲーム etc',
+          'link' => '#',
+          'menu' => array(
+              1 => array('label' => 'エロゲレビュー', 'link' => '/game/erg/'),
+              2 => array('label' => 'モンハンメモ', 'link' => '/game/mh/')
+          )
+      ),
+      3 => array(
+          'title' => '音楽 etc',
+          'link' => '#',
+          'menu' => array(
+              //1 => array('label' => '音楽レビュー', 'link' => '#'),
+              //2 => array('label' => '作曲者からみる', 'link' => '#')
+          )
+      ),
+      4 => array(
+          'title' => '声優 etc',
+          'link' => '#',
+          'menu' => array(
+              1 => array('label' => 'おとちん', 'link' => '/voice/otochin/')
+          )
+      ),
+      5 => array(
+          'title' => 'ブログ',
+          'link' => '/diary/',
+          'menu' => array()
+      )
+  );
+?>
 <ul class="menu-list">
-  <li class="js-menu_1 cursor-def"><span class="menu-title">ご案内</span>
-    <ul class="menu-list-sub js-hide_1">
-      <li><?php echo $this->Html->link('このサイトについて', '/information/'); ?></li>
-      <li><?php echo $this->Html->link('管理人について', '/author/'); ?></li>
-      <li><?php echo $this->Html->link('リンク', '/link/'); ?></li>
-    </ul>
-  </li>
-  <li class="js-menu_2 cursor-def"><span class="menu-title">ゲーム etc</span>
-    <ul class="menu-list-sub js-hide_2">
-      <li><?php echo $this->Html->link('エロゲレビュー', '/game/erg/'); ?></li>
-      <li><?php echo $this->Html->link('モンハンメモ', '/game/mh/'); ?></li>
-    </ul>
-  </li>
-  <li><?php echo $this->Html->link('音楽 etc', '#'); ?></li>
-  <!--li class="js-menu_3 cursor-def"><span class="menu-title">音楽 etc</span>
-    <ul class="menu-list-sub js-hide_3">
-      <li><?php /*echo $this->Html->link('音楽レビュー', '#');*/ ?></li>
-      <li><?php /*echo $this->Html->link('作曲者からみる', '#');*/ ?></li>
-    </ul>
-  </li-->
-  <li class="js-menu_4 cursor-def"><span class="menu-title">声優 etc</span>
-    <ul class="menu-list-sub js-hide_4">
-      <li><?php echo $this->Html->link('おとちん', '/voice/otochin/'); ?></li>
-      <!--li><?php /*echo $this->Html->link('あやち', '/voice/ayachi/');*/ ?></li-->
-    </ul>
-  </li>
-  <li><?php echo $this->Html->link('ブログ', '/diary/'); ?></li>
+  <?php $i = 1; ?>
+  <?php foreach ($array_menu AS $menu) { ?>
+  <?php if ($menu['menu']) { ?>
+    <script>
+    jQuery(function($) {
+        var i = <?php echo json_encode($i, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
+        $('.js-menu_' + i).hover(
+                function() {
+                $('.js-hide_' + i).show();
+                },
+                function() {
+                $('.js-hide_' + i).hide();
+                }
+        );
+    });
+    </script>
+    <li class="js-menu_<?php echo $i; ?> cursor-def"><span class="menu-title"><?php echo $menu['title']; ?></span>
+      <ul class="menu-list-sub js-hide_<?php echo $i; ?>">
+        <?php foreach ($menu['menu'] AS $sub_menu) { ?>
+        <li><?php echo $this->Html->link($sub_menu['label'], $sub_menu['link']); ?></li>
+        <?php } ?>
+      </ul>
+    </li>
+  <?php } else { ?>
+    <li><?php echo $this->Html->link($menu['title'], $menu['link']); ?></li>
+  <?php } ?>
+  <?php $i++; ?>
+  <?php } ?>
 </ul>
