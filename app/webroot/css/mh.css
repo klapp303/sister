@@ -16,7 +16,8 @@
 
 /* 画像用 */
 .img_mh {
-    width: 300px;
+    max-width: 300px;
+    max-height: 300px;
 }
 
 /* テキスト用 */
