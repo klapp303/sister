@@ -10,4 +10,5 @@
 <ul class="link-page">
   <li><?php echo $this->Html->link('⇨ MHX最初の20時間', '/game/mh/start/'); ?></li>
   <li><?php echo $this->Html->link('⇨ 太刀使いによる見た目厨のためのスキル考察', '/game/mh/skill/'); ?></li>
+  <li><?php echo $this->Html->link('⇨ 太刀使いによる狩技使用感', '/game/mh/special/'); ?></li>
 </ul>
