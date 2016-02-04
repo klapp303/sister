@@ -237,11 +237,11 @@ class ConsoleController extends AppController {
       $this->render('diary');
   }
 
-  public function diary_delete($id = null){
+  public function diary_delete($id = null) {
       if (empty($id)) {
         throw new NotFoundException(__('存在しないデータです。'));
       }
-    
+      
       if ($this->request->is('post')) {
         $this->Diary->Behaviors->enable('SoftDelete');
         if ($this->Diary->delete($id)) {
@@ -251,6 +251,79 @@ class ConsoleController extends AppController {
         }
         $this->redirect('/console/diary/');
       }
+  }
+
+  public function diary_preview($id = null) {
+      if (empty($id)) {
+        throw new NotFoundException(__('存在しないデータです。'));
+      }
+      
+      $diary_lists = $this->Diary->find('all', array(
+          'conditions' => array(
+              'Diary.id' => $id
+          )
+      ));
+      if (!empty($diary_lists)) { //データが存在する場合
+        $this->set('diary_lists', $diary_lists);
+      } else { //データが存在しない場合
+        $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+      }
+
+      $year = date('Y');
+      $month = date('m');
+      $hidden_id = 4; //日記一覧では非表示にするジャンル
+      
+      //カレンダー用
+      $diary_cal_lists = $this->Diary->find('list', array( //任意月の日記リストを取得
+          'conditions' => array(
+              'Diary.date >=' => date($year.'-'.$month.'-01'),
+              'Diary.date <=' => date($year.'-'.$month.'-31'),
+              'Diary.publish' => 1,
+              'Diary.genre_id !=' => $hidden_id
+          ),
+          'fields' => 'Diary.date'
+      ));
+      foreach ($diary_cal_lists AS &$diary_cal_date) {
+        $diary_date = new DateTime($diary_cal_date);
+        $diary_cal_date = $diary_date->format('d');
+      }
+      $this->set('year', $year);
+      $this->set('month', $month);
+      $this->set('diary_cal_lists', $diary_cal_lists);
+      
+      //カレンダー前月来月リンク用
+      $prev_year = date('Y', strtotime($year.'-'.$month.'-01 -1 month'));
+      $prev_month = date('m', strtotime($year.'-'.$month.'-01 -1 month'));
+      $this->set('prev_year', $prev_year);
+      $this->set('prev_month', $prev_month);
+      $next_year = date('Y', strtotime($year.'-'.$month.'-01 +1 month'));
+      $next_month = date('m', strtotime($year.'-'.$month.'-01 +1 month'));
+      $this->set('next_year', $next_year);
+      $this->set('next_month', $next_month);
+
+      //ジャンル別メニュー用
+      $genre_lists = $this->DiaryGenre->find('all', array(
+          //'conditions' => array('DiaryGenre.id >' => 1) //その他ジャンルを除外
+      ));
+      $this->set('genre_lists', $genre_lists);
+      
+      //ジャンル別メニュー日記数用
+      foreach ($genre_lists AS $genre_list) {
+        ${'diary_counts_genre'.$genre_list['DiaryGenre']['id']} = $this->Diary->find('count', array(
+           'conditions' => array(
+               'Diary.genre_id' => $genre_list['DiaryGenre']['id'],
+               'Diary.publish' => 1
+           ) 
+        ));
+        $this->set('diary_counts_genre'.$genre_list['DiaryGenre']['id'], ${'diary_counts_genre'.$genre_list['DiaryGenre']['id']});
+      }
+      $diary_counts_all = $this->Diary->find('count', array( //すべてのジャンルの日記合計数を取得しておく
+          'conditions' => array('Diary.publish' => 1)
+      ));
+      $this->set('diary_counts_all', $diary_counts_all);
+
+      $this->layout = 'sister_partition';
+      $this->render('/Diary/index');
   }
 
   public function photo($mode = null) {
@@ -284,11 +357,11 @@ class ConsoleController extends AppController {
       $this->redirect('/console/photo/');
   }
 
-  public function photo_delete($id = null){
+  public function photo_delete($id = null) {
       if (empty($id)) {
         throw new NotFoundException(__('存在しないデータです。'));
       }
-    
+      
       if ($this->request->is('post')) {
         $this->Photo->Behaviors->enable('SoftDelete');
         if ($this->Photo->delete($id)) {
@@ -375,11 +448,11 @@ class ConsoleController extends AppController {
       $this->render('diary_genre');
   }
 
-  public function diary_genre_delete($id = null){
+  public function diary_genre_delete($id = null) {
       if (empty($id)) {
         throw new NotFoundException(__('存在しないデータです。'));
       }
-    
+      
       if ($this->request->is('post')) {
         $this->DiaryGenre->Behaviors->enable('SoftDelete');
         if ($this->DiaryGenre->delete($id)) {
@@ -459,11 +532,11 @@ class ConsoleController extends AppController {
       $this->render('information');
   }
 
-  public function information_delete($id = null){
+  public function information_delete($id = null) {
       if (empty($id)) {
         throw new NotFoundException(__('存在しないデータです。'));
       }
-    
+      
       if ($this->request->is('post')) {
         $this->Information->Behaviors->enable('SoftDelete');
         if ($this->Information->delete($id)) {
@@ -538,11 +611,11 @@ class ConsoleController extends AppController {
       $this->render('comment');
   }
 
-  public function comment_delete($id = null){
+  public function comment_delete($id = null) {
       if (empty($id)) {
         throw new NotFoundException(__('存在しないデータです。'));
       }
-    
+      
       if ($this->request->is('post')) {
         $this->SisterComment->Behaviors->enable('SoftDelete');
         if ($this->SisterComment->delete($id)) {
@@ -647,11 +720,11 @@ class ConsoleController extends AppController {
       $this->render('banner');
   }
 
-  public function banner_delete($id = null){
+  public function banner_delete($id = null) {
       if (empty($id)) {
         throw new NotFoundException(__('存在しないデータです。'));
       }
-    
+      
       if ($this->request->is('post')) {
         $this->Banner->Behaviors->enable('SoftDelete');
         if ($this->Banner->delete($id)) {
@@ -726,11 +799,11 @@ class ConsoleController extends AppController {
       $this->render('link');
   }
 
-  public function link_delete($id = null){
+  public function link_delete($id = null) {
       if (empty($id)) {
         throw new NotFoundException(__('存在しないデータです。'));
       }
-    
+      
       if ($this->request->is('post')) {
         $this->Link->Behaviors->enable('SoftDelete');
         if ($this->Link->delete($id)) {
@@ -805,11 +878,11 @@ class ConsoleController extends AppController {
       $this->render('admin');
   }*/
 
-  public function admin_delete($id = null){
+  public function admin_delete($id = null) {
       if (empty($id)) {
         throw new NotFoundException(__('存在しないデータです。'));
       }
-    
+      
       if ($this->request->is('post')) {
         $this->Administrator->Behaviors->enable('SoftDelete');
         if ($this->Administrator->delete($id)) {
@@ -898,11 +971,11 @@ class ConsoleController extends AppController {
       $this->render('game');
   }
 
-  public function game_delete($id = null){
+  public function game_delete($id = null) {
       if (empty($id)) {
         throw new NotFoundException(__('存在しないデータです。'));
       }
-    
+      
       if ($this->request->is('post')) {
         $this->Game->Behaviors->enable('SoftDelete');
         if ($this->Game->delete($id)) {
@@ -1002,11 +1075,11 @@ class ConsoleController extends AppController {
       $this->render('maker');
   }
 
-  public function maker_delete($id = null){
+  public function maker_delete($id = null) {
       if (empty($id)) {
         throw new NotFoundException(__('存在しないデータです。'));
       }
-    
+      
       if ($this->request->is('post')) {
         $this->Maker->Behaviors->enable('SoftDelete');
         if ($this->Maker->delete($id)) {
@@ -1113,11 +1186,11 @@ class ConsoleController extends AppController {
       $this->render('voice');
   }
 
-  public function voice_delete($id = null){
+  public function voice_delete($id = null) {
       if (empty($id)) {
         throw new NotFoundException(__('存在しないデータです。'));
       }
-    
+      
       if ($this->request->is('post')) {
         $actor = $this->request->params['pass'][1];
         $Actor = ucfirst($actor);

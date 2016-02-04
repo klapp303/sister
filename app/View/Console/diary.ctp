@@ -71,18 +71,20 @@
     <tr><th class="tbl-num">id<?php echo $this->Paginator->sort('Diary.id', '▼'); ?></th>
         <th>タイトル</th>
         <th class="tbl-date">日付<?php echo $this->Paginator->sort('Diary.date', '▼'); ?></th>
-        <th class="tbl-ico">ジャンル<br>
-                            状態</th>
+        <th class="tbl-ico_diary">ジャンル<br>
+                                  状態</th>
         <th class="tbl-act_diary">action</th></tr>
     
     <?php foreach ($diary_lists AS $diary_list) { ?>
     <tr><td class="tbl-num"><?php echo $diary_list['Diary']['id']; ?></td>
         <td><?php echo $diary_list['Diary']['title']; ?></td>
         <td class="tbl-date"><?php echo $diary_list['Diary']['date']; ?></td>
-        <td class="tbl-ico"><?php echo $diary_list['DiaryGenre']['title']; ?><br>
-                            <?php if ($diary_list['Diary']['publish'] == 0) {echo '<span class="icon-false">非公開</span>';}
-                              elseif ($diary_list['Diary']['publish'] == 1) {echo '<span class="icon-true">公開</span>';} ?></td>
-        <td class="tbl-act_diary"><?php echo $this->Html->link('日記の確認', '/diary/'.$diary_list['Diary']['id'], array('target' => '_blank')); ?><br>
+        <td class="tbl-ico_diary"><?php echo $diary_list['DiaryGenre']['title']; ?><br>
+                                  <?php if ($diary_list['Diary']['publish'] == 0) {echo '<span class="icon-false">非公開</span>';}
+                                    elseif ($diary_list['Diary']['publish'] == 1) {echo '<span class="icon-true icon-button">';
+                                                                                   echo $this->Html->link('公開', '/diary/'.$diary_list['Diary']['id'], array('target' => '_blank'));
+                                                                                   echo '</span>';} ?></td>
+        <td class="tbl-act_diary"><?php echo $this->Html->link('プレビュー', '/console/diary_preview/'.$diary_list['Diary']['id'], array('target' => '_blank')); ?><br>
                                   <?php echo $this->Html->link('修正', '/console/diary/edit/'.$diary_list['Diary']['id']); ?>
                                   <?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'diary_delete', $diary_list['Diary']['id']), null, '本当に#'.$diary_list['Diary']['id'].'を削除しますか'); ?></td></tr>
     <?php } ?>

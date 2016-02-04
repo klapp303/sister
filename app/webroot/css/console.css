@@ -32,8 +32,13 @@ td.tbl-num_top {
 }
 
 /* diaryページ用 */
+.tbl-ico_diary {
+    text-align: center;
+    width: 85px;
+}
+
 .tbl-act_diary {
-    width: 100px;
+    width: 80px;
 }
 
 /* diary_genreページ用 */
