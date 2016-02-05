@@ -50,7 +50,9 @@
 		echo $this->fetch('script');
 
     if (env('SERVER_ADDR') !== '127.0.0.1') {
-      echo $this->element('google_analytics');
+      if (preg_match('#/console/#', $_SERVER['REQUEST_URI'])==0) {
+        echo $this->element('google_analytics');
+      }
     }
 	?>
 </head>
