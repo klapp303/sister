@@ -88,6 +88,9 @@ class VoiceController extends AppController {
         $Actor = ucfirst($actor);
         $genre = $this->request->params['genre'];
         $this->set(compact('actor', 'Actor', 'genre'));
+        if ($genre !== 'anime' && $genre !== 'game' && $genre !== 'radio' && $genre !== 'music' && $genre !== 'other') {
+          $this->redirect('/');
+        }
         $detail = $this->$Actor->find('first', array(
             'conditions' => array('id' => 1, 'publish' => 1)
         ));
@@ -101,7 +104,6 @@ class VoiceController extends AppController {
         );
         ${'lists'} = $this->Paginator->paginate($Actor);
         $this->set('lists', ${'lists'});
-        // viewの設定
         $this->render('lists');
       } else {
         $this->redirect('/');

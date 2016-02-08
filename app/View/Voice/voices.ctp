@@ -21,5 +21,12 @@
 <ul class="link-page">
   <li><?php echo $this->Html->link('⇨ 出演作品（アニメ）', '/voice/'.$actor.'/anime/'); ?></li>
   <li><?php echo $this->Html->link('⇨ 出演作品（ゲーム）', '/voice/'.$actor.'/game/'); ?></li>
+  <li><?php echo $this->Html->link('⇨ 出演作品（ラジオ）', '/voice/'.$actor.'/radio/'); ?></li>
   <li><?php echo $this->Html->link('⇨ 出演作品（その他）', '/voice/'.$actor.'/other/'); ?></li>
+</ul>
+
+<h3>音楽リスト</h3>
+
+<ul class="link-page">
+  <li><?php echo $this->Html->link('⇨ ディスコグラフィ', '/voice/'.$actor.'/music/'); ?></li>
 </ul>
