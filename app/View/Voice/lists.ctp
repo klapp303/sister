@@ -18,7 +18,8 @@
   <table class="voice-list">
     <tr><th class="tbl-date_voice">日付<?php echo $this->Paginator->sort($Actor.'.date_from', '▼'); ?></th>
         <th class="tbl-ico_voice">ハード</th>
-        <th class="tbl-title_voice">作品名<?php echo $this->Paginator->sort($Actor.'.title', '▼'); ?></th>
+        <th class="tbl-title_voice<?php echo ($genre == 'music')? '-music': ''; ?>">
+          作品名<?php echo $this->Paginator->sort($Actor.'.title', '▼'); ?></th>
         <th class="tbl-chara_voice"><?php echo ($genre == 'music')? '名義': 'キャラクター'; ?>
                                     <?php echo $this->Paginator->sort($Actor.'.charactor', '▼'); ?></th>
         <th>備考</th></tr>
@@ -41,12 +42,13 @@
                                     elseif ($list[$Actor]['hard'] == 'sg') {echo 'シングル';}
                                     elseif ($list[$Actor]['hard'] == 'al') {echo 'アルバム';}
                                     else {echo 'その他';} ?></td>
-        <td class="tbl-title_voice"><?php if ($list[$Actor]['link_url']) { ?>
-                                      <a href="<?php echo $list[$Actor]['link_url']; ?>" target="_blank">
-                                        <?php echo $list[$Actor]['title']; ?></a>
-                                    <?php } else { ?>
-                                      <?php echo $list[$Actor]['title']; ?>
-                                    <?php } ?></td>
+        <td class="tbl-title_voice<?php echo ($genre == 'music')? '-music': ''; ?>">
+          <?php if ($list[$Actor]['link_url']) { ?>
+            <a href="<?php echo $list[$Actor]['link_url']; ?>" target="_blank">
+            <?php echo $list[$Actor]['title']; ?></a>
+          <?php } else { ?>
+            <?php echo $list[$Actor]['title']; ?>
+          <?php } ?></td>
         <td class="tbl-chara_voice"><?php echo $list[$Actor]['charactor']; ?></td>
         <td><?php echo $list[$Actor]['note']; ?></td></tr>
     <?php } ?>

@@ -46,12 +46,16 @@
 }
 
 .tbl-ico_voice {
-    width: 50px;
+    width: 60px;
     text-align: center;
 }
 
 .tbl-title_voice {
     width: 300px;
+}
+
+.tbl-title_voice-music {
+    width: 200px;
 }
 
 .tbl-chara_voice {
