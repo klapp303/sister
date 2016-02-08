@@ -1,4 +1,5 @@
 <?php echo $this->Html->script('jquery-select_select', array('inline' => FALSE)); ?>
+<?php echo $this->Html->script('jquery-checked', array('inline' => FALSE)); ?>
 <?php if (empty($profile) || $id == 1) { //プロフィール情報の場合 ?>
 <h3>プロフィール情報の登録</h3>
 
@@ -73,7 +74,7 @@
       <td><?php echo $this->Form->input('title', array('type' => 'text', 'label' => false, 'size' => 49)); ?></td>
     </tr>
     <tr>
-      <td>キャラ</td>
+      <td>キャラ/名義</td>
       <td><?php echo $this->Form->input('charactor', array('type' => 'text', 'label' => false, 'size' => 49)); ?></td>
     </tr>
     <tr>
@@ -82,11 +83,10 @@
     </tr>
     <tr>
       <td>ジャンル</td>
-      <td><?php echo $this->Form->input('genre', array('type' => 'select', 'label' => false, 'id' => 'lv1Pulldown', 'options' => array('' => '', 'anime' => 'アニメ', 'game' => 'ゲーム', 'other' => 'その他'))); ?></td>
+      <td><?php echo $this->Form->input('genre', array('type' => 'select', 'label' => false, 'id' => 'lv1Pulldown', 'options' => array('' => '', 'anime' => 'アニメ', 'game' => 'ゲーム', 'radio' => 'ラジオ', 'music' => '音楽', 'other' => 'その他'))); ?></td>
     </tr>
     <tr>
       <td>ハード（任意）</td>
-      <!--td><?php /*echo $this->Form->input('hard', array('type' => 'select', 'label' => false, 'options' => array('' => '', 'tv' => 'TV', 'ova' => 'OVA', 'pc' => 'PC', 'ps3' => 'PS3', 'ps2' => 'PS2', 'ps' => 'PS', 'psvita' => 'PSvita', 'psp' => 'PSP', 'xbox' => 'Xbox', 'app' => 'スマホ')));*/ ?></td-->
       <?php if (preg_match('#/console/voice/'.$actor.'/edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
       <td>
         <select name="data[Otochin][hard]" id="lv2Pulldown" disabled="disabled">
@@ -101,6 +101,9 @@
           <option value="psp" class="pgame" <?php if ($this->request->data[$Actor]['hard'] == 'psp') {echo 'selected="selected"';} ?>>PSP</option>
           <option value="xbox" class="pgame" <?php if ($this->request->data[$Actor]['hard'] == 'xbox') {echo 'selected="selected"';} ?>>Xbox</option>
           <option value="app" class="pgame" <?php if ($this->request->data[$Actor]['hard'] == 'app') {echo 'selected="selected"';} ?>>スマホ</option>
+          <option value="web" class="pradio" <?php if ($this->request->data[$Actor]['hard'] == 'web') {echo 'selected="selected"';} ?>>Web</option>
+          <option value="sg" class="pmusic" <?php if ($this->request->data[$Actor]['hard'] == 'sg') {echo 'selected="selected"';} ?>>シングル</option>
+          <option value="al" class="pmusic" <?php if ($this->request->data[$Actor]['hard'] == 'al') {echo 'selected="selected"';} ?>>アルバム</option>
         </select>
       </td>
       <?php } else { //登録用 ?>
@@ -117,16 +120,27 @@
           <option value="psp" class="pgame">PSP</option>
           <option value="xbox" class="pgame">Xbox</option>
           <option value="app" class="pgame">スマホ</option>
+          <option value="web" class="pradio">Web</option>
+          <option value="sg" class="pmusic">シングル</option>
+          <option value="al" class="pmusic">アルバム</option>
         </select>
       </td>
       <?php } ?>
     </tr>
     <tr>
       <td>日付</td>
-      <td><?php echo $this->Form->input('date_from', array('type' => 'date', 'label' => false, 'dateFormat' => 'YMD', 'monthNames' => false, 'separator' => '/', 'maxYear' => date('Y')+1, 'minYear' => 2000)); ?></td>
+      <td><?php echo $this->Form->input('date_from', array('type' => 'date', 'label' => false, 'dateFormat' => 'YMD', 'monthNames' => false, 'separator' => '/', 'maxYear' => date('Y')+1, 'minYear' => 2000)); ?> ～
+          <?php if (preg_match('#/console/voice/'.$actor.'/edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
+            <?php echo $this->Form->input('date_to', array('type' => 'date', 'label' => false, 'class' => 'js-input_date_to', 'dateFormat' => 'YMD', 'monthNames' => false, 'separator' => '/', 'maxYear' => 2038, 'minYear' => 2000, 'disabled' => ($this->request->data[$Actor]['date_to'] == null)? 'disabled': '')); ?>
+            <?php echo $this->Form->input('date_to_null', array('type' => 'checkbox', 'label' => false, 'class' => 'js-checkbox_date_to', 'checked' => ($this->request->data[$Actor]['date_to'] == null)? 'checked': '')); ?>null
+          <?php } else { //登録用 ?>
+            <?php echo $this->Form->input('date_to', array('type' => 'date', 'label' => false, 'class' => 'js-input_date_to', 'dateFormat' => 'YMD', 'monthNames' => false, 'separator' => '/', 'maxYear' => 2038, 'minYear' => 2000, 'disabled' => 'disabled')); ?>
+            <?php echo $this->Form->input('date_to_null', array('type' => 'checkbox', 'label' => false, 'class' => 'js-checkbox_date_to', 'checked' => 'checked')); ?>null
+          <?php } ?></td>
     </tr>
+    <tr><td></td><td><span class="txt-min">※放送中は終了日を 2038/01/19 に設定する</span></td></tr>
     <tr>
-      <td>リンクURL</td>
+      <td>リンクURL（任意）</td>
       <td><?php echo $this->Form->input('link_url', array('type' => 'text', 'label' => false, 'size' => 49)); ?></td>
     </tr>
     <tr>
@@ -173,7 +187,7 @@
   <table class="tbl-list_voice">
     <tr><th class="tbl-num">id<?php echo $this->Paginator->sort($Actor.'.id', '▼'); ?></th>
         <th class="tbl-title_voice">作品名<?php echo $this->Paginator->sort($Actor.'.title', '▼'); ?></th>
-        <th class="tbl-chara_voice">キャラ<?php echo $this->Paginator->sort($Actor.'.charactor', '▼'); ?></th>
+        <th class="tbl-chara_voice">キャラ/名義<?php echo $this->Paginator->sort($Actor.'.charactor', '▼'); ?></th>
         <th class="tbl-date_voice">状態<br>
                                    日付<?php echo $this->Paginator->sort($Actor.'.date_from', '▼'); ?></th>
         <th class="tbl-ico">ジャンル<br>
@@ -192,9 +206,13 @@
         <td class="tbl-chara_voice"><?php echo $product_list[$Actor]['charactor']; ?></td>
         <td class="tbl-date_voice"><?php if ($product_list[$Actor]['publish'] == 0) {echo '<span class="icon-false">非公開</span>';}
                                      elseif ($product_list[$Actor]['publish'] == 1) {echo '<span class="icon-true">公開</span>';} ?><br>
-                                   <?php echo $product_list[$Actor]['date_from']; ?></td>
+                                   <?php echo $product_list[$Actor]['date_from']; ?>
+                                   <?php if (@$product_list[$Actor]['date_to'] == '2038-01-19') {echo '<br>～now on air';}
+                                     elseif ($product_list[$Actor]['date_to']) {echo '<br>～'.$product_list[$Actor]['date_to'];} ?></td>
         <td class="tbl-ico"><?php if ($product_list[$Actor]['genre'] == 'anime') {echo 'アニメ';}
                               elseif ($product_list[$Actor]['genre'] == 'game') {echo 'ゲーム';}
+                              elseif ($product_list[$Actor]['genre'] == 'radio') {echo 'ラジオ';}
+                              elseif ($product_list[$Actor]['genre'] == 'music') {echo '音楽';}
                               elseif ($product_list[$Actor]['genre'] == 'other') {echo 'その他';} ?><br>
                             <?php if ($product_list[$Actor]['hard'] == 'tv') {echo 'TV';}
                               elseif ($product_list[$Actor]['hard'] == 'ova') {echo 'OVA';}
@@ -206,7 +224,9 @@
                               elseif ($product_list[$Actor]['hard'] == 'psp') {echo 'PSP';}
                               elseif ($product_list[$Actor]['hard'] == 'xbox') {echo 'Xbox';}
                               elseif ($product_list[$Actor]['hard'] == 'app') {echo 'スマホ';}
-                              elseif ($product_list[$Actor]['hard'] == null) {echo '';}
+                              elseif ($product_list[$Actor]['hard'] == 'web') {echo 'Web';}
+                              elseif ($product_list[$Actor]['hard'] == 'sg') {echo 'シングル';}
+                              elseif ($product_list[$Actor]['hard'] == 'al') {echo 'アルバム';}
                               else {echo 'その他';} ?></td>
         <td><?php echo $product_list[$Actor]['note']; ?></td>
         <td class="tbl-act_voice"><?php echo $this->Html->link('修正', '/console/voice/'.$actor.'/edit/'.$product_list[$Actor]['id']); ?>

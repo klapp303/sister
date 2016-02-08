@@ -1119,6 +1119,11 @@ class ConsoleController extends AppController {
         $name = array_keys($this->request->data);
         $Actor = $name[0];
         $actor = lcfirst($Actor);
+        /* checkedならばdate_toをnullにする処理ここから */
+        if ($this->request->data[$Actor]['date_to_null'] == 1) {
+          $this->request->data[$Actor]['date_to'] = null;
+        }
+        /* checkedならばdate_toをnullにする処理ここまで */
         $this->$Actor->set($this->request->data); //postデータがあればModelに渡してvalidate
         if ($this->$Actor->validates()) { //validate成功の処理
           $this->$Actor->save($this->request->data); //validate成功でsave
@@ -1169,6 +1174,11 @@ class ConsoleController extends AppController {
         $Actor = $name[0];
         $actor = lcfirst($Actor);
         $id = $this->request->data[$Actor]['id'];
+        /* checkedならばdate_toをnullにする処理ここから */
+        if ($this->request->data[$Actor]['date_to_null'] == 1) {
+          $this->request->data[$Actor]['date_to'] = null;
+        }
+        /* checkedならばdate_toをnullにする処理ここまで */
         $this->$Actor->set($this->request->data); //postデータがあればModelに渡してvalidate
         if ($this->$Actor->validates()) { //validate成功の処理
           $this->$Actor->save($this->request->data); //validate成功でsave
