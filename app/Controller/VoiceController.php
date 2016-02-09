@@ -35,7 +35,7 @@ class VoiceController extends AppController {
  *
  * @var array
  */
-	public $uses = array('Otochin'); //使用するModel
+	public $uses = array('Voice', 'Product'); //使用するModel
 
 /**
  * Displays a view
@@ -63,18 +63,17 @@ class VoiceController extends AppController {
   public function voice() {
       if (isset($this->request->params['actor']) == TRUE) {
         // actorデータの取得
-        $actor =$this->request->params['actor'];
-        $Actor = ucfirst($actor);
-        $detail = $this->$Actor->find('first', array(
-            'conditions' => array('id' => 1, 'publish' => 1)
+        $voice = $this->Voice->find('first', array(
+            'conditions' => array(
+                'Voice.system_name' => $this->request->params['actor'],
+                'Voice.publish' => 1
+            )
         ));
-        if ($detail) {
-          $this->set(compact('actor', 'Actor', 'detail'));
+        if ($voice) {
+          $this->set('voice', $voice);
         } else { //公開されたデータがない場合
           $this->redirect('/');
         }
-        // viewの設定
-        $this->set('actor', $this->request->params['actor']);
         $this->render('voices');
       } else {
         $this->redirect('/');
@@ -83,27 +82,32 @@ class VoiceController extends AppController {
 
   public function lists() {
       if (isset($this->request->params['actor']) == TRUE && isset($this->request->params['genre']) == TRUE) {
-        // よく使用するのでactor、genreを設定しておく
-        $actor = $this->request->params['actor'];
-        $Actor = ucfirst($actor);
         $genre = $this->request->params['genre'];
-        $this->set(compact('actor', 'Actor', 'genre'));
+        $this->set('genre', $genre);
         if ($genre !== 'anime' && $genre !== 'game' && $genre !== 'radio' && $genre !== 'music' && $genre !== 'other') {
           $this->redirect('/');
         }
-        $detail = $this->$Actor->find('first', array(
-            'conditions' => array('id' => 1, 'publish' => 1)
+        $voice = $this->Voice->find('first', array(
+            'conditions' => array(
+                'Voice.system_name' => $this->request->params['actor'],
+                'Voice.publish' => 1)
         ));
-        if (!$detail) { //公開されたデータがない場合
+        if ($voice) {
+          $this->set('voice', $voice);
+        } else { //公開されたデータがない場合
           $this->redirect('/');
         }
         // 出演作品一覧の取得
         $this->Paginator->settings = array(
-            'conditions' => array($Actor.'.publish' => 1, 'genre' => $genre, 'id !=' => 1),
-            'order' => array($Actor.'.date_from' => 'desc')
+            'conditions' => array(
+                'Product.voice_id' => $voice['Voice']['id'],
+                'Product.genre' => $this->request->params['genre'],
+                'Product.publish' => 1
+            ),
+            'order' => array('Product.date_from' => 'desc')
         );
-        ${'lists'} = $this->Paginator->paginate($Actor);
-        $this->set('lists', ${'lists'});
+        $lists = $this->Paginator->paginate('Product');
+        $this->set('lists', $lists);
         $this->render('lists');
       } else {
         $this->redirect('/');

@@ -3,10 +3,10 @@
 App::uses('AppModel', 'Model');
 
 /**
- * Otochin Model.
+ * Product Model.
  */
-class Otochin extends AppModel {
-  public $useTable = 'otochin';
+class Product extends AppModel {
+  public $useTable = 'products';
   public $actsAs = array(/*'SoftDelete', 'Search.Searchable'*/);
 
   /*public $belongsTo = array(

@@ -37,7 +37,7 @@ class ConsoleController extends AppController {
  *
  * @var array
  */
-	public $uses = array('Diary', 'DiaryGenre', 'Photo', 'Information', 'SisterComment', 'Banner', 'Link', 'Administrator', 'Game', 'Maker', 'Otochin', 'Ayachi'); //使用するModel
+	public $uses = array('Diary', 'DiaryGenre', 'Photo', 'Information', 'SisterComment', 'Banner', 'Link', 'Administrator', 'Game', 'Maker', 'Voice', 'Product'); //使用するModel
 
 /**
  * Displays a view
@@ -79,6 +79,11 @@ class ConsoleController extends AppController {
       parent::beforeFilter();
       $this->layout = 'console_fullwidth';
       //$this->Sample->Behaviors->disable('SoftDelete'); //SoftDeleteのデータも取得する
+
+      /* コンソールメニューの声優データ取得ここから */
+      $voice_lists = $this->Voice->find('all');
+      $this->set('voice_lists', $voice_lists);
+      /* コンソールメニューの声優データ取得ここまで */
   }
 
   public function index() {
@@ -99,7 +104,7 @@ class ConsoleController extends AppController {
       $mh = $folder->read();
       $this->set('mh_count', count($mh[1])-1);
       
-      $actors = array('otochin');
+      /*$actors = array('otochin');
       foreach ($actors AS $actor) {
         $Actor = ucfirst($actor);
         $this->set($actor.'_count', $this->$Actor->find('count', array('conditions' => array($Actor.'.id !=' => 1))));
@@ -109,7 +114,7 @@ class ConsoleController extends AppController {
         if (isset(${$actor.'_prof'}) == true && ${$actor.'_prof'}[$Actor]['publish'] == 0) {
           $this->set($actor.'_p_count', 0);
         }
-      }
+      }*/
       
       $this->set('diary_count', $this->Diary->find('count'));
       $this->set('diary_p_count', $this->Diary->find('count', array('conditions' => array('Diary.publish' => 1))));
@@ -146,12 +151,12 @@ class ConsoleController extends AppController {
       ));
       $this->set('mh_lastupdate', ($mh_last)? $mh_last['Information']['created'] : null);
       
-      $actors = array('otochin');
+      /*$actors = array('otochin');
       foreach ($actors AS $actor) {
         $Actor = ucfirst($actor);
         ${$actor.'_last'} = $this->$Actor->find('first', array('order' => array($Actor.'.modified' => 'desc'), 'conditions' => array($Actor.'.id !=' => 1)));
         $this->set($actor.'_lastupdate', (${$actor.'_last'})? ${$actor.'_last'}[$Actor]['modified'] : null);
-      }
+      }*/
       
       $diary_last = $this->Diary->find('first', array('order' => array('Diary.modified' => 'desc')));
       $this->set('diary_lastupdate', ($diary_last)? $diary_last['Diary']['modified'] : null);
@@ -1094,41 +1099,90 @@ class ConsoleController extends AppController {
   public function voice() {
       if (isset($this->request->params['actor']) == TRUE) {
         $actor = $this->request->params['actor'];
-        $Actor = ucfirst($actor);
-        $this->set(compact('actor', 'Actor'));
-        /* データベースからプロフィール情報（id=1）の取得ここから */
-        $profile = $this->$Actor->find('first', array(
-            'conditions' => array($Actor.'.id' => 1)
+        $this->set('actor', $actor);
+        /* データベースからプロフィール情報の取得ここから */
+        $profile = $this->Voice->find('first', array(
+            'conditions' => array('voice.system_name' => $this->request->params['actor'])
         ));
         $id = null; //PHPエラー回避のため
         $this->set(compact('profile', 'id'));
-        /* データベースからプロフィール情報（id=1）の取得ここまで */
+        if (!$profile) {
+          $this->redirect('/console/index');
+        }
+        /* データベースからプロフィール情報の取得ここまで */
         $this->Paginator->settings = array(
             'limit' => 20,
-            'order' => array($Actor.'.date_from' => 'desc'),
-            'conditions' => array($Actor.'.id !=' => 1)
+            'order' => array('Product.date_from' => 'desc'),
+            'conditions' => array('Product.voice_id' => $profile['Voice']['id'])
         );
-        $product_lists = $this->Paginator->paginate($Actor);
+        $product_lists = $this->Paginator->paginate('Product');
         $this->set('product_lists', $product_lists);
-        $this->render('voice');
+        $this->render('product');
       }
   }
 
   public function voice_add() {
       if ($this->request->is('post')) {
-        $name = array_keys($this->request->data);
-        $Actor = $name[0];
-        $actor = lcfirst($Actor);
+        $this->Voice->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->Voice->validates()) { //validate成功の処理
+          $this->Voice->save($this->request->data); //validate成功でsave
+          if ($this->Voice->save($this->request->data)) {
+            $this->Session->setFlash($this->request->data['Voice']['name'].' を登録しました。', 'flashMessage');
+            $this->redirect('/console/voice/'.$this->request->data['Voice']['system_name']);
+          } else {
+            $this->Session->setFlash('登録できませんでした。', 'flashMessage');
+          }
+        } else { //validate失敗の処理
+          $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+        }
+      }
+      $this->render('voice');
+  }
+
+  public function voice_edit() {
+      if ($this->request->params['pass'][0]) {
+        $profile = $this->Voice->find('first', array('conditions' => array('Voice.system_name' => $this->request->params['pass'][0])));
+        if (!$profile) { //データが存在しない場合
+          $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+        }
+      } else {
+        $this->redirect('/console/index');
+      }
+
+      //声優データの編集用
+      if (empty($this->request->data)) {
+        $this->request->data = $profile; //postデータがなければデータを取得
+      } else {
+        $id = $this->request->data['Voice']['id'];
+        $this->Voice->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->Voice->validates()) { //validate成功の処理
+          $this->Voice->save($this->request->data); //validate成功でsave
+          if ($this->Voice->save($id)) {
+            $this->Session->setFlash('修正しました。', 'flashMessage');
+          } else {
+            $this->Session->setFlash('修正できませんでした。', 'flashMessage');
+          }
+          $this->redirect('/console/voice/'.$this->request->data['Voice']['system_name']);
+        } else { //validate失敗の処理
+          $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+          $this->set('id', $this->request->data['Voice']['id']); //viewに渡すために$idをセット
+        }
+      }
+      $this->render('voice');
+  }
+
+  public function product_add() {
+      if ($this->request->is('post')) {
         /* checkedならばdate_toをnullにする処理ここから */
-        if ($this->request->data[$Actor]['date_to_null'] == 1) {
-          $this->request->data[$Actor]['date_to'] = null;
+        if ($this->request->data['Product']['date_to_null'] == 1) {
+          $this->request->data['Product']['date_to'] = null;
         }
         /* checkedならばdate_toをnullにする処理ここまで */
-        $this->$Actor->set($this->request->data); //postデータがあればModelに渡してvalidate
-        if ($this->$Actor->validates()) { //validate成功の処理
-          $this->$Actor->save($this->request->data); //validate成功でsave
-          if ($this->$Actor->save($this->request->data)) {
-            $this->Session->setFlash('作品を登録しました。', 'flashMessage');
+        $this->Product->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->Product->validates()) { //validate成功の処理
+          $this->Product->save($this->request->data); //validate成功でsave
+          if ($this->Product->save($this->request->data)) {
+            $this->Session->setFlash($this->request->data['Product']['title'].' を登録しました。', 'flashMessage');
           } else {
             $this->Session->setFlash('登録できませんでした。', 'flashMessage');
           }
@@ -1137,75 +1191,73 @@ class ConsoleController extends AppController {
         }
       }
 
-      $this->redirect('/console/voice/'.$actor);
+      $this->redirect('/console/voice/'.$this->request->data['Product']['voice_actor']);
   }
 
-  public function voice_edit() {
+  public function product_edit() {
       if (isset($this->request->params['actor']) == TRUE) {
         $actor = $this->request->params['actor'];
-        $Actor = ucfirst($actor);
-        $this->set(compact('actor', 'Actor'));
-        /* データベースからプロフィール情報（id=1）の取得ここから */
-        $profile = $this->$Actor->find('first', array(
-            'conditions' => array($Actor.'.id' => 1)
+        $this->set('actor', $actor);
+        /* データベースからプロフィール情報の取得ここから */
+        $profile = $this->Voice->find('first', array(
+            'conditions' => array('voice.system_name' => $this->request->params['actor'])
         ));
         $this->set('profile', $profile);
-        /* データベースからプロフィール情報（id=1）の取得ここまで */
+        if (!$profile) {
+          $this->redirect('/console/index');
+        }
+        /* データベースからプロフィール情報の取得ここまで */
         $this->Paginator->settings = array(
             'limit' => 20,
-            'order' => array($Actor.'.date_from' => 'desc'),
-            'conditions' => array($Actor.'.id !=' => 1)
+            'order' => array('Product.date_from' => 'desc'),
+            'conditions' => array('Product.voice_id' => $profile['Voice']['id'])
         );
-        $product_lists = $this->Paginator->paginate($Actor);
+        $product_lists = $this->Paginator->paginate('Product');
         $this->set('product_lists', $product_lists);
       }
 
       //出演作品の編集用
       if (empty($this->request->data)) {
         $id = $this->request->params['id'];
-        $this->request->data = $this->$Actor->findById($id); //postデータがなければ$idからデータを取得
+        $this->request->data = $this->Product->findById($id); //postデータがなければ$idからデータを取得
         if (!empty($this->request->data)) { //データが存在する場合
           $this->set('id', $id); //viewに渡すために$idをセット
         } else { //データが存在しない場合
           $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
         }
       } else {
-        $name = array_keys($this->request->data);
-        $Actor = $name[0];
-        $actor = lcfirst($Actor);
-        $id = $this->request->data[$Actor]['id'];
+        $id = $this->request->data['Product']['id'];
         /* checkedならばdate_toをnullにする処理ここから */
-        if ($this->request->data[$Actor]['date_to_null'] == 1) {
-          $this->request->data[$Actor]['date_to'] = null;
+        if ($this->request->data['Product']['date_to_null'] == 1) {
+          $this->request->data['Product']['date_to'] = null;
         }
         /* checkedならばdate_toをnullにする処理ここまで */
-        $this->$Actor->set($this->request->data); //postデータがあればModelに渡してvalidate
-        if ($this->$Actor->validates()) { //validate成功の処理
-          $this->$Actor->save($this->request->data); //validate成功でsave
-          if ($this->$Actor->save($id)) {
-            $this->Session->setFlash('修正しました。', 'flashMessage');
+        $this->Product->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->Product->validates()) { //validate成功の処理
+          $this->Product->save($this->request->data); //validate成功でsave
+          if ($this->Product->save($id)) {
+            $this->Session->setFlash($this->request->data['Product']['title'].' を修正しました。', 'flashMessage');
           } else {
             $this->Session->setFlash('修正できませんでした。', 'flashMessage');
           }
-          $this->redirect('/console/voice/'.$actor);
+          $this->redirect('/console/voice/'.$this->request->data['Product']['voice_actor']);
         } else { //validate失敗の処理
           $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
-          $this->set('id', $this->request->data[$Actor]['id']); //viewに渡すために$idをセット
+          $this->set('id', $this->request->data['Product']['id']); //viewに渡すために$idをセット
         }
       }
-      $this->render('voice');
+      $this->render('product');
   }
 
-  public function voice_delete($id = null) {
+  public function product_delete($id = null) {
       if (empty($id)) {
         throw new NotFoundException(__('存在しないデータです。'));
       }
       
       if ($this->request->is('post')) {
         $actor = $this->request->params['pass'][1];
-        $Actor = ucfirst($actor);
-        $this->$Actor->Behaviors->enable('SoftDelete');
-        if ($this->$Actor->delete($id)) {
+        $this->Product->Behaviors->enable('SoftDelete');
+        if ($this->Product->delete($id)) {
           $this->Session->setFlash('削除しました。', 'flashMessage');
         } else {
           $this->Session->setFlash('削除できませんでした。', 'flashMessage');

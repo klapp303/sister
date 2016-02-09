@@ -37,8 +37,10 @@ jQuery(function($) {
       <li><?php echo $this->Html->link('エロゲレビューを書く', '/console/game/'); ?></li>
       <li><?php echo $this->Html->link('メーカーバナーの管理', '/console/maker/'); ?></li>
       <li><?php echo $this->Html->link('音楽レビューを書く', '/console/#/'); ?></li>
-      <li><?php echo $this->Html->link('おとちん情報の追加', '/console/voice/otochin/'); ?></li>
-      <li><?php echo $this->Html->link('あやち情報の追加', '/console/voice/ayachi/'); ?></li>
+      <?php foreach ($voice_lists AS $voice_list) { ?>
+      <li><?php echo $this->Html->link($voice_list['Voice']['nickname'].'情報の追加', '/console/voice/'.$voice_list['Voice']['system_name']); ?></li>
+      <?php } ?>
+      <li><?php echo $this->Html->link('声優を追加する', '/console/voice_add/'); ?></li>
     </ul>
   </li>
   <li class="js-menu_3 cursor-def"><span class="menu-title">ブログ管理</span>
@@ -51,7 +53,7 @@ jQuery(function($) {
   </li>
   <li class="js-menu_4 cursor-def"><span class="menu-title">オプション</span>
     <ul class="menu-list-sub js-hide_4">
-      <li><?php echo $this->Html->link('管理者の追加', '/console/admin/'); ?></li>
+      <li><?php echo $this->Html->link('管理者を追加する', '/console/admin/'); ?></li>
       <li><?php echo $this->Html->link('ログアウト', '/logout/'); ?></li>
     </ul>
   </li>
