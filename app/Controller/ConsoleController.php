@@ -1098,7 +1098,7 @@ class ConsoleController extends AppController {
         $this->set('actor', $actor);
         /* データベースからプロフィール情報の取得ここから */
         $profile = $this->Voice->find('first', array(
-            'conditions' => array('voice.system_name' => $this->request->params['actor'])
+            'conditions' => array('Voice.system_name' => $this->request->params['actor'])
         ));
         $id = null; //PHPエラー回避のため
         $this->set(compact('profile', 'id'));
@@ -1212,7 +1212,7 @@ class ConsoleController extends AppController {
         $this->set('actor', $actor);
         /* データベースからプロフィール情報の取得ここから */
         $profile = $this->Voice->find('first', array(
-            'conditions' => array('voice.system_name' => $this->request->params['actor'])
+            'conditions' => array('Voice.system_name' => $this->request->params['actor'])
         ));
         $this->set('profile', $profile);
         if (!$profile) {
