@@ -104,17 +104,15 @@ class ConsoleController extends AppController {
       $mh = $folder->read();
       $this->set('mh_count', count($mh[1])-1);
       
-      /*$actors = array('otochin');
-      foreach ($actors AS $actor) {
-        $Actor = ucfirst($actor);
-        $this->set($actor.'_count', $this->$Actor->find('count', array('conditions' => array($Actor.'.id !=' => 1))));
-        $this->set($actor.'_p_count', $this->$Actor->find('count', array('conditions' => array($Actor.'.publish' => 1, $Actor.'.id !=' => 1))));
+      $voice_lists = $this->Voice->find('all');
+      foreach ($voice_lists AS $voice_list) {
+        $this->set($voice_list['Voice']['system_name'].'_count', $this->Product->find('count', array('conditions' => array('Product.voice_id' => $voice_list['Voice']['id']))));
+        $this->set($voice_list['Voice']['system_name'].'_p_count', $this->Product->find('count', array('conditions' => array('Product.voice_id' => $voice_list['Voice']['id'], 'Product.publish' => 1))));
         //コンテンツ自体が非公開の場合
-        ${$actor.'_prof'} = $this->$Actor->find('first', array('conditions' => array($Actor.'.id' => 1)));
-        if (isset(${$actor.'_prof'}) == true && ${$actor.'_prof'}[$Actor]['publish'] == 0) {
-          $this->set($actor.'_p_count', 0);
+        if ($voice_list['Voice']['publish'] == 0) {
+          $this->set($voice_list['Voice']['system_name'].'_p_count', 0);
         }
-      }*/
+      }
       
       $this->set('diary_count', $this->Diary->find('count'));
       $this->set('diary_p_count', $this->Diary->find('count', array('conditions' => array('Diary.publish' => 1))));
@@ -151,12 +149,10 @@ class ConsoleController extends AppController {
       ));
       $this->set('mh_lastupdate', ($mh_last)? $mh_last['Information']['created'] : null);
       
-      /*$actors = array('otochin');
-      foreach ($actors AS $actor) {
-        $Actor = ucfirst($actor);
-        ${$actor.'_last'} = $this->$Actor->find('first', array('order' => array($Actor.'.modified' => 'desc'), 'conditions' => array($Actor.'.id !=' => 1)));
-        $this->set($actor.'_lastupdate', (${$actor.'_last'})? ${$actor.'_last'}[$Actor]['modified'] : null);
-      }*/
+      foreach ($voice_lists AS $voice_list) {
+        ${$voice_list['Voice']['system_name'].'_last'} = $this->Product->find('first', array('order' => array('Product.modified' => 'desc'), 'conditions' => array('Product.voice_id' => $voice_list['Voice']['id'])));
+        $this->set($voice_list['Voice']['system_name'].'_lastupdate', (${$voice_list['Voice']['system_name'].'_last'})? ${$voice_list['Voice']['system_name'].'_last'}['Product']['modified'] : null);
+      }
       
       $diary_last = $this->Diary->find('first', array('order' => array('Diary.modified' => 'desc')));
       $this->set('diary_lastupdate', ($diary_last)? $diary_last['Diary']['modified'] : null);
