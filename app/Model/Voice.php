@@ -7,7 +7,7 @@ App::uses('AppModel', 'Model');
  */
 class Voice extends AppModel {
   public $useTable = 'voices';
-  public $actsAs = array(/*'SoftDelete', 'Search.Searchable'*/);
+  public $actsAs = array('SoftDelete'/*, 'Search.Searchable'*/);
 
   /*public $belongsTo = array(
       'SamplesGenre' => array(

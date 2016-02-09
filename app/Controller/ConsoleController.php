@@ -1171,6 +1171,22 @@ class ConsoleController extends AppController {
       $this->render('voice');
   }
 
+  public function voice_delete($id = null) {
+      if (empty($id)) {
+        throw new NotFoundException(__('存在しないデータです。'));
+      }
+      
+      if ($this->request->is('post')) {
+        $this->Voice->Behaviors->enable('SoftDelete');
+        if ($this->Voice->delete($id)) {
+          $this->Session->setFlash('削除しました。', 'flashMessage');
+        } else {
+          $this->Session->setFlash('削除できませんでした。', 'flashMessage');
+        }
+        $this->redirect('/console/index');
+      }
+  }
+
   public function product_add() {
       if ($this->request->is('post')) {
         /* checkedならばdate_toをnullにする処理ここから */
