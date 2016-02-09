@@ -121,7 +121,7 @@
                               elseif ($profile['Voice']['publish'] == 1) {echo '<span class="icon-true">公開</span>';} ?></td>
         <td><?php echo $this->Html->link('プロフィールを変更する', '/console/voice_edit/'.$profile['Voice']['system_name']); ?></td>
         <td><?php echo $this->Html->link('サイトを確認する', '/voice/'.$profile['Voice']['system_name'], array('target' => '_blank')); ?></td>
-        <td><?php echo $this->Form->postLink('削除する', array('controller' => 'Console', 'action' => 'voice_delete', $profile['Voice']['id']), null, '本当に#'.$profile['Voice']['name'].' の声優データを削除しますか'); ?></td></tr>
+        <td><?php echo $this->Form->postLink('削除する', array('controller' => 'Console', 'action' => 'voice_delete', $profile['Voice']['id']), null, '本当に '.$profile['Voice']['name'].' の声優データを削除しますか'); ?></td></tr>
   </table>
 <?php } ?>
 
