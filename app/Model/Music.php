@@ -3,10 +3,10 @@
 App::uses('AppModel', 'Model');
 
 /**
- * Sample Model.
+ * Music Model.
  */
-class Sample extends AppModel {
-  public $useTable = 'samples';
+class Music extends AppModel {
+  public $useTable = 'musics';
   public $actsAs = array('SoftDelete'/*, 'Search.Searchable'*/);
 
   /*public $belongsTo = array(

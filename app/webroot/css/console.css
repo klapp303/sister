@@ -183,6 +183,10 @@ td.tbl-num_top {
     text-align: center;
 }
 
+.tbl-music_voice, .tbl-music_voice-sg, .tbl-music_voice-al {
+    display: none;
+}
+
 .tbl-list_voice {
     width: 850px;
     margin-left: 20px;

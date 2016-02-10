@@ -37,7 +37,7 @@ class ConsoleController extends AppController {
  *
  * @var array
  */
-	public $uses = array('Diary', 'DiaryGenre', 'Photo', 'Information', 'SisterComment', 'Banner', 'Link', 'Administrator', 'Game', 'Maker', 'Voice', 'Product'); //使用するModel
+	public $uses = array('Diary', 'DiaryGenre', 'Photo', 'Information', 'SisterComment', 'Banner', 'Link', 'Administrator', 'Game', 'Maker', 'Voice', 'Product', 'Music'); //使用するModel
 
 /**
  * Displays a view
@@ -1194,7 +1194,23 @@ class ConsoleController extends AppController {
         if ($this->Product->validates()) { //validate成功の処理
           $this->Product->save($this->request->data); //validate成功でsave
           if ($this->Product->save($this->request->data)) {
-            $this->Session->setFlash($this->request->data['Product']['title'].' を登録しました。', 'flashMessage');
+            /* product_idを取得してmusicデータを保存ここから */
+            if ($this->request->data['Product']['genre'] == 'music') {
+              $latest_product = $this->Product->find('first', array('order' => array('Product.id' => 'desc')));
+              $product_id = $latest_product['Product']['id'];
+              foreach ($this->request->data['Music'] AS &$music) {
+                $music['product_id'] = $product_id;
+                $music['artist'] = $this->request->data['Product']['charactor'];
+              }
+              if ($this->Music->saveAll($this->request->data['Music'])) {
+                $this->Session->setFlash($this->request->data['Product']['title'].' を登録しました。', 'flashMessage');
+              } else {
+                $this->Session->setFlash('楽曲データを登録できませんでした。', 'flashMessage');
+              }
+            } else {
+            /* product_idを取得してmusicデータを保存ここまで */
+              $this->Session->setFlash($this->request->data['Product']['title'].' を登録しました。', 'flashMessage');
+            }
           } else {
             $this->Session->setFlash('登録できませんでした。', 'flashMessage');
           }

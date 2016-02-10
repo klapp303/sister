@@ -1,4 +1,5 @@
 <?php echo $this->Html->script('jquery-select_select', array('inline' => FALSE)); ?>
+<?php echo $this->Html->script('jquery-hide_voice', array('inline' => FALSE)); ?>
 <?php echo $this->Html->script('jquery-checked', array('inline' => FALSE)); ?>
 <h3><?php echo $profile['Voice']['nickname']; ?>出演作品の登録</h3>
 
@@ -37,12 +38,12 @@
     </tr>
     <tr>
       <td>ジャンル</td>
-      <td><?php echo $this->Form->input('genre', array('type' => 'select', 'label' => false, 'id' => 'lv1Pulldown', 'options' => array('' => '', 'anime' => 'アニメ', 'game' => 'ゲーム', 'radio' => 'ラジオ', 'music' => '音楽', 'other' => 'その他'))); ?></td>
+      <td id="SelectGenre"><?php echo $this->Form->input('genre', array('type' => 'select', 'label' => false, 'id' => 'lv1Pulldown', 'options' => array('' => '', 'anime' => 'アニメ', 'game' => 'ゲーム', 'radio' => 'ラジオ', 'music' => '音楽', 'other' => 'その他'))); ?></td>
     </tr>
     <tr>
       <td>ハード（任意）</td>
       <?php if (preg_match('#/console/voice/'.$profile['Voice']['system_name'].'/edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
-      <td>
+      <td id="SelectHard">
         <select name="data[Product][hard]" id="lv2Pulldown" disabled="disabled">
           <?php if (!$this->request->data['Product']['hard']) {echo '<option>ジャンルを選択してください</option>';} ?>
           <option value="tv" class="panime" <?php if ($this->request->data['Product']['hard'] == 'tv') {echo 'selected="selected"';} ?>>TV</option>
@@ -61,7 +62,7 @@
         </select>
       </td>
       <?php } else { //登録用 ?>
-      <td>
+      <td id="SelectHard">
         <select name="data[Product][hard]" id="lv2Pulldown" disabled="disabled">
           <option>ジャンルを選択してください</option>
           <option value="tv" class="panime">TV</option>
@@ -81,6 +82,23 @@
       </td>
       <?php } ?>
     </tr>
+    
+    <tr class="tbl-music_voice">
+      <td></td>
+      <td>
+        <table>
+          <tr class="txt-min"><td>　　曲名</td><td>作詞者</td><td>作曲者</td></tr>
+          <?php for ($i=0; $i<15; $i++) { ?>
+          <tr class="tbl-music_voice-<?php echo ($i<5)? 'sg': 'al'; ?>">
+            <td><?php echo sprintf('%02d', $i+1); ?><?php echo $this->Form->input('Music.'.$i.'.title', array('type' => 'text', 'label' => false, 'size' => 21)); ?></td>
+            <td><?php echo $this->Form->input('Music.'.$i.'.writer', array('type' => 'text', 'label' => false, 'size' => 8)); ?></td>
+            <td><?php echo $this->Form->input('Music.'.$i.'.composer', array('type' => 'text', 'label' => false, 'size' => 8)); ?></td>
+          </tr>
+          <?php } ?>
+        </table>
+      </td>
+    </tr>
+    
     <tr>
       <td>日付</td>
       <td><?php echo $this->Form->input('date_from', array('type' => 'date', 'label' => false, 'dateFormat' => 'YMD', 'monthNames' => false, 'separator' => '/', 'maxYear' => date('Y')+1, 'minYear' => 2000)); ?> ～
