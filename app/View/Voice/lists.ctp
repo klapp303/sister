@@ -43,7 +43,10 @@
                                     elseif ($list['Product']['hard'] == 'al') {echo 'アルバム';}
                                     else {echo 'その他';} ?></td>
         <td class="tbl-title_voice<?php echo ($genre == 'music')? '-music': ''; ?>">
-          <?php if ($list['Product']['link_url']) { ?>
+          <?php if ($list['Product']['genre'] == 'music') { //ディスコグラフィの場合は楽曲データも合わせて表示 ?>
+            <?php echo $list['Product']['title']; ?>
+          <pre><?php print_r($list['Music']); ?></pre>
+          <?php } elseif ($list['Product']['link_url']) { ?>
             <a href="<?php echo $list['Product']['link_url']; ?>" target="_blank">
             <?php echo $list['Product']['title']; ?></a>
           <?php } else { ?>

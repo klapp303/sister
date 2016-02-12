@@ -1195,12 +1195,18 @@ class ConsoleController extends AppController {
           $this->Product->save($this->request->data); //validate成功でsave
           if ($this->Product->save($this->request->data)) {
             /* product_idを取得してmusicデータを保存ここから */
-            if ($this->request->data['Product']['genre'] == 'music') {
+            if ($this->request->data['Product']['hard'] == 'sg' || $this->request->data['Product']['hard'] == 'al') {
               $latest_product = $this->Product->find('first', array('order' => array('Product.id' => 'desc')));
               $product_id = $latest_product['Product']['id'];
-              foreach ($this->request->data['Music'] AS &$music) {
-                $music['product_id'] = $product_id;
-                $music['artist'] = $this->request->data['Product']['charactor'];
+              //空の楽曲データを削除するためにfor構文で記述
+              $count = count($this->request->data['Music']);
+              for ($i = 0; $i < $count; $i++) {
+                if ($this->request->data['Music'][$i]['title'] == null) {
+                  unset($this->request->data['Music'][$i]);
+                } else {
+                  $this->request->data['Music'][$i]['product_id'] = $product_id;
+                  $this->request->data['Music'][$i]['artist'] = $this->request->data['Product']['charactor'];
+                }
               }
               if ($this->Music->saveAll($this->request->data['Music'])) {
                 $this->Session->setFlash($this->request->data['Product']['title'].' を登録しました。', 'flashMessage');
@@ -1262,7 +1268,10 @@ class ConsoleController extends AppController {
         /* checkedならばdate_toをnullにする処理ここまで */
         $this->Product->set($this->request->data); //postデータがあればModelに渡してvalidate
         if ($this->Product->validates()) { //validate成功の処理
-          $this->Product->save($this->request->data); //validate成功でsave
+          /* musicデータを保存ここから */
+          $this->request->data = $this->Product->editMusicData($id, $this->request->data);
+          /* musicデータを保存ここまで */
+          $this->Product->saveAssociated($this->request->data); //validate成功でsave
           if ($this->Product->save($id)) {
             $this->Session->setFlash($this->request->data['Product']['title'].' を修正しました。', 'flashMessage');
           } else {

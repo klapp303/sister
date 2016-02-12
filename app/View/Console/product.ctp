@@ -10,8 +10,8 @@
           'inputDefaults' => array('div' => '')
           )
       ); ?>
-      <?php echo $this->Form->input('id', array('type' => 'hidden', 'label' => false, 'value' => $id)); ?>
-      <?php echo $this->Form->input('voice_actor', array('type' => 'hidden', 'label' => false, 'value' => $profile['Voice']['system_name'])); ?>
+      <?php echo $this->Form->input('id', array('type' => 'hidden', 'value' => $id)); ?>
+      <?php echo $this->Form->input('voice_actor', array('type' => 'hidden', 'value' => $profile['Voice']['system_name'])); ?>
     <?php } else { //登録用 ?>
       <?php echo $this->Form->create('Product', array( //使用するModel
           'type' => 'post', //デフォルトはpost送信
@@ -19,8 +19,8 @@
           'inputDefaults' => array('div' => '')
           )
       ); ?>
-      <?php echo $this->Form->input('voice_id', array('type' => 'hidden', 'label' => false, 'value' => $profile['Voice']['id'])); ?>
-      <?php echo $this->Form->input('voice_actor', array('type' => 'hidden', 'label' => false, 'value' => $profile['Voice']['system_name'])); ?>
+      <?php echo $this->Form->input('voice_id', array('type' => 'hidden', 'value' => $profile['Voice']['id'])); ?>
+      <?php echo $this->Form->input('voice_actor', array('type' => 'hidden', 'value' => $profile['Voice']['system_name'])); ?>
     <?php } ?><!-- form start -->
     
     <tr>
@@ -42,6 +42,8 @@
     <tr>
       <td>ハード（任意）</td>
       <?php if (preg_match('#/console/voice/'.$profile['Voice']['system_name'].'/edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
+      <?php echo $this->Form->input('pre_genre', array('type' => 'hidden', 'value' => $this->request->data['Product']['genre'])); ?>
+      <?php echo $this->Form->input('pre_hard', array('type' => 'hidden', 'value' => $this->request->data['Product']['hard'])); ?>
       <td id="SelectHard">
         <select name="data[Product][hard]" id="lv2Pulldown" disabled="disabled">
           <?php if (!$this->request->data['Product']['hard']) {echo '<option>ジャンルを選択してください</option>';} ?>
@@ -90,6 +92,9 @@
         <table>
           <tr class="txt-min"><td>　　曲名</td><td>作詞者</td><td>作曲者</td></tr>
           <?php for ($i=0; $i<15; $i++) { ?>
+          <?php if (preg_match('#/console/voice/'.$profile['Voice']['system_name'].'/edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
+            <?php echo $this->Form->input('Music.'.$i.'.id', array('type' => 'hidden')); ?>
+          <?php } ?>
           <tr class="tbl-music_voice-<?php echo ($i<5)? 'sg': 'al'; ?><?php echo (@$mode_music)? '_'.$mode_music: ''; ?>">
             <td><?php echo sprintf('%02d', $i+1); ?><?php echo $this->Form->input('Music.'.$i.'.title', array('type' => 'text', 'label' => false, 'size' => 21)); ?></td>
             <td><?php echo $this->Form->input('Music.'.$i.'.writer', array('type' => 'text', 'label' => false, 'size' => 8)); ?></td>
