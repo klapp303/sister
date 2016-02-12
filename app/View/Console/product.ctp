@@ -1,5 +1,4 @@
 <?php echo $this->Html->script('jquery-select_select', array('inline' => FALSE)); ?>
-<?php echo $this->Html->script('jquery-hide_voice', array('inline' => FALSE)); ?>
 <?php echo $this->Html->script('jquery-checked', array('inline' => FALSE)); ?>
 <h3><?php echo $profile['Voice']['nickname']; ?>出演作品の登録</h3>
 
@@ -83,13 +82,15 @@
       <?php } ?>
     </tr>
     
-    <tr class="tbl-music_voice">
+    <?php if (@$this->request->data['Product']['hard'] == 'sg') {$mode_music = 'sg';}
+      elseif (@$this->request->data['Product']['hard'] == 'al') {$mode_music = 'al';} ?>
+    <tr class="tbl-music_voice<?php echo (@$mode_music)? '_'.$mode_music: ''; ?>">
       <td></td>
       <td>
         <table>
           <tr class="txt-min"><td>　　曲名</td><td>作詞者</td><td>作曲者</td></tr>
           <?php for ($i=0; $i<15; $i++) { ?>
-          <tr class="tbl-music_voice-<?php echo ($i<5)? 'sg': 'al'; ?>">
+          <tr class="tbl-music_voice-<?php echo ($i<5)? 'sg': 'al'; ?><?php echo (@$mode_music)? '_'.$mode_music: ''; ?>">
             <td><?php echo sprintf('%02d', $i+1); ?><?php echo $this->Form->input('Music.'.$i.'.title', array('type' => 'text', 'label' => false, 'size' => 21)); ?></td>
             <td><?php echo $this->Form->input('Music.'.$i.'.writer', array('type' => 'text', 'label' => false, 'size' => 8)); ?></td>
             <td><?php echo $this->Form->input('Music.'.$i.'.composer', array('type' => 'text', 'label' => false, 'size' => 8)); ?></td>
@@ -206,3 +207,36 @@
     <?php } ?>
   </table>
 </div>
+
+<?php $array_hard = array('', '_sg', '_al'); ?>
+<?php foreach($array_hard AS $hard) { ?>
+  <script>
+  jQuery(function($) {
+      var hard = <?php echo json_encode($hard, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
+      $('#SelectHard select').change(function() { //formのchangeイベントがあれば値を取得
+          var val = $(this).val();
+          if (val == 'sg') {
+            $('.tbl-music_voice' + hard).show();
+            $('.tbl-music_voice-sg' + hard).show();
+            $('.tbl-music_voice-al' + hard).hide();
+          } else if (val == 'al') {
+            $('.tbl-music_voice' + hard).show();
+            $('.tbl-music_voice-sg' + hard).show();
+            $('.tbl-music_voice-al' + hard).show();
+          } else {
+            $('.tbl-music_voice' + hard).hide();
+            $('.tbl-music_voice-sg' + hard).hide();
+            $('.tbl-music_voice-al' + hard).hide();
+          }
+      });
+      $('#SelectGenre select').change(function() { //formのchangeイベントがあれば値を取得
+          var val = $(this).val();
+          if (val !== 'music') {
+            $('.tbl-music_voice' + hard).hide();
+            $('.tbl-music_voice-sg' + hard).hide();
+            $('.tbl-music_voice-al' + hard).hide();
+          }
+      });
+  });
+  </script>
+<?php } ?>

@@ -17,6 +17,15 @@ class Product extends AppModel {
       )
   );*/
 
+    public $hasMany = array(
+      'Music' => array(
+          'className' => 'Music',
+          'foreignKey' => 'product_id',
+          //'conditions' => array(),
+          'order' => array('Music.id' => 'asc')
+      )
+  );
+
   public $validate = array(
       'title' => array(
           'rule' => 'notBlank',

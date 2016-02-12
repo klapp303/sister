@@ -183,8 +183,13 @@ td.tbl-num_top {
     text-align: center;
 }
 
-.tbl-music_voice, .tbl-music_voice-sg, .tbl-music_voice-al {
+.tbl-music_voice, .tbl-music_voice-sg, .tbl-music_voice-al, .tbl-music_voice-al_sg {/* 楽曲データ入力フォームの動的表示 */
     display: none;
+}
+
+.tbl-music_voice_sg, .tbl-music_voice_al,
+.tbl-music_voice-sg_sg, .tbl-music_voice-sg_al, .tbl-music_voice-al_al {/* 楽曲データ入力フォームの動的表示 */
+    display: display;
 }
 
 .tbl-list_voice {
