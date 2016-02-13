@@ -36,6 +36,10 @@
       <td><?php echo $this->Form->input('profile', array('type' => 'textarea', 'label' => false, 'cols' => 50, 'rows' => 5)); ?></td>
     </tr>
     <tr>
+      <td>誕生日</td>
+      <td><?php echo $this->Form->input('birthday', array('type' => 'date', 'label' => false, 'dateFormat' => 'YMD', 'monthNames' => false, 'separator' => '/', 'maxYear' => date('Y'), 'minYear' => 1938)); ?></td>
+    </tr>
+    <tr>
       <td>リンクURL（任意）</td>
       <td><?php echo $this->Form->input('link_url', array('type' => 'text', 'label' => false, 'size' => 49)); ?></td>
     </tr>
