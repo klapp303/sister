@@ -35,7 +35,7 @@ class TopController extends AppController {
  *
  * @var array
  */
-	public $uses = array('SisterComment', 'Information', 'Banner', 'Maker', 'Game', 'Diary'); //使用するModel
+	public $uses = array('SisterComment', 'Information', 'Banner', 'Maker', 'Game', 'Diary', 'Product'); //使用するModel
 
 /**
  * Displays a view
@@ -72,7 +72,7 @@ class TopController extends AppController {
           if ($last_update <= $last_data[$content]['date_from']) {$last_update = $last_data[$content]['date_from'];}
         }
       }
-      $articles = array('Game', 'Diary'); //作成日で管理する記事
+      $articles = array('Game', 'Diary', 'Product'); //作成日で管理する記事
       foreach ($articles AS $article) {
         $last_data = $this->$article->find('first', array(
             'conditions' => array($article.'.created <=' => date('Y-m-d', strtotime('+1 day')), $article.'.publish' => 1),
