@@ -347,9 +347,9 @@
 
 /* フラッシュメッセージ */
 .flash-msg {
-    margin-right: 200px;
+    margin: 20px;
     padding: 10px 20px;
-    background: #CEF6F5;
+    background: #F5F5FF;
     border: solid 2px #000000;
     border-radius: 8px;
     -moz-border-radius: 8px;
