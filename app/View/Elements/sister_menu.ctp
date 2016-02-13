@@ -57,7 +57,7 @@
     });
     </script>
     <li class="js-menu_<?php echo $i; ?> cursor-def"><span class="menu-title"><?php echo $menu['title']; ?></span>
-      <ul class="menu-list-sub js-hide_<?php echo $i; ?>">
+      <ul style="display: none;" class="menu-list-sub js-hide_<?php echo $i; ?>">
         <?php foreach ($menu['menu'] AS $sub_menu) { ?>
         <li><?php echo $this->Html->link($sub_menu['label'], $sub_menu['link']); ?></li>
         <?php } ?>

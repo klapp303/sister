@@ -353,11 +353,6 @@
     display: inline;
 }
 
-.js-hide_1, .js-hide_2,
-.js-hide_3, .js-hide_4 { /* サブメニュー用 */
-    display: none;
-}
-
 /* jQuery-tmb */
 .js-tmb {
     width: auto;
