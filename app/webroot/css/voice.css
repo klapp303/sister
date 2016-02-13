@@ -65,6 +65,8 @@
 
 .btn_music_voice {
     float: right;
+    padding: 1px 2px;
+    font-size: 10px;
 }
 
 .list_msuic_voice {

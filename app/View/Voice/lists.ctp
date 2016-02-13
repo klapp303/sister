@@ -54,18 +54,16 @@
             <script>
               jQuery(function($) {
                   var id = <?php echo json_encode($id, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
-                  $('.js-hide-button_' + id).click(function() {
-                      $('.js-hide_' + id).show();
-                      $('.js-show_' + id).hide();
-                  });
-                  $('.js-show-button_' + id).click(function() {
-                      $('.js-hide_' + id).hide();
-                      $('.js-show_' + id).show();
+                  $(function() {
+                      $('.js-hide-button_' + id).click(
+                          function() {
+                              $('.js-hide_' + id).toggle();
+                          }
+                      );
                   });
               });
             </script>
-            <button class="btn_music_voice js-hide-button_<?php echo $id; ?> js-show_<?php echo $id; ?>">楽曲リスト</button>
-            <button style="display: none;" class="btn_music_voice js-show-button_<?php echo $id; ?> js-hide_<?php echo $id; ?>">楽曲リスト</button>
+            <button class="btn_music_voice js-hide-button_<?php echo $id; ?>">楽曲リスト</button>
             <ul style="display: none;" class="list_msuic_voice js-hide_<?php echo $id; ?>">
               <?php $i = 1; ?>
               <?php foreach ($list['Music'] AS $music) { ?>
