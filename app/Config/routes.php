@@ -19,26 +19,23 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-/**
- * Here, we are connecting '/' (base path) to controller called 'Top',
- * its action called 'index', and we pass a param to select the view file
- * to use (in this case, /app/View/Top/index.ctp)...
- */
+
 	Router::connect('/', array('controller' => 'Top', 'action' => 'index'));
 
   Router::connect('/login/', array('controller' => 'Login', 'action' => 'login'));
   Router::connect('/logout/', array('controller' => 'Login', 'action' => 'logout'));
 
 /**
- * ...and connect the rest of 'Pages' controller's URLs.
+ * 'Pages' controller's URLs
  */
-	/*Router::connect('/pages/*',
-          array('controller' => 'Pages', 'action' => 'index'));*/
+  $array_pages = array('information', 'author', 'link');
+  foreach ($array_pages AS $menu) {
+    Router::connect('/'.$menu.'/', array('controller' => 'Pages', 'action' => $menu));
+  }
 
-  Router::connect('/information/', array('controller' => 'Pages', 'action' => 'information'));
-  Router::connect('/author/', array('controller' => 'Pages', 'action' => 'author'));
-  Router::connect('/link/', array('controller' => 'Pages', 'action' => 'link'));
-
+/**
+ * contents URLs
+ */
   Router::connect('/game/erg/:id',
           array('controller' => 'Game', 'action' => 'erg'),
           array('id' => '[0-9]+')); //idを数字のみに制限
@@ -64,36 +61,22 @@
           array('controller' => 'Diary', 'action' => 'genre'),
           array('genre_id' => '[0-9]+')); //idを数字のみに制限
 
+/**
+ * 'Console' controller's URLs
+ */
+  $array_consoles = array('information', 'comment', 'banner', 'link', 'game', 'maker', 'music', 'diary', 'diary_genre');
+  //Router::connect('/console/diary/edit/:id',
+  //        array('controller' => 'Console', 'action' => 'diary_edit'),
+  //        array('id' => '[0-9]+')); //idを数字のみに制限
+  foreach ($array_consoles AS $menu) {
+    Router::connect('/console/'.$menu.'/edit/:id',
+            array('controller' => 'Console', 'action' => $menu.'_edit'),
+            array('id' => '[0-9]+')); //idを数字のみに制限
+    Router::connect('/console/'.$menu.'/edit/:id/*',
+            array('controller' => 'Console', 'action' => $menu.'_edit'),
+            array('id' => '[0-9]+')); //idを数字のみに制限
+  }
 
-  Router::connect('/console/diary/edit/:id',
-          array('controller' => 'Console', 'action' => 'diary_edit'),
-          array('id' => '[0-9]+')); //idを数字のみに制限
-  Router::connect('/console/diary_genre/edit/:id',
-          array('controller' => 'Console', 'action' => 'diary_genre_edit'),
-          array('id' => '[0-9]+')); //idを数字のみに制限
-
-  Router::connect('/console/information/edit/:id',
-          array('controller' => 'Console', 'action' => 'information_edit'),
-          array('id' => '[0-9]+')); //idを数字のみに制限
-  Router::connect('/console/comment/edit/:id',
-          array('controller' => 'Console', 'action' => 'comment_edit'),
-          array('id' => '[0-9]+')); //idを数字のみに制限
-  Router::connect('/console/banner/edit/:id',
-          array('controller' => 'Console', 'action' => 'banner_edit'),
-          array('id' => '[0-9]+')); //idを数字のみに制限
-  Router::connect('/console/link/edit/:id',
-          array('controller' => 'Console', 'action' => 'link_edit'),
-          array('id' => '[0-9]+')); //idを数字のみに制限
-
-  Router::connect('/console/game/edit/:id',
-          array('controller' => 'Console', 'action' => 'game_edit'),
-          array('id' => '[0-9]+')); //idを数字のみに制限
-  Router::connect('/console/maker/edit/:id',
-          array('controller' => 'Console', 'action' => 'maker_edit'),
-          array('id' => '[0-9]+')); //idを数字のみに制限
-  Router::connect('/console/music/edit/:id',
-          array('controller' => 'Console', 'action' => 'music_edit'),
-          array('id' => '[0-9]+')); //idを数字のみに制限
   Router::connect('/console/voice/:actor', array('controller' => 'Console', 'action' => 'voice'));
   //Router::connect('/console/voice/:actor/sort:Otochin.title/direction:desc', array('controller' => 'Console', 'action' => 'voice')); //paginator用
   Router::connect('/console/voice/:actor/edit/:id',
