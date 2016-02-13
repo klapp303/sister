@@ -43,15 +43,38 @@
                                     elseif ($list['Product']['hard'] == 'al') {echo 'アルバム';}
                                     else {echo 'その他';} ?></td>
         <td class="tbl-title_voice<?php echo ($genre == 'music')? '-music': ''; ?>">
-          <?php if ($list['Product']['genre'] == 'music') { //ディスコグラフィの場合は楽曲データも合わせて表示 ?>
-            <?php echo $list['Product']['title']; ?>
-          <pre><?php print_r($list['Music']); ?></pre>
-          <?php } elseif ($list['Product']['link_url']) { ?>
+          <?php if ($list['Product']['link_url']) { ?>
             <a href="<?php echo $list['Product']['link_url']; ?>" target="_blank">
             <?php echo $list['Product']['title']; ?></a>
           <?php } else { ?>
             <?php echo $list['Product']['title']; ?>
-          <?php } ?></td>
+          <?php } ?>
+          <?php if ($list['Product']['genre'] == 'music' && @$list['Music']) { //ディスコグラフィの場合は楽曲データも合わせて表示 ?>
+            <?php $id = $list['Product']['id']; ?>
+            <script>
+              jQuery(function($) {
+                  var id = <?php echo json_encode($id, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
+                  $('.js-hide-button_' + id).click(function() {
+                      $('.js-hide_' + id).show();
+                      $('.js-show_' + id).hide();
+                  });
+                  $('.js-show-button_' + id).click(function() {
+                      $('.js-hide_' + id).hide();
+                      $('.js-show_' + id).show();
+                  });
+              });
+            </script>
+            <button class="btn_music_voice js-hide-button_<?php echo $id; ?> js-show_<?php echo $id; ?>">楽曲リスト</button>
+            <button style="display: none;" class="btn_music_voice js-show-button_<?php echo $id; ?> js-hide_<?php echo $id; ?>">楽曲リスト</button>
+            <ul style="display: none;" class="list_msuic_voice js-hide_<?php echo $id; ?>">
+              <?php $i = 1; ?>
+              <?php foreach ($list['Music'] AS $music) { ?>
+              <li><span class="num_music_voice"><?php echo sprintf('%02d. ', $i) ?></span><span class="title_music_voice"><?php echo $music['title']; ?></span></li>
+              <?php $i++; ?>
+              <?php } ?>
+            </ul>
+            <?php } ?>
+        </td>
         <td class="tbl-chara_voice"><?php echo $list['Product']['charactor']; ?></td>
         <td><?php echo $list['Product']['note']; ?></td></tr>
     <?php } ?>

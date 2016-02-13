@@ -54,10 +54,34 @@
     width: 300px;
 }
 
+.tbl-chara_voice {
+    width: 120px;
+}
+
+/* ディスコグラフィページ用 */
 .tbl-title_voice-music {
     width: 200px;
 }
 
-.tbl-chara_voice {
-    width: 120px;
+.btn_music_voice {
+    float: right;
+}
+
+.list_msuic_voice {
+    list-style-type: none;
+    margin: 5px 0 5px 0;
+    padding-left: 5px;
+}
+
+.list_msuic_voice >li {
+    font-size: 80%;
+}
+
+.num_music_voice {
+    float: left;
+}
+
+.title_music_voice {
+    display: block;
+    padding-left: 20px;
 }
