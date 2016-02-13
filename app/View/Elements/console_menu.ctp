@@ -1,60 +1,67 @@
-<script>
-jQuery(function($) {
-    $(function() {
-      $('.js-menu_1').click(function(){
-        $('.js-hide_1').toggle();
-      });
-    });
-    $(function() {
-      $('.js-menu_2').click(function(){
-        $('.js-hide_2').toggle();
-      });
-    });
-    $(function() {
-      $('.js-menu_3').click(function(){
-        $('.js-hide_3').toggle();
-      });
-    });
-    $(function() {
-      $('.js-menu_4').click(function(){
-        $('.js-hide_4').toggle();
-      });
-    });
-});
-</script>
+<?php
+  $array_consoleMenu = array(
+      1 => array(
+          'title' => 'サイト管理',
+          'menu' => array(
+              1 => array('label' => 'お知らせを更新する', 'link' => '/console/information/'),
+              2 => array('label' => 'セリフを登録する', 'link' => '/console/comment/'),
+              3 => array('label' => 'バナーを設定する', 'link' => '/console/banner/'),
+              4 => array('label' => 'リンクを設定する', 'link' => '/console/link/'),
+              5 => array('label' => 'サイトを確認する', 'link' => '/', 'target' => '_blank')
+          )
+      ),
+      2 => array(
+          'title' => 'コンテンツ管理',
+          'menu' => array(
+              1 => array('label' => 'エロゲレビューを書く', 'link' => '/console/game/'),
+              2 => array('label' => 'メーカーバナーの管理', 'link' => '/console/maker/'),
+              3 => array('label' => '音楽レビューを書く', 'link' => '/console/#/'),
+              4 => array('label' => '声優を追加する', 'link' => '/console/voice_add/')
+          )
+      ),
+      3 => array(
+          'title' => 'ブログ管理',
+          'menu' => array(
+              1 => array('label' => '日記を書く', 'link' => '/console/diary/'),
+              2 => array('label' => '画像をアップする', 'link' => '/console/photo/'),
+              3 => array('label' => 'ジャンルで分ける', 'link' => '/console/diary_genre/'),
+              4 => array('label' => 'ブログを確認する', 'link' => '/diary/', 'target' => '_blank')
+          )
+      ),
+      4 => array(
+          'title' => 'オプション',
+          'menu' => array(
+              1 => array('label' => '管理者を追加する', 'link' => '/console/admin/'),
+              2 => array('label' => 'ログアウト', 'link' => '/logout/')
+          )
+      )
+  );
+?>
+<?php
+  foreach ($voice_lists AS $voice_list) {
+    array_push($array_consoleMenu[2]['menu'], array('label' => $voice_list['Voice']['nickname'].'情報の追加', 'link' => '/console/voice/'.$voice_list['Voice']['system_name']));
+  }
+?>
 <ul class="menu-list">
-  <li class="js-menu_1 cursor-def"><span class="menu-title">サイト管理</span>
-    <ul style="display: none;" class="menu-list-sub js-hide_1">
-      <li><?php echo $this->Html->link('お知らせを更新する', '/console/information/'); ?></li>
-      <li><?php echo $this->Html->link('セリフを登録する', '/console/comment/'); ?></li>
-      <li><?php echo $this->Html->link('バナーを設定する', '/console/banner/'); ?></li>
-      <li><?php echo $this->Html->link('リンクを設定する', '/console/link/'); ?></li>
-      <li><?php echo $this->Html->link('サイトを確認する', '/', array('target' => '_blank')); ?></li>
-    </ul>
-  </li>
-  <li class="js-menu_2 cursor-def"><span class="menu-title">コンテンツ管理</span>
-    <ul style="display: none;" class="menu-list-sub js-hide_2">
-      <li><?php echo $this->Html->link('エロゲレビューを書く', '/console/game/'); ?></li>
-      <li><?php echo $this->Html->link('メーカーバナーの管理', '/console/maker/'); ?></li>
-      <li><?php echo $this->Html->link('音楽レビューを書く', '/console/#/'); ?></li>
-      <?php foreach ($voice_lists AS $voice_list) { ?>
-      <li><?php echo $this->Html->link($voice_list['Voice']['nickname'].'情報の追加', '/console/voice/'.$voice_list['Voice']['system_name']); ?></li>
+  <?php foreach ($array_consoleMenu AS $key => $menu) { ?>
+  <script>
+  jQuery(function($) {
+      var key = <?php echo json_encode($key, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
+      $(function() {
+          $('.js-menu_' + key).click(
+              function(){
+                  $('.js-hide_' + key).toggle();
+              }
+          );
+      });
+  });
+  </script>
+  <li class="js-menu_<?php echo $key; ?> cursor-def"><span class="menu-title"><?php echo $menu['title']; ?></span>
+    <ul style="display: none;" class="menu-list-sub js-hide_<?php echo $key; ?>">
+      <?php foreach ($menu['menu'] AS $sub_menu) { ?>
+      <li><?php echo $this->Html->link($sub_menu['label'], $sub_menu['link'], (@$sub_menu['target'] == '_blank')? array('target' => '_blank'): ''); ?></li>
       <?php } ?>
-      <li><?php echo $this->Html->link('声優を追加する', '/console/voice_add/'); ?></li>
     </ul>
   </li>
-  <li class="js-menu_3 cursor-def"><span class="menu-title">ブログ管理</span>
-    <ul style="display: none;" class="menu-list-sub js-hide_3">
-      <li><?php echo $this->Html->link('日記を書く', '/console/diary/'); ?></li>
-      <li><?php echo $this->Html->link('画像をアップする', '/console/photo/'); ?></li>
-      <li><?php echo $this->Html->link('ジャンルで分ける', '/console/diary_genre/'); ?></li>
-      <li><?php echo $this->Html->link('ブログを確認する', '/diary/', array('target' => '_bllank')); ?></li>
-    </ul>
-  </li>
-  <li class="js-menu_4 cursor-def"><span class="menu-title">オプション</span>
-    <ul style="display: none;" class="menu-list-sub js-hide_4">
-      <li><?php echo $this->Html->link('管理者を追加する', '/console/admin/'); ?></li>
-      <li><?php echo $this->Html->link('ログアウト', '/logout/'); ?></li>
-    </ul>
-  </li>
+  <?php } ?>
 </ul>
