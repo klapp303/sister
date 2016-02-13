@@ -38,7 +38,7 @@
 <table class="tbl_info">
   <tr><th colspan="3" class="tbl-title-h_info">声優 etc</th></tr>
   <tr><td></td><td class="tbl-titke-d_info">おとちん</td>
-      <td class="tbl-text_info">声優、安玖深音さんを応援するページです。順次データを移行中。</td></tr>
+      <td class="tbl-text_info">声優、安玖深音さんを応援するページです。</td></tr>
   <!--tr><td></td><td class="tbl-titke-d_info">あやち</td>
       <td class="tbl-text_info">声優、竹達彩奈さんを応援するページです。</td></tr-->
 </table>
