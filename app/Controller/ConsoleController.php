@@ -1302,4 +1302,83 @@ class ConsoleController extends AppController {
         $this->redirect('/console/voice/'.$actor);
       }
   }
+
+  public function music() {
+      $this->Paginator->settings = array(
+          'limit' => 20,
+          'order' => array('Music.id' => 'desc')
+      );
+      $music_lists = $this->Paginator->paginate('Music');
+      $this->set('music_lists', $music_lists);
+  }
+
+  public function music_add() {
+      if ($this->request->is('post')) {
+        $this->Music->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->Music->validates()) { //validate成功の処理
+          $this->Music->save($this->request->data); //validate成功でsave
+          if ($this->Music->save($this->request->data)) {
+            $this->Session->setFlash('楽曲を登録しました。', 'flashMessage');
+          } else {
+            $this->Session->setFlash('追加できませんでした。', 'flashMessage');
+          }
+        } else { //validate失敗の処理
+          $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+        }
+      }
+
+      $this->redirect('/console/music/');
+  }
+
+  public function music_edit() {
+      $this->Paginator->settings = array(
+          'limit' => 20,
+          'order' => array('Music.id' => 'desc')
+      );
+      $music_lists = $this->Paginator->paginate('Music');
+      $this->set('music_lists', $music_lists);
+
+      //楽曲の編集用
+      if (empty($this->request->data)) {
+        $id = $this->request->params['id'];
+        $this->request->data = $this->Music->findById($id); //postデータがなければ$idからデータを取得
+        if (!empty($this->request->data)) { //データが存在する場合
+          $this->set('id', $id); //viewに渡すために$idをセット
+        } else { //データが存在しない場合
+          $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+        }
+      } else {
+        $id = $this->request->data['Music']['id'];
+        $this->Music->set($this->request->data); //postデータがあればModelに渡してvalidate
+        if ($this->Music->validates()) { //validate成功の処理
+          $this->Music->save($this->request->data); //validate成功でsave
+          if ($this->Music->save($id)) {
+            $this->Session->setFlash('修正しました。', 'flashMessage');
+          } else {
+            $this->Session->setFlash('修正できませんでした。', 'flashMessage');
+          }
+          $this->redirect('/console/music/');
+        } else { //validate失敗の処理
+          $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+          $this->set('id', $this->request->data['Music']['id']); //viewに渡すために$idをセット
+        }
+      }
+      $this->render('music');
+  }
+
+  public function music_delete($id = null) {
+      if (empty($id)) {
+        throw new NotFoundException(__('存在しないデータです。'));
+      }
+      
+      if ($this->request->is('post')) {
+        $this->Music->Behaviors->enable('SoftDelete');
+        if ($this->Music->delete($id)) {
+          $this->Session->setFlash('削除しました。', 'flashMessage');
+        } else {
+          $this->Session->setFlash('削除できませんでした。', 'flashMessage');
+        }
+        $this->redirect('/console/music/');
+      }
+  }
 }

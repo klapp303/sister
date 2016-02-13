@@ -15,7 +15,7 @@
           'menu' => array(
               1 => array('label' => 'エロゲレビューを書く', 'link' => '/console/game/'),
               2 => array('label' => 'メーカーバナーの管理', 'link' => '/console/maker/'),
-              3 => array('label' => '音楽レビューを書く', 'link' => '/console/#/'),
+              3 => array('label' => '音楽レビューを書く', 'link' => '/console/music/'),
               4 => array('label' => '声優を追加する', 'link' => '/console/voice_add/')
           )
       ),
