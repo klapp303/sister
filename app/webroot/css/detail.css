@@ -79,7 +79,7 @@
     position: relative;
       /* メニューを横に揃える */
       float: left;
-      width: 160px;
+      /*width: 160px;*/
 }
 
 .menu-list a, .menu-title {

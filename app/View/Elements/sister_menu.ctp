@@ -40,6 +40,7 @@
   );
 ?>
 <ul class="menu-list">
+  <?php $width = 800 / count($array_menu); ?>
   <?php foreach ($array_menu AS $key => $menu) { ?>
   <?php if ($menu['menu']) { ?>
     <script>
@@ -54,15 +55,15 @@
         });
     });
     </script>
-    <li class="js-menu_<?php echo $key; ?> cursor-def"><span class="menu-title"><?php echo $menu['title']; ?></span>
+    <li style="width: <?php echo $width; ?>px;" class="js-menu_<?php echo $key; ?> cursor-def"><span class="menu-title"><?php echo $menu['title']; ?></span>
       <ul style="display: none;" class="menu-list-sub js-hide_<?php echo $key; ?>">
         <?php foreach ($menu['menu'] AS $sub_menu) { ?>
-        <li><?php echo $this->Html->link($sub_menu['label'], $sub_menu['link']); ?></li>
+        <li style="width: <?php echo $width; ?>px;"><?php echo $this->Html->link($sub_menu['label'], $sub_menu['link']); ?></li>
         <?php } ?>
       </ul>
     </li>
   <?php } else { ?>
-    <li><?php echo $this->Html->link($menu['title'], $menu['link']); ?></li>
+    <li style="width: <?php echo $width; ?>px;"><?php echo $this->Html->link($menu['title'], $menu['link']); ?></li>
   <?php } ?>
   <?php } ?>
 </ul>
