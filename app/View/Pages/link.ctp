@@ -45,5 +45,5 @@
 
 <p class="intro_link">
   このサイトはリンクフリーです。<br>
-  相互リンクを希望される方は klapp303＠gmail まで。
+  相互リンクを希望される方は klapp303<?php echo $this->Html->image('../atmark.png', array('alt' => 'atmark')) ?>gmail.com まで。
 </p>
