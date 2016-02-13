@@ -36,7 +36,7 @@
     </tr>
     <tr>
       <td>備考（任意）</td>
-      <td><?php echo $this->Form->input('note', array('type' => 'textarea', 'label' => false, 'cols' => 30, 'rows' => 10)); ?></td>
+      <td><?php echo $this->Form->input('note', array('type' => 'textarea', 'label' => false, 'cols' => 50, 'rows' => 5)); ?></td>
     </tr>
     <tr>
       <td>リンクURL（任意）</td>
