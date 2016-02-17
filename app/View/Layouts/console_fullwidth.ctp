@@ -51,15 +51,17 @@
 		<div id="header">
 			<?php echo $this->element('sister_header'); ?>
 		</div>
+    
 		<div id="menu_side">
       <?php echo $this->element('console_menu'); ?>
 		</div>
+    
     <div id="content">
-
 			<?php echo $this->Flash->render(); ?>
-
+      
 			<?php echo $this->fetch('content'); ?>
 		</div>
+    
     <div id="footer" class="cf">
       <?php echo $this->element('sister_footer'); ?>
 		</div>

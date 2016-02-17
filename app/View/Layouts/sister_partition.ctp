@@ -62,12 +62,14 @@
 			<?php echo $this->element('sister_header'); ?>
       <?php echo $this->element('sister_menu'); ?>
 		</div>
+    
     <div id="content_main">
-
 			<?php echo $this->Flash->render(); ?>
-
+      
+      <?php echo $this->element('sister_breadcrumb'); ?>
 			<?php echo $this->fetch('content'); ?>
 		</div>
+    
     <div id="content_side">
 		<div id="menu_side">
       <?php echo $this->element('searchbox'); ?>
@@ -75,6 +77,7 @@
       <?php echo $this->element('submenu_tag'); ?>
 		</div>
     </div>
+    
     <div id="footer" class="cf">
       <?php echo $this->element('sister_footer'); ?>
 		</div>

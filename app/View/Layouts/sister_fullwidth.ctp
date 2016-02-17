@@ -54,12 +54,14 @@
 			<?php echo $this->element('sister_header'); ?>
       <?php echo $this->element('sister_menu'); ?>
 		</div>
+    
     <div id="content">
-
 			<?php echo $this->Flash->render(); ?>
-
+      
+      <?php echo $this->element('sister_breadcrumb'); ?>
 			<?php echo $this->fetch('content'); ?>
 		</div>
+    
     <div id="footer">
       <?php echo $this->element('sister_footer'); ?>
 		</div>

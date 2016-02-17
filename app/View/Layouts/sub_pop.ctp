@@ -47,7 +47,6 @@
 <body>
 	<div id="container_pop">
     <div id="content_pop">
-
 			<?php echo $this->Flash->render(); ?>
 
 			<?php echo $this->fetch('content'); ?>
