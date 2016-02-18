@@ -56,9 +56,9 @@
 		</div>
     
     <div id="content">
+      <?php echo $this->element('sister_breadcrumb'); ?>
 			<?php echo $this->Flash->render(); ?>
       
-      <?php echo $this->element('sister_breadcrumb'); ?>
 			<?php echo $this->fetch('content'); ?>
 		</div>
     

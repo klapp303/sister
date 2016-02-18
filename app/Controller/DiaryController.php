@@ -85,6 +85,7 @@ class DiaryController extends AppController {
             )
         ));
         if (!empty($diary_lists)) { //データが存在する場合
+          $this->set('sub_page', $diary_lists[0]['Diary']['title']); //breadcrumbの設定
           $this->set('diary_lists', $diary_lists);
         } else { //データが存在しない場合
           $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
@@ -105,6 +106,7 @@ class DiaryController extends AppController {
         $year = $this->request->params['year_id']; //カレンダー用に定義
         $month = $this->request->params['month_id']; //カレンダー用に定義
         if (!empty($diary_lists)) { //データが存在する場合
+          $this->set('sub_page', $year.'年'.$month.'月'); //breadcrumbの設定
           $this->set('diary_lists', $diary_lists);
         } else { //データが存在しない場合
           $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
@@ -125,6 +127,7 @@ class DiaryController extends AppController {
         $year = $this->request->params['year_id']; //カレンダー用に定義
         $month = $this->request->params['month_id']; //カレンダー用に定義
         if (!empty($diary_lists)) { //データが存在する場合
+          $this->set('sub_page', $year.'年'.$month.'月'.sprintf('%02d', $this->request->params['date_id']).'日'); //breadcrumbの設定
           $this->set('diary_lists', $diary_lists);
         } else { //データが存在しない場合
           $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
@@ -256,7 +259,10 @@ class DiaryController extends AppController {
           'conditions' => array('Diary.publish' => 1)
       ));
       $this->set('diary_counts_all', $diary_counts_all);
-
+  
+      //breadcrumbの設定
+      $this->set('sub_page', $genre_lists[$this->request->params['genre_id'] - 1]['DiaryGenre']['title'].'('.${'diary_counts_genre'.$this->request->params['genre_id']}.')');
+  
       $this->render('index');
   }
 

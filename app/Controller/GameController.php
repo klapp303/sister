@@ -35,7 +35,7 @@ class GameController extends AppController {
  *
  * @var array
  */
-	public $uses = array('Game'); //使用するModel
+	public $uses = array('Game', 'Information'); //使用するModel
 
 /**
  * Displays a view
@@ -82,7 +82,22 @@ class GameController extends AppController {
   }
 
   public function mh() {
-      // viewの設定
+      //breadcrumbの設定
+      if (isset($this->request->params['page']) == TRUE) {
+        $mh_info = $this->Information->find('first', array(
+            'conditions' => array(
+                'Information.publish' => 1,
+                'Information.title LIKE' => '%'.'/game/mh/'.$this->request->params['page'].'%'
+            )
+        ));
+        if ($mh_info) {
+          $mh_title = preg_replace('/モンハンメモに<a href=.*?.>/', '', $mh_info['Information']['title']);
+          $mh_title = str_replace('</a>を追加', '', $mh_title);
+          $this->set('sub_page', $mh_title);
+        }
+      }
+  
+      //viewの設定
       if (isset($this->request->params['page']) == TRUE) {
         $this->render('/mh/'.$this->request->params['page']);
       } else {
