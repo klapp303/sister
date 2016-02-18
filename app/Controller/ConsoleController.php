@@ -79,7 +79,7 @@ class ConsoleController extends AppController {
       parent::beforeFilter();
       $this->layout = 'console_fullwidth';
       //$this->Sample->Behaviors->disable('SoftDelete'); //SoftDeleteのデータも取得する
-
+  
       /* コンソールメニューの声優データ取得ここから */
       $voice_lists = $this->Voice->find('all');
       $this->set('voice_lists', $voice_lists);

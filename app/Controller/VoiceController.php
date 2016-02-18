@@ -51,10 +51,40 @@ class VoiceController extends AppController {
       'order' => array('id' => 'desc')
   );
 
+  function setMenu() {
+      $array_voiceMenu = array(
+          1 => array(
+              'title' => '出演作品（アニメ）',
+              'genre' => 'anime'
+          ),
+          2 => array(
+              'title' => '出演作品（ゲーム）',
+              'genre' => 'game'
+          ),
+          3 => array(
+              'title' => '出演作品（ラジオ）',
+              'genre' => 'radio'
+          ),
+          4 => array(
+              'title' => '出演作品（その他）',
+              'genre' => 'other'
+          ),
+          5 => array(
+              'title' => 'ディスコグラフィ',
+              'genre' => 'music'
+          )
+      );
+      return $array_voiceMenu;
+  }
+
   public function beforeFilter() {
       parent::beforeFilter();
       $this->layout = 'sister_fullwidth';
       //$this->Sample->Behaviors->disable('SoftDelete'); //SoftDeleteのデータも取得する
+  
+      //ジャンル別一覧メニューのために定義しておく
+      $array_voiceMenu = $this->setMenu();
+      $this->set('array_voiceMenu', $array_voiceMenu);
   }
 
   /*public function index() {
@@ -84,9 +114,18 @@ class VoiceController extends AppController {
       if (isset($this->request->params['actor']) == TRUE && isset($this->request->params['genre']) == TRUE) {
         $genre = $this->request->params['genre'];
         $this->set('genre', $genre);
-        if ($genre !== 'anime' && $genre !== 'game' && $genre !== 'radio' && $genre !== 'music' && $genre !== 'other') {
-          $this->redirect('/');
+        
+        $array_voiceMenu = $this->setmenu();
+        $tmp = $array_voiceMenu; //後でforeach構文で最後の処理をするため
+        foreach ($array_voiceMenu AS $menu) { //breadcrumbの設定
+          if ($menu['genre'] == $genre) {
+            $this->set('sub_page', $menu['title']);
+            break;
+          } elseif (!next($tmp)) { //ジャンルがない場合
+            $this->redirect('/');
+          }
         }
+        
         $voice = $this->Voice->find('first', array(
             'conditions' => array(
                 'Voice.system_name' => $this->request->params['actor'],

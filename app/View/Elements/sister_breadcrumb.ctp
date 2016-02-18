@@ -16,6 +16,9 @@
   } ?>
   <?php } ?>
 <?php } ?>
+<?php if (@$sub_page) {
+  array_push($breadcrumbs, array('menu' => $sub_page, 'link' => '#'));
+} ?>
 <h2 class="breadcrumb cf">
   <ol>
     <li><?php echo $this->Html->link('HOME', '/'); ?></li>
@@ -23,10 +26,14 @@
     <?php foreach ($breadcrumbs AS $breadcrumb) { ?>
     <li>
       <span>＞　</span>
-      <?php if ($breadcrumb['link'] == '#' || next($tmp)) { ?>
-        <?php echo $breadcrumb['menu']; ?>
+      <?php if (next($tmp)) { ?>
+        <?php if ($breadcrumb['link'] == '#') { ?>
+          <?php echo $breadcrumb['menu']; ?>
+        <?php } else { ?>
+          <?php echo $this->Html->link($breadcrumb['menu'], $breadcrumb['link']); ?>
+        <?php } ?>
       <?php } else { ?>
-        <?php echo $this->Html->link($breadcrumb['menu'], $breadcrumb['link']); ?>
+        <?php echo $breadcrumb['menu']; ?>
       <?php } ?>
     </li>
     <?php } ?>

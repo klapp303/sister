@@ -19,14 +19,19 @@
 <h3>出演リスト</h3>
 
 <ul class="link-page">
-  <li><?php echo $this->Html->link('⇨ 出演作品（アニメ）', '/voice/'.$voice['Voice']['system_name'].'/anime/'); ?></li>
-  <li><?php echo $this->Html->link('⇨ 出演作品（ゲーム）', '/voice/'.$voice['Voice']['system_name'].'/game/'); ?></li>
-  <li><?php echo $this->Html->link('⇨ 出演作品（ラジオ）', '/voice/'.$voice['Voice']['system_name'].'/radio/'); ?></li>
-  <li><?php echo $this->Html->link('⇨ 出演作品（その他）', '/voice/'.$voice['Voice']['system_name'].'/other/'); ?></li>
+  <?php foreach ($array_voiceMenu AS $menu) { ?>
+    <?php if ($menu['genre'] != 'music') { ?>
+    <li><?php echo $this->Html->link('⇨ '.$menu['title'], '/voice/'.$voice['Voice']['system_name'].'/'.$menu['genre'].'/'); ?></li>
+    <?php } ?>
+  <?php } ?>
 </ul>
 
 <h3>音楽リスト</h3>
 
 <ul class="link-page">
-  <li><?php echo $this->Html->link('⇨ ディスコグラフィ', '/voice/'.$voice['Voice']['system_name'].'/music/'); ?></li>
+  <?php foreach ($array_voiceMenu AS $menu) { ?>
+    <?php if ($menu['genre'] == 'music') { ?>
+    <li><?php echo $this->Html->link('⇨ '.$menu['title'], '/voice/'.$voice['Voice']['system_name'].'/'.$menu['genre'].'/'); ?></li>
+    <?php } ?>
+  <?php } ?>
 </ul>

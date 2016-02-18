@@ -1,9 +1,7 @@
 <?php echo $this->Html->css('voice', array('inline' => FALSE)); ?>
-<h3><?php if ($genre == 'anime') {echo '出演アニメ';}
-      elseif ($genre == 'game') {echo '出演ゲーム';}
-      elseif ($genre == 'radio') {echo '出演ラジオ';}
-      elseif ($genre == 'music') {echo 'ディスコグラフィ';}
-      else {echo '出演作品';} ?>一覧</h3>
+<h3><?php foreach ($array_voiceMenu AS $menu) {
+  if ($menu['genre'] == $genre) {echo $menu['title'];}
+} ?>一覧</h3>
 
   <?php $this->Paginator->options(array(
       'url' => array('controller' => 'voice', 'action' => $voice['Voice']['system_name'], $genre)
