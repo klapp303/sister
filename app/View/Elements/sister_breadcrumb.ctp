@@ -16,9 +16,10 @@
   } ?>
   <?php } ?>
 <?php } ?>
-<?php if (@$sub_page) {
+<?php if (isset($sub_page) == TRUE) {
   array_push($breadcrumbs, array('menu' => $sub_page, 'link' => '#'));
 } ?>
+<?php if ($breadcrumbs) { ?>
 <h2 class="breadcrumb cf">
   <ol>
     <li><?php echo $this->Html->link('HOME', '/'); ?></li>
@@ -39,3 +40,4 @@
     <?php } ?>
   </ol>
 </h2>
+<?php } ?>

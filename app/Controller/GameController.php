@@ -73,6 +73,7 @@ class GameController extends AppController {
             'conditions' => array('Game.id' => $this->request->params['id'])
         ));
         if (!empty($game_detail)) { //データが存在する場合
+          $this->set('sub_page', $game_detail['Game']['title']); //breadcrumbの設定
           $this->set('game_detail', $game_detail);
           $this->render('review');
         } else { //データが存在しない場合
