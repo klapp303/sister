@@ -1,51 +1,12 @@
 <?php
-/**
- * Static content controller.
- *
- * This file will render views from views/pages/
- *
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @package       app.Controller
- * @since         CakePHP(tm) v 0.2.9
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
 
 App::uses('AppController', 'Controller');
 App::uses('File', 'Utility'); //ファイルAPI用
 App::uses('Folder', 'Utility'); //フォルダAPI用
 
-/**
- * Static content controller
- *
- * Override this controller by placing a copy in controllers directory of an application
- *
- * @package       app.Controller
- * @link http://book.cakephp.org/2.0/en/controllers/pages-controller.html
- */
 class ConsoleController extends AppController {
 
-/**
- * This controller does not use a model
- *
- * @var array
- */
 	public $uses = array('Diary', 'DiaryGenre', 'Photo', 'Information', 'SisterComment', 'Banner', 'Link', 'Administrator', 'Game', 'Maker', 'Voice', 'Product', 'Music'); //使用するModel
-
-/**
- * Displays a view
- *
- * @return void
- * @throws NotFoundException When the view file could not be found
- *	or MissingViewException in debug mode.
- */
 
   public $components = array(
       'Paginator',
@@ -191,7 +152,7 @@ class ConsoleController extends AppController {
           $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
         }
       }
-
+  
       $this->redirect('/console/diary/');
   }
 
@@ -209,7 +170,7 @@ class ConsoleController extends AppController {
           'order' => array('DiaryGenre.id' => 'asc')
       ));
       $this->set('genre_lists', $genre_lists);
-
+  
       //日記の編集用
       if (empty($this->request->data)) {
         $id = $this->request->params['id'];
@@ -269,7 +230,7 @@ class ConsoleController extends AppController {
       } else { //データが存在しない場合
         $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
       }
-
+  
       $year = date('Y');
       $month = date('m');
       $hidden_id = 4; //日記一覧では非表示にするジャンル
@@ -301,7 +262,7 @@ class ConsoleController extends AppController {
       $next_month = date('m', strtotime($year.'-'.$month.'-01 +1 month'));
       $this->set('next_year', $next_year);
       $this->set('next_month', $next_month);
-
+  
       //ジャンル別メニュー用
       $genre_lists = $this->DiaryGenre->find('all', array(
           //'conditions' => array('DiaryGenre.id >' => 1) //その他ジャンルを除外
@@ -331,7 +292,7 @@ class ConsoleController extends AppController {
       if ($mode == 'sub_pop') {
         $this->layout = 'sub_pop';
       }
-
+  
       $this->Paginator->settings = array(
           'limit' => 10,
           'order' => array('Photo.id' => 'desc')
@@ -409,7 +370,7 @@ class ConsoleController extends AppController {
           $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
         }
       }
-
+  
       $this->redirect('/console/diary_genre/');
   }
 
@@ -420,7 +381,7 @@ class ConsoleController extends AppController {
       );
       $diary_genre_lists = $this->Paginator->paginate('DiaryGenre');
       $this->set('diary_genre_lists', $diary_genre_lists);
-
+  
       //日記ジャンルの編集用
       if (empty($this->request->data)) {
         $id = $this->request->params['id'];
@@ -488,7 +449,7 @@ class ConsoleController extends AppController {
           $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
         }
       }
-
+  
       $this->redirect('/console/information/');
   }
 
@@ -499,7 +460,7 @@ class ConsoleController extends AppController {
       );
       $information_lists = $this->Paginator->paginate('Information');
       $this->set('information_lists', $information_lists);
-
+  
       //お知らせの編集用
       if (empty($this->request->data)) {
         $id = $this->request->params['id'];
@@ -572,7 +533,7 @@ class ConsoleController extends AppController {
           $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
         }
       }
-
+  
       $this->redirect('/console/comment/');
   }
 
@@ -583,7 +544,7 @@ class ConsoleController extends AppController {
       );
       $comment_lists = $this->Paginator->paginate('SisterComment');
       $this->set('comment_lists', $comment_lists);
-
+  
       //セリフの編集用
       if (empty($this->request->data)) {
         $id = $this->request->params['id'];
@@ -660,7 +621,7 @@ class ConsoleController extends AppController {
           $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
         }
       }
-
+  
       $this->redirect('/console/banner/');
   }
 
@@ -671,7 +632,7 @@ class ConsoleController extends AppController {
       );
       $banner_lists = $this->Paginator->paginate('Banner');
       $this->set('banner_lists', $banner_lists);
-
+  
       //バナーの編集用
       if (empty($this->request->data)) {
         $id = $this->request->params['id'];
@@ -760,7 +721,7 @@ class ConsoleController extends AppController {
           $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
         }
       }
-
+  
       $this->redirect('/console/link/');
   }
 
@@ -771,7 +732,7 @@ class ConsoleController extends AppController {
       );
       $link_lists = $this->Paginator->paginate('Link');
       $this->set('link_lists', $link_lists);
-
+  
       //リンクの編集用
       if (empty($this->request->data)) {
         $id = $this->request->params['id'];
@@ -839,7 +800,7 @@ class ConsoleController extends AppController {
           $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
         }
       }
-
+  
       $this->redirect('/console/admin/');
   }
 
@@ -850,7 +811,7 @@ class ConsoleController extends AppController {
       );
       $admin_lists = $this->Paginator->paginate('Administrator');
       $this->set('admin_lists', $admin_lists);
-
+  
       //管理者の編集用
       if (empty($this->request->data)) {
         $id = $this->request->params['id'];
@@ -925,7 +886,7 @@ class ConsoleController extends AppController {
           $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
         }
       }
-
+  
       $this->redirect('/console/game/');
   }
 
@@ -943,7 +904,7 @@ class ConsoleController extends AppController {
           'order' => array('Maker.title' => 'asc')
       ));
       $this->set('maker_lists', $maker_lists);
-
+  
       //レビューの編集用
       if (empty($this->request->data)) {
         $id = $this->request->params['id'];
@@ -1020,7 +981,7 @@ class ConsoleController extends AppController {
           $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
         }
       }
-
+  
       $this->redirect('/console/maker/');
   }
 
@@ -1031,7 +992,7 @@ class ConsoleController extends AppController {
       );
       $maker_lists = $this->Paginator->paginate('Maker');
       $this->set('maker_lists', $maker_lists);
-
+  
       //バナーの編集用
       if (empty($this->request->data)) {
         $id = $this->request->params['id'];
@@ -1144,7 +1105,7 @@ class ConsoleController extends AppController {
       } else {
         $this->redirect('/console/index');
       }
-
+  
       //声優データの編集用
       if (empty($this->request->data)) {
         $this->request->data = $profile; //postデータがなければデータを取得
@@ -1224,7 +1185,7 @@ class ConsoleController extends AppController {
           $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
         }
       }
-
+  
       $this->redirect('/console/voice/'.$this->request->data['Product']['voice_actor']);
   }
 
@@ -1249,7 +1210,7 @@ class ConsoleController extends AppController {
         $product_lists = $this->Paginator->paginate('Product');
         $this->set('product_lists', $product_lists);
       }
-
+  
       //出演作品の編集用
       if (empty($this->request->data)) {
         $id = $this->request->params['id'];
@@ -1326,7 +1287,7 @@ class ConsoleController extends AppController {
           $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
         }
       }
-
+  
       $this->redirect('/console/music/');
   }
 
@@ -1337,7 +1298,7 @@ class ConsoleController extends AppController {
       );
       $music_lists = $this->Paginator->paginate('Music');
       $this->set('music_lists', $music_lists);
-
+  
       //楽曲の編集用
       if (empty($this->request->data)) {
         $id = $this->request->params['id'];

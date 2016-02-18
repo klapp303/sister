@@ -1,49 +1,10 @@
 <?php
-/**
- * Static content controller.
- *
- * This file will render views from views/pages/
- *
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @package       app.Controller
- * @since         CakePHP(tm) v 0.2.9
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
 
 App::uses('AppController', 'Controller');
 
-/**
- * Static content controller
- *
- * Override this controller by placing a copy in controllers directory of an application
- *
- * @package       app.Controller
- * @link http://book.cakephp.org/2.0/en/controllers/pages-controller.html
- */
 class DiaryController extends AppController {
 
-/**
- * This controller does not use a model
- *
- * @var array
- */
 	public $uses = array('Diary', 'DiaryGenre'); //使用するModel
-
-/**
- * Displays a view
- *
- * @return void
- * @throws NotFoundException When the view file could not be found
- *	or MissingViewException in debug mode.
- */
 
   public $components = array(
       'Paginator',
@@ -66,7 +27,7 @@ class DiaryController extends AppController {
       $year = date('Y');
       $month = date('m');
       $hidden_id = 4; //日記一覧では非表示にするジャンル
-
+  
       //diaryページの日記一覧を設定
       $this->Paginator->settings = array(
           'limit' => 5,
@@ -75,7 +36,7 @@ class DiaryController extends AppController {
       );
       $diary_lists = $this->Paginator->paginate('Diary');
       $this->set('diary_lists', $diary_lists);
-
+  
       //パラメータにidがあれば詳細ページを表示
       if (isset($this->request->params['id']) == TRUE) {
         $diary_lists = $this->Diary->find('all', array(
@@ -91,7 +52,7 @@ class DiaryController extends AppController {
           $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
         }
       }
-
+  
       //パラメータにdate_idがなくmonth_idがあれば月別一覧ページを表示
       if (isset($this->request->params['date_id']) == FALSE && isset($this->request->params['month_id']) == TRUE) {
         $diary_lists = $this->Diary->find('all', array(
@@ -112,7 +73,7 @@ class DiaryController extends AppController {
           $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
         }
       }
-
+  
       //パラメータにdate_idがあれば日にち別一覧ページを表示
       if (isset($this->request->params['date_id']) == TRUE) {
         $diary_lists = $this->Diary->find('all', array(
@@ -133,7 +94,7 @@ class DiaryController extends AppController {
           $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
         }
       }
-
+  
       //カレンダー用
       $diary_cal_lists = $this->Diary->find('list', array( //任意月の日記リストを取得
           'conditions' => array(
@@ -161,7 +122,7 @@ class DiaryController extends AppController {
       $next_month = date('m', strtotime($year.'-'.$month.'-01 +1 month'));
       $this->set('next_year', $next_year);
       $this->set('next_month', $next_month);
-
+  
       //ジャンル別メニュー用
       $genre_lists = $this->DiaryGenre->find('all', array(
           //'conditions' => array('DiaryGenre.id >' => 1) //その他ジャンルを除外
@@ -188,7 +149,7 @@ class DiaryController extends AppController {
       $year = date('Y');
       $month = date('m');
       $hidden_id = 4; //日記一覧では非表示にするジャンル
-
+  
       //パラメータにgenre_idがあればジャンル別一覧ページを表示
       if (isset($this->request->params['genre_id']) == TRUE) {
         $this->Paginator->settings = array(
@@ -210,7 +171,7 @@ class DiaryController extends AppController {
         $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
         $this->redirect('/diary/');
       }
-
+  
       //カレンダー用
       $diary_cal_lists = $this->Diary->find('list', array( //任意月の日記リストを取得
           'conditions' => array(
@@ -238,7 +199,7 @@ class DiaryController extends AppController {
       $next_month = date('m', strtotime($year.'-'.$month.'-01 +1 month'));
       $this->set('next_year', $next_year);
       $this->set('next_month', $next_month);
-
+  
       //ジャンル別メニュー用
       $genre_lists = $this->DiaryGenre->find('all', array(
           //'conditions' => array('DiaryGenre.id >' => 1) //その他ジャンルを除外
@@ -270,7 +231,7 @@ class DiaryController extends AppController {
       $year = date('Y');
       $month = date('m');
       $hidden_id = 4; //日記一覧では非表示にするジャンル
-
+  
       $this->Diary->recursive = 0;
       $this->Prg->commonProcess('Diary');
       //$this->Prg->parsedParams();
@@ -289,7 +250,7 @@ class DiaryController extends AppController {
         $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
         $this->redirect('/diary/');
       }
-
+  
       //カレンダー用
       $diary_cal_lists = $this->Diary->find('list', array( //任意月の日記リストを取得
           'conditions' => array(
@@ -317,7 +278,7 @@ class DiaryController extends AppController {
       $next_month = date('m', strtotime($year.'-'.$month.'-01 +1 month'));
       $this->set('next_year', $next_year);
       $this->set('next_month', $next_month);
-
+  
       //ジャンル別メニュー用
       $genre_lists = $this->DiaryGenre->find('all', array(
           //'conditions' => array('DiaryGenre.id >' => 1) //その他ジャンルを除外
@@ -338,7 +299,7 @@ class DiaryController extends AppController {
           'conditions' => array('Diary.publish' => 1)
       ));
       $this->set('diary_counts_all', $diary_counts_all);
-
+  
       $this->render('index');
   }
 }
