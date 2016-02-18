@@ -9,7 +9,9 @@
         <?php echo $this->Html->image('../files/maker/'.$game_detail['Maker']['image_name'], array('alt' => $game_detail['Maker']['title'], 'class' => 'img-maker_erg')); ?></a></td>
     <td> <?php echo $game_detail['Maker']['title']; ?></td>
     <td class="tbl-date_erg"><?php echo $game_detail['Game']['release_date']; ?></td>
-    <td><?php echo $game_detail['Game']['link_url']; ?></td>
+    <td><?php if ($game_detail['Game']['link_url']) {?>
+      <a href="<?php echo $game_detail['Game']['link_url']; ?>" target="_blank"><?php echo $game_detail['Game']['link_url']; ?></a>
+    <?php } ?></td>
   </tr>
 </table>
 

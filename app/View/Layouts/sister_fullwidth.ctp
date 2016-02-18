@@ -24,7 +24,12 @@
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php echo $this->element('common_tag', array('title' => 'normal')); ?>
+    <?php if (isset($this->request['id']) == TRUE && isset($game_detail['Game']['title']) == TRUE) {
+      echo $this->element('common_tag', array('title' => 'short'));
+      echo ' '.$game_detail['Game']['title'];
+    } else {
+      echo $this->element('common_tag', array('title' => 'normal'));
+    } ?>
 	</title>
 	<?php
 //		echo $this->Html->meta('icon');
