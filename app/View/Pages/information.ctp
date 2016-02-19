@@ -9,40 +9,52 @@
 
 <h3>サイトマップ</h3>
 
+<?php
+  if (@strstr($array_menu[4]['menu'][0]['link'], '/voice/')) {
+    $count = count($array_menu[4]['menu']);
+    for ($i = 0; $i < $count; $i++) { //foreach構文を使えなかったのでfor構文で記述
+      $array_menu[4]['menu'][$i]['text'] =
+              '声優、'.$array_menu[4]['menu'][$i]['name'].'さんを応援するページです。';
+    }
+  }
+?>
+<?php //ページ紹介文の設定
+  if (@$array_menu[1]['menu'][1]['link'] == '/information/') {
+    $array_menu[1]['menu'][1]['text'] =
+            '現在のページです。';
+  }
+  if (@$array_menu[1]['menu'][2]['link'] == '/author/') {
+    $array_menu[1]['menu'][2]['text'] =
+            'サイト管理者のプロフィールです。';
+  }
+  if (@$array_menu[1]['menu'][3]['link'] == '/link/') {
+    $array_menu[1]['menu'][3]['text'] =
+            '外部サイトのリンク一覧です。身内と開発用が多め。';
+  }
+  if (@$array_menu[2]['menu'][1]['link'] == '/game/erg/') {
+    $array_menu[2]['menu'][1]['text'] =
+            'えちぃゲームのレビューです。気まぐれ更新。';
+  }
+  if (@$array_menu[2]['menu'][2]['link'] == '/game/mh/') {
+    $array_menu[2]['menu'][2]['text'] =
+            'モンハンちょっといい話。妹成分ほぼないです。';
+  }
+  if (@$array_menu[5]['link'] == '/diary/') {
+    $array_menu[5]['text'] =
+            '管理人の日記です。イベントレポ多め。';
+  }
+?>
+<?php foreach ($array_menu AS $menu) { ?>
 <table class="tbl_info">
-  <tr><th colspan="3" class="tbl-title-h_info">ご案内</th></tr>
-  <tr><td></td><td class="tbl-titke-d_info">このサイトについて</td>
-      <td class="tbl-text_info">現在のページです。</td></tr>
-  <tr><td></td><td class="tbl-titke-d_info">管理人について</td>
-      <td class="tbl-text_info">サイト管理者のプロフィールです。</td></tr>
-  <tr><td></td><td class="tbl-titke-d_info">リンク</td>
-      <td class="tbl-text_info">外部サイトのリンク一覧です。身内と開発用が多め。</td></tr>
+  <?php if (!$menu['menu']) { ?>
+  <tr><th colspan="3" class="tbl-title-h_info"><?php echo $menu['title']; ?></th>
+      <td class="tbl-text_info"><?php echo (@$menu['text'])? $menu['text']: ''; ?></td></tr>
+  <?php } else { ?>
+  <tr><th colspan="3" class="tbl-title-h_info"><?php echo $menu['title']; ?></th></tr>
+  <?php foreach ($menu['menu'] AS $sub_menu) { ?>
+  <tr><td></td><td class="tbl-title-d_info"><?php echo $sub_menu['label']; ?></td>
+      <td class="tbl-text_info"><?php echo (@$sub_menu['text'])? $sub_menu['text']: ''; ?></td></tr>
+  <?php } ?>
+  <?php } ?>
 </table>
-
-<table class="tbl_info">
-  <tr><th colspan="3" class="tbl-title-h_info">ゲーム etc</th></tr>
-  <tr><td></td><td class="tbl-titke-d_info">エロゲレビュー</td>
-      <td class="tbl-text_info">えちぃゲームのレビューです。気まぐれ更新。</td></tr>
-  <tr><td></td><td class="tbl-titke-d_info">モンハンメモ</td>
-      <td class="tbl-text_info">そのうち何かできたらなぁって。妹成分ほぼないです。</td></tr>
-</table>
-
-<table class="tbl_info">
-  <tr><th class="tbl-title-h_info">音楽 etc</th><td class="tbl-text_info">CDとか結構買ったり聴いてるのでそのうち。気長に待っててね！</td></tr>
-  <!--tr><td></td><td class="tbl-titke-d_info">音楽レビュー</td>
-      <td class="tbl-text_info">楽曲とか円盤のレビューです。気まぐれ更新。</td></tr-->
-  <!--tr><td></td><td class="tbl-titke-d_info">作曲者からみる</td>
-      <td class="tbl-text_info">ページとしてまとまるのかまだ分からないです＞＜</td></tr-->
-</table>
-
-<table class="tbl_info">
-  <tr><th colspan="3" class="tbl-title-h_info">声優 etc</th></tr>
-  <tr><td></td><td class="tbl-titke-d_info">おとちん</td>
-      <td class="tbl-text_info">声優、安玖深音さんを応援するページです。</td></tr>
-  <!--tr><td></td><td class="tbl-titke-d_info">あやち</td>
-      <td class="tbl-text_info">声優、竹達彩奈さんを応援するページです。</td></tr-->
-</table>
-
-<table class="tbl_info tbl-last_info">
-  <tr><th class="tbl-title-h_info">ブログ</th><td class="tbl-text_info">管理人の日記です。イベントレポ多め。</td></tr>
-</table>
+<?php } ?>
