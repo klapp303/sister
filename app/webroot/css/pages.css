@@ -1,7 +1,19 @@
 @charset "utf-8";
 /* informationページ用 */
+.list_info {
+    margin-bottom: 50px;
+}
+
 .tbl_info {
     width: 720px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.tbl_info >tbody >tr >th,
+.tbl_info >tbody >tr >td {
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .tbl-title-h_info {

@@ -44,6 +44,7 @@
             '管理人の日記です。イベントレポ多め。';
   }
 ?>
+<div class="list_info">
 <?php foreach ($array_menu AS $menu) { ?>
 <table class="tbl_info">
   <?php if (!$menu['menu']) { ?>
@@ -58,3 +59,4 @@
   <?php } ?>
 </table>
 <?php } ?>
+</div>
