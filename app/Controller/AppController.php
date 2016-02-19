@@ -4,6 +4,9 @@ App::uses('Controller', 'Controller');
 App::uses('CakeEmail', 'Network/Email'); //CakeEmaiilの利用、分けて記述
 
 class AppController extends Controller {
+
+  public $uses = array('Voice'); //使用するModel
+
   public $components = array(
       'Session', //Paginateのため記述
       /*'Flash', //ここからログイン認証用
@@ -57,7 +60,7 @@ class AppController extends Controller {
               'title' => '声優 etc',
               'link' => '#',
               'menu' => array(
-                  1 => array('label' => 'おとちん', 'link' => '/voice/otochin/')
+                  /*1 => array('label' => 'おとちん', 'link' => '/voice/otochin/')*/
               )
           ),
           5 => array(
@@ -66,6 +69,12 @@ class AppController extends Controller {
               'menu' => array()
           )
       );
+      /* 声優コンテンツの一覧取得ここから */
+      $array_menuVoice = $this->Voice->find('all', array('conditions' => array('Voice.publish' => 1)));
+      foreach ($array_menuVoice AS $menu) {
+        array_push($array_menu[4]['menu'], array('label' => $menu['Voice']['nickname'], 'link' => '/voice/'.$menu['Voice']['system_name'].'/', 'name' => $menu['Voice']['name']));
+      }
+      /* 声優コンテンツの一覧取得ここまで */
       $this->set('array_menu', $array_menu);
   }
 }
