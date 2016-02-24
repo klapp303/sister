@@ -3,7 +3,8 @@ jQuery(function($) {
       insertAtCaret: function(v) {
         var o = this.get(0);
         o.focus();
-        if (jQuery.browser.msie) {
+        //if (jQuery.browser.msie) {
+        if (!$.support.noCloneChecked) {
           var r = document.selection.createRange();
           r.text = v;
           r.select();
