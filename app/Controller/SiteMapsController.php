@@ -57,7 +57,6 @@ class SiteMapsController extends AppController {
           'order' => array('Diary.modified' => 'desc'),
           'fields' => array('Diary.id', 'Diary.modified')
       ));
-      //echo'<pre>';print_r($diary_lists);echo'</pre>';exit;
       $this->set(compact('publish_date', 'link_map', 'erg_lists', 'mh_last', 'mh_lists', 'voice_lists', 'diary_lists'));
   
       $this->RequestHandler->respondAs('xml'); //xmlファイルとして読み込む
