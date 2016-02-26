@@ -86,6 +86,11 @@
   Router::connect('/console/voice/:actor/*', array('controller' => 'Console', 'action' => 'voice')); //paginator用
 
 /**
+ * sitemap URLs
+ */
+  Router::connect('/sitemap.xml', array('controller' => 'SiteMaps', 'action' => 'index'));
+
+/**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.
  */
