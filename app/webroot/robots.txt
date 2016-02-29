@@ -1,0 +1,3 @@
+User-Agent:*
+Disallow:/console/
+Sitemap:http://klapp.crap.jp/sitemap.xml
