@@ -18,28 +18,28 @@
 </url>
 <url>
   <loc>http://klapp.crap.jp/link/</loc>
-  <lastmod><?php echo (@$link_map)? $link_map['Link']['modified']: $publish_date; ?></lastmod>
+  <lastmod><?php echo (@$link_map)? date('Y-m-d', strtotime($link_map['Link']['modified'])): $publish_date; ?></lastmod>
   <changefreq>monthly</changefreq>
   <priority>0.5</priority>
 </url>
 
 <url>
   <loc>http://klapp.crap.jp/game/erg/</loc>
-  <lastmod><?php echo (@$erg_lists)? $erg_lists[0]['Game']['modified']: $publish_date; ?></lastmod>
+  <lastmod><?php echo (@$erg_lists)? date('Y-m-d', strtotime($erg_lists[0]['Game']['modified'])): $publish_date; ?></lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>
 <?php foreach ($erg_lists AS $erg_list) { ?>
 <url>
   <loc>http://klapp.crap.jp/game/erg/<?php echo $erg_list['Game']['id']; ?>/</loc>
-  <lastmod><?php echo $erg_list['Game']['modified']; ?></lastmod>
+  <lastmod><?php echo date('Y-m-d', strtotime($erg_list['Game']['modified'])); ?></lastmod>
   <priority>0.8</priority>
 </url>
 <?php } ?>
 
 <url>
   <loc>http://klapp.crap.jp/game/mh/</loc>
-  <lastmod><?php echo (@$mh_last)? $mh_last['Information']['created']: $publish_date; ?></lastmod>
+  <lastmod><?php echo (@$mh_last)? date('Y-m-d', strtotime($mh_last['Information']['created'])): $publish_date; ?></lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>
@@ -92,7 +92,7 @@
 <?php foreach ($diary_lists AS $diary_list) { ?>
 <url>
   <loc>http://klapp.crap.jp/diary/<?php echo $diary_list['Diary']['id'] ?>/</loc>
-  <lastmod><?php echo $diary_list['Diary']['modified']; ?></lastmod>
+  <lastmod><?php echo date('Y-m-d', strtotime($diary_list['Diary']['modified'])); ?></lastmod>
   <priority>0.8</priority>
 </url>
 <?php } ?>
