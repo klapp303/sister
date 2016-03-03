@@ -5,11 +5,9 @@
     margin-right: 10px;
     margin-bottom: 10px;
 }
-
 .LoginForm >tbody >tr >td >input {
     margin-bottom: 10px;
 }
-
 .LoginForm >tbody >tr >td >.submit {
     margin-top: 10px;
     margin-bottom: 10px;

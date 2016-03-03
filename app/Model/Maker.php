@@ -2,10 +2,8 @@
 
 App::uses('AppModel', 'Model');
 
-/**
- * Maker Model.
- */
 class Maker extends AppModel {
+
   public $useTable = 'makers';
   public $actsAs = array(/*'SoftDelete', 'Search.Searchable'*/);
 

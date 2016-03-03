@@ -3,10 +3,8 @@
 App::uses('AppModel', 'Model');
 App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth'); //パスワードのハッシュ化のため
 
-/**
- * Administrator Model.
- */
 class Administrator extends AppModel {
+
   public $useTable = 'administrators';
   public $actsAs = array('SoftDelete'/*, 'Search.Searchable'*/);
 

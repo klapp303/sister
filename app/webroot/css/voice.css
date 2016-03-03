@@ -9,7 +9,6 @@
     list-style-type: none;
     margin-bottom: 50px;
 }
-
 .link-page >li {
     margin-bottom: 10px;
 }
@@ -29,7 +28,6 @@
 .voice-list {
     width: 740px;
 }
-
 .voice-list >tbody >tr >th,
 .voice-list >tbody >tr >td {
     border: 1px solid #000000;
@@ -44,16 +42,13 @@
     width: 100px;
     text-align: center;
 }
-
 .tbl-ico_voice {
     width: 65px;
     text-align: center;
 }
-
 .tbl-title_voice {
     width: 300px;
 }
-
 .tbl-chara_voice {
     width: 120px;
 }
@@ -74,7 +69,6 @@
     margin: 5px 0 5px 0;
     padding-left: 5px;
 }
-
 .list_msuic_voice >li {
     font-size: 80%;
 }
@@ -82,7 +76,6 @@
 .num_music_voice {
     float: left;
 }
-
 .title_music_voice {
     display: block;
     padding-left: 20px;

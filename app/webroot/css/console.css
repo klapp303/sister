@@ -5,12 +5,10 @@
     margin-bottom: 30px!important;
     border-collapse: collapse;
 }
-
 .tbl-csl_top >tbody >tr >th,
 .tbl-csl_top >tbody >tr >td {
     border: 1px solid #000000;
 }
-
 .tbl-csl_top >tbody >tr >td {
     background-color: #F5F5FF;
 }
@@ -18,11 +16,9 @@
 .tbl-num_top {
     width: 80px;
 }
-
 td.tbl-num_top {
     text-align: right;
 }
-
 .tbl-date_top {
     width: 180px;
 }
@@ -36,7 +32,6 @@ td.tbl-num_top {
     text-align: center;
     width: 85px;
 }
-
 .tbl-act_diary {
     width: 80px;
 }
@@ -50,25 +45,21 @@ td.tbl-num_top {
 .detail-list-scr {
     overflow-x: scroll;
 }
-
 .tbl-list_photo {
     width: 720px;
     margin-left: 20px;
     margin-bottom: 20px;
 }
-
 .tbl-list_photo >tbody >tr >th,
 .tbl-list_photo >tbody >tr >td {
     padding-left: 5px;
     padding-right: 5px;
 }
-
 .tbl-tmb_photo {
     text-align: center;
     width: 120px;
     max-height: 120px;
 }
-
 .tbl-act_photo {
     width: 50px;
 }
@@ -93,7 +84,6 @@ td.tbl-num_top {
 .tbl-chara_comment {
     width: 100px;
 }
-
 .tbl-act_comment {
     width: 80px;
 }
@@ -104,7 +94,6 @@ td.tbl-num_top {
     width: 120px;
     max-height: 120px;
 }
-
 .tbl-act_banner {
     width: 80px;
 }
@@ -127,26 +116,21 @@ td.tbl-num_top {
     margin-left: 20px;
     margin-bottom: 20px;
 }
-
 .tbl-list_game >tbody >tr >th,
 .tbl-list_game >tbody >tr >td {
     padding-left: 5px;
     padding-right: 5px;
 }
-
 .tbl-title_game {
     width: 200px;
 }
-
 .tbl-date_game {
     width: 70px;
 }
-
 .tbl-num_game {
     width: 50px;
     text-align: left;
 }
-
 .tbl-act_game {
     width: 120px;
 }
@@ -157,7 +141,6 @@ td.tbl-num_top {
     width: 120px;
     max-height: 120px;
 }
-
 .tbl-act_maker {
     width: 80px;
 }
@@ -173,7 +156,6 @@ td.tbl-num_top {
 .prof-list_voice {
     width: 500px;
 }
-
 .prof-list_voice >tbody >tr {
     text-align: center;
 }
@@ -181,37 +163,30 @@ td.tbl-num_top {
 .tbl-music_voice, .tbl-music_voice-sg, .tbl-music_voice-al, .tbl-music_voice-al_sg {/* 楽曲データ入力フォームの動的表示 */
     display: none;
 }
-
 .tbl-music_voice_sg, .tbl-music_voice_al,
 .tbl-music_voice-sg_sg, .tbl-music_voice-sg_al, .tbl-music_voice-al_al {/* 楽曲データ入力フォームの動的表示 */
     display: display;
 }
-
 .tbl-list_voice {
     width: 850px;
     margin-left: 20px;
     margin-bottom: 20px;
 }
-
 .tbl-list_voice >tbody >tr >th,
 .tbl-list_voice >tbody >tr >td {
     padding-left: 5px;
     padding-right: 5px;
 }
-
 .tbl-title_voice {
     width: 200px;
 }
-
 .tbl-chara_voice {
     width: 120px;
 }
-
 .tbl-date_voice {
     width: 100px;
     text-align: center;
 }
-
 .tbl-act_voice {
     width: 80px;
 }

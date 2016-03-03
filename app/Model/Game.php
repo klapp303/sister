@@ -2,10 +2,8 @@
 
 App::uses('AppModel', 'Model');
 
-/**
- * Game Model.
- */
 class Game extends AppModel {
+
   public $useTable = 'games';
   public $actsAs = array('SoftDelete'/*, 'Search.Searchable'*/);
 

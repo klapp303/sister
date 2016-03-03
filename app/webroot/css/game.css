@@ -8,21 +8,17 @@
 .game-list {
     width: 740px;
 }
-
 .game-list >tbody >tr >th,
 .game-list >tbody >tr >td {
     border: 1px solid #000000;
 }
-
 .game-list >tbody >tr >th {
     background-color: #F5F5FF;
     text-align: left;
 }
-
 .game-list >tbody >tr >.tbl-date {
     width: 70px;
 }
-
 .game-list >tbody >tr >.tbl-num {
     width: 50px;
 }
@@ -37,12 +33,10 @@
     margin-bottom: 30px!important;
     border-collapse: collapse;
 }
-
 .detail-list_erg >tbody >tr >th,
 .detail-list_erg >tbody >tr >td {
     border: 1px solid #000000;
 }
-
 .detail-list_erg >tbody >tr >th {
     background-color: #F5F5FF;
 }
@@ -51,7 +45,6 @@
     width: 130px;
     text-align: center;
 }
-
 .tbl-tmb_erg {
     width:  120px;
 }
@@ -70,7 +63,6 @@
 .detail-point_erg >tbody >tr >th {
     width: 20%;
 }
-
 .detail-point_erg >tbody >tr >td {
     text-align: center;
 }

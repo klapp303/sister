@@ -2,10 +2,8 @@
 
 App::uses('AppModel', 'Model');
 
-/**
- * DiaryGenre Model.
- */
 class DiaryGenre extends AppModel {
+
   public $useTable = 'diary_genres';
   //public $actsAs = array('SoftDelete');
 

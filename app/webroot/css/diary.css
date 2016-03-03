@@ -10,15 +10,12 @@
 .art-header {
     padding: 5px;
 }
-
 .art-header >h3 {
     margin: 0;
 }
-
 .art-header >h3 >a {
     text-decoration: none;
 }
-
 .art-header >h3 >a:link,
 .art-header >h3 >a:visited,
 .art-header >h3 >a:hover,
@@ -68,7 +65,6 @@
 .cal-header >span >a {
     text-decoration: none;
 }
-
 .cal-header >span >a:link,
 .cal-header >span >a:visited,
 .cal-header >span >a:hover,
@@ -88,7 +84,6 @@
     //text-decoration: none;
     font-weight: bold;
 }
-
 .cal-body >table >tbody >tr >td >a:link,
 .cal-body >table >tbody >tr >td >a:visited,
 .cal-body >table >tbody >tr >td >a:hover,
@@ -96,16 +91,14 @@
     color: #ffffff;
 }
 
-/* タグメニュー用 */
+/* ジャンルメニュー用 */
 #submenu_tag {
     padding: 10px 0;
     text-align: left;
 }
-
 #submenu_tag >ul >li >a {
     text-decoration: none;
 }
-
 #submenu_tag >ul >li >a:link,
 #submenu_tag >ul >li >a:visited,
 #submenu_tag >ul >li >a:hover,

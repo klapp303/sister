@@ -2,10 +2,8 @@
 
 App::uses('AppModel', 'Model');
 
-/**
- * Music Model.
- */
 class Music extends AppModel {
+
   public $useTable = 'musics';
   public $actsAs = array('SoftDelete'/*, 'Search.Searchable'*/);
 

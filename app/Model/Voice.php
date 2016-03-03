@@ -2,10 +2,8 @@
 
 App::uses('AppModel', 'Model');
 
-/**
- * Voice Model.
- */
 class Voice extends AppModel {
+
   public $useTable = 'voices';
   public $actsAs = array('SoftDelete'/*, 'Search.Searchable'*/);
 

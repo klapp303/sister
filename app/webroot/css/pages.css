@@ -9,26 +9,21 @@
     margin-left: 20px;
     margin-bottom: 20px;
 }
-
 .tbl_info >tbody >tr >th,
 .tbl_info >tbody >tr >td {
     padding-left: 5px;
     padding-right: 5px;
 }
-
 .tbl-title-h_info {
     width: 30%;
     text-align: left;
 }
-
 .tbl-title-d_info {
     width: 20%;
 }
-
 .tbl-text_info {
     width: 70%;
 }
-
 .tbl-last_info {
     margin-bottom: 50px!important;
 }
@@ -39,17 +34,14 @@
     margin-bottom: 50px!important;
     border-collapse: collapse;
 }
-
 .tbl-title_prof,
 .tbl-text_prof {
     border: 1px solid #000000;
 }
-
 .tbl-title_prof {
     width: 35%;
     background-color: #F5F5FF;
 }
-
 .tbl-text_prof {
     width: 65%;
 }
@@ -68,20 +60,16 @@
     margin-bottom: 30px!important;
     border-collapse: collapse;
 }
-
 .tbl_link >tbody >tr >th,
 .tbl_link >tbody >tr >td {
     border: 1px solid #000000;
 }
-
 .tbl_link >tbody >tr >th {
     background-color: #F5F5FF;
 }
-
 .tbl-title_link {
     width: 35%;
 }
-
 .tbl-text_link {
     width: 65%;
 }

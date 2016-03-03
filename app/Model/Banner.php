@@ -2,10 +2,8 @@
 
 App::uses('AppModel', 'Model');
 
-/**
- * Banner Model.
- */
 class Banner extends AppModel {
+
   public $useTable = 'banners';
   public $actsAs = array(/*'SoftDelete', 'Search.Searchable'*/);
 

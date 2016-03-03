@@ -2,10 +2,8 @@
 
 App::uses('AppModel', 'Model');
 
-/**
- * Sample Model.
- */
 class Sample extends AppModel {
+
   public $useTable = 'samples';
   public $actsAs = array('SoftDelete'/*, 'Search.Searchable'*/);
 

@@ -2,10 +2,8 @@
 
 App::uses('AppModel', 'Model');
 
-/**
- * SisterComment Model.
- */
 class SisterComment extends AppModel {
+
   public $useTable = 'sister_comments';
   public $actsAs = array(/*'SoftDelete', 'Search.Searchable'*/);
 

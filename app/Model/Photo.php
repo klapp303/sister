@@ -2,10 +2,8 @@
 
 App::uses('AppModel', 'Model');
 
-/**
- * Photo Model.
- */
 class Photo extends AppModel {
+
   public $useTable = 'photos';
   public $actsAs = array(/*'SoftDelete', 'Search.Searchable'*/);
 

@@ -2,10 +2,8 @@
 
 App::uses('AppModel', 'Model');
 
-/**
- * Link Model.
- */
 class Link extends AppModel {
+
   public $useTable = 'links';
   public $actsAs = array(/*'SoftDelete', 'Search.Searchable'*/);
 

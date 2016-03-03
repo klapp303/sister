@@ -2,10 +2,8 @@
 
 App::uses('AppModel', 'Model');
 
-/**
- * Diary Model.
- */
 class Diary extends AppModel {
+
   public $useTable = 'diaries';
   public $actsAs = array('SoftDelete', 'Search.Searchable');
 

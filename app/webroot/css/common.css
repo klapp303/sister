@@ -2,19 +2,15 @@
 .txt-b {
     font-weight: bold;
 }
-
 .txt-n {
     font-weight: normal;
 }
-
 .txt-min {
     font-size: 12px;
 }
-
 .txt-alt {
     color: #ff0000;
 }
-
 .txt-c {
     text-align: center;
 }
@@ -22,20 +18,16 @@
 .fl {
     float: left;
 }
-
 .fr {
     float: right;
 }
-
 .cf {
     display: inline-block;
 }
-
 .cf:before, .cf:after {
     content: "";
     display: block;
 }
-
 .cf:after {
     clear: both;
 }
@@ -78,7 +70,6 @@ body {
     text-align: left;
     box-shadow: -1px 1px 10px #696969;
 }
-
 #header >h1 {
     height: 38px;
     margin: 0;
@@ -127,12 +118,10 @@ body {
     width: 760px;
     margin: 30px 20px 10px 20px;
 }
-
 #content >table, #content >form {
     margin-left: 20px;
     margin-bottom: 20px;
 }
-
 #content >table >tbody >tr >th, #content >table >tbody >tr >td,
 #content >table >tr >th, #content >table >tr >td {
     padding-left: 5px;
@@ -147,12 +136,10 @@ body {
     margin: 30px 20px 10px 20px;
     float: left;
 }
-
 #content_main >table, #content_main >form {
     margin-left: 20px;
     margin-bottom: 20px;
 }
-
 #content_main >table >tbody >tr >th, #content_main >table >tbody >tr >td,
 #content_main >table >tr >th, #content_main >table >tr >td {
     padding-left: 5px;
