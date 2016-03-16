@@ -93,10 +93,10 @@ class EmailConfig {
 
   public $gmail = array(
 		'transport' => 'Smtp',
-		'from' => array('sample.info@gmail.com' => 'サンプル委員会'),
+		'from' => array('evesachi.info@gmail.com' => '虹妹ｐｒｐｒ推進委員会'),
 		'host' => 'ssl://smtp.gmail.com',
 		'port' => 465,
-		'username' => 'sample.info@gmail.com',
+		'username' => 'evesachi.info@gmail.com',
 		'password' => 'qt7j89hh',
     'timeout' => 30,
 		//'client' => null,

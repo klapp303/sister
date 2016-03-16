@@ -6,6 +6,7 @@
 /app/Config/database.php
 
 /app/tmp
+/app/backup
 
 /app/webroot/files/banner
 /app/webroot/files/maker
