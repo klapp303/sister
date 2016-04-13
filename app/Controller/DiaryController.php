@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 
 class DiaryController extends AppController {
 
-	public $uses = array('Diary', 'DiaryGenre'); //使用するModel
+  public $uses = array('Diary', 'DiaryGenre'); //使用するModel
 
   public $components = array(
       'Paginator',

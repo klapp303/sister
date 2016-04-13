@@ -6,7 +6,7 @@ App::uses('Folder', 'Utility'); //フォルダAPI用
 
 class LoginController extends AppController {
 
-	public $uses = array(
+  public $uses = array(
       'Administrator', 'Banner', 'Diary', 'DiaryGenre', 'Game', 'Information', 'Link',
       'Maker', 'Music', 'Photo', 'Product', 'SisterComment', 'Voice'
   ); //使用するModel

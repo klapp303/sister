@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 
 class GameController extends AppController {
 
-	public $uses = array('Game', 'Information'); //使用するModel
+  public $uses = array('Game', 'Information'); //使用するModel
 
   public $components = array('Paginator');
   public $paginate = array(

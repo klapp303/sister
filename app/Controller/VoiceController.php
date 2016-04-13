@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 
 class VoiceController extends AppController {
 
-	public $uses = array('Voice', 'Product'); //使用するModel
+  public $uses = array('Voice', 'Product'); //使用するModel
 
   public $components = array('Paginator');
   public $paginate = array(

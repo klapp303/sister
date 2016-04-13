@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 
 class TopController extends AppController {
 
-	public $uses = array('SisterComment', 'Information', 'Banner', 'Maker', 'Game', 'Diary', 'Product'); //使用するModel
+  public $uses = array('SisterComment', 'Information', 'Banner', 'Maker', 'Game', 'Diary', 'Product'); //使用するModel
 
   public function beforeFilter() {
       parent::beforeFilter();

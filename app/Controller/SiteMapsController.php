@@ -5,7 +5,7 @@ App::uses('Folder', 'Utility'); //フォルダAPI用
 
 class SiteMapsController extends AppController {
 
-	public $uses = array('Link', 'Game', 'Information', 'Voice', 'Diary'); //使用するModel
+  public $uses = array('Link', 'Game', 'Information', 'Voice', 'Diary'); //使用するModel
 
   public $helpers = array('Time');
   public $components = array('RequestHandler');

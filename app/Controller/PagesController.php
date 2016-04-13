@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 
 class PagesController extends AppController {
 
-	public $uses = array('Link'); //使用するModel
+  public $uses = array('Link'); //使用するModel
 
   public function beforeFilter() {
       parent::beforeFilter();

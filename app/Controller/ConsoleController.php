@@ -6,7 +6,7 @@ App::uses('Folder', 'Utility'); //フォルダAPI用
 
 class ConsoleController extends AppController {
 
-	public $uses = array('Diary', 'DiaryGenre', 'Photo', 'Information', 'SisterComment', 'Banner', 'Link', 'Administrator', 'Game', 'Maker', 'Voice', 'Product', 'Music'); //使用するModel
+  public $uses = array('Diary', 'DiaryGenre', 'Photo', 'Information', 'SisterComment', 'Banner', 'Link', 'Administrator', 'Game', 'Maker', 'Voice', 'Product', 'Music'); //使用するModel
 
   public $components = array(
       'Paginator',
