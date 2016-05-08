@@ -43,7 +43,7 @@ body {
 #container {
     background-color: #dcdcdc;
     width: 800px;
-    box-shadow: -1px 1px 10px #E2FFFF;
+    box-shadow: -1px 1px 10px #e2ffff;
 }
 
  /* header */
@@ -131,7 +131,7 @@ body {
 #container_pop {
     background-color: #dcdcdc;
     width: 580px;
-    box-shadow: -1px 1px 10px #E2FFFF;
+    box-shadow: -1px 1px 10px #e2ffff;
 }
 
 /* content_pop */

@@ -40,7 +40,7 @@
 }
 .tbl-title_prof {
     width: 35%;
-    background-color: #F5F5FF;
+    background-color: #f5f5ff;
 }
 .tbl-text_prof {
     width: 65%;
@@ -65,7 +65,7 @@
     border: 1px solid #000000;
 }
 .tbl_link >tbody >tr >th {
-    background-color: #F5F5FF;
+    background-color: #f5f5ff;
 }
 .tbl-title_link {
     width: 35%;

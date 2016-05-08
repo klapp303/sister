@@ -1,10 +1,10 @@
 @charset "utf-8";
 /* 日記用 */
 .article {
-    background-color: #F5F5FF;
+    background-color: #f5f5ff;
     margin-bottom: 30px;
     border: solid 1px #000000;
-    box-shadow: -1px 1px 1px #A4A4A4;
+    box-shadow: -1px 1px 1px #a4a4a4;
 }
 
 .art-header {
@@ -77,7 +77,7 @@
 }
 
 .sat {
-    color: #58ACFA;
+    color: #58acfa;
 }
 
 .cal-body >table >tbody >tr >td >a {

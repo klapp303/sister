@@ -87,7 +87,7 @@
 }
 .menu-list a:hover, .menu-title:hover {
     background: rgba(181, 206, 229, 0.6);
-    /*background: #B5CEE5;
+    /*background: #b5cee5;
     opacity: 0.6;*/
 }
 .menu-list a:link,
@@ -145,7 +145,7 @@
     transition: 0.8s;
 }
 .link-page a:hover {
-    background: #A9BCF5;
+    background: #a9bcf5;
 }
 .link-page a:link,
 .link-page a:visited,
@@ -157,7 +157,7 @@
 /* ボタンアイコン */
 .icon-button {
     font-size: 12px;
-    background: #D8D8D8;
+    background: #d8d8d8;
     border: solid 2px #000000;
     border-radius: 8px;
     -moz-border-radius: 8px;
@@ -176,7 +176,7 @@
 
 .icon-button-min {
     font-size: 10px;
-    background: #D8D8D8;
+    background: #d8d8d8;
     border: solid 2px #000000;
     border-radius: 8px;
     -moz-border-radius: 8px;
@@ -196,7 +196,7 @@
 /* アイコン */
 .icon-true {
     font-size: 12px;
-    background: #01DFA5;
+    background: #01dfa5;
     border: solid 2px #000000;
     border-radius: 8px;
     -moz-border-radius: 8px;
@@ -205,7 +205,7 @@
 }
 .icon-false {
     font-size: 12px;
-    background: #D8D8D8;
+    background: #d8d8d8;
     border: solid 2px #000000;
     border-radius: 8px;
     -moz-border-radius: 8px;
@@ -214,7 +214,7 @@
 }
 .icon-like {
     font-size: 12px;
-    background: #58ACFA;
+    background: #58acfa;
     border: solid 2px #000000;
     border-radius: 8px;
     -moz-border-radius: 8px;
@@ -223,7 +223,7 @@
 }
 .icon-alt {
     font-size: 12px;
-    background: #FE2E64;
+    background: #fe2e64;
     border: solid 2px #000000;
     border-radius: 8px;
     -moz-border-radius: 8px;
@@ -243,7 +243,7 @@
 /* 枠付きアラート文 */
 .txt-block {
     text-align: center;
-    background: #CEF6F5;
+    background: #cef6f5;
     border: solid 2px #000000;
     border-radius: 8px;
     -moz-border-radius: 8px;
@@ -254,7 +254,7 @@
 .flash-msg {
     margin: 20px;
     padding: 10px 20px;
-    background: #F5F5FF;
+    background: #f5f5ff;
     border: solid 2px #000000;
     border-radius: 8px;
     -moz-border-radius: 8px;
