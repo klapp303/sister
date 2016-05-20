@@ -20,6 +20,10 @@
     margin: 0;
     padding: 8% 4% 4% 4%;
 }
+#content >table, #content >form {
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
 
 /* ヘッダー */
 #header {
@@ -66,4 +70,22 @@
 }
 .hr_top {
     width: auto;
+}
+
+/* pages */
+.tbl_info {
+    width: 100%;
+    margin: 5px;
+}
+.tbl_prof {
+    width: 98%;
+}
+.img_prof {
+    width: 150px;
+    height: 150px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.tbl_link {
+    width: 98%;
 }
