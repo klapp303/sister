@@ -2,6 +2,9 @@
 .pc {
     display: none;
 }
+.mobile {
+    display: inherit;
+}
 /*body {
     -webkit-text-size-adjust: 200%;
     -moz-text-size-adjust: 200%;
@@ -47,6 +50,10 @@
     font-size : 12px;
 }
 
+.link-page {
+    padding-left: 10px;
+}
+
 /* top */
 .img_top {
     width: 108%;
@@ -88,4 +95,40 @@
 }
 .tbl_link {
     width: 98%;
+}
+.list_mh_start, .list_mh_skill {
+    padding-left: 20px;
+}
+
+/* mh */
+.txt_mh {
+    margin: 10px 10px 50px 10px;
+}
+.img_mh {
+    width: 300px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: -15px;
+}
+.txt_mh >span.txt-min {
+    width: 300px;
+    display: block;
+    margin: 0 auto;
+    white-space: normal;
+}
+.name-skill {
+    display: block;
+    margin-bottom: 10px;
+}
+.txt-skill {
+    margin-left: 30px;
+    white-space: normal;
+}
+.star-skill {
+    float: none;
+    width: 255px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
 }

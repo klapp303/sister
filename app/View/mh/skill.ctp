@@ -1,5 +1,6 @@
 <?php echo $this->Html->css('mh', array('inline' => FALSE)); ?>
-<h3>太刀使いによる見た目厨のためのスキル考察</h3>
+<h3 class="pc">太刀使いによる見た目厨のためのスキル考察</h3>
+<h3 class="mobile">太刀使いによる<br>　見た目厨のためのスキル考察</h3>
 
 <p class="intro_mh">
   スキルも揃えたいけど見た目も維持したい…とか、<br>
