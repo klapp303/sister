@@ -18,7 +18,7 @@
 #container, #header, #footer {
     width: 100%;
 }
-#content {
+#content, #content_main {
     width: 92%;
     margin: 0;
     padding: 8% 4% 4% 4%;
@@ -50,7 +50,7 @@
     font-size : 12px;
 }
 
-.link-page {
+.breadcrumb ol, .link-page {
     padding-left: 10px;
 }
 
@@ -131,4 +131,10 @@
     display: block;
     margin: 0 auto;
     margin-top: 20px;
+}
+
+/* diary */
+.img_diary {
+    max-width: 100%;
+    max-height: 430px;
 }
