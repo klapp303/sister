@@ -23,6 +23,7 @@
 <html lang="ja">
 <head>
 	<?php echo $this->Html->charset(); ?>
+  <?php echo $this->Html->meta(array('name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, maximum-scale=1')); ?>
 	<title>
     <?php if (isset($this->request['id']) == TRUE && isset($game_detail['Game']['title']) == TRUE) {
       echo $this->element('common_tag', array('title' => 'short'));
@@ -47,6 +48,10 @@
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
+
+    echo $this->Html->css(array( //スマホ用は後から上書き
+        'mobile'
+    ), array('media' => 'screen and (max-device-width: 480px)'));
 
     if (env('SERVER_ADDR') !== '127.0.0.1') {
       echo $this->element('google_analytics');

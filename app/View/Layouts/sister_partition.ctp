@@ -23,6 +23,7 @@
 <html lang="ja">
 <head>
 	<?php echo $this->Html->charset(); ?>
+  <?php echo $this->Html->meta(array('name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, maximum-scale=1')); ?>
 	<title>
     <?php if (isset($this->request['id']) == TRUE && isset($diary_lists[0]['Diary']['title']) == TRUE) {
       echo $this->element('common_tag', array('title' => 'short'));
@@ -48,6 +49,10 @@
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
+
+    echo $this->Html->css(array( //スマホ用は後から上書き
+        'mobile'
+    ), array('media' => 'screen and (max-device-width: 480px)'));
 
     if (env('SERVER_ADDR') !== '127.0.0.1') {
       if (preg_match('#/console/#', $_SERVER['REQUEST_URI'])==0) {

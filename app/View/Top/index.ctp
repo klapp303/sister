@@ -7,7 +7,7 @@
   <?php echo $this->element('banner_maker'); ?>
 </div>
 
-<div class="sis-com_top">
+<div class="sis-com_top pc">
   <?php echo nl2br($sister_comment[0]['SisterComment']['comment']); ?>
 </div>
 
@@ -24,12 +24,12 @@
   } ?>
 </div>
 
-<div class="part_top">
+<div class="part_top pc">
   <hr class="hr_top">
   <h3 class="h_top">バナー</h3>
 </div>
 
-<div class="banner_top">
+<div class="banner_top pc">
   <?php foreach ($banner_lists AS $banner_list) { ?>
     <a href="<?php echo $banner_list['Banner']['link_url']; ?>" alt="<?php echo $banner_list['Banner']['title']; ?>" target="_blank">
     <?php echo $this->Html->image('../files/banner/'.$banner_list['Banner']['image_name'], array('class' => '')); ?>

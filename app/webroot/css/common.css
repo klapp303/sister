@@ -1,4 +1,16 @@
 @charset "utf-8";
+body {
+    font-size: 100%;
+    line-height: 1.4;
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -o-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+span {
+    white-space: nowrap;
+}
 .txt-b {
     font-weight: bold;
 }

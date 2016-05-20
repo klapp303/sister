@@ -35,8 +35,8 @@ class AppController extends Controller {
               'title' => 'ご案内',
               'link' => '#',
               'menu' => array(
-                  1 => array('label' => 'このサイトについて', 'link' => '/information/'),
-                  2 => array('label' => '管理人について', 'link' => '/author/'),
+                  1 => array('label' => 'サイト紹介', 'link' => '/information/'),
+                  2 => array('label' => '管理人の紹介', 'link' => '/author/'),
                   3 => array('label' => 'リンク', 'link' => '/link/')
               )
           ),
