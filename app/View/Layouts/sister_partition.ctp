@@ -72,11 +72,14 @@
       <?php echo $this->element('sister_breadcrumb'); ?>
 			<?php echo $this->Flash->render(); ?>
       
+      <div class="mobile">
+        <?php echo $this->element('searchbox'); ?>
+      </div>
 			<?php echo $this->fetch('content'); ?>
 		</div>
     
     <div id="content_side">
-		<div id="menu_side">
+		<div id="menu_side" class="pc">
       <?php echo $this->element('searchbox'); ?>
       <?php echo $this->element('calendar'); ?>
       <?php echo $this->element('submenu_tag'); ?>
