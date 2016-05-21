@@ -1,4 +1,4 @@
-<div id="submenu_tag" class="side-menu_block">
+<div id="genrelist" class="side-menu_block">
   <ul>
     <li><?php echo $this->Html->link('すべて('.$diary_counts_all.')', '/diary/'); ?></li>
     <?php foreach ($genre_lists AS $genre_list) {

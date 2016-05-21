@@ -138,3 +138,48 @@
     max-width: 100%;
     max-height: 430px;
 }
+.art-body >div, .art-body >iframe {/* 動画リサイズ用 */
+    max-width: 100%;
+    height: auto;
+}
+#menu_top {
+    margin: 10px 0;
+}
+#pagelink_mobile {
+    float: left;
+    width: 65%;
+}
+#pagelink_mobile >p {
+    margin: 0;
+    text-align: center;
+}
+#pagelink_mobile >p >span {
+    font-size: 12px;
+    padding: 3px 5px;
+    border: 1px solid #000000;
+    background-color: #ffffff;
+    z-index: 2;
+}
+#pagelink_mobile >ul {
+    list-style-type: none;
+    margin: -10px 0 0 0;
+    padding: 10px 0 0 0;
+    font-size: 12px;
+    border: 1px solid #000000;
+    background-color: #ffffff;
+}
+/*#pagelink_mobile >ul >li >a {
+    text-decoration: none;
+}*/
+#pagelink_mobile >ul >li >a:link,
+#pagelink_mobile >ul >li >a:visited,
+#pagelink_mobile >ul >li >a:hover,
+#pagelink_mobile >ul >li >a:active {
+    color: #000000;
+}
+#searchbox_mobile {
+    float: right;
+    width: 35%;
+    margin-top: 5px;
+    text-align: center;
+}

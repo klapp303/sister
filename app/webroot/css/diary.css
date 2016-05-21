@@ -92,16 +92,16 @@
 }
 
 /* ジャンルメニュー用 */
-#submenu_tag {
+#genrelist {
     padding: 10px 0;
     text-align: left;
 }
-#submenu_tag >ul >li >a {
+#genrelist >ul >li >a {
     text-decoration: none;
 }
-#submenu_tag >ul >li >a:link,
-#submenu_tag >ul >li >a:visited,
-#submenu_tag >ul >li >a:hover,
-#submenu_tag >ul >li >a:active {
+#genrelist >ul >li >a:link,
+#genrelist >ul >li >a:visited,
+#genrelist >ul >li >a:hover,
+#genrelist >ul >li >a:active {
     color: #ffffff;
 }

@@ -1,7 +1,28 @@
 <?php echo $this->Html->css('diary', array('inline' => FALSE)); ?>
+<div id="menu_top" class="mobile cf">
+  <?php echo $this->element('submenu_mobile', array('diary_lists' => $diary_lists)); ?>
+</div>
+
+<?php if (isset($this->request->params['id']) == FALSE && isset($this->request->params['year_id']) == FALSE) { ?>
+  <?php if (isset($this->request->params['genre_id']) == TRUE) { //ジャンル別一覧時のページリンク ?>
+    <?php $this->Paginator->options(array(
+        'url' => array('controller' => 'Diary', 'action' => 'genre', 'genre_id' => $this->request->params['genre_id'])
+    )); ?>
+  <?php } ?>
+<div class="mobile">
+<?php echo $this->Paginator->numbers(array(
+    'modulus' => 4, //現在ページから左右あわせてインクルードする個数
+    'separator' => '|', //デフォルト値のセパレーター
+    'first' => '＜', //先頭ページへのリンク
+    'last' => '＞' //最終ページへのリンク
+)); ?>
+</div>
+<?php } ?>
+
 <?php foreach ($diary_lists AS $diary_list) { ?>
 <div class="article">
-  <div class="art-header"><h3><?php echo $this->Html->link($diary_list['Diary']['title'], '/diary/'.$diary_list['Diary']['id']); ?></h3></div>
+  <div class="art-header"><h3 id="diary-<?php echo $diary_list['Diary']['id']; ?>">
+    <?php echo $this->Html->link($diary_list['Diary']['title'], '/diary/'.$diary_list['Diary']['id']); ?></h3></div>
   <hr>
   <div class="art-body"><?php echo nl2br($diary_list['Diary']['text']); ?></div>
   <hr>
