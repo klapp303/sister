@@ -133,6 +133,11 @@
     margin-top: 20px;
 }
 
+/* voice */
+.voice-list {
+    width: 100%;
+}
+
 /* diary */
 .img_diary {
     max-width: 100%;
