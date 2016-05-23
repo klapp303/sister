@@ -6,12 +6,7 @@
   <?php $this->Paginator->options(array(
       'url' => array('controller' => 'voice', 'action' => $voice['Voice']['system_name'], $genre)
   )); ?>
-  <?php echo $this->Paginator->numbers(array(
-      'modulus' => 4, //現在ページから左右あわせてインクルードする個数
-      'separator' => ' | ', //デフォルト値のセパレーター
-      'first' => '＜', //先頭ページへのリンク
-      'last' => '＞' //最終ページへのリンク
-  )); ?>
+  <?php echo $this->Paginator->numbers($paginator_option); ?>
 
   <table class="voice-list pc">
     <tr><th class="tbl-date_voice">日付<?php echo $this->Paginator->sort('Product.date_from', '▼'); ?></th>

@@ -76,5 +76,14 @@ class AppController extends Controller {
       }
       /* 声優コンテンツの一覧取得ここまで */
       $this->set('array_menu', $array_menu);
+  
+      //paginatorのオプションを定義しておく
+      $paginator_option = array(
+          'modulus' => 4, //現在ページから左右あわせてインクルードする個数
+          'separator' => ' | ', //デフォルト値のセパレーター
+          'first' => '＜', //先頭ページへのリンク
+          'last' => '＞' //最終ページへのリンク
+      );
+      $this->set('paginator_option', $paginator_option);
   }
 }

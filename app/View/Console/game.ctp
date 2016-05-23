@@ -93,12 +93,7 @@
 
 <h3>エロゲレビュー一覧</h3>
 
-  <?php echo $this->Paginator->numbers(array(
-      'modulus' => 4, //現在ページから左右あわせてインクルードする個数
-      'separator' => '|', //デフォルト値のセパレーター
-      'first' => '＜', //先頭ページへのリンク
-      'last' => '＞' //最終ページへのリンク
-  )); ?>
+  <?php echo $this->Paginator->numbers($paginator_option); ?>
 
 <div class="detail-list-scr">
   <table class="tbl-list_game">

@@ -10,12 +10,7 @@
     )); ?>
   <?php } ?>
 <div class="mobile">
-<?php echo $this->Paginator->numbers(array(
-    'modulus' => 4, //現在ページから左右あわせてインクルードする個数
-    'separator' => ' | ', //デフォルト値のセパレーター
-    'first' => '＜', //先頭ページへのリンク
-    'last' => '＞' //最終ページへのリンク
-)); ?>
+<?php echo $this->Paginator->numbers($paginator_option); ?>
 </div>
 <?php } ?>
 
@@ -39,10 +34,5 @@
         'url' => array('controller' => 'Diary', 'action' => 'genre', 'genre_id' => $this->request->params['genre_id'])
     )); ?>
   <?php } ?>
-<?php echo $this->Paginator->numbers(array(
-    'modulus' => 4, //現在ページから左右あわせてインクルードする個数
-    'separator' => ' | ', //デフォルト値のセパレーター
-    'first' => '＜', //先頭ページへのリンク
-    'last' => '＞' //最終ページへのリンク
-)); ?>
+<?php echo $this->Paginator->numbers($paginator_option); ?>
 <?php } ?>

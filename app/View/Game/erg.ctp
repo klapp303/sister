@@ -8,12 +8,7 @@
 
 <h3>ゲーム一覧</h3>
 
-  <?php echo $this->Paginator->numbers(array(
-      'modulus' => 4, //現在ページから左右あわせてインクルードする個数
-      'separator' => '|', //デフォルト値のセパレーター
-      'first' => '＜', //先頭ページへのリンク
-      'last' => '＞' //最終ページへのリンク
-  )); ?>
+  <?php echo $this->Paginator->numbers($paginator_option); ?>
 
   <table class="game-list pc">
     <tr><th>タイトル<?php echo $this->Paginator->sort('Game.title', '▼'); ?></th>
