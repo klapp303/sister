@@ -34,7 +34,7 @@
     text-align: center;
 }
 #header >h1 {
-    padding-top: 40px;
+    padding: 28px 0 15px 0;
 }
 .head-title {
     font-size: 20px;
