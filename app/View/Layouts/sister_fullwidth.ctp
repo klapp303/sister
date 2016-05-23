@@ -42,7 +42,8 @@
 
     echo $this->Html->script(array(
         'jquery-1.11.3.min',
-        'jquery-migrate-1.2.1.min'
+        'jquery-migrate-1.2.1.min',
+        'jquery-move_top'
     ));
 
 		echo $this->fetch('meta');
@@ -71,6 +72,10 @@
       
 			<?php echo $this->fetch('content'); ?>
 		</div>
+    
+    <div id="move_top">
+      <?php echo $this->element('move_top'); ?>
+    </div>
     
     <div id="footer">
       <?php echo $this->element('sister_footer'); ?>

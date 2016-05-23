@@ -43,7 +43,8 @@
     echo $this->Html->script(array(
         'jquery-1.11.3.min',
         'jquery-migrate-1.2.1.min',
-        'sidemenu_fix'
+        'sidemenu_fix',
+        'jquery-move_top'
     ));
 
 		echo $this->fetch('meta');
@@ -77,10 +78,14 @@
     
     <div id="content_side" class="pc">
       <div id="menu_side">
-      <?php echo $this->element('searchbox'); ?>
-      <?php echo $this->element('calendar'); ?>
-      <?php echo $this->element('genrelist'); ?>
-		</div>
+        <?php echo $this->element('searchbox'); ?>
+        <?php echo $this->element('calendar'); ?>
+        <?php echo $this->element('genrelist'); ?>
+      </div>
+    </div>
+    
+    <div id="move_top">
+      <?php echo $this->element('move_top'); ?>
     </div>
     
     <div id="footer" class="cf">
