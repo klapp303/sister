@@ -13,7 +13,7 @@
       'last' => '＞' //最終ページへのリンク
   )); ?>
 
-  <table class="voice-list">
+  <table class="voice-list pc">
     <tr><th class="tbl-date_voice">日付<?php echo $this->Paginator->sort('Product.date_from', '▼'); ?></th>
         <th class="tbl-ico_voice">ハード</th>
         <th class="tbl-title_voice<?php echo ($genre == 'music')? '-music': ''; ?>">
@@ -75,3 +75,5 @@
         <td><?php echo $list['Product']['note']; ?></td></tr>
     <?php } ?>
   </table>
+
+  <p class="mobile">準備中だよ(´Д｀)</p>

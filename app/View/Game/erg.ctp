@@ -15,7 +15,7 @@
       'last' => '＞' //最終ページへのリンク
   )); ?>
 
-  <table class="game-list">
+  <table class="game-list pc">
     <tr><th>タイトル<?php echo $this->Paginator->sort('Game.title', '▼'); ?></th>
         <th>メーカー<?php echo $this->Paginator->sort('Game.maker_id', '▼'); ?></th>
         <th class="tbl-date">発売日<?php echo $this->Paginator->sort('Game.release_date', '▼'); ?></th>
@@ -38,3 +38,5 @@
         <td class="tbl-num"><?php echo $game_list['Game']['config_point']; ?></td></tr>
     <?php } ?>
   </table>
+
+  <p class="mobile">準備中だよ(´Д｀)</p>
