@@ -1,9 +1,9 @@
 <h1>
-  <span class="head-title">
+  <div class="head-title">
   <?php if (preg_match('#/console/#', $_SERVER['REQUEST_URI'])) {
     echo $this->Html->link('管理画面', '/console/');
   } else {
-    echo $this->Html->link('虹(+0.5)の妹たちをｐｒｐｒするサイト', '/');
+    echo '<a href="/"><span>虹(+0.5)の妹たちを</span> <span>ｐｒｐｒするサイト</span></a>';
   } ?>
-  </span>
+  </div>
 </h1>
