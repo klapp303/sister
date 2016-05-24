@@ -100,6 +100,14 @@
     padding-left: 20px;
 }
 
+/* erg */
+.game-list {
+    width: 100%;
+}
+.detail-list_erg {
+    width: 100%;
+}
+
 /* mh */
 .txt_mh {
     margin: 10px 10px 50px 10px;
