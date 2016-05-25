@@ -95,8 +95,9 @@ class LoginController extends AppController {
               }
             } else { //バックアップ失敗時の処理
               $file->close();
+              $admin_mail = Configure::read('admin_mail');
               $email = new CakeEmail('gmail');
-              $email->to('klapp303@gmail.com')
+              $email->to('$admin_mail')
                     ->subject('【虹妹ｐｒｐｒシステム通知】バックアップエラー通知')
                     ->template('backup_error', 'sister_mail')
                     ->viewVars(array(
