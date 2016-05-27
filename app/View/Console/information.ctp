@@ -78,7 +78,13 @@
         <td class="tbl-date"><?php echo $information_list['Information']['date_from']; ?><?php if ($information_list['Information']['date_from']) {echo '～'; } ?>
                              <?php if ($information_list['Information']['date_to']) {echo '<br>～'; } ?><?php echo $information_list['Information']['date_to']; ?></td>
         <td class="tbl-ico"><?php if ($information_list['Information']['publish'] == 0) {echo '<span class="icon-false">非公開</span>';}
-                              elseif ($information_list['Information']['publish'] == 1) {echo '<span class="icon-true">公開</span>';} ?></td>
+                              elseif ($information_list['Information']['publish'] == 1) {
+                                if ($information_list['Information']['date_to'] && $information_list['Information']['date_to'] < date('Y-m-d')) {
+                                  echo '<span class="icon-false">終了</span>';
+                                } else {
+                                  echo '<span class="icon-true">公開</span>';
+                                }
+                              } ?></td>
         <td class="tbl-act_information"><?php echo $this->Html->link('修正', '/console/information/edit/'.$information_list['Information']['id']); ?>
                                   <?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'information_delete', $information_list['Information']['id']), null, '本当に#'.$information_list['Information']['id'].'を削除しますか'); ?></td></tr>
     <?php } ?>
