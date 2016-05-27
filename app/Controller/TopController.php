@@ -75,7 +75,7 @@ class TopController extends AppController {
               )),
               'Banner.publish' => 1
           ),
-          'order' => array('Banner.id' => 'desc')
+          'order' => array('Banner.sort' => 'desc')
       ));
       $this->set('banner_lists', $banner_lists);
   

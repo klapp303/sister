@@ -89,13 +89,41 @@ td.tbl-num_top {
 }
 
 /* bannerページ用 */
-.tbl-tmb_banner {
+/*.tbl-tmb_banner {
     text-align: center;
     width: 120px;
     max-height: 120px;
-}
-.tbl-act_banner {
+}*/
+/*.tbl-act_banner {
     width: 80px;
+}*/
+
+.detail-title-min_banner {
+    width: 580px;
+    margin-left: 20px;
+    font-weight: bold;
+}
+.detail-list-min_banner {
+    list-style-type: none;
+    width: 580px;
+    margin-top: 0;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    padding: 0;
+}
+.detail-title-min_banner >span, .detail-list-min_banner >li >span {
+    display: table-cell;
+    padding-left: 5px;
+    padding-right: 5px;
+    vertical-align: middle;
+}
+.li-tmb_banner {
+    text-align: center;
+    width: 136px;
+    max-height: 120px;
+}
+.li-act_banner {
+    width: 92px;
 }
 
 .img_banner {/* コンソール内の画像サイズ用 */

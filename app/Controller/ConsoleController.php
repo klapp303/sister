@@ -592,7 +592,7 @@ class ConsoleController extends AppController {
   public function banner() {
       $this->Paginator->settings = array(
           'limit' => 20,
-          'order' => array('Banner.id' => 'desc')
+          'order' => array('Banner.sort' => 'desc')
       );
       $banner_lists = $this->Paginator->paginate('Banner');
       $this->set('banner_lists', $banner_lists);
@@ -628,7 +628,7 @@ class ConsoleController extends AppController {
   public function banner_edit() {
       $this->Paginator->settings = array(
           'limit' => 20,
-          'order' => array('Banner.id' => 'desc')
+          'order' => array('Banner.sort' => 'desc')
       );
       $banner_lists = $this->Paginator->paginate('Banner');
       $this->set('banner_lists', $banner_lists);

@@ -132,6 +132,20 @@
 .tbl-button >.submit >input {
     margin-right: 10px;
 }
+.li-num {
+    text-align: right;
+    width: 46px;
+}
+.li-date {
+    width: 124px;
+}
+.li-ico {
+    text-align: center;
+    width: 80px;
+}
+.li-button {
+    text-align: right;
+}
 
 /* ページリンク */
 .link-page a {
