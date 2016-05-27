@@ -66,7 +66,7 @@
     <?php foreach ($maker_lists AS $maker_list) { ?>
     <tr><td class="tbl-num"><?php echo $maker_list['Maker']['id']; ?></td>
         <td class="tbl-tmb_maker"><a href="<?php echo $maker_list['Maker']['link_url']; ?>" target="_blank">
-            <?php echo $this->Html->image('../files/maker/'.$maker_list['Maker']['image_name'], array('alt' => $maker_list['Maker']['title'], 'class' => 'img_maker')); ?></td>
+            <?php echo $this->Html->image('../files/maker/'.$maker_list['Maker']['image_name'], array('alt' => $maker_list['Maker']['title'], 'class' => 'img_maker')); ?></a></td>
         <td class="tbl-ico"><?php if ($maker_list['Maker']['publish'] == 0) {echo '<span class="icon-false">非表示</span>';}
                               elseif ($maker_list['Maker']['publish'] == 1) {echo '<span class="icon-true">表示</span>';} ?></td>
         <td class="tbl-act_maker"><?php echo $this->Html->link('修正', '/console/maker/edit/'.$maker_list['Maker']['id']); ?>
