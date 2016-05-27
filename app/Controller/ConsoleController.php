@@ -592,7 +592,7 @@ class ConsoleController extends AppController {
   public function banner() {
       $this->Paginator->settings = array(
           'limit' => 20,
-          'order' => array('Banner.sort' => 'desc')
+          'order' => array('Banner.id' => 'desc')
       );
       $banner_lists = $this->Paginator->paginate('Banner');
       $this->set('banner_lists', $banner_lists);
@@ -628,7 +628,7 @@ class ConsoleController extends AppController {
   public function banner_edit() {
       $this->Paginator->settings = array(
           'limit' => 20,
-          'order' => array('Banner.sort' => 'desc')
+          'order' => array('Banner.id' => 'desc')
       );
       $banner_lists = $this->Paginator->paginate('Banner');
       $this->set('banner_lists', $banner_lists);
@@ -696,6 +696,38 @@ class ConsoleController extends AppController {
         }
         $this->redirect('/console/banner/');
       }
+  }
+
+  public function banner_sort() {
+      $this->Paginator->settings = array(
+          'conditions' => array(
+              'Banner.publish' => 1,
+              'or' => array(
+                  array('Banner.date_to' => null),
+                  array('Banner.date_to >=' => date('Y-m-d'))
+              )
+          ),
+          'limit' => 20,
+          'order' => array('Banner.sort' => 'desc', 'Banner.id' => 'desc')
+      );
+      $banner_lists = $this->Paginator->paginate('Banner');
+      $this->set('banner_lists', $banner_lists);
+      
+      if ($this->request->is('post')) {
+        $sort_id['Banner'] = array_values($this->request->data['Banner']);
+        foreach ($sort_id['Banner'] AS $key => $value) {
+          $sort_id['Banner'][$key]['sort'] = count($sort_id['Banner']) - $key;
+        }
+        if ($this->Banner->saveMany($sort_id['Banner'])) {
+          $this->Session->setFlash('並び順を変更しました。', 'flashMessage');
+        } else {
+          $this->Session->setFlash('並び順を変更できませんでした。', 'flashMessage');
+        }
+        
+        $this->redirect('/console/banner_sort/');
+      }
+      
+      $this->render('banner_sort');
   }
 
   public function link() {
