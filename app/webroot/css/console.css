@@ -89,14 +89,14 @@ td.tbl-num_top {
 }
 
 /* bannerページ用 */
-/*.tbl-tmb_banner {
+.tbl-tmb_banner {
     text-align: center;
     width: 120px;
     max-height: 120px;
-}*/
-/*.tbl-act_banner {
+}
+.tbl-act_banner {
     width: 80px;
-}*/
+}
 
 .detail-title-min_banner {
     width: 580px;
@@ -125,12 +125,21 @@ td.tbl-num_top {
 .li-act_banner {
     width: 92px;
 }
+.sort-form_banner {
+    margin-left: 0!important;
+}
 
 .img_banner {/* コンソール内の画像サイズ用 */
     width: auto;
     height: auto;
     max-width: 120px;
     max-height: 120px;
+}
+
+.link-page_banner {
+    text-align: right;
+    margin-right: 20px;
+    margin-bottom: 20px;
 }
 
 /* linkページ用 */

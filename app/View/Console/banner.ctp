@@ -1,5 +1,4 @@
 <?php echo $this->Html->script('jquery-tmb', array('inline' => FALSE)); ?>
-<?php echo $this->Html->script('http://code.jquery.com/ui/1.11.3/jquery-ui.js', array('inline' => FALSE)); ?>
 <h3>バナーの追加</h3>
 
   <table>
@@ -76,34 +75,33 @@
 
   <?php echo $this->Paginator->numbers($paginator_option); ?>
 
-  <div class="detail-title-min_banner">
-    <span class="li-num">sort<?php echo $this->Paginator->sort('Banner.sort', '▼'); ?></span>
-    <span class="li-num">id<?php echo $this->Paginator->sort('Banner.id', '▼'); ?></span>
-    <span class="li-tmb_banner">プレビュー</span>
-    <span class="li-date">公開開始日<?php echo $this->Paginator->sort('Banner.date_from', '▼'); ?><br>
-                          公開終了日<?php echo $this->Paginator->sort('Banner.date_to', '▼'); ?></span>
-    <span class="li-ico">状態</span>
-    <span class="li-act_banner">action</span>
-  </div>
-  
-  <ul class="detail-list-min_banner sortable">
+  <table class="detail-list-min">
+    <tr><th class="tbl-num">id<?php echo $this->Paginator->sort('Banner.id', '▼'); ?></th>
+        <th>プレビュー</th>
+        <th class="tbl-date">公開開始日<?php echo $this->Paginator->sort('Banner.date_from', '▼'); ?><br>
+                             公開終了日<?php echo $this->Paginator->sort('Banner.date_to', '▼'); ?></th>
+        <th class="tbl-ico">状態</th>
+        <th class="tbl-act_banner">action</th></tr>
+    
     <?php foreach ($banner_lists AS $banner_list) { ?>
-    <li><span class="li-num"><?php echo $banner_list['Banner']['sort']; ?></span>
-        <span class="li-num"><?php echo $banner_list['Banner']['id']; ?></span>
-        <span class="li-tmb_banner"><a href="<?php echo $banner_list['Banner']['link_url']; ?>" target="_blank">
-            <?php echo $this->Html->image('../files/banner/'.$banner_list['Banner']['image_name'], array('alt' => $banner_list['Banner']['title'], 'class' => 'img_banner')); ?></a></span>
-        <span class="li-date"><?php echo $banner_list['Banner']['date_from']; ?><?php if ($banner_list['Banner']['date_from']) {echo '～'; } ?>
-                             <?php if ($banner_list['Banner']['date_to']) {echo '<br>～'; } ?><?php echo $banner_list['Banner']['date_to']; ?></span>
-        <span class="li-ico"><?php if ($banner_list['Banner']['publish'] == 0) {echo '<span class="icon-false">非公開</span>';}
-                              elseif ($banner_list['Banner']['publish'] == 1) {echo '<span class="icon-true">公開</span>';} ?></span>
-        <span class="li-act_banner"><?php echo $this->Html->link('修正', '/console/banner/edit/'.$banner_list['Banner']['id']); ?>
-                                  <?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'banner_delete', $banner_list['Banner']['id']), null, '本当に#'.$banner_list['Banner']['id'].'を削除しますか'); ?></span></li>
+    <tr><td class="tbl-num"><?php echo $banner_list['Banner']['id']; ?></td>
+        <td class="tbl-tmb_banner"><a href="<?php echo $banner_list['Banner']['link_url']; ?>" target="_blank">
+            <?php echo $this->Html->image('../files/banner/'.$banner_list['Banner']['image_name'], array('alt' => $banner_list['Banner']['title'], 'class' => 'img_banner')); ?></td>
+        <td class="tbl-date"><?php echo $banner_list['Banner']['date_from']; ?><?php if ($banner_list['Banner']['date_from']) {echo '～'; } ?>
+                             <?php if ($banner_list['Banner']['date_to']) {echo '<br>～'; } ?><?php echo $banner_list['Banner']['date_to']; ?></td>
+        <td class="tbl-ico"><?php if ($banner_list['Banner']['publish'] == 0) {echo '<span class="icon-false">非公開</span>';}
+                              elseif ($banner_list['Banner']['publish'] == 1) {
+                                if ($banner_list['Banner']['date_to'] && $banner_list['Banner']['date_to'] < date('Y-m-d')) {
+                                  echo '<span class="icon-false">終了</span>';
+                                } else {
+                                  echo '<span class="icon-true">公開</span>';
+                                }
+                              } ?></td>
+        <td class="tbl-act_banner"><?php echo $this->Html->link('修正', '/console/banner/edit/'.$banner_list['Banner']['id']); ?>
+                                  <?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'banner_delete', $banner_list['Banner']['id']), null, '本当に#'.$banner_list['Banner']['id'].'を削除しますか'); ?></td></tr>
     <?php } ?>
-  </ul>
+  </table>
 
-<script>
-  $(function() {
-      $('.sortable').sortable();
-      $('.sortable').disableSelection();
-  });
-</script>
+<div class="link-page_banner">
+  <span class="link-page"><?php echo $this->Html->link('⇨ バナーを並び替える', '/console/banner_sort/'); ?></span>
+</div>
