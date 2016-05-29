@@ -107,6 +107,14 @@
 .detail-list_erg {
     width: 100%;
 }
+.tbl-1_erg_mobile {
+    width: 20%;
+    text-align: center;
+}
+.tbl-2_erg_mobile {
+    width: 80%;
+    word-wrap: break-word;
+}
 
 /* mh */
 .txt_mh {

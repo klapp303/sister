@@ -32,6 +32,7 @@
     width: 720px;
     margin-bottom: 30px!important;
     border-collapse: collapse;
+    table-layout: fixed;
 }
 .detail-list_erg >tbody >tr >th,
 .detail-list_erg >tbody >tr >td {
@@ -42,23 +43,29 @@
 }
 
 .tbl-num_erg {
-    width: 130px;
+    width: 133px;
     text-align: center;
 }
-.tbl-tmb_erg {
-    width:  120px;
+.tbl-maker_erg {
+    width: 234px;
 }
-
+.tbl-tmb_erg {
+    padding-left: 0!important;
+    padding-right: 0!important;
+}
 .img-maker_erg {/* 画像サイズ用 */
     width: auto;
     height: auto;
     max-width: 120px;
     max-height: 120px;
 }
-
 .tbl-date_erg {
-    width: 100px;
+    width: 90px;
     text-align: center;
+}
+.tbl-link_erg {
+    width: 220px;
+    word-wrap: break-word;
 }
 
 .detail-point_erg >tbody >tr >th {

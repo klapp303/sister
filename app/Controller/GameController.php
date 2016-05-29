@@ -24,7 +24,7 @@ class GameController extends AppController {
   public function erg() {
       $this->Paginator->settings = array(
           'conditions' => array('Game.publish' => 1),
-          'order' => array('Game.title' => 'asc')
+          'order' => array('Game.point' => 'desc', 'Game.release_date' => 'desc')
       );
       $game_lists = $this->Paginator->paginate('Game');
       $this->set('game_lists', $game_lists);
