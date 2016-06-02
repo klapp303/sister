@@ -1,56 +1,5 @@
 <?php echo $this->Html->script('jquery-select_select', array('inline' => false)); ?>
 <?php echo $this->Html->script('jquery-checked', array('inline' => false)); ?>
-<?php //ジャンルとハードの選択肢を定義しておく
-$array_genre = array(
-    1 => array(
-        'name' => 'アニメ',
-        'value' => 'anime',
-        'class' => 'panime',
-        'hard' => array(
-            1 => array('name' => 'TV', 'value' => 'tv'),
-            2 => array('name' => 'OVA', 'value' => 'ova')
-        )
-    ),
-    2 => array(
-        'name' => 'ゲーム',
-        'value' => 'game',
-        'class' => 'pgame',
-        'hard' => array(
-            1 => array('name' => 'PC', 'value' => 'pc'),
-            2 => array('name' => 'PS3', 'value' => 'ps3'),
-            3 => array('name' => 'PS2', 'value' => 'ps2'),
-            4 => array('name' => 'PS', 'value' => 'ps'),
-            5 => array('name' => 'PSvita', 'value' => 'psvita'),
-            6 => array('name' => 'PSP', 'value' => 'psp'),
-            7 => array('name' => 'Xbox', 'value' => 'xbox'),
-            8 => array('name' => 'スマホ', 'value' => 'app')
-        )
-    ),
-    3 => array(
-        'name' => 'ラジオ',
-        'value' => 'radio',
-        'class' => 'pradio',
-        'hard' => array(
-            1 => array('name' => 'Web', 'value' => 'web'),
-        )
-    ),
-    4 => array(
-        'name' => '音楽',
-        'value' => 'music',
-        'class' => 'pmusic',
-        'hard' => array(
-            1 => array('name' => 'シングル', 'value' => 'sg'),
-            2 => array('name' => 'アルバム', 'value' => 'al')
-        )
-    ),
-    5 => array(
-        'name' => 'その他',
-        'value' => 'other',
-        'class' => 'pother',
-        'hard' => array()
-    )
-);
-?>
 <h3><?php echo $profile['Voice']['nickname']; ?>出演作品の登録</h3>
 
   <table>
@@ -87,8 +36,8 @@ $array_genre = array(
     <tr>
       <td>ジャンル</td>
       <?php $genre_lists = []; ?>
-      <?php foreach ($array_genre as $genre) {
-          $genre_lists = array_merge($genre_lists, array($genre['value'] => $genre['name']));
+      <?php foreach ($array_genre as $p_genre) {
+          $genre_lists = array_merge($genre_lists, array($p_genre['value'] => $p_genre['name']));
       } ?>
       <?php $genre_lists = array_merge(array('' => ''), $genre_lists); ?>
       <td id="SelectGenre"><?php echo $this->Form->input('genre', array('type' => 'select', 'label' => false, 'id' => 'lv1Pulldown', 'options' => $genre_lists)); ?></td>
@@ -101,9 +50,9 @@ $array_genre = array(
         <td id="SelectHard">
           <select name="data[Product][hard]" id="lv2Pulldown" disabled="disabled">
             <?php echo (!$this->request->data['Product']['hard'])? '<option>ジャンルを選択してください</option>' : ''; ?>
-            <?php foreach ($array_genre as $genre) { ?>
-              <?php foreach ($genre['hard'] as $hard) { ?>
-                <option value="<?php echo $hard['value']; ?>" class="<?php echo $genre['class']; ?>" <?php echo ($this->request->data['Product']['hard'] == $hard['value'])? 'selected="selected"' : ''; ?>>
+            <?php foreach ($array_genre as $p_genre) { ?>
+              <?php foreach ($p_genre['hard'] as $hard) { ?>
+                <option value="<?php echo $hard['value']; ?>" class="<?php echo $p_genre['class']; ?>" <?php echo ($this->request->data['Product']['hard'] == $hard['value'])? 'selected="selected"' : ''; ?>>
                   <?php echo $hard['name']; ?></option>
               <?php } ?>
             <?php } ?>
@@ -113,9 +62,9 @@ $array_genre = array(
         <td id="SelectHard">
           <select name="data[Product][hard]" id="lv2Pulldown" disabled="disabled">
             <option>ジャンルを選択してください</option>
-            <?php foreach ($array_genre as $genre) { ?>
-              <?php foreach ($genre['hard'] as $hard) { ?>
-                <option value="<?php echo $hard['value']; ?>" class="<?php echo $genre['class']; ?>">
+            <?php foreach ($array_genre as $p_genre) { ?>
+              <?php foreach ($p_genre['hard'] as $hard) { ?>
+                <option value="<?php echo $hard['value']; ?>" class="<?php echo $p_genre['class']; ?>">
                   <?php echo $hard['name']; ?></option>
               <?php } ?>
             <?php } ?>
@@ -234,14 +183,14 @@ $array_genre = array(
                                      <?php } elseif ($product_list['Product']['date_to']) { ?>
                                        <br>～<?php echo $product_list['Product']['date_to']; ?>
                                      <?php } ?></td>
-          <td class="tbl-ico"><?php foreach ($array_genre as $genre) { ?>
-                                <?php if ($product_list['Product']['genre'] == $genre['value']) { ?>
-                                  <span><?php echo $genre['name']; ?></span><br>
+          <td class="tbl-ico"><?php foreach ($array_genre as $p_genre) { ?>
+                                <?php if ($product_list['Product']['genre'] == $p_genre['value']) { ?>
+                                  <span><?php echo $p_genre['name']; ?></span><br>
                                 <?php } ?>
                               <?php } ?>
                               <?php $hard_name = 'その他'; ?>
-                              <?php foreach ($array_genre as $genre) { ?>
-                                <?php foreach ($genre['hard'] as $hard) { ?>
+                              <?php foreach ($array_genre as $p_genre) { ?>
+                                <?php foreach ($p_genre['hard'] as $hard) { ?>
                                   <?php if ($product_list['Product']['hard'] == $hard['value']) {
                                       $hard_name = $hard['name'];
                                   } ?>

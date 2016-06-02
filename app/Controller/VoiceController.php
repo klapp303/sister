@@ -49,6 +49,11 @@ class VoiceController extends AppController
         //ジャンル別一覧メニューのために定義しておく
         $array_voiceMenu = $this->setMenu();
         $this->set('array_voiceMenu', $array_voiceMenu);
+        
+        /* 出演作品のジャンルとハードの選択肢取得ここから */
+        $array_genre = $this->Product->getGenreAndHardList();
+        $this->set('array_genre', $array_genre);
+        /* 出演作品のジャンルとハードの選択肢取得ここまで */
     }
     
 //    public function index()

@@ -26,20 +26,15 @@
                                      <?php } elseif ($list['Product']['date_to']) { ?>
                                        <br>～<?php echo $list['Product']['date_to']; ?>
                                      <?php } ?></td>
-          <td class="tbl-ico_voice"><?php if ($list['Product']['hard'] == 'tv') {echo 'TV';}
-                                      elseif ($list['Product']['hard'] == 'ova') {echo 'OVA';}
-                                      elseif ($list['Product']['hard'] == 'pc') {echo 'PC';}
-                                      elseif ($list['Product']['hard'] == 'ps3') {echo 'PS3';}
-                                      elseif ($list['Product']['hard'] == 'ps2') {echo 'PS2';}
-                                      elseif ($list['Product']['hard'] == 'ps') {echo 'PS';}
-                                      elseif ($list['Product']['hard'] == 'psvita') {echo 'PSvita';}
-                                      elseif ($list['Product']['hard'] == 'psp') {echo 'PSP';}
-                                      elseif ($list['Product']['hard'] == 'xbox') {echo 'Xbox';}
-                                      elseif ($list['Product']['hard'] == 'app') {echo 'スマホ';}
-                                      elseif ($list['Product']['hard'] == 'web') {echo 'Web';}
-                                      elseif ($list['Product']['hard'] == 'sg') {echo 'シングル';}
-                                      elseif ($list['Product']['hard'] == 'al') {echo 'アルバム';}
-                                      else {echo 'その他';} ?></td>
+          <td class="tbl-ico_voice"><?php $hard_name = 'その他'; ?>
+                                    <?php foreach ($array_genre as $p_genre) { ?>
+                                      <?php foreach ($p_genre['hard'] as $hard) { ?>
+                                        <?php if ($list['Product']['hard'] == $hard['value']) {
+                                            $hard_name = $hard['name'];
+                                        } ?>
+                                      <?php } ?>
+                                    <?php } ?>
+                                    <?php echo $hard_name; ?></td>
           <td class="tbl-title_voice<?php echo ($genre == 'music')? '-music' : ''; ?>">
             <?php if ($list['Product']['link_url']) { ?>
               <a href="<?php echo $list['Product']['link_url']; ?>" target="_blank">
@@ -123,20 +118,15 @@
                                      <?php } elseif ($list['Product']['date_to']) { ?>
                                        <br>～<?php echo $list['Product']['date_to']; ?>
                                      <?php } ?></td>
-          <td class="tbl-ico_voice"><?php if ($list['Product']['hard'] == 'tv') {echo 'TV';}
-                                      elseif ($list['Product']['hard'] == 'ova') {echo 'OVA';}
-                                      elseif ($list['Product']['hard'] == 'pc') {echo 'PC';}
-                                      elseif ($list['Product']['hard'] == 'ps3') {echo 'PS3';}
-                                      elseif ($list['Product']['hard'] == 'ps2') {echo 'PS2';}
-                                      elseif ($list['Product']['hard'] == 'ps') {echo 'PS';}
-                                      elseif ($list['Product']['hard'] == 'psvita') {echo 'PSvita';}
-                                      elseif ($list['Product']['hard'] == 'psp') {echo 'PSP';}
-                                      elseif ($list['Product']['hard'] == 'xbox') {echo 'Xbox';}
-                                      elseif ($list['Product']['hard'] == 'app') {echo 'スマホ';}
-                                      elseif ($list['Product']['hard'] == 'web') {echo 'Web';}
-                                      elseif ($list['Product']['hard'] == 'sg') {echo 'シングル';}
-                                      elseif ($list['Product']['hard'] == 'al') {echo 'アルバム';}
-                                      else {echo 'その他';} ?></td>
+          <td class="tbl-ico_voice"><?php $hard_name = 'その他'; ?>
+                                    <?php foreach ($array_genre as $p_genre) { ?>
+                                      <?php foreach ($p_genre['hard'] as $hard) { ?>
+                                        <?php if ($list['Product']['hard'] == $hard['value']) {
+                                            $hard_name = $hard['name'];
+                                        } ?>
+                                      <?php } ?>
+                                    <?php } ?>
+                                    <?php echo $hard_name; ?></td>
           <td class="tbl-chara_voice"><?php echo $list['Product']['charactor']; ?></td>
           <!--td><?php // echo $list['Product']['note']; ?></td--></tr>
     <?php } ?>

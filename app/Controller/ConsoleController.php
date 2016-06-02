@@ -50,6 +50,11 @@ class ConsoleController extends AppController
         $voice_lists = $this->Voice->find('all');
         $this->set('voice_lists', $voice_lists);
         /* コンソールメニューの声優データ取得ここまで */
+        
+        /* 出演作品のジャンルとハードの選択肢取得ここから */
+        $array_genre = $this->Product->getGenreAndHardList();
+        $this->set('array_genre', $array_genre);
+        /* 出演作品のジャンルとハードの選択肢取得ここまで */
     }
     
     public function index()

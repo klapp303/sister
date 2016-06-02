@@ -45,6 +45,62 @@ class Product extends AppModel
 //        'title' => array('type' => 'value')
 //    );
     
+    public function getGenreAndHardList($data = false)
+    {
+        //ジャンルとハードの選択肢を定義
+        $data = array(
+            1 => array(
+                'name' => 'アニメ',
+                'value' => 'anime',
+                'class' => 'panime',
+                'hard' => array(
+                    1 => array('name' => 'TV', 'value' => 'tv'),
+                    2 => array('name' => 'OVA', 'value' => 'ova')
+                )
+            ),
+            2 => array(
+                'name' => 'ゲーム',
+                'value' => 'game',
+                'class' => 'pgame',
+                'hard' => array(
+                    1 => array('name' => 'PC', 'value' => 'pc'),
+                    2 => array('name' => 'PS3', 'value' => 'ps3'),
+                    3 => array('name' => 'PS2', 'value' => 'ps2'),
+                    4 => array('name' => 'PS', 'value' => 'ps'),
+                    5 => array('name' => 'PSvita', 'value' => 'psvita'),
+                    6 => array('name' => 'PSP', 'value' => 'psp'),
+                    7 => array('name' => 'Xbox', 'value' => 'xbox'),
+                    8 => array('name' => 'スマホ', 'value' => 'app')
+                )
+            ),
+            3 => array(
+                'name' => 'ラジオ',
+                'value' => 'radio',
+                'class' => 'pradio',
+                'hard' => array(
+                    1 => array('name' => 'Web', 'value' => 'web'),
+                )
+            ),
+            4 => array(
+                'name' => '音楽',
+                'value' => 'music',
+                'class' => 'pmusic',
+                'hard' => array(
+                    1 => array('name' => 'シングル', 'value' => 'sg'),
+                    2 => array('name' => 'アルバム', 'value' => 'al')
+                )
+            ),
+            5 => array(
+                'name' => 'その他',
+                'value' => 'other',
+                'class' => 'pother',
+                'hard' => array()
+            )
+        );
+        
+        return $data;
+    }
+    
     public function editMusicData($id = false, $data = false)
     {
         //product_editでhasManyのmusicデータを編集時に加工する
