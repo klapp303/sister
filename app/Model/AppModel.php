@@ -27,10 +27,18 @@ class AppModel extends Model
     public function delete($id = null, $cascade = true)
     {
         $result = parent::delete($id, $cascade);
+        
         if ($result === false && $this->Behaviors->enabled('SoftDelete')) {
             return $this->field('deleted', array('deleted' => 1));
         }
         
         return $result;
+    }
+    
+    public function loadModel($Model)
+    {
+        if (!isset($this->{$Model})) {
+            $this->{$Model} = ClassRegistry::init(array('class' => $Model, 'alias' => $Model, 'id' => null));
+        }
     }
 }
