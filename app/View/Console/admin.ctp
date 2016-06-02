@@ -5,17 +5,16 @@
         'type' => 'post', //デフォルトはpost送信
         'url' => array('controller' => 'console', 'action' => 'admin_add'), //Controllerのactionを指定
         'inputDefaults' => array('div' => '')
-        )
-    ); ?><!-- form start -->
+    )); ?><!-- form start -->
     
     <tr>
       <td>ユーザ名</td>
-      <td><?php echo $this->Form->input('admin_name', array('type' => 'text', 'label' => false, 'size' => 49)); ?></td>
+      <td><?php echo $this->Form->input('admin_name', array('type' => 'text', 'label' => false, 'size' => 24)); ?></td>
     </tr>
     <tr>
     <tr>
       <td>パスワード</td>
-      <td><?php echo $this->Form->input('password', array('type' => 'text', 'label' => false, 'size' => 49)); ?></td>
+      <td><?php echo $this->Form->input('password', array('type' => 'text', 'label' => false, 'size' => 24)); ?></td>
     </tr>
     
     <tr>
@@ -35,11 +34,11 @@
         <!--th>パスワード</th-->
         <th class="tbl-act_admin">action</th></tr>
     
-    <?php foreach ($admin_lists AS $admin_list) { ?>
-    <tr><td class="tbl-num"><?php echo $admin_list['Administrator']['id']; ?></td>
-        <td class="txt-c"><?php echo $admin_list['Administrator']['admin_name']; ?></td>
-        <!--td--><!--?php echo $admin_list['Administrator']['password']; ?--><!--/td-->
-        <td class="tbl-act_admin"><!--?php echo $this->Html->link('修正', '/console/admin/edit/'.$admin_list['Administrator']['id']); ?-->
-                                 <?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'admin_delete', $admin_list['Administrator']['id']), null, '本当に#'.$admin_list['Administrator']['id'].'を削除しますか'); ?></td></tr>
+    <?php foreach ($admin_lists as $admin_list) { ?>
+      <tr><td class="tbl-num"><?php echo $admin_list['Administrator']['id']; ?></td>
+          <td class="txt-c"><?php echo $admin_list['Administrator']['admin_name']; ?></td>
+          <!--td><?php // echo $admin_list['Administrator']['password']; ?></td-->
+          <td class="tbl-act_admin"><?php // echo $this->Html->link('修正', '/console/admin/edit/' . $admin_list['Administrator']['id']); ?>
+                                    <?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'admin_delete', $admin_list['Administrator']['id']), null, '本当に#' . $admin_list['Administrator']['id'] . 'を削除しますか'); ?></td></tr>
     <?php } ?>
   </table>

@@ -1,5 +1,5 @@
-<?php echo $this->Html->script('jquery-file_insert', array('inline' => FALSE)); ?>
-<?php echo $this->Html->script('sub_pop', array('inline' => FALSE)); ?>
+<?php echo $this->Html->script('jquery-file_insert', array('inline' => false)); ?>
+<?php echo $this->Html->script('sub_pop', array('inline' => false)); ?>
 <h3>日記の作成</h3>
 
   <table>
@@ -8,16 +8,14 @@
           'type' => 'put', //変更はput
           'url' => array('controller' => 'console', 'action' => 'diary_edit'), //Controllerのactionを指定
           'inputDefaults' => array('div' => '')
-          )
-      ); ?>
+      )); ?>
       <?php echo $this->Form->input('id', array('type' => 'hidden', 'label' => false, 'value' => $id)); ?>
     <?php } else { //登録用 ?>
       <?php echo $this->Form->create('Diary', array( //使用するModel
           'type' => 'post', //デフォルトはpost送信
           'url' => array('controller' => 'console', 'action' => 'diary_add'), //Controllerのactionを指定
           'inputDefaults' => array('div' => '')
-          )
-      ); ?>
+      )); ?>
     <?php } ?><!-- form start -->
     
     <tr>
@@ -36,7 +34,7 @@
     </tr>
     <tr>
       <td>日付</td>
-      <td><?php echo $this->Form->input('date', array('type' => 'date', 'label' => false, 'dateFormat' => 'YMD', 'monthNames' => false, 'separator' => '/', 'maxYear' => date('Y')+1, 'minYear' => 2013)); ?></td>
+      <td><?php echo $this->Form->input('date', array('type' => 'date', 'label' => false, 'dateFormat' => 'YMD', 'monthNames' => false, 'separator' => '/', 'maxYear' => date('Y') +1, 'minYear' => 2013)); ?></td>
     </tr>
     <tr>
       <td>ジャンル</td>
@@ -50,10 +48,10 @@
     <tr>
       <td></td>
       <td class="tbl-button"><?php if (preg_match('#/console/diary/edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
-            <?php echo $this->Form->submit('修正する'); ?>
-          <?php } else { //登録用 ?>
-            <?php echo $this->Form->submit('作成する'); ?>
-          <?php } ?></td>
+                               <?php echo $this->Form->submit('修正する'); ?>
+                             <?php } else { //登録用 ?>
+                               <?php echo $this->Form->submit('作成する'); ?>
+                             <?php } ?></td>
     </tr>
     <?php echo $this->Form->end(); ?><!-- form end -->
   </table>
@@ -70,17 +68,18 @@
                                   状態</th>
         <th class="tbl-act_diary">action</th></tr>
     
-    <?php foreach ($diary_lists AS $diary_list) { ?>
-    <tr><td class="tbl-num"><?php echo $diary_list['Diary']['id']; ?></td>
-        <td><?php echo $diary_list['Diary']['title']; ?></td>
-        <td class="tbl-date"><?php echo $diary_list['Diary']['date']; ?></td>
-        <td class="tbl-ico_diary"><?php echo $diary_list['DiaryGenre']['title']; ?><br>
-                                  <?php if ($diary_list['Diary']['publish'] == 0) {echo '<span class="icon-false">非公開</span>';}
-                                    elseif ($diary_list['Diary']['publish'] == 1) {echo '<span class="icon-true icon-button">';
-                                                                                   echo $this->Html->link('公開', '/diary/'.$diary_list['Diary']['id'], array('target' => '_blank'));
-                                                                                   echo '</span>';} ?></td>
-        <td class="tbl-act_diary"><?php echo $this->Html->link('プレビュー', '/console/diary_preview/'.$diary_list['Diary']['id'], array('target' => '_blank')); ?><br>
-                                  <?php echo $this->Html->link('修正', '/console/diary/edit/'.$diary_list['Diary']['id']); ?>
-                                  <?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'diary_delete', $diary_list['Diary']['id']), null, '本当に#'.$diary_list['Diary']['id'].'を削除しますか'); ?></td></tr>
+    <?php foreach ($diary_lists as $diary_list) { ?>
+      <tr><td class="tbl-num"><?php echo $diary_list['Diary']['id']; ?></td>
+          <td><?php echo $diary_list['Diary']['title']; ?></td>
+          <td class="tbl-date"><?php echo $diary_list['Diary']['date']; ?></td>
+          <td class="tbl-ico_diary"><?php echo $diary_list['DiaryGenre']['title']; ?><br>
+                                    <?php if ($diary_list['Diary']['publish'] == 0) { ?>
+                                      <span class="icon-false">非公開</span>
+                                    <?php } elseif ($diary_list['Diary']['publish'] == 1) { ?>
+                                      <span class="icon-true icon-button"><?php echo $this->Html->link('公開', '/diary/' . $diary_list['Diary']['id'], array('target' => '_blank')); ?></span>
+                                    <?php } ?></td>
+          <td class="tbl-act_diary"><?php echo $this->Html->link('プレビュー', '/console/diary_preview/' . $diary_list['Diary']['id'], array('target' => '_blank')); ?><br>
+                                    <?php echo $this->Html->link('修正', '/console/diary/edit/' . $diary_list['Diary']['id']); ?>
+                                    <?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'diary_delete', $diary_list['Diary']['id']), null, '本当に#' . $diary_list['Diary']['id'] . 'を削除しますか'); ?></td></tr>
     <?php } ?>
   </table>
