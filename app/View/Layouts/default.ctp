@@ -13,22 +13,22 @@
 		<?php echo '虹妹ｐｒｐｒ'; ?>
 	</title>
 	<?php
-//		echo $this->Html->meta('icon');
-
-		echo $this->Html->css(array(
-        'common',
-        'detail'
-    ));
-
-    echo $this->Html->script(array(
-        'jquery-1.11.3.min',
-        'jquery-migrate-1.2.1.min'
-    ));
-
-		echo $this->fetch('meta');
-		echo $this->fetch('css');
-		echo $this->fetch('script');
-	?>
+//  echo $this->Html->meta('icon');
+  
+  echo $this->Html->css(array(
+      'common',
+      'detail'
+  ));
+  
+  echo $this->Html->script(array(
+      'jquery-1.11.3.min',
+      'jquery-migrate-1.2.1.min'
+  ));
+  
+  echo $this->fetch('meta');
+  echo $this->fetch('css');
+  echo $this->fetch('script');
+  ?>
 </head>
 <body>
 	<div id="container">
@@ -42,7 +42,7 @@
       
       <?php echo $this->element('bourbon_house'); ?>
       <?php if (env('SERVER_ADDR') == '127.0.0.1') { ?>
-			<?php echo $this->fetch('content'); ?>
+        <?php echo $this->fetch('content'); ?>
       <?php } ?>
 		</div>
     

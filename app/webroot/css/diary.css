@@ -1,107 +1,107 @@
 @charset "utf-8";
 /* 日記用 */
 .article {
-    background-color: #f5f5ff;
-    margin-bottom: 30px;
-    border: solid 1px #000000;
-    box-shadow: -1px 1px 1px #a4a4a4;
+  background-color: #f5f5ff;
+  margin-bottom: 30px;
+  border: solid 1px #000000;
+  box-shadow: -1px 1px 1px #a4a4a4;
 }
 
 .art-header {
-    padding: 5px;
+  padding: 5px;
 }
 .art-header >h3 {
-    margin: 0;
+  margin: 0;
 }
 .art-header >h3 >a {
-    text-decoration: none;
+  text-decoration: none;
 }
 .art-header >h3 >a:link,
 .art-header >h3 >a:visited,
 .art-header >h3 >a:hover,
 .art-header >h3 >a:active {
-    color: #000000;
+  color: #000000;
 }
 
 .art-body {
-    font-size: 14px;
-    padding: 10px;
+  font-size: 14px;
+  padding: 10px;
 }
 
 .art-footer {
-    font-size: 12px;
-    padding: 5px;
+  font-size: 12px;
+  padding: 5px;
 }
 
 .article >hr {
-    margin: 0 auto;
-    width: 95%;
-      /* 埋め込みデザイン */
-      border: 0;
-      height: 0;
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  margin: 0 auto;
+  width: 95%;
+    /* 埋め込みデザイン */
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .img_diary {/* 記事内の画像サイズ用 */
-    width: auto;
-    height: auto;
-    max-width: 540px;
-    max-height: 540px;
+  width: auto;
+  height: auto;
+  max-width: 540px;
+  max-height: 540px;
 }
 
 /* 検索box用 */
 #searchbox {
-    padding: 10px 0;
-    text-align: center;
+  padding: 10px 0;
+  text-align: center;
 }
 
 /* カレンダー用 */
 #calendar {
-    padding: 10px 0;
-    text-align: center;
+  padding: 10px 0;
+  text-align: center;
 }
 
 .cal-header >span >a {
-    text-decoration: none;
+  text-decoration: none;
 }
 .cal-header >span >a:link,
 .cal-header >span >a:visited,
 .cal-header >span >a:hover,
 .cal-header >span >a:active {
-    color: #ffffff;
+  color: #ffffff;
 }
 
 .cal-link {
-    margin: 0 10px;
+  margin: 0 10px;
 }
 
 .sat {
-    color: #58acfa;
+  color: #58acfa;
 }
 
 .cal-body >table >tbody >tr >td >a {
-    //text-decoration: none;
-    font-weight: bold;
+  /*text-decoration: none;*/
+  font-weight: bold;
 }
 .cal-body >table >tbody >tr >td >a:link,
 .cal-body >table >tbody >tr >td >a:visited,
 .cal-body >table >tbody >tr >td >a:hover,
 .cal-body >table >tbody >tr >td >a:active {
-    color: #ffffff;
+  color: #ffffff;
 }
 
 /* ジャンルメニュー用 */
 #genrelist {
-    padding: 10px 0;
-    text-align: left;
+  padding: 10px 0;
+  text-align: left;
 }
 #genrelist >ul >li >a {
-    text-decoration: none;
+  text-decoration: none;
 }
 #genrelist >ul >li >a:link,
 #genrelist >ul >li >a:visited,
 #genrelist >ul >li >a:hover,
 #genrelist >ul >li >a:active {
-    color: #ffffff;
+  color: #ffffff;
 }

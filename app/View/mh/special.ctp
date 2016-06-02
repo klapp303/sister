@@ -1,4 +1,4 @@
-<?php echo $this->Html->css('mh', array('inline' => FALSE)); ?>
+<?php echo $this->Html->css('mh', array('inline' => false)); ?>
 <h3>太刀使いによる狩技使用感</h3>
 
 <p class="intro_mh">

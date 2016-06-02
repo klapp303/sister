@@ -1,4 +1,4 @@
-<?php echo $this->Html->css('login', array('inline' => FALSE)); ?>
+<?php echo $this->Html->css('login', array('inline' => false)); ?>
 <h3>ログイン</h3>
 
   <table class="LoginForm">
@@ -6,8 +6,7 @@
         'type' => 'post', //デフォルトはpost送信
         'url' => array('controller' => 'login', 'action' => 'login'), //Controllerのactionを指定
         'inputDefaults' => array('div' => '')
-        )
-    ); ?><!-- form start -->
+    )); ?><!-- form start -->
     <tr>
       <td><label>ユーザ名</label></td>
       <td><?php echo $this->Form->input('admin_name', array('type' => 'text', 'label' => false)); ?></td>

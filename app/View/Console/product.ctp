@@ -1,55 +1,55 @@
 <?php echo $this->Html->script('jquery-select_select', array('inline' => false)); ?>
 <?php echo $this->Html->script('jquery-checked', array('inline' => false)); ?>
 <?php //ジャンルとハードの選択肢を定義しておく
-    $array_genre = array(
-        1 => array(
-            'name' => 'アニメ',
-            'value' => 'anime',
-            'class' => 'panime',
-            'hard' => array(
-                1 => array('name' => 'TV', 'value' => 'tv'),
-                2 => array('name' => 'OVA', 'value' => 'ova')
-            )
-        ),
-        2 => array(
-            'name' => 'ゲーム',
-            'value' => 'game',
-            'class' => 'pgame',
-            'hard' => array(
-                1 => array('name' => 'PC', 'value' => 'pc'),
-                2 => array('name' => 'PS3', 'value' => 'ps3'),
-                3 => array('name' => 'PS2', 'value' => 'ps2'),
-                4 => array('name' => 'PS', 'value' => 'ps'),
-                5 => array('name' => 'PSvita', 'value' => 'psvita'),
-                6 => array('name' => 'PSP', 'value' => 'psp'),
-                7 => array('name' => 'Xbox', 'value' => 'xbox'),
-                8 => array('name' => 'スマホ', 'value' => 'app')
-            )
-        ),
-        3 => array(
-            'name' => 'ラジオ',
-            'value' => 'radio',
-            'class' => 'pradio',
-            'hard' => array(
-                1 => array('name' => 'Web', 'value' => 'web'),
-            )
-        ),
-        4 => array(
-            'name' => '音楽',
-            'value' => 'music',
-            'class' => 'pmusic',
-            'hard' => array(
-                1 => array('name' => 'シングル', 'value' => 'sg'),
-                2 => array('name' => 'アルバム', 'value' => 'al')
-            )
-        ),
-        5 => array(
-            'name' => 'その他',
-            'value' => 'other',
-            'class' => 'pother',
-            'hard' => array()
+$array_genre = array(
+    1 => array(
+        'name' => 'アニメ',
+        'value' => 'anime',
+        'class' => 'panime',
+        'hard' => array(
+            1 => array('name' => 'TV', 'value' => 'tv'),
+            2 => array('name' => 'OVA', 'value' => 'ova')
         )
-    );
+    ),
+    2 => array(
+        'name' => 'ゲーム',
+        'value' => 'game',
+        'class' => 'pgame',
+        'hard' => array(
+            1 => array('name' => 'PC', 'value' => 'pc'),
+            2 => array('name' => 'PS3', 'value' => 'ps3'),
+            3 => array('name' => 'PS2', 'value' => 'ps2'),
+            4 => array('name' => 'PS', 'value' => 'ps'),
+            5 => array('name' => 'PSvita', 'value' => 'psvita'),
+            6 => array('name' => 'PSP', 'value' => 'psp'),
+            7 => array('name' => 'Xbox', 'value' => 'xbox'),
+            8 => array('name' => 'スマホ', 'value' => 'app')
+        )
+    ),
+    3 => array(
+        'name' => 'ラジオ',
+        'value' => 'radio',
+        'class' => 'pradio',
+        'hard' => array(
+            1 => array('name' => 'Web', 'value' => 'web'),
+        )
+    ),
+    4 => array(
+        'name' => '音楽',
+        'value' => 'music',
+        'class' => 'pmusic',
+        'hard' => array(
+            1 => array('name' => 'シングル', 'value' => 'sg'),
+            2 => array('name' => 'アルバム', 'value' => 'al')
+        )
+    ),
+    5 => array(
+        'name' => 'その他',
+        'value' => 'other',
+        'class' => 'pother',
+        'hard' => array()
+    )
+);
 ?>
 <h3><?php echo $profile['Voice']['nickname']; ?>出演作品の登録</h3>
 
@@ -257,33 +257,33 @@
 
 <?php $array_hard = array('', '_sg', '_al'); ?>
 <?php foreach($array_hard as $hard) { ?>
-  <script>
-      jQuery(function($) {
-          var hard = <?php echo json_encode($hard, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
-          $('#SelectHard select').change(function() { //formのchangeイベントがあれば値を取得
-              var val = $(this).val();
-              if (val == 'sg') {
-                  $('.tbl-music_voice' + hard).show();
-                  $('.tbl-music_voice-sg' + hard).show();
-                  $('.tbl-music_voice-al' + hard).hide();
-              } else if (val == 'al') {
-                  $('.tbl-music_voice' + hard).show();
-                  $('.tbl-music_voice-sg' + hard).show();
-                  $('.tbl-music_voice-al' + hard).show();
-              } else {
-                  $('.tbl-music_voice' + hard).hide();
-                  $('.tbl-music_voice-sg' + hard).hide();
-                  $('.tbl-music_voice-al' + hard).hide();
-              }
-          });
-          $('#SelectGenre select').change(function() { //formのchangeイベントがあれば値を取得
-              var val = $(this).val();
-              if (val !== 'music') {
-                  $('.tbl-music_voice' + hard).hide();
-                  $('.tbl-music_voice-sg' + hard).hide();
-                  $('.tbl-music_voice-al' + hard).hide();
-              }
-          });
-      });
-  </script>
+<script>
+    jQuery(function($) {
+        var hard = <?php echo json_encode($hard, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
+        $('#SelectHard select').change(function() { //formのchangeイベントがあれば値を取得
+            var val = $(this).val();
+            if (val == 'sg') {
+                $('.tbl-music_voice' + hard).show();
+                $('.tbl-music_voice-sg' + hard).show();
+                $('.tbl-music_voice-al' + hard).hide();
+            } else if (val == 'al') {
+                $('.tbl-music_voice' + hard).show();
+                $('.tbl-music_voice-sg' + hard).show();
+                $('.tbl-music_voice-al' + hard).show();
+            } else {
+                $('.tbl-music_voice' + hard).hide();
+                $('.tbl-music_voice-sg' + hard).hide();
+                $('.tbl-music_voice-al' + hard).hide();
+            }
+        });
+        $('#SelectGenre select').change(function() { //formのchangeイベントがあれば値を取得
+            var val = $(this).val();
+            if (val !== 'music') {
+                $('.tbl-music_voice' + hard).hide();
+                $('.tbl-music_voice-sg' + hard).hide();
+                $('.tbl-music_voice-al' + hard).hide();
+            }
+        });
+    });
+</script>
 <?php } ?>

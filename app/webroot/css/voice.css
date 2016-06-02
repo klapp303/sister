@@ -1,82 +1,82 @@
 @charset "utf-8";
 /* コンテンツ説明文用 */
 .intro_voice {
-    margin: 0 20px 50px 20px;
+  margin: 0 20px 50px 20px;
 }
 
 /* ページリンク用 */
 .link-page {
-    list-style-type: none;
-    margin-bottom: 50px;
+  list-style-type: none;
+  margin-bottom: 50px;
 }
 .link-page >li {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 /* 画像用 */
 /*.img_voice {
-    width: 300px;
+  width: 300px;
 }*/
 
 /* テキスト用 */
 /*.txt_voice {
-    margin-left: 20px;
-    margin-bottom: 50px;
+  margin-left: 20px;
+  margin-bottom: 50px;
 }*/
 
 /* 作品一覧用 */
 .voice-list {
-    width: 740px;
+  width: 740px;
 }
 .voice-list >tbody >tr >th,
 .voice-list >tbody >tr >td {
-    border: 1px solid #000000;
+  border: 1px solid #000000;
 }
 
 .game-list >tbody >tr >th {
-    background-color: #f5f5ff;
-    text-align: left;
+  background-color: #f5f5ff;
+  text-align: left;
 }
 
 .tbl-date_voice {
-    width: 100px;
-    text-align: center;
+  width: 100px;
+  text-align: center;
 }
 .tbl-ico_voice {
-    width: 65px;
-    text-align: center;
+  width: 65px;
+  text-align: center;
 }
 .tbl-title_voice {
-    width: 300px;
+  width: 300px;
 }
 .tbl-chara_voice {
-    width: 120px;
+  width: 120px;
 }
 
 /* ディスコグラフィページ用 */
 .tbl-title_voice-music {
-    width: 200px;
+  width: 200px;
 }
 
 .btn_music_voice {
-    float: right;
-    padding: 1px 2px;
-    font-size: 10px;
+  float: right;
+  padding: 1px 2px;
+  font-size: 10px;
 }
 
 .list_msuic_voice {
-    list-style-type: none;
-    margin: 5px 0 5px 0;
-    padding-left: 5px;
+  list-style-type: none;
+  margin: 5px 0 5px 0;
+  padding-left: 5px;
 }
 .list_msuic_voice >li {
-    font-size: 80%;
+  font-size: 80%;
 }
 
 .num_music_voice {
-    float: left;
+  float: left;
 }
 .title_music_voice {
-    display: block;
-    padding-left: 20px;
+  display: block;
+  padding-left: 20px;
 }

@@ -1,206 +1,206 @@
 @charset "utf-8";
 .pc {
-    display: none!important;
+  display: none !important;
 }
 .mobile {
-    display: inherit!important;
+  display: inherit !important;
 }
 /*body {
-    -webkit-text-size-adjust: 200%;
-    -moz-text-size-adjust: 200%;
-    -ms-text-size-adjust: 200%;
-    -o-text-size-adjust: 200%;
-    text-size-adjust: 200%;
+  -webkit-text-size-adjust: 200%;
+  -moz-text-size-adjust: 200%;
+  -ms-text-size-adjust: 200%;
+  -o-text-size-adjust: 200%;
+  text-size-adjust: 200%;
 }*/
 /*span {
-    white-space: normal;
+  white-space: normal;
 }*/
 #container, #header, #footer {
-    width: 100%;
+  width: 100%;
 }
 #content, #content_main {
-    width: 92%;
-    margin: 0;
-    padding: 8% 4% 4% 4%;
+  width: 92%;
+  margin: 0;
+  padding: 8% 4% 4% 4%;
 }
 #content >table, #content >form {
-    margin-left: 5px;
-    margin-bottom: 5px;
+  margin-left: 5px;
+  margin-bottom: 5px;
 }
 
 /* ヘッダー */
 #header {
-    height: 120px;
-    text-align: center;
+  height: 120px;
+  text-align: center;
 }
 #header >h1 {
-    padding: 28px 0 15px 0;
+  padding: 28px 0 15px 0;
 }
 .head-title {
-    font-size: 20px;
-    padding: 0 10px;
+  font-size: 20px;
+  padding: 0 10px;
 }
 
 /* メニュー */
 .menu-list li {
-    width: 20%!important;
+  width: 20% !important;
 }
 .menu-list-sub, .menu-list-sub li {
-    width: 100%!important;
-    font-size : 12px;
+  width: 100% !important;
+  font-size : 12px;
 }
 
 .breadcrumb ol, .link-page {
-    padding-left: 10px;
+  padding-left: 10px;
 }
 
 /* top */
 .img_top {
-    width: 108%;
-    margin: -8% 0 0 -4%;
-    border: none;
+  width: 108%;
+  margin: -8% 0 0 -4%;
+  border: none;
 }
 .side_top {
-    float: none;
+  float: none;
 }
 #twitter-widget-0 {
-    width: 100%!important;
-    height: 250px!important;
-    margin-right: 0!important;
+  width: 100% !important;
+  height: 250px !important;
+  margin-right: 0 !important;
 }
 .inform_top {
-    width: auto;
-    margin: 20px 10px 10px 10px;
+  width: auto;
+  margin: 20px 10px 10px 10px;
 }
 .inform_top >hr {
-    width: 90%;
+  width: 90%;
 }
 .hr_top {
-    width: auto;
+  width: auto;
 }
 
 /* pages */
 .tbl_info {
-    width: 100%;
-    margin: 5px;
+  width: 100%;
+  margin: 5px;
 }
 .tbl_prof {
-    width: 98%;
+  width: 98%;
 }
 .img_prof {
-    width: 150px;
-    height: 150px;
-    margin-right: 10px;
-    margin-bottom: 10px;
+  width: 150px;
+  height: 150px;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 .tbl_link {
-    width: 98%;
+  width: 98%;
 }
 .list_mh_start, .list_mh_skill {
-    padding-left: 20px;
+  padding-left: 20px;
 }
 
 /* erg */
 .game-list {
-    width: 100%;
+  width: 100%;
 }
 .detail-list_erg {
-    width: 100%;
+  width: 100%;
 }
 .tbl-1_erg_mobile {
-    width: 20%;
-    text-align: center;
+  width: 20%;
+  text-align: center;
 }
 .tbl-2_erg_mobile {
-    width: 80%;
-    word-wrap: break-word;
+  width: 80%;
+  word-wrap: break-word;
 }
 
 /* mh */
 .txt_mh {
-    margin: 10px 10px 50px 10px;
+  margin: 10px 10px 50px 10px;
 }
 .img_mh {
-    width: 300px;
-    display: block;
-    margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom: -15px;
+  width: 300px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: -15px;
 }
 .txt_mh >span.txt-min {
-    width: 300px;
-    display: block;
-    margin: 0 auto;
-    white-space: normal;
+  width: 300px;
+  display: block;
+  margin: 0 auto;
+  white-space: normal;
 }
 .name-skill {
-    display: block;
-    margin-bottom: 10px;
+  display: block;
+  margin-bottom: 10px;
 }
 .txt-skill {
-    margin-left: 30px;
-    white-space: normal;
+  margin-left: 30px;
+  white-space: normal;
 }
 .star-skill {
-    float: none;
-    width: 255px;
-    display: block;
-    margin: 0 auto;
-    margin-top: 20px;
+  float: none;
+  width: 255px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 20px;
 }
 
 /* voice */
 .voice-list {
-    width: 100%;
+  width: 100%;
 }
 
 /* diary */
 .img_diary {
-    max-width: 100%;
-    max-height: 430px;
+  max-width: 100%;
+  max-height: 430px;
 }
 .art-body >div, .art-body >iframe {/* 動画リサイズ用 */
-    max-width: 100%;
-    height: auto;
+  max-width: 100%;
+  height: auto;
 }
 #menu_top {
-    margin: 10px 0;
+  margin: 10px 0;
 }
 #pagelink_mobile {
-    float: left;
-    width: 65%;
+  float: left;
+  width: 65%;
 }
 #pagelink_mobile >p {
-    margin: 0;
-    text-align: center;
+  margin: 0;
+  text-align: center;
 }
 #pagelink_mobile >p >span {
-    font-size: 12px;
-    padding: 3px 5px;
-    border: 1px solid #000000;
-    background-color: #ffffff;
-    z-index: 2;
+  font-size: 12px;
+  padding: 3px 5px;
+  border: 1px solid #000000;
+  background-color: #ffffff;
+  z-index: 2;
 }
 #pagelink_mobile >ul {
-    list-style-type: none;
-    margin: -10px 0 0 0;
-    padding: 10px 0 0 0;
-    font-size: 12px;
-    border: 1px solid #000000;
-    background-color: #ffffff;
+  list-style-type: none;
+  margin: -10px 0 0 0;
+  padding: 10px 0 0 0;
+  font-size: 12px;
+  border: 1px solid #000000;
+  background-color: #ffffff;
 }
 /*#pagelink_mobile >ul >li >a {
-    text-decoration: none;
+  text-decoration: none;
 }*/
 #pagelink_mobile >ul >li >a:link,
 #pagelink_mobile >ul >li >a:visited,
 #pagelink_mobile >ul >li >a:hover,
 #pagelink_mobile >ul >li >a:active {
-    color: #000000;
+  color: #000000;
 }
 #searchbox_mobile {
-    float: right;
-    width: 35%;
-    margin-top: 5px;
-    text-align: center;
+  float: right;
+  width: 35%;
+  margin-top: 5px;
+  text-align: center;
 }

@@ -13,24 +13,24 @@
 		<?php echo $this->element('common_tag', array('title' => 'console')); ?>
 	</title>
 	<?php
-//		echo $this->Html->meta('icon');
-
-		echo $this->Html->css(array(
-        'console_common',
-        'console_detail',
-        'console'
-    ));
-
-    echo $this->Html->script(array(
-        'jquery-1.11.3.min',
-        'jquery-migrate-1.2.1.min',
-        'jquery-checked'
-    ));
-
-		echo $this->fetch('meta');
-		echo $this->fetch('css');
-		echo $this->fetch('script');
-	?>
+//  echo $this->Html->meta('icon');
+  
+  echo $this->Html->css(array(
+      'console_common',
+      'console_detail',
+      'console'
+  ));
+  
+  echo $this->Html->script(array(
+      'jquery-1.11.3.min',
+      'jquery-migrate-1.2.1.min',
+      'jquery-checked'
+  ));
+  
+  echo $this->fetch('meta');
+  echo $this->fetch('css');
+  echo $this->fetch('script');
+  ?>
 </head>
 <body>
 	<div id="container">

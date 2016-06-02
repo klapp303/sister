@@ -9,7 +9,7 @@
 
 <?php
 if (Configure::read('debug') == 0):
-	echo sprintf('<meta http-equiv="Refresh" content="%s;url=%s" />', $pause, $url);
+	  echo sprintf('<meta http-equiv="Refresh" content="%s;url=%s" />', $pause, $url);
 endif;
 ?>
 <style><!--

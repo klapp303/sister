@@ -43,14 +43,14 @@
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>
-<?php foreach ($mh_lists AS $mh_list) { ?>
+<?php foreach ($mh_lists as $mh_list) { ?>
 <url>
   <loc>http://klapp.crap.jp/game/mh/<?php echo $mh_list; ?>/</loc>
   <priority>0.8</priority>
 </url>
 <?php } ?>
 
-<?php foreach ($voice_lists AS $voice_list) { ?>
+<?php foreach ($voice_lists as $voice_list) { ?>
 <url>
   <loc>http://klapp.crap.jp/voice/<?php echo $voice_list; ?>/</loc>
   <changefreq>weekly</changefreq>
@@ -89,7 +89,7 @@
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
 </url>
-<?php foreach ($diary_lists AS $diary_list) { ?>
+<?php foreach ($diary_lists as $diary_list) { ?>
 <url>
   <loc>http://klapp.crap.jp/diary/<?php echo $diary_list['Diary']['id'] ?>/</loc>
   <lastmod><?php echo date('Y-m-d', strtotime($diary_list['Diary']['modified'])); ?></lastmod>

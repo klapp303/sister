@@ -1,4 +1,4 @@
-<?php echo $this->Html->css('mh', array('inline' => FALSE)); ?>
+<?php echo $this->Html->css('mh', array('inline' => false)); ?>
 <h3 class="pc">太刀使いによる見た目厨のためのスキル考察</h3>
 <h3 class="mobile">太刀使いによる<br>　見た目厨のためのスキル考察</h3>
 

@@ -11,42 +11,42 @@
 	<?php echo $this->Html->charset(); ?>
   <?php echo $this->Html->meta(array('name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, maximum-scale=1')); ?>
 	<title>
-    <?php if (isset($this->request['id']) == TRUE && isset($diary_lists[0]['Diary']['title']) == TRUE) {
-      echo $this->element('common_tag', array('title' => 'short'));
-      echo ' '.$diary_lists[0]['Diary']['title'];
+    <?php if (isset($this->request['id']) == true && isset($diary_lists[0]['Diary']['title']) == true) {
+        echo $this->element('common_tag', array('title' => 'short'));
+        echo ' '.$diary_lists[0]['Diary']['title'];
     } else {
-      echo $this->element('common_tag', array('title' => 'normal'));
+        echo $this->element('common_tag', array('title' => 'normal'));
     } ?>
 	</title>
 	<?php
-//		echo $this->Html->meta('icon');
-
-		echo $this->Html->css(array(
-        'common',
-        'detail'
-    ));
-
-    echo $this->Html->script(array(
-        'jquery-1.11.3.min',
-        'jquery-migrate-1.2.1.min',
-        'sidemenu_fix',
-        'jquery-move_top'
-    ));
-
-		echo $this->fetch('meta');
-		echo $this->fetch('css');
-		echo $this->fetch('script');
-
-    echo $this->Html->css(array( //スマホ用は後から上書き
-        'mobile'
-    ), array('media' => 'screen and (max-device-width: 480px)'));
-
-    if (env('SERVER_ADDR') !== '127.0.0.1') {
-      if (preg_match('#/console/#', $_SERVER['REQUEST_URI'])==0) {
-        echo $this->element('google_analytics');
+//  echo $this->Html->meta('icon');
+  
+  echo $this->Html->css(array(
+      'common',
+      'detail'
+  ));
+  
+  echo $this->Html->script(array(
+      'jquery-1.11.3.min',
+      'jquery-migrate-1.2.1.min',
+      'sidemenu_fix',
+      'jquery-move_top'
+  ));
+  
+  echo $this->fetch('meta');
+  echo $this->fetch('css');
+  echo $this->fetch('script');
+  
+  echo $this->Html->css(array( //スマホ用は後から上書き
+      'mobile'
+  ), array('media' => 'screen and (max-device-width: 480px)'));
+  
+  if (env('SERVER_ADDR') !== '127.0.0.1') {
+      if (preg_match('#/console/#', $_SERVER['REQUEST_URI']) == 0) {
+          echo $this->element('google_analytics');
       }
-    }
-	?>
+  }
+  ?>
 </head>
 <body>
 	<div id="container">

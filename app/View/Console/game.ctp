@@ -37,27 +37,27 @@
     
     <?php $point_lists = array(10 => 10, 9 => 9, 8 => 8, 7 => 7, 6 => 6, 5 => 5, 4 => 4, 3 => 3, 2 => 2, 1 => 1); ?>
     <?php
-      $array_review = array(
-          'シナリオ' => 'scenario',
-          '音楽' => 'music',
-          'キャラ' => 'chara',
-          '絵' => 'still',
-          'システム' => 'config'
-      );
+    $array_review = array(
+        'シナリオ' => 'scenario',
+        '音楽' => 'music',
+        'キャラ' => 'chara',
+        '絵' => 'still',
+        'システム' => 'config'
+    );
     ?>
     <?php foreach ($array_review as $key => $review) { ?>
-      <script>
-          jQuery(function($) {
-              var review = <?php echo json_encode($review, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
-              $(function() {
-                  $('.js-button_' + review).click(
-                      function(){
-                          $('.js-hide_' + review).toggle();
-                      }
-                  );
-              });
-          });
-      </script>
+    <script>
+        jQuery(function($) {
+            var review = <?php echo json_encode($review, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
+            $(function() {
+                $('.js-button_' + review).click(
+                    function(){
+                        $('.js-hide_' + review).toggle();
+                    }
+                );
+            });
+        });
+    </script>
       <tr>
         <td><?php echo $key; ?></td>
         <td><?php echo $this->Form->input($review.'_point', array('type' => 'select', 'label' => false, 'options' => $point_lists)); ?>

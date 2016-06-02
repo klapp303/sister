@@ -1,4 +1,4 @@
-<?php echo $this->Html->css('mh', array('inline' => FALSE)); ?>
+<?php echo $this->Html->css('mh', array('inline' => false)); ?>
 <h3>MHX最初の20時間</h3>
 
 <p class="intro_mh">

@@ -1,234 +1,234 @@
 @charset "utf-8";
 /* コンソールTOPページ用 */
 .tbl-csl_top {
-    width: 540px;
-    margin-bottom: 30px!important;
-    border-collapse: collapse;
+  width: 540px;
+  margin-bottom: 30px !important;
+  border-collapse: collapse;
 }
 .tbl-csl_top >tbody >tr >th,
 .tbl-csl_top >tbody >tr >td {
-    border: 1px solid #000000;
+  border: 1px solid #000000;
 }
 .tbl-csl_top >tbody >tr >td {
-    background-color: #f5f5ff;
+  background-color: #f5f5ff;
 }
 
 .tbl-num_top {
-    width: 80px;
+  width: 80px;
 }
 td.tbl-num_top {
-    text-align: right;
+  text-align: right;
 }
 .tbl-date_top {
-    width: 180px;
+  width: 180px;
 }
 
 .detail-list-scr {/* scroll一覧用 */
-    overflow-x: scroll;
+  overflow-x: scroll;
 }
 
 /* diaryページ用 */
 .tbl-ico_diary {
-    text-align: center;
-    width: 85px;
+  text-align: center;
+  width: 85px;
 }
 .tbl-act_diary {
-    width: 80px;
+  width: 80px;
 }
 
 /* diary_genreページ用 */
 .tbl-act_genre {
-    width: 100px;
+  width: 100px;
 }
 
 /* photoページ用 */
 .detail-list-scr {
-    overflow-x: scroll;
+  overflow-x: scroll;
 }
 .tbl-list_photo {
-    width: 720px;
-    margin-left: 20px;
-    margin-bottom: 20px;
+  width: 720px;
+  margin-left: 20px;
+  margin-bottom: 20px;
 }
 .tbl-list_photo >tbody >tr >th,
 .tbl-list_photo >tbody >tr >td {
-    padding-left: 5px;
-    padding-right: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 .tbl-tmb_photo {
-    text-align: center;
-    width: 120px;
-    max-height: 120px;
+  text-align: center;
+  width: 120px;
+  max-height: 120px;
 }
 .tbl-act_photo {
-    width: 50px;
+  width: 50px;
 }
 
 .img_photo {/* コンソール内の画像サイズ用 */
-    width: auto;
-    height: auto;
-    max-width: 120px;
-    max-height: 120px;
+  width: auto;
+  height: auto;
+  max-width: 120px;
+  max-height: 120px;
 }
 
 .detail-list-pop {
-    width: 550px;
+  width: 550px;
 }
 
 /* informationページ用 */
 .tbl-act_information {
-    width: 80px;
+  width: 80px;
 }
 
 /* commentページ用 */
 .tbl-chara_comment {
-    width: 100px;
+  width: 100px;
 }
 .tbl-act_comment {
-    width: 80px;
+  width: 80px;
 }
 
 /* bannerページ用 */
 .tbl-tmb_banner {
-    text-align: center;
-    width: 120px;
-    max-height: 120px;
+  text-align: center;
+  width: 120px;
+  max-height: 120px;
 }
 .tbl-act_banner {
-    width: 80px;
+  width: 80px;
 }
 
 .detail-title-min_banner {
-    width: 580px;
-    margin-left: 20px;
-    font-weight: bold;
+  width: 580px;
+  margin-left: 20px;
+  font-weight: bold;
 }
 .detail-list-min_banner {
-    list-style-type: none;
-    width: 580px;
-    margin-top: 0;
-    margin-left: 20px;
-    margin-bottom: 20px;
-    padding: 0;
+  list-style-type: none;
+  width: 580px;
+  margin-top: 0;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  padding: 0;
 }
 .detail-title-min_banner >span, .detail-list-min_banner >li >span {
-    display: table-cell;
-    padding-left: 5px;
-    padding-right: 5px;
-    vertical-align: middle;
+  display: table-cell;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: middle;
 }
 .li-tmb_banner {
-    text-align: center;
-    width: 136px;
-    max-height: 120px;
+  text-align: center;
+  width: 136px;
+  max-height: 120px;
 }
 .li-act_banner {
-    width: 92px;
+  width: 92px;
 }
 .sort-form_banner {
-    margin-left: 0!important;
+  margin-left: 0 !important;
 }
 
 .img_banner {/* コンソール内の画像サイズ用 */
-    width: auto;
-    height: auto;
-    max-width: 120px;
-    max-height: 120px;
+  width: auto;
+  height: auto;
+  max-width: 120px;
+  max-height: 120px;
 }
 
 .link-page_banner {
-    text-align: right;
-    margin-right: 20px;
-    margin-bottom: 20px;
+  text-align: right;
+  margin-right: 20px;
+  margin-bottom: 20px;
 }
 
 /* linkページ用 */
 .tbl-act_link {
-    width: 80px;
+  width: 80px;
 }
 
 /* gameページ用 */
 .tbl-list_game {
-    width: 720px;
-    margin-left: 20px;
-    margin-bottom: 20px;
+  width: 720px;
+  margin-left: 20px;
+  margin-bottom: 20px;
 }
 .tbl-list_game >tbody >tr >th,
 .tbl-list_game >tbody >tr >td {
-    padding-left: 5px;
-    padding-right: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 .tbl-title_game {
-    width: 200px;
+  width: 200px;
 }
 .tbl-date_game {
-    width: 70px;
+  width: 70px;
 }
 .tbl-num_game {
-    width: 50px;
-    text-align: left;
+  width: 50px;
+  text-align: left;
 }
 .tbl-act_game {
-    width: 120px;
+  width: 120px;
 }
 
 /* makerページ用 */
 .tbl-tmb_maker {
-    text-align: center;
-    width: 120px;
-    max-height: 120px;
+  text-align: center;
+  width: 120px;
+  max-height: 120px;
 }
 .tbl-act_maker {
-    width: 80px;
+  width: 80px;
 }
 
 .img_maker {/* コンソール内の画像サイズ用 */
-    width: auto;
-    height: auto;
-    max-width: 120px;
-    max-height: 120px;
+  width: auto;
+  height: auto;
+  max-width: 120px;
+  max-height: 120px;
 }
 
 /* voiceページ用 */
 .prof-list_voice {
-    width: 500px;
+  width: 500px;
 }
 .prof-list_voice >tbody >tr {
-    text-align: center;
+  text-align: center;
 }
 
 .tbl-music_voice, .tbl-music_voice-sg, .tbl-music_voice-al, .tbl-music_voice-al_sg {/* 楽曲データ入力フォームの動的表示 */
-    display: none;
+  display: none;
 }
 .tbl-music_voice_sg, .tbl-music_voice_al,
 .tbl-music_voice-sg_sg, .tbl-music_voice-sg_al, .tbl-music_voice-al_al {/* 楽曲データ入力フォームの動的表示 */
-    display: display;
+  display: display;
 }
 .tbl-list_voice {
-    width: 850px;
-    margin-left: 20px;
-    margin-bottom: 20px;
+  width: 850px;
+  margin-left: 20px;
+  margin-bottom: 20px;
 }
 .tbl-list_voice >tbody >tr >th,
 .tbl-list_voice >tbody >tr >td {
-    padding-left: 5px;
-    padding-right: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 .tbl-title_voice {
-    width: 200px;
+  width: 200px;
 }
 .tbl-chara_voice {
-    width: 120px;
+  width: 120px;
 }
 .tbl-date_voice {
-    width: 100px;
-    text-align: center;
+  width: 100px;
+  text-align: center;
 }
 .tbl-act_voice {
-    width: 80px;
+  width: 80px;
 }
 
 /* adminページ用 */
 .tbl-act_admin {
-    width: 50px;
+  width: 50px;
 }

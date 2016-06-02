@@ -1,63 +1,63 @@
 @charset "utf-8";
 /* コンテンツ説明文用 */
 .intro_mh {
-    margin: 0 20px 50px 20px;
+  margin: 0 20px 50px 20px;
 }
 
 /* ページリンク用 */
 .link-page {
-    list-style-type: none;
-    margin-bottom: 50px;
+  list-style-type: none;
+  margin-bottom: 50px;
 }
 .link-page >li {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 /* 画像用 */
 .img_mh {
-    max-width: 300px;
-    max-height: 300px;
+  max-width: 300px;
+  max-height: 300px;
 }
 
 /* テキスト用 */
 .txt_mh {
-    margin-left: 20px;
-    margin-bottom: 50px;
+  margin-left: 20px;
+  margin-bottom: 50px;
 }
 
 /* startページ用 */
 .list_mh_start {
-    list-style-type: none;
-    margin-top: 0;
-    margin-bottom: 50px;
+  list-style-type: none;
+  margin-top: 0;
+  margin-bottom: 50px;
 }
 .list_mh_start >li {
-    float: left;
-    margin-right: 20px;
+  float: left;
+  margin-right: 20px;
 }
 
 /* skillページ用 */
 .list_mh_skill {
-    list-style-type: none;
-    margin-top: 0;
-    margin-bottom: 50px;
+  list-style-type: none;
+  margin-top: 0;
+  margin-bottom: 50px;
 }
 .list_mh_skill >li {
-    float: left;
-    margin-right: 15px;
+  float: left;
+  margin-right: 15px;
 }
 
 .name-skill {
-    font-weight: bold;
-    margin-left: 10px;
+  font-weight: bold;
+  margin-left: 10px;
 }
 
 .txt-skill {
-    margin-left: 50px;
+  margin-left: 50px;
 }
 
 .star-skill {
-    text-align: center;
-    margin-top: 70px;
-    margin-right: 20px;
+  text-align: center;
+  margin-top: 70px;
+  margin-right: 20px;
 }

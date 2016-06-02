@@ -3,8 +3,7 @@
       'type' => 'post', //デフォルトはpost送信
       'url' => array('controller' => 'diary', 'action' => 'search'), //Controllerのactionを指定
       'inputDefaults' => array('div' => '')
-      )
-  ); ?>
+  )); ?>
   
   <?php echo $this->Form->input('search_word', array('type' => 'text', 'label' => '日記検索')); ?>
   

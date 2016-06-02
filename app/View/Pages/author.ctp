@@ -1,4 +1,4 @@
-<?php echo $this->Html->css('pages', array('inline' => FALSE)); ?>
+<?php echo $this->Html->css('pages', array('inline' => false)); ?>
 <h3>プロフィール</h3>
 
 <?php echo $this->Html->image('../files/author_cafe.jpg', array('class' => 'img_prof')); ?>

@@ -1,84 +1,84 @@
 @charset "utf-8";
 /* コンテンツ説明文用 */
 .intro_erg {
-    margin: 0 20px 30px 20px;
+  margin: 0 20px 30px 20px;
 }
 
 /* ゲーム一覧用 */
 .game-list {
-    width: 740px;
+  width: 740px;
 }
 .game-list >tbody >tr >th,
 .game-list >tbody >tr >td {
-    border: 1px solid #000000;
+  border: 1px solid #000000;
 }
 .game-list >tbody >tr >th {
-    background-color: #f5f5ff;
-    text-align: left;
+  background-color: #f5f5ff;
+  text-align: left;
 }
 .game-list >tbody >tr >.tbl-date {
-    width: 70px;
+  width: 70px;
 }
 .game-list >tbody >tr >.tbl-num {
-    width: 50px;
+  width: 50px;
 }
 
 /* ゲームレビュー用 */
 .title_erg {
-    text-align: center;
+  text-align: center;
 }
 
 .detail-list_erg {
-    width: 720px;
-    margin-bottom: 30px!important;
-    border-collapse: collapse;
-    table-layout: fixed;
+  width: 720px;
+  margin-bottom: 30px !important;
+  border-collapse: collapse;
+  table-layout: fixed;
 }
 .detail-list_erg >tbody >tr >th,
 .detail-list_erg >tbody >tr >td {
-    border: 1px solid #000000;
+  border: 1px solid #000000;
 }
 .detail-list_erg >tbody >tr >th {
-    background-color: #f5f5ff;
+  background-color: #f5f5ff;
 }
 
 .tbl-num_erg {
-    width: 133px;
-    text-align: center;
+  width: 133px;
+  text-align: center;
 }
 .tbl-maker_erg {
-    width: 234px;
+  width: 234px;
 }
 .tbl-tmb_erg {
-    padding-left: 0!important;
-    padding-right: 0!important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 .img-maker_erg {/* 画像サイズ用 */
-    width: auto;
-    height: auto;
-    max-width: 120px;
-    max-height: 120px;
+  width: auto;
+  height: auto;
+  max-width: 120px;
+  max-height: 120px;
 }
 .tbl-date_erg {
-    width: 90px;
-    text-align: center;
+  width: 90px;
+  text-align: center;
 }
 .tbl-link_erg {
-    width: 220px;
-    word-wrap: break-word;
+  width: 220px;
+  word-wrap: break-word;
 }
 
 .detail-point_erg >tbody >tr >th {
-    width: 20%;
+  width: 20%;
 }
 .detail-point_erg >tbody >tr >td {
-    text-align: center;
+  text-align: center;
 }
 
 .point {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
 .review {
-    margin: 20px 20px 50px 20px;
+  margin: 20px 20px 50px 20px;
 }

@@ -26,14 +26,14 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		<?php echo $this->fetch('title'); ?>
 	</title>
 	<?php
-		echo $this->Html->meta('icon');
-
-		echo $this->Html->css('cake.generic');
-
-		echo $this->fetch('meta');
-		echo $this->fetch('css');
-		echo $this->fetch('script');
-	?>
+  echo $this->Html->meta('icon');
+  
+  echo $this->Html->css('cake.generic');
+  
+  echo $this->fetch('meta');
+  echo $this->fetch('css');
+  echo $this->fetch('script');
+  ?>
 </head>
 <body>
 	<div id="container">
@@ -51,8 +51,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 					$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
 					'http://www.cakephp.org/',
 					array('target' => '_blank', 'escape' => false, 'id' => 'cake-powered')
-				);
-			?>
+			); ?>
 			<p>
 				<?php echo $cakeVersion; ?>
 			</p>
