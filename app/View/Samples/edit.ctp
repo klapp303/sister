@@ -1,3 +1,4 @@
+<!-- 未使用 -->
 <h3>サンプルの修正</h3>
 
   <?php echo $this->Form->create('Sample', array( //使用するModel
@@ -15,12 +16,16 @@
   <?php echo $this->Form->submit('修正する'); ?>
   <?php echo $this->Form->end(); ?><!-- form end -->
 
-<h3>収入一覧</h3>
+<h3>サンプル一覧</h3>
 
   <?php echo $this->Paginator->numbers($paginator_option); ?>
 
   <table class="detail-list">
-    <tr><th>日付<?php echo $this->Paginator->sort('date', '▼'); ?></th><th>タイトル</th><th class="tbl-num">数値</th><th class="tbl-ico">状態</th><th>action</th></tr>
+    <tr><th>日付<?php echo $this->Paginator->sort('date', '▼'); ?></th>
+        <th>タイトル</th>
+        <th class="tbl-num">数値</th>
+        <th class="tbl-ico">状態</th>
+        <th>action</th></tr>
     
     <?php foreach ($sample_lists as $sample_list) { ?>
       <tr><td><?php echo $sample_list['Sample']['date']; ?></td>
@@ -32,6 +37,6 @@
                                 <span class="icon-true">確定</span>
                               <?php } ?></td>
           <td><?php echo $this->Html->link('修正', '/samples/edit/' . $sample_list['Sample']['id']); ?>
-              <?php echo $this->Form->postLink('削除', array('action' => 'deleted', $sample_list['Sample']['id']), null, '本当に削除しますか'); ?></td></tr>
+              <?php echo $this->Form->postLink('削除', array('action' => 'deleted', $sample_list['Sample']['id']), null, '本当に#' . $sample_list['Sample']['id'] . 'を削除しますか'); ?></td></tr>
     <?php } ?>
   </table>
