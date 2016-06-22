@@ -1,0 +1,54 @@
+@charset "utf-8";
+/* バースデーテーマ用 */
+.img-bd_header {
+  float: left;
+  height: 80px;
+}
+.img-bd_footer {
+  float: right;
+  height: 40px;
+}
+.bd-com_top {
+  text-align: center;
+  margin: 30px 180px 50px 0;
+  font-size: 30px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+/**
+ * body
+ * ページ背景カラーは一括で指定
+ */
+body {
+  background-color: #ffebeb;
+}
+
+/**
+ * container, content, content_main
+ * コンテンツ背景カラーはtop.cssにもあり
+ * top.css >.h_top
+ */
+#container {
+  background-color: #fffafa;
+  box-shadow: -1px 1px 10px #ffe2ff;
+}
+#content {
+  background-color: #fffafa;
+}
+#content_main {
+  background-color: #fffafa;
+}
+
+/**
+ * フラッシュ背景カラーはdetail.cssで指定
+ * detail.css >.flash-msg
+ * 
+ * ブログ記事の背景カラーはdiary.cssで指定
+ * diary.css >.article
+ * 
+ * テーブル項目の背景カラーは個別で指定
+ * game.css >.game-list >tbody >tr >th, >.detail-list_erg >tbody >tr >th
+ * pages.css >.tbl-title_prof, >.tbl_link >tbody >tr >th
+ * voice.css >.game-list >tbody >tr >th
+ */

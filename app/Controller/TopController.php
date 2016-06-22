@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 
 class TopController extends AppController
 {
-    public $uses = array('SisterComment', 'Information', 'Banner', 'Maker', 'Game', 'Diary', 'Product'); //使用するModel
+    public $uses = array('SisterComment', 'Information', 'Banner', 'Maker', 'Game', 'Diary', 'Product', 'Voice'); //使用するModel
     
     public function beforeFilter()
     {
@@ -14,6 +14,15 @@ class TopController extends AppController
     
     public function index()
     {
+        //バースデーコメント用
+        $birthday = $this->Session->read('birthday');
+        if ($birthday) {
+            $birthday_data = $this->Voice->find('first', array(
+                'conditions' => array('Voice.system_name' => $birthday)
+            ));
+            $this->set('birthday_data', $birthday_data);
+        }
+        
         //TOPランダムコメント用
         $sister_comment = $this->SisterComment->find('all', array(
             'conditions' => array('SisterComment.publish' => 1),

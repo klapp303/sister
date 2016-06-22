@@ -26,6 +26,13 @@
         'detail'
     ));
     
+//    $birthday = $this->Session->read('birthday');
+//    if ($birthday) {
+//        echo $this->Html->css(array(
+//            $birthday
+//        ));
+//    }
+    
     echo $this->Html->script(array(
         'jquery-1.11.3.min',
         'jquery-migrate-1.2.1.min'

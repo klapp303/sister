@@ -1,19 +1,34 @@
 <?php echo $this->Html->css('top', array('inline' => false)); ?>
+<?php $birthday = $this->Session->read('birthday'); ?>
 
-<?php echo $this->Html->image('../files/top_maia.jpg', array('class' => 'img_top')); ?>
+<?php if ($birthday) { ?>
+  <?php echo $this->Html->image('../files/top_' . $birthday . '.jpg', array('class' => 'img_top')); ?>
+  <div class="bd-com_top mobile">
+    <?php echo $birthday_data['Voice']['nickname'] . ' お誕生日おめでとう！'; ?>
+  </div>
+<?php } else { ?>
+  <?php echo $this->Html->image('../files/top_maia.jpg', array('class' => 'img_top')); ?>
+<?php } ?>
 
 <div class="side_top">
   <?php echo $this->element('twitter'); ?>
   <?php echo $this->element('banner_maker'); ?>
 </div>
 
-<div class="sis-com_top pc">
-  <?php echo nl2br($sister_comment[0]['SisterComment']['comment']); ?>
-</div>
+<?php if ($birthday) { ?>
+  <div class="bd-com_top pc">
+    <?php echo $birthday_data['Voice']['nickname'] . ' お誕生日おめでとう！'; ?>
+  </div>
+<?php } else { ?>
+  <div class="sis-com_top pc">
+    <?php echo nl2br($sister_comment[0]['SisterComment']['comment']); ?>
+  </div>
+<?php } ?>
+
 
 <div class="part_top">
   <hr class="hr_top">
-  <h3 class="h_top">お知らせ</h3>
+  <h3 class="h_top <?php echo ($birthday)? 'h_top_' . $birthday : ''; ?>">お知らせ</h3>
 </div>
 
 <div class="inform_top">
@@ -26,7 +41,7 @@
 
 <div class="part_top pc">
   <hr class="hr_top">
-  <h3 class="h_top">バナー</h3>
+  <h3 class="h_top <?php echo ($birthday)? 'h_top_' . $birthday : ''; ?>">バナー</h3>
 </div>
 
 <div class="banner_top pc">

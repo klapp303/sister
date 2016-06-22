@@ -1,4 +1,5 @@
 <?php echo $this->Html->css('diary', array('inline' => false)); ?>
+<?php $birthday = $this->Session->read('birthday'); ?>
 <div id="menu_top" class="mobile cf">
   <?php echo $this->element('submenu_mobile', array('diary_lists' => $diary_lists)); ?>
 </div>
@@ -13,7 +14,7 @@
 <?php } ?>
 
 <?php foreach ($diary_lists as $diary_list) { ?>
-  <div class="article">
+  <div class="article <?php echo ($birthday)? 'article_' . $birthday : ''; ?>">
     <div class="art-header"><h3 id="diary-<?php echo $diary_list['Diary']['id']; ?>">
       <?php echo $this->Html->link($diary_list['Diary']['title'], '/diary/' . $diary_list['Diary']['id']); ?></h3></div>
     <hr>

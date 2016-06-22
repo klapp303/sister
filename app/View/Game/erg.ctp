@@ -1,4 +1,5 @@
 <?php echo $this->Html->css('game', array('inline' => false)); ?>
+<?php $birthday = $this->Session->read('birthday'); ?>
 <p class="intro_erg">
   えちぃゲームのレビューです。<br>
   5つの項目から<b>主観で</b>判定しております。妹キャラは大事。<br>
@@ -10,7 +11,7 @@
 
   <?php echo $this->Paginator->numbers($paginator_option); ?>
 
-  <table class="game-list pc">
+  <table class="game-list pc <?php echo ($birthday)? 'game-list_' . $birthday : ''; ?>">
     <tr><th>タイトル<?php echo $this->Paginator->sort('Game.title', '▼'); ?></th>
         <th>メーカー<?php echo $this->Paginator->sort('Game.maker_id', '▼'); ?></th>
         <th class="tbl-date">発売日<?php echo $this->Paginator->sort('Game.release_date', '▼'); ?></th>
@@ -34,7 +35,7 @@
     <?php } ?>
   </table>
 
-  <table class="game-list mobile">
+  <table class="game-list mobile <?php echo ($birthday)? 'game-list_' . $birthday : ''; ?>">
     <tr><th colspan="2">タイトル<?php echo $this->Paginator->sort('Game.title', '▼'); ?></th>
         <th>メーカー<?php echo $this->Paginator->sort('Game.maker_id', '▼'); ?></th>
         <th class="tbl-num">発売日<?php echo $this->Paginator->sort('Game.release_date', '▼'); ?></th>

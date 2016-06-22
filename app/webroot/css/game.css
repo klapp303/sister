@@ -16,6 +16,9 @@
   background-color: #f5f5ff;
   text-align: left;
 }
+.game-list_ayachi >tbody >tr >th {/* バースデーテーマ用 */
+  background-color: #fff5f5;
+}
 .game-list >tbody >tr >.tbl-date {
   width: 70px;
 }
@@ -40,6 +43,9 @@
 }
 .detail-list_erg >tbody >tr >th {
   background-color: #f5f5ff;
+}
+.detail-list_erg_ayachi >tbody >tr >th {/* バースデーテーマ用 */
+  background-color: #fff5f5;
 }
 
 .tbl-num_erg {

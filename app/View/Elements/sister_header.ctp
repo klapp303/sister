@@ -1,3 +1,7 @@
+<?php $birthday = $this->Session->read('birthday'); ?>
+<?php if ($birthday) {
+    echo $this->Html->image('../files/birthday/flower.gif', array('class' => 'img-bd_header'));
+} ?>
 <h1>
   <div class="head-title">
   <?php if (preg_match('#/console/#', $_SERVER['REQUEST_URI'])) { ?>

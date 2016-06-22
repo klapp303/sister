@@ -1,8 +1,9 @@
 <?php echo $this->Html->css('pages', array('inline' => false)); ?>
+<?php $birthday = $this->Session->read('birthday'); ?>
 <h3>サイトリンク</h3>
 
 <?php if ($link_friends) { ?>
-  <table class="tbl_link">
+  <table class="tbl_link <?php echo ($birthday)? 'tbl_link_' . $birthday : ''; ?>">
     <tr><th colspan="2">お世話になっているサイト様</th></tr>
     <?php foreach ($link_friends as $link_list) { ?>
       <tr><td class="tbl-title_link"><?php echo '<a href="' . $link_list['Link']['link_url'] . '" target="_blank">' . $link_list['Link']['title'] . '</a>'; ?></td>
@@ -12,7 +13,7 @@
 <?php } ?>
 
 <?php if ($link_develop) { ?>
-  <table class="tbl_link">
+  <table class="tbl_link <?php echo ($birthday)? 'tbl_link_' . $birthday : ''; ?>">
     <tr><th colspan="2">管理人的便利なサイト様</th></tr>
     <?php foreach ($link_develop as $link_list) { ?>
       <tr><td class="tbl-title_link"><?php echo '<a href="' . $link_list['Link']['link_url'] . '" target="_blank">' . $link_list['Link']['title'] . '</a>'; ?></td>
@@ -22,7 +23,7 @@
 <?php } ?>
 
 <?php if ($link_others) { ?>
-  <table class="tbl_link">
+  <table class="tbl_link <?php echo ($birthday)? 'tbl_link_' . $birthday : ''; ?>">
     <tr><th colspan="2">その他の便利なサイト様</th></tr>
     <?php foreach ($link_others as $link_list) { ?>
       <tr><td class="tbl-title_link"><?php echo '<a href="' . $link_list['Link']['link_url'] . '" target="_blank">' . $link_list['Link']['title'] . '</a>'; ?></td>
@@ -32,7 +33,7 @@
 <?php } ?>
 
 <?php if ($link_myself) { ?>
-  <table class="tbl_link">
+  <table class="tbl_link <?php echo ($birthday)? 'tbl_link_' . $birthday : ''; ?>">
     <tr><th colspan="2">管理人の他リンク</th></tr>
     <?php foreach ($link_myself as $link_list) { ?>
       <tr><td class="tbl-title_link"><?php echo '<a href="' . $link_list['Link']['link_url'] . '" target="_blank">' . $link_list['Link']['title'] . '</a>'; ?></td>

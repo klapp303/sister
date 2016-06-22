@@ -86,5 +86,18 @@ class AppController extends Controller
             'last' => '＞' //最終ページへのリンク
         );
         $this->set('paginator_option', $paginator_option);
+        
+        //バースデーの判定
+        $this->Session->write('birthday', '');
+        $voice_lists = $this->Voice->find('all', array(
+//            'conditions' => array('Voice.publish' => 1)
+        ));
+        foreach ($voice_lists as $voice) {
+            if (date('m-d', strtotime($voice['Voice']['birthday'])) == date('m-d')) {
+                //今日がバースデーならセッション情報に1つまで書き込み
+                $this->Session->write('birthday', $voice['Voice']['system_name']);
+                break;
+            }
+        }
     }
 }

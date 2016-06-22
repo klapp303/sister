@@ -60,6 +60,10 @@
   margin: -8% 0 0 -4%;
   border: none;
 }
+.bd-com_top {
+  margin: 20px 5px;
+  font-size: 20px;
+}
 .side_top {
   float: none;
 }

@@ -1,10 +1,11 @@
 <?php echo $this->Html->css('pages', array('inline' => false)); ?>
+<?php $birthday = $this->Session->read('birthday'); ?>
 <h3>プロフィール</h3>
 
 <?php echo $this->Html->image('../files/author_cafe.jpg', array('class' => 'img_prof')); ?>
 
 <p class="intro_prof">
-  どうも。管理人です。<br>
+  どうも、管理人です。<br>
   妹キャラには目がないです。<br>
   血が繋がってても、繋がってなくても。<br>
   はたまたお兄ちゃんと呼んでくれるだけの幼なじみでも。<br>
@@ -15,10 +16,52 @@
 </p>
 
 <table class="tbl_prof">
-  <tr><td class="tbl-title_prof">お名前</td><td class="tbl-text_prof">クラップ</td></tr>
-  <tr><td class="tbl-title_prof">生息地</td><td class="tbl-text_prof">都内某所</td></tr>
-  <tr><td class="tbl-title_prof">好きなメーカー</td><td class="tbl-text_prof">オーガスト、Alcot、feng、3rdeye、すみっこ etc</td></tr>
-  <tr><td class="tbl-title_prof">よくやってるゲーム</td><td class="tbl-text_prof">モンハン、ガルフレ<s>、ポケモン</s></td></tr>
-  <tr><td class="tbl-title_prof">好きな音楽</td><td class="tbl-text_prof">梶浦さん、千代丸、I've、エレガ、俊龍 etc</td></tr>
-  <tr><td class="tbl-title_prof">追っかけてる声優</td><td class="tbl-text_prof">ほっちゃん → ゆいにゃん → おとちん → あやち（今ココ）</td></tr>
+  <tr>
+    <td class="tbl-title_prof <?php echo ($birthday)? 'tbl-title_prof_' . $birthday : ''; ?>">
+      お名前
+    </td>
+    <td class="tbl-text_prof">
+      クラップ
+    </td>
+  </tr>
+  <tr>
+    <td class="tbl-title_prof <?php echo ($birthday)? 'tbl-title_prof_' . $birthday : ''; ?>">
+      生息地
+    </td>
+    <td class="tbl-text_prof">
+      都内某所
+    </td>
+  </tr>
+  <tr>
+    <td class="tbl-title_prof <?php echo ($birthday)? 'tbl-title_prof_' . $birthday : ''; ?>">
+      好きなメーカー
+    </td>
+    <td class="tbl-text_prof">
+      オーガスト、Alcot、feng、3rdeye、すみっこ etc
+    </td>
+  </tr>
+  <tr>
+    <td class="tbl-title_prof <?php echo ($birthday)? 'tbl-title_prof_' . $birthday : ''; ?>">
+      よくやってるゲーム
+    </td>
+    <td class="tbl-text_prof">
+      モンハン、ガルフレ<s>、ポケモン</s>
+    </td>
+  </tr>
+  <tr>
+    <td class="tbl-title_prof <?php echo ($birthday)? 'tbl-title_prof_' . $birthday : ''; ?>">
+      好きな音楽
+    </td>
+    <td class="tbl-text_prof">
+      梶浦さん、千代丸、I've、エレガ、俊龍、陛下 etc
+    </td>
+  </tr>
+  <tr>
+    <td class="tbl-title_prof <?php echo ($birthday)? 'tbl-title_prof_' . $birthday : ''; ?>">
+      追っかけてる声優
+    </td>
+    <td class="tbl-text_prof">
+      ほっちゃん → ゆいにゃん → おとちん → あやち（今ココ）
+    </td>
+  </tr>
 </table>
