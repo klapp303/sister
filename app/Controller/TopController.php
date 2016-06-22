@@ -92,6 +92,11 @@ class TopController extends AppController
             ),
             'order' => array('Banner.sort' => 'desc')
         ));
+        //バースデーバナー用
+        $birthday = $this->Session->read('birthday');
+        if ($birthday == 'ayachi') {
+            $banner_lists = $this->Banner->getAyachiBanner();
+        }
         $this->set('banner_lists', $banner_lists);
         
         //メーカーバナー用

@@ -96,6 +96,12 @@ class AppController extends Controller
             if (date('m-d', strtotime($voice['Voice']['birthday'])) == date('m-d')) {
                 //今日がバースデーならセッション情報に1つまで書き込み
                 $this->Session->write('birthday', $voice['Voice']['system_name']);
+                
+                //あやちバースデーの場合はヘッダーとフッター情報を書き換え
+                if ($voice['Voice']['system_name'] == 'ayachi') {
+                    $this->set('header_title', 'あやにゃんを ｐｒｐｒするサイト');
+                    $this->set('footer_title', '竹達公国革命決起軍');
+                }
                 break;
             }
         }
