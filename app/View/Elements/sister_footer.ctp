@@ -1,5 +1,5 @@
 <?php $birthday = $this->Session->read('birthday'); ?>
-<?php if ($birthday) {
+<?php if ($birthday && !preg_match('#/console/#', $_SERVER['REQUEST_URI'])) {
     echo $this->Html->image('../files/birthday/cake.png', array('class' => 'img-bd_footer'));
 } ?>
 <p class="foot-txt">
