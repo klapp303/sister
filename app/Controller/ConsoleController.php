@@ -322,17 +322,30 @@ class ConsoleController extends AppController
     public function photo_add()
     {
         if (!empty($this->data)) {
-            $upload_dir = '../webroot/files/photo/'; //保存するディレクトリ
-            $upload_pass = $upload_dir . basename($this->data['Photo']['file']['name']);
-            if (move_uploaded_file($this->data['Photo']['file']['tmp_name'], $upload_pass)) { //ファイルを保存
-                $this->Photo->set('name', $this->data['Photo']['file']['name']);
-                if ($this->Photo->save()) { //ファイル名を保存
-                    $this->Session->setFlash('画像を追加しました。', 'flashMessage');
-                } else {
-                    $this->Session->setFlash('ファイル名に不備があります。', 'flashMessage');
+            //空のデータは削除
+            $post_data = $this->data['Photo'];
+            foreach ($post_data as $key => $val) {
+                if (!$val['file']['name']) {
+                    unset($post_data[$key]);
                 }
-            } else {
-                $this->Session->setFlash('追加できませんでした。', 'flashMessage');
+            }
+            
+            $upload_dir = '../webroot/files/photo/'; //保存するディレクトリ
+            foreach ($post_data as $key => $data) {
+                $upload_pass = $upload_dir . basename($data['file']['name']);
+                if (move_uploaded_file($data['file']['tmp_name'], $upload_pass)) { //ファイルを保存
+                    $this->Photo->create();
+                    $this->Photo->set('name', $data['file']['name']);
+                    if ($this->Photo->save()) { //ファイル名を保存
+                        $this->Session->setFlash('画像を追加しました。', 'flashMessage');
+                    } else {
+                        $this->Session->setFlash('ファイル ' . $key . ' のファイル名に不備があるため追加処理中にエラーが発生しました。', 'flashMessage');
+                        break;
+                    }
+                } else {
+                    $this->Session->setFlash('ファイル ' . $key . ' の追加処理中にエラーが発生しました。', 'flashMessage');
+                    break;
+                }
             }
         }
         
