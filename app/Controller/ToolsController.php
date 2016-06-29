@@ -12,13 +12,16 @@ class ToolsController extends AppController
         $this->layout = 'sister_fullwidth';
     }
     
-//    public function index()
-//    {
-//        
-//    }
+    public function index()
+    {
+        
+    }
     
     public function ranking()
     {
+        //breadcrumbの設定
+        $this->set('sub_page', 'ランキング作成ツール');
+        
         //前にソートしたsessionデータが残っていれば削除
         if (@$this->Session->read('sort_data')) {
             $this->Session->delete('sort_data');
@@ -30,6 +33,9 @@ class ToolsController extends AppController
     
     public function ranking_sort($reset = null)
     {
+        //breadcrumbの設定
+        $this->set('sub_page', 'ランキング作成ツール');
+        
         if (!$this->request->is('post')) {
             //ひとつ前の選択肢に戻るから遷移の場合ならばredirectしない
             if (@$reset && $this->Session->read('sort_log')) {

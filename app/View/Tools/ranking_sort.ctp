@@ -1,7 +1,7 @@
 <?php echo $this->Html->css('tools', array('inline' => false)); ?>
 <h3>ランキング作成ツール</h3>
 
-  <table>
+  <table class="tbl_rank">
     <tr><td class="title_rank"><?php echo $select['left']['data']; ?></td>
         <td class="title_rank"><?php echo $select['right']['data']; ?></td></tr>
     <tr><td class="select_rank">

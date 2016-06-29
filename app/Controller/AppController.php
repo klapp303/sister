@@ -46,7 +46,8 @@ class AppController extends Controller
                 'link' => '#',
                 'menu' => array(
                     1 => array('label' => 'エロゲレビュー', 'link' => '/game/erg/'),
-                    2 => array('label' => 'モンハンメモ', 'link' => '/game/mh/')
+                    2 => array('label' => 'モンハンメモ', 'link' => '/game/mh/'),
+                    3 => array('label' => '自作ツール', 'link' => '/tools/')
                 )
             ),
             3 => array(
