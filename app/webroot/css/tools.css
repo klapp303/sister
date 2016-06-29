@@ -1,0 +1,25 @@
+@charset "utf-8";
+/* rankingページ用 */
+.title_rank {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+  font-weight: bold;
+}
+.select_rank {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+.result_rank {
+  list-style-type: none;
+  margin-bottom: 30px;
+}
+.result_txt_rank {
+  margin-left: 40px;
+  margin-bottom: 30px;
+}
+
+/* コンテンツ説明文用 */
+.intro_rank {
+  margin: 0 20px 50px 20px;
+}

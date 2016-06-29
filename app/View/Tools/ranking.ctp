@@ -2,14 +2,18 @@
 <h3>ランキング作成ツール</h3>
 
 <?php if (@$sort_data) { ?>
-  <ul>
+  <ol class="result_rank">
     <?php foreach ($sort_data as $key => $val) { ?>
       <li><?php echo $key +1; ?>. <?php echo $val['data']; ?></li>
     <?php } ?>
-  </ul>
+  </ol>
+  
+  <textarea class="result_txt_rank"><?php echo $sort_data_text; ?></textarea>
+  
+  <hr>
 <?php } ?>
 
-<p class="intro_ranking">
+<p class="intro_rank">
   データを複数入力すると、自動的に二択の選択肢が作られていきます。<br>
   画面に従ってどちらかを選んでいく事で最終的にソートが可能です。<br>
   <br>

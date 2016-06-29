@@ -80,6 +80,7 @@ class ToolsController extends AppController
             $this->render('ranking');
             return;
         }
+        
         //ソートするデータ数が100より多い場合
         if (count($sort_data) > 100) {
             $this->Session->setFlash('データ数が多すぎます。<br>途中でイヤになりますよ。', 'flashMessage');
@@ -137,6 +138,16 @@ class ToolsController extends AppController
         if ($sort_end_flg == 1) {
             $this->Session->setFlash('ソートが完了しました。', 'flashMessage');
             $this->set('sort_data', $sort_data);
+            //textarea用のデータを整形
+            $sort_data_text = $sort_data[0]['data'];
+            foreach ($sort_data as $key => $val) {
+                if ($key == 0) {
+                    continue;
+                }
+                $sort_data_text = $sort_data_text . '&#13;' . $val['data'];
+            }
+            $this->set('sort_data_text', $sort_data_text);
+            
             $this->render('ranking');
         }
         

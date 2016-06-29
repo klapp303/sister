@@ -2,9 +2,9 @@
 <h3>ランキング作成ツール</h3>
 
   <table>
-    <tr><td><?php echo $select['left']['data']; ?></td>
-        <td><?php echo $select['right']['data']; ?></td></tr>
-    <tr><td>
+    <tr><td class="title_rank"><?php echo $select['left']['data']; ?></td>
+        <td class="title_rank"><?php echo $select['right']['data']; ?></td></tr>
+    <tr><td class="select_rank">
           <?php echo $this->Form->create('Tool', array( //使用するModel
               'type' => 'post', //デフォルトはpost送信
               'url' => array('controller' => 'tools', 'action' => 'ranking_sort'), //Controllerのactionを指定
@@ -16,7 +16,7 @@
           <?php echo $this->Form->submit('左を選ぶ'); ?>
           <?php echo $this->Form->end(); ?><!-- form end -->
         </td>
-        <td>
+        <td class="select_rank">
           <?php echo $this->Form->create('Tool', array( //使用するModel
               'type' => 'post', //デフォルトはpost送信
               'url' => array('controller' => 'tools', 'action' => 'ranking_sort'), //Controllerのactionを指定
