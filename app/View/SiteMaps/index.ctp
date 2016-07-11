@@ -58,7 +58,7 @@
 </url>
 <?php foreach ($tool_lists as $tool_list) { ?>
 <url>
-  <loc>http://klapp.crap.jp/tools/<?php echo $tool_list; ?>/</loc>
+  <loc>http://klapp.crap.jp/tools/<?php echo $tool_list['url']; ?>/</loc>
   <priority>0.8</priority>
 </url>
 <?php } ?>

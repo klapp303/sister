@@ -5,7 +5,7 @@ App::uses('Folder', 'Utility'); //フォルダAPI用
 
 class SiteMapsController extends AppController
 {
-    public $uses = array('Link', 'Game', 'Information', 'Voice', 'Diary'); //使用するModel
+    public $uses = array('Link', 'Game', 'Information', 'Voice', 'Diary', 'Tool'); //使用するModel
     
     public $helpers = array('Time');
     
@@ -59,7 +59,8 @@ class SiteMapsController extends AppController
             'order' => array('Information.id' => 'desc')
         ));
         /* 自作ツールのページ一覧を取得ここから */
-        $tool_lists = ['ranking']; //TODO:ツール一覧はModelに移動するべき？
+        $array_tools = $this->Tool->getArrayTools();
+        $tool_lists = $array_tools['list'];
         /* 自作ツールのページ一覧を取得ここまで */
         $voice_lists = $this->Voice->find('list', array(
             'conditions' => array('Voice.publish' => 1),

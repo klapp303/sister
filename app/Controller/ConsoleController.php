@@ -8,7 +8,7 @@ class ConsoleController extends AppController
 {
     public $uses = array(
         'Diary', 'DiaryGenre', 'Photo', 'Information', 'SisterComment', 'Banner', 'Link',
-        'Administrator', 'Game', 'Maker', 'Voice', 'Product', 'Music'
+        'Administrator', 'Game', 'Maker', 'Voice', 'Product', 'Music', 'Tool'
     ); //使用するModel
     
     public $components = array(
@@ -76,9 +76,8 @@ class ConsoleController extends AppController
         $mh = $folder->read();
         $this->set('mh_count', count($mh[1]) - 1);
         
-        $folder = new Folder('../View/Tools'); //ディレクトリのファイル数から取得
-        $tool = $folder->read();
-        $this->set('tool_count', count($tool[1]) - 2); //TODO:ファイル数ではツール数は取得できないが…
+        $array_tools = $this->Tool->getArrayTools();
+        $this->set('tool_count', $array_tools['count']);
         
         $voice_lists = $this->Voice->find('all');
         foreach ($voice_lists as $voice_list) {
