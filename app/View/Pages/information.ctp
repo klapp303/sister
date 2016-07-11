@@ -33,6 +33,9 @@ if (@$array_menu[2]['menu'][1]['link'] == '/game/erg/') {
 if (@$array_menu[2]['menu'][2]['link'] == '/game/mh/') {
     $array_menu[2]['menu'][2]['text'] = 'モンハンちょっといい話。妹成分ほぼないです。';
 }
+if (@$array_menu[2]['menu'][3]['link'] == '/tools/') {
+    $array_menu[2]['menu'][3]['text'] = '自作ツールの公開スペースです。ゲーム関係とは限らないです。';
+}
 if (@$array_menu[5]['link'] == '/diary/') {
     $array_menu[5]['text'] = '管理人の日記です。イベントレポ多め。';
 }
