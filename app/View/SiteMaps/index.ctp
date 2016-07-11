@@ -29,7 +29,7 @@
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>
-<?php foreach ($erg_lists AS $erg_list) { ?>
+<?php foreach ($erg_lists as $erg_list) { ?>
 <url>
   <loc>http://klapp.crap.jp/game/erg/<?php echo $erg_list['Game']['id']; ?>/</loc>
   <lastmod><?php echo date('Y-m-d', strtotime($erg_list['Game']['modified'])); ?></lastmod>
