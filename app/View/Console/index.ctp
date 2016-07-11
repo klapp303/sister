@@ -38,6 +38,12 @@
     <td class="tbl-num_top"><?php echo $mh_count; ?>件</td>
     <td class="tbl-date_top"><?php echo $mh_lastupdate; ?></td>
   </tr>
+  <tr>
+    <td>自作ツール</td>
+    <td class="tbl-num_top"><?php echo $tool_count; ?>件</td>
+    <td class="tbl-num_top"><?php echo $tool_count; ?>件</td>
+    <td class="tbl-date_top"><?php echo $tool_lastupdate; ?></td>
+  </tr>
 </table>
 <table class="tbl-csl_top">
   <?php foreach ($voice_lists as $voice_list) { ?>

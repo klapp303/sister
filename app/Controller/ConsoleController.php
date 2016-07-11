@@ -72,9 +72,13 @@ class ConsoleController extends AppController
         $this->set('maker_count', $this->Maker->find('count'));
         $this->set('maker_p_count', $this->Maker->find('count', array('conditions' => array('Maker.publish' => 1))));
         
-        $folder = new Folder('../View/mh');
+        $folder = new Folder('../View/mh'); //ディレクトリのファイル数から取得
         $mh = $folder->read();
         $this->set('mh_count', count($mh[1]) - 1);
+        
+        $folder = new Folder('../View/Tools'); //ディレクトリのファイル数から取得
+        $tool = $folder->read();
+        $this->set('tool_count', count($tool[1]) - 2); //TODO:ファイル数ではツール数は取得できないが…
         
         $voice_lists = $this->Voice->find('all');
         foreach ($voice_lists as $voice_list) {
@@ -104,7 +108,7 @@ class ConsoleController extends AppController
         $maker_last = $this->Maker->find('first', array('order' => array('Maker.modified' => 'desc')));
         $this->set('maker_lastupdate', ($maker_last)? $maker_last['Maker']['modified'] : null);
         
-        $mh_last = $this->Information->find('first', array(
+        $mh_last = $this->Information->find('first', array( //お知らせの最終更新から取得する
             'conditions' => array(
                 array('or' => array(
                     'Information.date_from <=' => date('Y-m-d'),
@@ -120,6 +124,23 @@ class ConsoleController extends AppController
             'order' => array('Information.id' => 'desc')
         ));
         $this->set('mh_lastupdate', ($mh_last)? $mh_last['Information']['created'] : null);
+        
+        $tool_last = $this->Information->find('first', array( //お知らせの最終更新から取得する
+            'conditions' => array(
+                array('or' => array(
+                    'Information.date_from <=' => date('Y-m-d'),
+                    'Information.date_from' => null
+                )),
+//                array('or' => array(
+//                    'Information.date_to >=' => date('Y-m-d'),
+//                    'Information.date_to' => null
+//                )),
+                'Information.publish' => 1,
+                'Information.title LIKE' => '%' . '自作ツール' . '%'
+            ),
+            'order' => array('Information.id' => 'desc')
+        ));
+        $this->set('tool_lastupdate', ($tool_last)? $tool_last['Information']['created'] : null);
         
         foreach ($voice_lists as $voice_list) {
             ${$voice_list['Voice']['system_name'] . '_last'} = $this->Product->find('first', array('order' => array('Product.modified' => 'desc'), 'conditions' => array('Product.voice_id' => $voice_list['Voice']['id'])));
