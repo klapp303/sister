@@ -51,6 +51,16 @@ class SiteMapsController extends AppController
         unset($mh[1][$index_key]);
         $mh_lists = $mh[1];
         /* モンハンメモのページ一覧を取得ここまで */
+        $tool_last = $this->Information->find('first', array(
+            'conditions' => array(
+                'Information.publish' => 1,
+                'Information.title LIKE' => '%' . '自作ツール' . '%'
+            ),
+            'order' => array('Information.id' => 'desc')
+        ));
+        /* 自作ツールのページ一覧を取得ここから */
+        $tool_lists = ['ranking']; //TODO:ツール一覧はModelに移動するべき？
+        /* 自作ツールのページ一覧を取得ここまで */
         $voice_lists = $this->Voice->find('list', array(
             'conditions' => array('Voice.publish' => 1),
             'fields' => 'system_name'
@@ -60,7 +70,7 @@ class SiteMapsController extends AppController
             'order' => array('Diary.modified' => 'desc'),
             'fields' => array('Diary.id', 'Diary.modified')
         ));
-        $this->set(compact('publish_date', 'link_map', 'erg_lists', 'mh_last', 'mh_lists', 'voice_lists', 'diary_lists'));
+        $this->set(compact('publish_date', 'link_map', 'erg_lists', 'mh_last', 'mh_lists', 'tool_last', 'tool_lists', 'voice_lists', 'diary_lists'));
         
         $this->RequestHandler->respondAs('xml'); //xmlファイルとして読み込む
     }

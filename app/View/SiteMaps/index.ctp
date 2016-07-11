@@ -50,6 +50,19 @@
 </url>
 <?php } ?>
 
+<url>
+  <loc>http://klapp.crap.jp/tools/</loc>
+  <lastmod><?php echo (@$tool_last)? date('Y-m-d', strtotime($tool_last['Information']['created'])): $publish_date; ?></lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+<?php foreach ($tool_lists as $tool_list) { ?>
+<url>
+  <loc>http://klapp.crap.jp/tools/<?php echo $tool_list; ?>/</loc>
+  <priority>0.8</priority>
+</url>
+<?php } ?>
+
 <?php foreach ($voice_lists as $voice_list) { ?>
 <url>
   <loc>http://klapp.crap.jp/voice/<?php echo $voice_list; ?>/</loc>
