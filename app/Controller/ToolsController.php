@@ -59,8 +59,7 @@ class ToolsController extends AppController
         if (@$this->request->data['Tool']['data']) {
             $data = $this->request->data['Tool']['data'];
             //postデータを改行毎の配列にする
-            $array_data = explode('
-', $data);
+            $array_data = explode(PHP_EOL, $data);
             $array_data = array_map('trim', $array_data);
             $array_data = array_filter($array_data, 'strlen'); //改行のみ空白のみのデータは配列から削除
             $array_data = array_values($array_data);
