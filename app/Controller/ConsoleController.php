@@ -78,6 +78,13 @@ class ConsoleController extends AppController
         
         $array_tools = $this->Tool->getArrayTools();
         $this->set('tool_count', $array_tools['count']);
+        //urlが設定されてなければ公開前と判断してcountを-1
+        foreach ($array_tools['list'] as $tool) {
+            if (!$tool['url']) {
+                $array_tools['count']--;
+            }
+        }
+        $this->set('tool_p_count', $array_tools['count']);
         
         $voice_lists = $this->Voice->find('all');
         foreach ($voice_lists as $voice_list) {

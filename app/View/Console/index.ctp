@@ -41,7 +41,7 @@
   <tr>
     <td>自作ツール</td>
     <td class="tbl-num_top"><?php echo $tool_count; ?>件</td>
-    <td class="tbl-num_top"><?php echo $tool_count; ?>件</td>
+    <td class="tbl-num_top"><?php echo $tool_p_count; ?>件</td>
     <td class="tbl-date_top"><?php echo $tool_lastupdate; ?></td>
   </tr>
 </table>
