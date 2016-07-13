@@ -70,6 +70,8 @@ class ToolsController extends AppController
                 $sort_data[$key]['sort'] = 0;
                 $sort_data[$key]['flg'] = 0;
             }
+            //選択肢の順番が予測しにくいように配列をランダムに並び替え
+            shuffle($sort_data);
             //1つ目のデータは基準値としてソート値を代入しておく
             $sort_data[0]['sort'] = count($sort_data);
         //ranking_sortページから遷移の場合、ソート途中
