@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 
 class ToolsController extends AppController
 {
-    public $uses = array(); //使用するModel
+    public $uses = array('Tool'); //使用するModel
     
     public function beforeFilter()
     {
@@ -14,13 +14,21 @@ class ToolsController extends AppController
     
     public function index()
     {
-        
+        $array_tools = $this->Tool->getArrayTools();
+        //urlが設定されてなければ公開前と判断してunset
+        foreach ($array_tools['list'] as $key => $tool) {
+            if (!$tool['url']) {
+                unset($array_tools['list'][$key]);
+            }
+        }
+        $this->set('array_tools', $array_tools);
     }
     
     public function ranking()
     {
         //breadcrumbの設定
-        $this->set('sub_page', 'ランキング作成ツール');
+        $tool_name = $this->Tool->getToolName('ranking');
+        $this->set('sub_page', $tool_name);
         
         //前にソートしたsessionデータが残っていれば削除
         if (@$this->Session->read('sort_data')) {
@@ -34,7 +42,8 @@ class ToolsController extends AppController
     public function ranking_sort($reset = null)
     {
         //breadcrumbの設定
-        $this->set('sub_page', 'ランキング作成ツール');
+        $tool_name = $this->Tool->getToolName('ranking');
+        $this->set('sub_page', $tool_name);
         
         if (!$this->request->is('post')) {
             //ひとつ前の選択肢に戻るから遷移の場合ならばredirectしない

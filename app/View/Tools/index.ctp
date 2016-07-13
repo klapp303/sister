@@ -7,5 +7,7 @@
 </p>
 
 <ul class="link-page">
-  <li><?php echo $this->Html->link('⇨ ランキング作成ツール', '/tools/ranking/'); ?></li>
+  <?php foreach ($array_tools['list'] as $tool) { ?>
+    <li><?php echo $this->Html->link('⇨ ' . $tool['name'], '/tools/' . $tool['url']); ?></li>
+  <?php } ?>
 </ul>

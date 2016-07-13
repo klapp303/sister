@@ -38,6 +38,7 @@ class Tool extends AppModel{
         //ファイル構造から判断できないのでここで自作ツールの一覧を定義しておく
         $array_tools = array(
             0 => array(
+                'name' => 'ランキング作成ツール',
                 'url' => 'ranking'
             )
         );
@@ -47,5 +48,20 @@ class Tool extends AppModel{
         $data['count'] = $count;
         
         return $data;
+    }
+    
+    public function getToolName($url = false)
+    {
+        $tool_name = '自作ツール'; //ツール名の設定がない場合
+        
+        $tool_lists = $this->getArrayTools();
+        foreach ($tool_lists['list'] as $tool) {
+            if ($tool['url'] == $url) {
+                $tool_name = $tool['name'];
+                break;
+            }
+        }
+        
+        return $tool_name;
     }
 }
