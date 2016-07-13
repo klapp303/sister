@@ -28,7 +28,7 @@
     )); ?><!-- form start -->
     <tr>
       <td><label>データ</label></td>
-      <td><?php echo $this->Form->input('data', array('type' => 'textarea', 'label' => false)); ?></td>
+      <td><?php echo $this->Form->input('data', array('type' => 'textarea', 'label' => false, 'placeholder' => '例）' . PHP_EOL . '内田真礼' . PHP_EOL . '小倉唯' . PHP_EOL . '竹達彩奈' . PHP_EOL . '悠木碧')); ?></td>
     </tr>
     
     <tr>
