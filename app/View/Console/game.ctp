@@ -23,7 +23,7 @@
     </tr>
     <tr>
       <td>メーカー</td>
-      <?php $maker_lists = array_merge(array(0 => '選択してください'), $maker_lists); ?>
+      <?php $maker_lists = array(0 => '選択してください') + $maker_lists; ?>
       <td><?php echo $this->Form->input('maker_id', array('type' => 'select', 'label' => false, 'options' => $maker_lists)); ?></td>
     </tr>
     <tr>
