@@ -1101,6 +1101,27 @@ class ConsoleController extends AppController
         }
     }
     
+    public function erg_preview($id = null)
+    {
+        if (empty($id)) {
+            throw new NotFoundException(__('存在しないデータです。'));
+        }
+        
+        $game_detail = $this->Game->find('first', array(
+                'conditions' => array(
+                    'Game.id' => $id
+                )
+            ));
+        if (!empty($game_detail)) { //データが存在する場合
+            $this->set('game_detail', $game_detail);
+        } else { //データが存在しない場合
+            $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+        }
+        
+        $this->layout = 'sister_fullwidth';
+        $this->render('/Game/review');
+    }
+    
     public function maker()
     {
         $this->Paginator->settings = array(

@@ -115,7 +115,7 @@
           <td class="tbl-date_game"><?php if ($game_list['Game']['publish'] == 0) { ?>
                                       <span class="icon-false">非公開</span>
                                     <?php } elseif ($game_list['Game']['publish'] == 1) { ?>
-                                      <span class="icon-true">公開</span>
+                                      <span class="icon-true"><?php echo $this->Html->link('公開', '/game/erg/' . $game_list['Game']['id'], array('target' => '_blank')); ?></span>
                                     <?php } ?><br>
                                     <?php echo $game_list['Game']['release_date']; ?></td>
           <td class="tbl-num_game"><?php echo $game_list['Game']['point']; ?><br>
@@ -124,7 +124,7 @@
                                    <?php echo $game_list['Game']['chara_point']; ?></td>
           <td class="tbl-num_game"><?php echo $game_list['Game']['still_point']; ?><br>
                                    <?php echo $game_list['Game']['config_point']; ?></td>
-          <td class="tbl-act_game"><?php echo $this->Html->link('レビューの確認', '/game/erg/' . $game_list['Game']['id'], array('target' => '_blank')); ?><br>
+          <td class="tbl-act_game"><?php echo $this->Html->link('プレビュー', '/console/erg_preview/' . $game_list['Game']['id'], array('target' => '_blank')); ?><br>
                                    <?php echo $this->Html->link('修正', '/console/game/edit/' . $game_list['Game']['id']); ?>
                                    <?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'game_delete', $game_list['Game']['id']), null, '本当に#' . $game_list['Game']['id'] . 'を削除しますか'); ?></td></tr>
     <?php } ?>
