@@ -36,7 +36,10 @@ class GameController extends AppController
         
         if (isset($this->request->params['id']) == true) { //パラメータにidがあれば詳細ページを表示
             $game_detail = $this->Game->find('first', array(
-                'conditions' => array('Game.id' => $this->request->params['id'])
+                'conditions' => array(
+                    'Game.id' => $this->request->params['id'],
+                    'Game.publish' => 1
+                )
             ));
             if (!empty($game_detail)) { //データが存在する場合
                 $this->set('sub_page', $game_detail['Game']['title']); //breadcrumbの設定
