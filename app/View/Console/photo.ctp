@@ -79,7 +79,13 @@
     
     <?php foreach ($photo_lists as $photo_list) { ?>
       <tr><td class="tbl-num"><?php echo $photo_list['Photo']['id']; ?></td>
-          <td class="tbl-tmb_photo"><?php echo $this->Html->image('../files/photo/' . $photo_list['Photo']['name'], array('alt' => '', 'class' => 'img_photo')); ?></td>
+          <td class="tbl-tmb_photo">
+            <?php
+            $photo_url_y = substr($photo_list['Photo']['created'], 0, 4);
+            $photo_url_m = substr($photo_list['Photo']['created'], 5, 2);
+            ?>
+            <?php echo $this->Html->image('../files/photo/' . $photo_url_y . '/' . $photo_url_m . '/' . $photo_list['Photo']['name'], array('alt' => '', 'class' => 'img_photo')); ?>
+          </td>
           <td><?php echo $photo_list['Photo']['name']; ?></td>
           <td class="tbl-date"><?php echo $photo_list['Photo']['created']; ?></td>
           <?php if (preg_match('#/console/photo/sub_pop#', $_SERVER['REQUEST_URI'])) { //sub_pop用 ?>
