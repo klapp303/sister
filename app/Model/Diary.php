@@ -63,4 +63,15 @@ class Diary extends AppModel
         
         return $conditions;
     }
+    
+    public function changeCodeToDiary($diary_lists = false)
+    {
+        foreach ($diary_lists as $key => $diary_list) {
+            if ($diary_list['Diary']['genre_id'] == 4) {
+                $diary_lists[$key]['Diary']['text'] = '<pre>' . $diary_list['Diary']['text'] . '</pre>';
+            }
+        }
+        
+        return $diary_lists;
+    }
 }

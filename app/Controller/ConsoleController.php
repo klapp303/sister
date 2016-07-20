@@ -270,6 +270,8 @@ class ConsoleController extends AppController
             )
         ));
         if (!empty($diary_lists)) { //データが存在する場合
+            $this->set('sub_page', $diary_lists[0]['Diary']['title']); //breadcrumbの設定
+            $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
             $this->set('diary_lists', $diary_lists);
         } else { //データが存在しない場合
             $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');

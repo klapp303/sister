@@ -1,5 +1,15 @@
 @charset "utf-8";
 /* 日記用 */
+pre {/* 備忘録日記用 */
+  line-height: 100%;
+  white-space: pre;
+  white-space: pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -o-pre-wrap;
+  white-space: -hp-pre-wrap;
+  word-wrap: break-word;
+}
 .article {
   background-color: #f5f5ff;
   margin-bottom: 30px;
