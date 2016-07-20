@@ -357,9 +357,14 @@ class ConsoleController extends AppController
                 }
             }
             
-            $upload_dir = '../webroot/files/photo/'; //保存するディレクトリ
+            //保存するディレクトリ
+            $upload_dir = 'files/photo/' . date('Y') . '/' . date('m');
+            if (!file_exists($upload_dir)) {
+                mkdir($upload_dir, 0705, true);
+            }
+            
             foreach ($post_data as $key => $data) {
-                $upload_pass = $upload_dir . basename($data['file']['name']);
+                $upload_pass = $upload_dir . '/' . basename($data['file']['name']);
                 if (move_uploaded_file($data['file']['tmp_name'], $upload_pass)) { //ファイルを保存
                     $this->Photo->create();
                     $this->Photo->set('name', $data['file']['name']);
@@ -383,12 +388,20 @@ class ConsoleController extends AppController
     {
         if (empty($id)) {
             throw new NotFoundException(__('存在しないデータです。'));
+        } else {
+            $delete_photo = $this->Photo->find('first', array('conditions' => array('Photo.id' => $id)));
+            $photo_url_y = substr($delete_photo['Photo']['created'], 0, 4);
+            $photo_url_m = substr($delete_photo['Photo']['created'], 5, 2);
+            $delete_pass = 'files/photo/' . $photo_url_y . '/' . $photo_url_m . '/' . $delete_photo['Photo']['name'];
         }
         
         if ($this->request->is('post')) {
             $this->Photo->Behaviors->enable('SoftDelete');
             if ($this->Photo->delete($id)) {
                 $this->Session->setFlash('削除しました。', 'flashMessage');
+                //ディレクトリ内の画像を削除
+                $file = new File($delete_pass);
+                $file->delete();
             } else {
                 $this->Session->setFlash('削除できませんでした。', 'flashMessage');
             }
