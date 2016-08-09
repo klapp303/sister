@@ -33,9 +33,7 @@
 <meta property="og:url" content="<?php echo $ogp_url; ?>" />
 <meta property="og:image" content="<?php echo $ogp_image; ?>" />
 <meta property="og:site_name" content="虹妹ｐｒｐｒ -エロゲレビューと声優イベントレポのサイト-" />
-<?php if (@$ogp_description) { ?>
-<meta property="og:description" content="<?php echo $ogp_description; ?>" />
-<?php } ?>
+<meta property="og:description" content="<?php echo (@$ogp_description)? $ogp_description : '虹妹ｐｒｐｒ -エロゲレビューと声優イベントレポのサイト-'; ?>" />
 <!-- OGPtag end -->
 <!-- TwitterCard start -->
 <meta name="twitter:card" content="summary" />
