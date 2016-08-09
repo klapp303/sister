@@ -39,6 +39,10 @@ body {
 #content_main {
   background-color: #fffafa;
 }
+/* TOPページ用 */
+.h_top_ayachi {
+  background-color: #fffafa !important;
+}
 
 /**
  * フラッシュ背景カラーはdetail.cssで指定
@@ -50,5 +54,28 @@ body {
  * テーブル項目の背景カラーは個別で指定
  * game.css >.game-list >tbody >tr >th, >.detail-list_erg >tbody >tr >th
  * pages.css >.tbl-title_prof, >.tbl_link >tbody >tr >th
- * voice.css >.game-list >tbody >tr >th
  */
+/* フラッシュメッセージ用 */
+.flash-msg_ayachi {
+  background: #fff5f5 !important;
+}
+/* 日記用 */
+.article_ayachi {
+  background-color: #fff5f5 !important;
+}
+/* ゲーム一覧用 */
+.game-list_ayachi >tbody >tr >th {
+  background-color: #fff5f5 !important;
+}
+/* ゲームレビュー用 */
+.detail-list_erg_ayachi >tbody >tr >th {
+  background-color: #fff5f5 !important;
+}
+/* authorページ用 */
+.tbl-title_prof_ayachi {
+  background-color: #fff5f5 !important;
+}
+/* サイトリンク一覧用 */
+.tbl_link_ayachi >tbody >tr >th {
+  background-color: #fff5f5 !important;
+}

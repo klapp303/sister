@@ -42,9 +42,6 @@
   width: 35%;
   background-color: #f5f5ff;
 }
-.tbl-title_prof_ayachi {/* バースデーテーマ用 */
-  background-color: #fff5f5;
-}
 .tbl-text_prof {
   width: 65%;
 }
@@ -69,9 +66,6 @@
 }
 .tbl_link >tbody >tr >th {
   background-color: #f5f5ff;
-}
-.tbl_link_ayachi >tbody >tr >th {/* バースデーテーマ用 */
-  background-color: #fff5f5;
 }
 .tbl-title_link {
   width: 35%;

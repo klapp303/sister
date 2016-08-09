@@ -16,9 +16,6 @@ pre {/* 備忘録日記用 */
   border: solid 1px #000000;
   box-shadow: -1px 1px 1px #a4a4a4;
 }
-.article_ayachi {/* バースデーテーマ用 */
-  background-color: #fff5f5;
-}
 
 .art-header {
   padding: 5px;
