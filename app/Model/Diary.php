@@ -74,4 +74,26 @@ class Diary extends AppModel
         
         return $diary_lists;
     }
+    
+    public function getThumbnailFromDiary($diary_lists = false, $image = false)
+    {
+        if ($diary_lists[0]['Diary']['text']) {
+            $text = explode('src="', $diary_lists[0]['Diary']['text']);
+            if ($text[1]) {
+                $image = explode('"', $text[1]);
+                $image = $image[0];
+                //URLが / から始まる場合は先頭の / は除く
+                if (strstr($image, '/') == $image) {
+                    $image = explode('/', $image, 2);
+                    $image = $image[1];
+                }
+            }
+        }
+        
+        if (@!$image) {
+            $image = 'files/no_image.jpg';
+        }
+        
+        return $image;
+    }
 }

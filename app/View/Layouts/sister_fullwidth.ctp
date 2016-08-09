@@ -19,6 +19,22 @@
       ?>
     </title>
     <?php
+    $page_url = $this->Html->url('', true);
+    if (isset($this->request['id']) == true && isset($game_detail['Game']['title']) == true) {
+        echo $this->element('common_tag', array(
+            'ogp' => 'game',
+            'ogp_title' => $game_detail['Game']['title'],
+            'ogp_url' => $page_url,
+            'ogp_image' => $game_detail['Maker']['image_name'],
+            'ogp_description' => mb_strimwidth(strip_tags($game_detail['Game']['scenario_review']), 0, 255, '...', 'UTF-8')
+        ));
+    } elseif ($page_url == $this->Html->url('/', true)) {
+        echo $this->element('common_tag', array('ogp' => 'top', 'ogp_url' => $page_url));
+    } else {
+        echo $this->element('common_tag', array('ogp' => 'normal', 'ogp_url' => $page_url));
+    }
+    ?>
+    <?php
 //    echo $this->Html->meta('icon');
     
     echo $this->Html->css(array(

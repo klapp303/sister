@@ -52,6 +52,8 @@ class DiaryController extends AppController
                 $this->set('sub_page', $diary_lists[0]['Diary']['title']); //breadcrumbの設定
                 $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
                 $this->set('diary_lists', $diary_lists);
+                //OGPタグ用にサムネイルを取得しておく
+                $this->set('ogp_image', $this->Diary->getThumbnailFromDiary($diary_lists));
             } else { //データが存在しない場合
                 $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
             }

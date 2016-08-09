@@ -19,6 +19,21 @@
       ?>
     </title>
     <?php
+    $page_url = $this->Html->url('', true);
+    if (isset($this->request['id']) == true && isset($diary_lists[0]['Diary']['title']) == true) {
+        
+        echo $this->element('common_tag', array(
+            'ogp' => 'article',
+            'ogp_title' => $diary_lists[0]['Diary']['title'],
+            'ogp_url' => $page_url,
+            'ogp_image' => $ogp_image,
+            'ogp_description' => mb_strimwidth(strip_tags($diary_lists[0]['Diary']['text']), 0, 255, '...', 'UTF-8')
+        ));
+    } else {
+        echo $this->element('common_tag', array('ogp' => 'normal', 'ogp_url' => $page_url));
+    }
+    ?>
+    <?php
 //    echo $this->Html->meta('icon');
     
     echo $this->Html->css(array(
