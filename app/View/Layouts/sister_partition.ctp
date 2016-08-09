@@ -27,7 +27,7 @@
             'ogp_title' => $diary_lists[0]['Diary']['title'],
             'ogp_url' => $page_url,
             'ogp_image' => $ogp_image,
-            'ogp_description' => mb_strimwidth(strip_tags($diary_lists[0]['Diary']['text']), 0, 255, '...', 'UTF-8')
+            'ogp_description' => mb_strimwidth(strip_tags($diary_lists[0]['Diary']['text']), 0, 250, '...', 'UTF-8')
         ));
     } else {
         echo $this->element('common_tag', array('ogp' => 'normal', 'ogp_url' => $page_url));
