@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 
 class GameController extends AppController
 {
-    public $uses = array('Game', 'Information'); //使用するModel
+    public $uses = array('Game', 'Information', 'Diary'); //使用するModel
     
     public $components = array('Paginator');
     
@@ -44,6 +44,10 @@ class GameController extends AppController
             if (!empty($game_detail)) { //データが存在する場合
                 $this->set('sub_page', $game_detail['Game']['title']); //breadcrumbの設定
                 $this->set('game_detail', $game_detail);
+                //OGPタグ用
+                $this->set('ogp_title', $game_detail['Game']['title']);
+                $this->set('ogp_image', 'files/maker/' . $game_detail['Maker']['image_name']);
+                $this->set('ogp_description', strip_tags($game_detail['Game']['scenario_review']));
                 
                 $this->render('review');
                 
@@ -72,6 +76,28 @@ class GameController extends AppController
         
         //viewの設定
         if (isset($this->request->params['page']) == true) {
+            //OGPタグ用
+            $page_file = file_get_contents('../View/mh/' . $this->request->params['page'] . '.ctp');
+            if ($page_file) {
+                //title
+                $text_array = explode('<h3', $page_file, 2);
+                $text_array = explode('>', $text_array[1], 2);
+                $text_array = explode('</h3>', $text_array[1], 2);
+                if ($text_array[0]) {
+                    $this->set('ogp_title', $text_array[0]);
+                }
+                
+                $this->set('ogp_image', $this->Diary->getThumbnailFromText($page_file));
+                
+                //description
+                $text_array = explode('<p class="intro_mh', $page_file, 2);
+                $text_array = explode('>', $text_array[1], 2);
+                $text_array = explode('</p>', $text_array[1], 2);
+                if ($text_array[0]) {
+                    $this->set('ogp_description', strip_tags($text_array[0]));
+                }
+            }
+            
             $this->render('/mh/' . $this->request->params['page']);
             
         } else {

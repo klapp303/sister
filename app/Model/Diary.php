@@ -78,10 +78,20 @@ class Diary extends AppModel
     public function getThumbnailFromText($text = false, $image = false)
     {
         if ($text) {
-            $text = explode('src="', $text);
-            if ($text[1]) {
-                $image = explode('"', $text[1]);
-                $image = $image[0];
+            //phpファイル内に $this->Html->img() がある場合
+            $text_array = explode('$this->Html->image', $text, 2);
+            if (@$text_array[1]) {
+                $text_array = explode('files/', $text_array[1], 2);
+                $image_array = explode('\'', $text_array[1], 2);
+                //URLから files/ を除いたので足しておく
+                $image = 'files/' . $image_array[0];
+            }
+            
+            //テキスト中に <img src=""> がある場合
+            $text_array = explode('src="', $text, 2);
+            if (@$text_array[1]) {
+                $image_array = explode('"', $text_array[1], 2);
+                $image = $image_array[0];
                 //URLが / から始まる場合は先頭の / は除く
                 if (strstr($image, '/') == $image) {
                     $image = explode('/', $image, 2);
