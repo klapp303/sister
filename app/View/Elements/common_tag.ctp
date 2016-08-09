@@ -16,11 +16,7 @@
     } elseif ($ogp == 'article' || $ogp == 'game') {
         $ogp_title = '虹妹ｐｒｐｒ ' . $ogp_title;
         $ogp_type = 'article';
-        if ($ogp == 'article') {
-            $ogp_image = $this->Html->url('/', true) . $ogp_image;
-        } elseif ($ogp == 'game') {
-            $ogp_image = $this->Html->url('/', true) . 'files/maker/' . $ogp_image;
-        }
+        $ogp_image = $this->Html->url('/', true) . $ogp_image;
         
     } else {
         $ogp_title = '虹妹ｐｒｐｒ -エロゲレビューと声優イベントレポのサイト-';

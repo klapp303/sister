@@ -25,7 +25,7 @@
             'ogp' => 'game',
             'ogp_title' => $game_detail['Game']['title'],
             'ogp_url' => $page_url,
-            'ogp_image' => $game_detail['Maker']['image_name'],
+            'ogp_image' => 'files/maker/' . $game_detail['Maker']['image_name'],
             'ogp_description' => mb_strimwidth(strip_tags($game_detail['Game']['scenario_review']), 0, 255, '...', 'UTF-8')
         ));
     } elseif ($page_url == $this->Html->url('/', true)) {
