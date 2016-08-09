@@ -1,6 +1,6 @@
 <?php $birthday = $this->Session->read('birthday'); ?>
 <?php if ($birthday && !preg_match('#/console/#', $_SERVER['REQUEST_URI'])) {
-    echo $this->Html->image('../files/birthday/flower.gif', array('class' => 'img-bd_header'));
+    echo $this->Html->image('../files/birthday/' . $header_image_name, array('class' => 'img-bd_header'));
 } ?>
 <h1>
   <div class="head-title">

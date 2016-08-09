@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 
 class TopController extends AppController
 {
-    public $uses = array('SisterComment', 'Information', 'Banner', 'Maker', 'Game', 'Diary', 'Product', 'Voice'); //使用するModel
+    public $uses = array('SisterComment', 'Information', 'Banner', 'Maker', 'Game', 'Diary', 'Product', 'Voice', 'Birthday'); //使用するModel
     
     public function beforeFilter()
     {
@@ -14,13 +14,24 @@ class TopController extends AppController
     
     public function index()
     {
-        //バースデーコメント用
+        //バースデー用
         $birthday = $this->Session->read('birthday');
         if ($birthday) {
-            $birthday_data = $this->Voice->find('first', array(
-                'conditions' => array('Voice.system_name' => $birthday)
+            $birthday_voice_data = $this->Voice->find('first', array(
+                'conditions' => array(
+                    'Voice.system_name' => $birthday,
+//                    'Voice.publish' => 1
+                )
             ));
-            $this->set('birthday_data', $birthday_data);
+            $birthday_data = $this->Birthday->find('first', array(
+                'conditions' => array(
+                    'Birthday.voice_id' => $birthday_voice_data['Voice']['id'],
+                    'Birthday.publish' => 1
+                ),
+                'order' => array('Birthday.id' => 'desc')
+            ));
+            $birthday_top_image_name = $birthday_data['Birthday']['top_image_name'];
+            $this->set(compact('birthday_voice_data', 'birthday_top_image_name'));
         }
         
         //TOPランダムコメント用
@@ -93,7 +104,6 @@ class TopController extends AppController
             'order' => array('Banner.sort' => 'desc')
         ));
         //バースデーバナー用
-        $birthday = $this->Session->read('birthday');
         if ($birthday == 'ayachi') {
             $banner_lists = $this->Banner->getAyachiBanner();
         }

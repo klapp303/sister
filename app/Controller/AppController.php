@@ -5,7 +5,7 @@ App::uses('CakeEmail', 'Network/Email'); //CakeEmaiilの利用
 
 class AppController extends Controller
 {
-    public $uses = array('Voice'); //使用するModel
+    public $uses = array('Voice', 'Birthday'); //使用するModel
     
     public $components = array(
         'Session', //Paginateのため記述
@@ -95,15 +95,41 @@ class AppController extends Controller
         ));
         foreach ($voice_lists as $voice) {
             if (date('m-d', strtotime($voice['Voice']['birthday'])) == date('m-d')) {
-                //今日がバースデーならセッション情報に1つまで書き込み
-                $this->Session->write('birthday', $voice['Voice']['system_name']);
+                //バースデーの設定情報を取得する
+                $birthday = $this->Birthday->find('first', array(
+                    'conditions' => array(
+                        'Birthday.voice_id' => $voice['Voice']['id'],
+                        'Birthday.publish' => 1
+                    ),
+                    'order' => array('Birthday.id' => 'desc')
+                ));
                 
-                //あやちバースデーの場合はヘッダーとフッター情報を書き換え
-                if ($voice['Voice']['system_name'] == 'ayachi') {
-                    $this->set('header_title', 'あやにゃんを ｐｒｐｒするサイト');
-                    $this->set('footer_title', '竹達公国革命決起軍');
+                if ($birthday) {
+                    //セッション情報に1つまで書き込む
+                    $this->Session->write('birthday', $voice['Voice']['system_name']);
+                
+                    //ヘッダー情報の書き換え
+                    if ($birthday['Birthday']['header_title']) {
+                        $this->set('header_title', $birthday['Birthday']['header_title']);
+                    }
+                    if ($birthday['Birthday']['header_image_name']) {
+                        $this->set('header_image_name', $birthday['Birthday']['header_image_name']);
+                    } else {
+                        $this->set('header_image_name', 'flower.gif');
+                    }
+                    
+                    //フッター情報の書き換え
+                    if ($birthday['Birthday']['footer_title']) {
+                        $this->set('footer_title', $birthday['Birthday']['footer_title']);
+                    }
+                    if ($birthday['Birthday']['footer_image_name']) {
+                        $this->set('footer_image_name', $birthday['Birthday']['footer_image_name']);
+                    } else {
+                        $this->set('footer_image_name', 'cake.png');
+                    }
+                    
+                    break;
                 }
-                break;
             }
         }
     }

@@ -2,9 +2,13 @@
 <?php $birthday = $this->Session->read('birthday'); ?>
 
 <?php if ($birthday) { ?>
-  <?php echo $this->Html->image('../files/top_' . $birthday . '.jpg', array('class' => 'img_top')); ?>
+  <?php if ($birthday_top_image_name) { ?>
+    <?php echo $this->Html->image('../files/' . $birthday_top_image_name, array('class' => 'img_top')); ?>
+  <?php } else { ?>
+    <?php echo $this->Html->image('../files/top_maia.jpg', array('class' => 'img_top')); ?>
+  <?php } ?>
   <div class="bd-com_top mobile">
-    <?php echo $birthday_data['Voice']['nickname'] . ' お誕生日おめでとう！'; ?>
+    <?php echo $birthday_voice_data['Voice']['nickname'] . ' お誕生日おめでとう！'; ?>
   </div>
 <?php } else { ?>
   <?php echo $this->Html->image('../files/top_maia.jpg', array('class' => 'img_top')); ?>
@@ -17,7 +21,7 @@
 
 <?php if ($birthday) { ?>
   <div class="bd-com_top pc">
-    <?php echo $birthday_data['Voice']['nickname'] . ' お誕生日おめでとう！'; ?>
+    <?php echo $birthday_voice_data['Voice']['nickname'] . ' お誕生日おめでとう！'; ?>
   </div>
 <?php } else { ?>
   <div class="sis-com_top pc">
