@@ -35,7 +35,7 @@
         echo $this->element('common_tag', array(
             'ogp' => 'normal',
             'ogp_url' => $page_url,
-            'ogp_description' => $ogp_description
+            'ogp_description' =>  mb_strimwidth($ogp_description, 0, 255, '...', 'UTF-8')
         ));
     }
     ?>
