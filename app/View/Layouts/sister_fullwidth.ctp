@@ -31,7 +31,12 @@
     } elseif ($page_url == $this->Html->url('/', true)) {
         echo $this->element('common_tag', array('ogp' => 'top', 'ogp_url' => $page_url));
     } else {
-        echo $this->element('common_tag', array('ogp' => 'normal', 'ogp_url' => $page_url));
+        $ogp_description = (@$ogp_description)? $ogp_description : '';
+        echo $this->element('common_tag', array(
+            'ogp' => 'normal',
+            'ogp_url' => $page_url,
+            'ogp_description' => $ogp_description
+        ));
     }
     ?>
     <?php
