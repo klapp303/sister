@@ -75,10 +75,10 @@ class Diary extends AppModel
         return $diary_lists;
     }
     
-    public function getThumbnailFromDiary($diary_lists = false, $image = false)
+    public function getThumbnailFromText($text = false, $image = false)
     {
-        if ($diary_lists[0]['Diary']['text']) {
-            $text = explode('src="', $diary_lists[0]['Diary']['text']);
+        if ($text) {
+            $text = explode('src="', $text);
             if ($text[1]) {
                 $image = explode('"', $text[1]);
                 $image = $image[0];
