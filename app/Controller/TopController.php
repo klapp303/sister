@@ -104,8 +104,15 @@ class TopController extends AppController
             'order' => array('Banner.sort' => 'desc')
         ));
         //バースデーバナー用
-        if ($birthday == 'ayachi') {
-            $banner_lists = $this->Banner->getAyachiBanner();
+        if ($birthday) {
+            $birthday_banner_lists = $this->Banner->find('all', array(
+                'conditions' => array(
+                    'Banner.birthday_id' => $birthday_data['Birthday']['id']
+                )
+            ));
+            if ($birthday_banner_lists) {
+                $banner_lists = $birthday_banner_lists;
+            }
         }
         $this->set('banner_lists', $banner_lists);
         

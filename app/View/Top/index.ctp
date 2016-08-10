@@ -3,7 +3,7 @@
 
 <?php if ($birthday) { ?>
   <?php if ($birthday_top_image_name) { ?>
-    <?php echo $this->Html->image('../files/' . $birthday_top_image_name, array('class' => 'img_top')); ?>
+    <?php echo $this->Html->image('../files/birthday/' . $birthday_top_image_name, array('class' => 'img_top')); ?>
   <?php } else { ?>
     <?php echo $this->Html->image('../files/top_maia.jpg', array('class' => 'img_top')); ?>
   <?php } ?>
