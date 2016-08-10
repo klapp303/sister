@@ -8,7 +8,7 @@ class ConsoleController extends AppController
 {
     public $uses = array(
         'Diary', 'DiaryGenre', 'Photo', 'Information', 'SisterComment', 'Banner', 'Link',
-        'Administrator', 'Game', 'Maker', 'Voice', 'Product', 'Music', 'Tool'
+        'Administrator', 'Game', 'Maker', 'Voice', 'Birthday', 'Product', 'Music', 'Tool'
     ); //使用するModel
     
     public $components = array(
@@ -1265,6 +1265,13 @@ class ConsoleController extends AppController
                 $this->redirect('/console/index');
             }
             /* データベースからプロフィール情報の取得ここまで */
+            /* データベースからバースデー情報の取得ここから */
+            $birthday_data = $this->Birthday->find('first', array(
+                'conditions' => array('Birthday.voice_id' => $profile['Voice']['id']),
+                'order' => array('Birthday.id' => 'desc')
+            ));
+            $this->set(compact('birthday_data'));
+            /* バースデー情報の取得ここまで */
             $this->Paginator->settings = array(
                 'limit' => 20,
                 'order' => array('Product.date_from' => 'desc'),
@@ -1354,6 +1361,50 @@ class ConsoleController extends AppController
         }
     }
     
+    public function birthday_add($voice = false)
+    {
+        $voice_data = $this->Voice->find('first', array(
+            'conditions' => array('Voice.system_name' => $voice)
+        ));
+        
+        if ($this->request->is('post')) {
+            //登録の場合はpostデータから声優情報を取得しておく
+            $voice_id = $this->request->data['Birthday']['voice_id'];
+            $voice_data = $this->Voice->find('first', array(
+                'conditions' => array('Voice.id' => $voice_id)
+            ));
+            
+            $this->Birthday->set($this->request->data); //postデータがあればModelに渡してvalidate
+            if ($this->Birthday->validates()) { //validate成功の処理
+                $this->Birthday->save($this->request->data); //validate成功でsave
+                if ($this->Birthday->save($this->request->data)) {
+                    $this->Session->setFlash($voice_data['Voice']['nickname'] . ' のバースデー仕様を設定しました。', 'flashMessage');
+                    
+                    $this->redirect('/console/voice/' . $voice_data['Voice']['system_name']);
+                    
+                } else {
+                    $this->Session->setFlash('設定できませんでした。', 'flashMessage');
+                }
+            } else { //validate失敗の処理
+                $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+            }
+        }
+        
+        $this->set('voice_id', $voice_data['Voice']['id']);
+        
+        $this->render('birthday');
+    }
+    
+    public function birthday_edit()
+    {
+        
+    }
+    
+    public function birthday_delete()
+    {
+        
+    }
+    
     public function product_add()
     {
         if ($this->request->is('post')) {
@@ -1414,6 +1465,13 @@ class ConsoleController extends AppController
                 $this->redirect('/console/index');
             }
             /* データベースからプロフィール情報の取得ここまで */
+            /* データベースからバースデー情報の取得ここから */
+            $birthday_data = $this->Birthday->find('first', array(
+                'conditions' => array('Birthday.voice_id' => $profile['Voice']['id']),
+                'order' => array('Birthday.id' => 'desc')
+            ));
+            $this->set(compact('birthday_data'));
+            /* バースデー情報の取得ここまで */
             $this->Paginator->settings = array(
                 'limit' => 20,
                 'order' => array('Product.date_from' => 'desc'),

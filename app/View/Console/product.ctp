@@ -1,5 +1,37 @@
 <?php echo $this->Html->script('jquery-select_select', array('inline' => false)); ?>
 <?php echo $this->Html->script('jquery-checked', array('inline' => false)); ?>
+<h3><?php echo $profile['Voice']['nickname']; ?>プロフィール情報</h3>
+
+  <table class="prof-list_voice">
+    <tr><td class="tbl-ico"><?php if ($profile['Voice']['publish'] == 0) { ?>
+                              <span class="icon-false">非適用</span>
+                            <?php } elseif ($profile['Voice']['publish'] == 1) { ?>
+                              <span class="icon-true">適用</span>
+                            <?php } ?></td>
+        <td><?php echo $this->Html->link('プロフィールを変更する', '/console/voice_edit/' . $profile['Voice']['system_name']); ?></td>
+        <td><?php echo $this->Html->link('サイトを確認する', '/voice/' . $profile['Voice']['system_name'], array('target' => '_blank')); ?></td>
+        <td><?php echo $this->Form->postLink('削除する', array('controller' => 'Console', 'action' => 'voice_delete', $profile['Voice']['id']), null, '本当に ' . $profile['Voice']['name'] . ' の声優データを削除しますか'); ?></td></tr>
+  </table>
+
+<h3><?php echo $profile['Voice']['nickname']; ?>バースデー仕様の設定</h3>
+
+  <?php if ($birthday_data) { ?>
+    <table class="prof-list_voice">
+      <tr><td class="tbl-ico"><?php if ($birthday_data['Birthday']['publish'] == 0) { ?>
+                                <span class="icon-false">非公開</span>
+                              <?php } elseif ($birthday_data['Birthday']['publish'] == 1) { ?>
+                                <span class="icon-true">公開</span>
+                              <?php } ?></td>
+          <td><?php echo $this->Html->link('設定を変更する', '/console/birthday_edit/' . $profile['Voice']['system_name']); ?></td>
+          <td><?php echo $this->Html->link('サイトを確認する', '/console/birthday_review/' . $profile['Voice']['system_name'], array('target' => '_blank')); ?></td>
+          <td><?php echo $this->Form->postLink('削除する', array('controller' => 'Console', 'action' => 'voice_delete', $profile['Voice']['id']), null, '本当に ' . $profile['Voice']['name'] . ' の声優データを削除しますか'); ?></td></tr>
+    </table>
+  <?php } else { ?>
+    <table class="prof-list_voice">
+      <tr><td><?php echo $this->Html->link('バースデー仕様を設定する', '/console/birthday_add/' . $profile['Voice']['system_name']); ?></td></tr>
+    </table>
+  <?php } ?>
+
 <h3><?php echo $profile['Voice']['nickname']; ?>出演作品の登録</h3>
 
   <table>
@@ -128,21 +160,6 @@
     </tr>
     <?php echo $this->Form->end(); ?><!-- form end -->
   </table>
-
-<?php if (!empty($profile)) { ?>
-  <h3><?php echo $profile['Voice']['nickname']; ?>プロフィール情報</h3>
-  
-    <table class="prof-list_voice">
-      <tr><td class="tbl-ico"><?php if ($profile['Voice']['publish'] == 0) { ?>
-                                <span class="icon-false">非公開</span>
-                              <?php } elseif ($profile['Voice']['publish'] == 1) { ?>
-                                <span class="icon-true">公開</span>
-                              <?php } ?></td>
-          <td><?php echo $this->Html->link('プロフィールを変更する', '/console/voice_edit/' . $profile['Voice']['system_name']); ?></td>
-          <td><?php echo $this->Html->link('サイトを確認する', '/voice/' . $profile['Voice']['system_name'], array('target' => '_blank')); ?></td>
-          <td><?php echo $this->Form->postLink('削除する', array('controller' => 'Console', 'action' => 'voice_delete', $profile['Voice']['id']), null, '本当に ' . $profile['Voice']['name'] . ' の声優データを削除しますか'); ?></td></tr>
-    </table>
-<?php } ?>
 
 <h3><?php echo $profile['Voice']['nickname']; ?>出演作品一覧</h3>
 
