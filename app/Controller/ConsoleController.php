@@ -1397,7 +1397,39 @@ class ConsoleController extends AppController
     
     public function birthday_edit()
     {
+        if ($this->request->params['pass'][0]) {
+            $profile = $this->Voice->find('first', array('conditions' => array('Voice.system_name' => $this->request->params['pass'][0])));
+            if (!$profile) { //データが存在しない場合
+                $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+            }
+            
+        } else {
+            $this->redirect('/console/index');
+        }
         
+        //バースデーデータの編集用
+        if (empty($this->request->data)) {
+            $this->request->data = $profile; //postデータがなければデータを取得
+        } else {
+            $id = $this->request->data['Voice']['id'];
+            $this->Voice->set($this->request->data); //postデータがあればModelに渡してvalidate
+            if ($this->Voice->validates()) { //validate成功の処理
+                $this->Voice->save($this->request->data); //validate成功でsave
+                if ($this->Voice->save($id)) {
+                    $this->Session->setFlash('修正しました。', 'flashMessage');
+                } else {
+                    $this->Session->setFlash('修正できませんでした。', 'flashMessage');
+                }
+                
+                $this->redirect('/console/voice/' . $this->request->data['Voice']['system_name']);
+                
+            } else { //validate失敗の処理
+                $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+                $this->set('id', $this->request->data['Voice']['id']); //viewに渡すために$idをセット
+            }
+        }
+        
+        $this->render('birthday');
     }
     
     public function birthday_delete()
