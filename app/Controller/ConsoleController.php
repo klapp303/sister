@@ -1306,10 +1306,10 @@ class ConsoleController extends AppController
         $this->render('voice');
     }
     
-    public function voice_edit()
+    public function voice_edit($actor = false)
     {
-        if ($this->request->params['pass'][0]) {
-            $profile = $this->Voice->find('first', array('conditions' => array('Voice.system_name' => $this->request->params['pass'][0])));
+        if ($actor) {
+            $profile = $this->Voice->find('first', array('conditions' => array('Voice.system_name' => $actor)));
             if (!$profile) { //データが存在しない場合
                 $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
             }
@@ -1361,10 +1361,10 @@ class ConsoleController extends AppController
         }
     }
     
-    public function birthday_add($voice = false)
+    public function birthday_add($actor = false)
     {
         $voice_data = $this->Voice->find('first', array(
-            'conditions' => array('Voice.system_name' => $voice)
+            'conditions' => array('Voice.system_name' => $actor)
         ));
         
         if ($this->request->is('post')) {
@@ -1395,13 +1395,18 @@ class ConsoleController extends AppController
         $this->render('birthday');
     }
     
-    public function birthday_edit()
+    public function birthday_edit($actor = false, $birthday_num = 0)
     {
-        if ($this->request->params['pass'][0]) {
-            $profile = $this->Voice->find('first', array('conditions' => array('Voice.system_name' => $this->request->params['pass'][0])));
-            if (!$profile) { //データが存在しない場合
+        if ($actor) {
+            $voice = $this->Voice->find('first', array('conditions' => array('Voice.system_name' => $actor)));
+            $birthday_data = $this->Birthday->find('all', array(
+                'conditions' => array('Birthday.voice_id' => $voice['Voice']['id']),
+                'order' => array('Birthday.id' => 'desc')
+            ));
+            if (!$birthday_data) { //データが存在しない場合
                 $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
             }
+            $this->set(compact('actor'));
             
         } else {
             $this->redirect('/console/index');
@@ -1409,32 +1414,52 @@ class ConsoleController extends AppController
         
         //バースデーデータの編集用
         if (empty($this->request->data)) {
-            $this->request->data = $profile; //postデータがなければデータを取得
+            $this->request->data = $birthday_data[$birthday_num]; //postデータがなければ任意のデータを取得
         } else {
-            $id = $this->request->data['Voice']['id'];
-            $this->Voice->set($this->request->data); //postデータがあればModelに渡してvalidate
-            if ($this->Voice->validates()) { //validate成功の処理
-                $this->Voice->save($this->request->data); //validate成功でsave
-                if ($this->Voice->save($id)) {
-                    $this->Session->setFlash('修正しました。', 'flashMessage');
+            $id = $this->request->data['Birthday']['id'];
+            $this->Birthday->set($this->request->data); //postデータがあればModelに渡してvalidate
+            if ($this->Birthday->validates()) { //validate成功の処理
+                $this->Birthday->save($this->request->data); //validate成功でsave
+                if ($this->Birthday->save($id)) {
+                    $this->Session->setFlash('変更しました。', 'flashMessage');
                 } else {
-                    $this->Session->setFlash('修正できませんでした。', 'flashMessage');
+                    $this->Session->setFlash('変更できませんでした。', 'flashMessage');
                 }
                 
-                $this->redirect('/console/voice/' . $this->request->data['Voice']['system_name']);
+                $this->redirect('/console/voice/' . $actor);
                 
             } else { //validate失敗の処理
                 $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
-                $this->set('id', $this->request->data['Voice']['id']); //viewに渡すために$idをセット
+                $this->set('id', $this->request->data['Birthday']['id']); //viewに渡すために$idをセット
             }
         }
         
         $this->render('birthday');
     }
     
-    public function birthday_delete()
+    public function birthday_delete($id = null)
     {
         
+    }
+    
+    public function birthday_review($id = null)
+    {
+        if (empty($id)) {
+            throw new NotFoundException(__('存在しないデータです。'));
+        }
+        
+        $diary_lists = $this->Diary->find('all', array(
+            'conditions' => array(
+                'Diary.id' => $id
+            )
+        ));
+        if (!empty($diary_lists)) { //データが存在する場合
+            $this->set('sub_page', $diary_lists[0]['Diary']['title']); //breadcrumbの設定
+            $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
+            $this->set('diary_lists', $diary_lists);
+        } else { //データが存在しない場合
+            $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+        }
     }
     
     public function product_add()

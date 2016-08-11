@@ -37,7 +37,7 @@ $array_consoles = array('information', 'comment', 'banner', 'link', 'game', 'mak
 //Router::connect('/console/diary/edit/:id',
 //        array('controller' => 'Console', 'action' => 'diary_edit'),
 //        array('id' => '[0-9]+')); //idを数字のみに制限
-foreach ($array_consoles AS $menu) {
+foreach ($array_consoles as $menu) {
     Router::connect('/console/' . $menu . '/edit/:id', array('controller' => 'Console', 'action' => $menu . '_edit'), array('id' => '[0-9]+')); //idを数字のみに制限
     Router::connect('/console/' . $menu . '/edit/:id/*', array('controller' => 'Console', 'action' => $menu . '_edit'), array('id' => '[0-9]+')); //idを数字のみに制限
 }

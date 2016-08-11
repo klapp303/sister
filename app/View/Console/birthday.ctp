@@ -4,7 +4,7 @@
     <?php if (preg_match('#/console/birthday_edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
       <?php echo $this->Form->create('Birthday', array( //使用するModel
           'type' => 'put', //変更はput
-          'url' => array('controller' => 'console', 'action' => 'birthday_edit'), //Controllerのactionを指定
+          'url' => array('controller' => 'console', 'action' => 'birthday_edit', $actor), //Controllerのactionを指定
           'inputDefaults' => array('div' => '')
       )); ?>
       <?php echo $this->Form->input('id', array('type' => 'hidden', 'label' => false)); ?>

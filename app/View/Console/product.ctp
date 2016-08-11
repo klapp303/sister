@@ -24,7 +24,8 @@
                               <?php } ?></td>
           <td><?php echo $this->Html->link('設定を変更する', '/console/birthday_edit/' . $profile['Voice']['system_name']); ?></td>
           <td><?php echo $this->Html->link('サイトを確認する', '/console/birthday_review/' . $profile['Voice']['system_name'], array('target' => '_blank')); ?></td>
-          <td><?php echo $this->Form->postLink('削除する', array('controller' => 'Console', 'action' => 'voice_delete', $profile['Voice']['id']), null, '本当に ' . $profile['Voice']['name'] . ' の声優データを削除しますか'); ?></td></tr>
+          <td><?php echo $this->Html->link('追加する', '/console/birthday_add/' . $profile['Voice']['system_name']); ?></td>
+          <td><?php echo $this->Form->postLink('削除する', array('controller' => 'Console', 'action' => 'birthday_delete', $profile['Voice']['system_name']), null, '本当に最新の設定データを削除しますか'); ?></td></tr>
     </table>
   <?php } else { ?>
     <table class="prof-list_voice">
