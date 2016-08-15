@@ -1472,7 +1472,12 @@ class ConsoleController extends AppController
         if (empty($this->request->data)) {
             $this->request->data = $birthday_data[$birthday_num]; //postデータがなければ任意のデータを取得
             /* 既にある画像データの引き継ぎ処理ここから */
-            
+            $image_type = array('header', 'footer', 'top');
+            foreach ($image_type as $type) {
+                if ($this->request->data['Birthday'][$type . '_image_name']) {
+                    $this->set($type . '_image_url', '/files/birthday/' . $this->request->data['Birthday'][$type . '_image_name']);
+                }
+            }
             /* 既にある画像データの引き継ぎ処理ここまで */
             
         } else {

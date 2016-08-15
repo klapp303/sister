@@ -28,15 +28,24 @@
     </tr>
     <tr>
       <td>ヘッダー画像</td>
-      <td><?php echo $this->Form->input('header_image', array('type' => 'file', 'label' => false, 'class' => 'header_image')); ?></td>
+      <td>
+        <span class="tmb-image header_tmb"><img class="js-tmb" src="<?php echo @$header_image_url; ?>"></span>
+        <?php echo $this->Form->input('header_image', array('type' => 'file', 'label' => false, 'class' => 'header_image')); ?>
+      </td>
     </tr>
     <tr>
       <td>フッター画像</td>
-      <td><?php echo $this->Form->input('footer_image', array('type' => 'file', 'label' => false, 'class' => 'footer_image')); ?></td>
+      <td>
+        <span class="tmb-image footer_tmb"><img class="js-tmb" src="<?php echo @$footer_image_url; ?>"></span>
+        <?php echo $this->Form->input('footer_image', array('type' => 'file', 'label' => false, 'class' => 'footer_image')); ?>
+      </td>
     </tr>
     <tr>
       <td>TOP画像</td>
-      <td><?php echo $this->Form->input('top_image', array('type' => 'file', 'label' => false, 'class' => 'top_image')); ?></td>
+      <td>
+        <span class="tmb-image top_tmb"><img class="js-tmb" src="<?php echo @$top_image_url; ?>"></span>
+        <?php echo $this->Form->input('top_image', array('type' => 'file', 'label' => false, 'class' => 'top_image')); ?>
+      </td>
     </tr>
     <tr>
       <td>テーマカラー</td>
@@ -64,9 +73,9 @@
 <script>
     jQuery(function($) {
         $(function() {
-            $('.header_image').before('<span class="tmb-image header_tmb"></span>');
-            $('.footer_image').before('<span class="tmb-image footer_tmb"></span>');
-            $('.top_image').before('<span class="tmb-image top_tmb"></span>');
+//            $('.header_image').before('<span class="tmb-image header_tmb"></span>');
+//            $('.footer_image').before('<span class="tmb-image footer_tmb"></span>');
+//            $('.top_image').before('<span class="tmb-image top_tmb"></span>');
             
             //アップロードするファイルを選択
             $('.header_image').change(function() {
