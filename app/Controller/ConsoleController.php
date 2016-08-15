@@ -1374,6 +1374,63 @@ class ConsoleController extends AppController
                 'conditions' => array('Voice.id' => $voice_id)
             ));
             
+            //データが全てnullならばredirect
+            $null_flg = 0;
+            foreach ($this->request->data['Birthday'] as $key => $val) {
+                if ($key == 'voice_id') { //type=hiddenは判定しない
+                    continue;
+                }
+                if (strpos($key, 'image') !== false) { //画像の場合は階層が深いので
+                    $val = $val['name'];
+                }
+                
+                if ($val) { //データがあればflgを書き換えてbreak
+                    $null_flg = 1;
+                    break;
+                }
+            }
+            if ($null_flg == 0) {
+                $this->Session->setFlash('データを入力してください。', 'flashMessage');
+                $this->redirect('/console/birthday_add/' . $voice_data['Voice']['system_name']);
+                
+            }
+            
+            /* 画像の処理ここから */
+            $image_type = array('header', 'footer', 'top');
+            foreach ($image_type as $type) {
+                $image_data = $this->request->data['Birthday'][$type . '_image'];
+                unset($this->request->data['Birthday'][$type . '_image']);
+                
+                //空のデータは無視
+                if (!$image_data['name']) {
+//                    $this->request->data['Birthday'][$type . '_image_name'] = '';
+                    
+                //保存するディレクトリ
+                } else {
+                    $upload_dir = 'files/birthday';
+//                    if (!file_exists($upload_dir)) {
+//                        mkdir($upload_dir, 0705, true);
+//                    }
+                    
+                    $upload_pass = $upload_dir . '/' . basename($image_data['name']);
+                    //既に同名のファイルがある場合
+//                    if (file_exists($upload_pass) == true) {
+//                        
+//                    }
+                    
+                    if (move_uploaded_file($image_data['tmp_name'], $upload_pass)) { //ファイルを保存
+                        $this->request->data['Birthday'][$type . '_image_name'] = $image_data['name'];
+                    } else {
+                        $this->Session->setFlash('ファイルの追加処理中にエラーが発生しました。', 'flashMessage');
+                        
+                        $this->set('voice_id', $voice_data['Voice']['id']);
+                        $this->render('birthday');
+                        return;
+                    }
+                }
+            }
+            /* 画像の処理ここまで */
+            
             $this->Birthday->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->Birthday->validates()) { //validate成功の処理
                 $this->Birthday->save($this->request->data); //validate成功でsave
@@ -1391,7 +1448,6 @@ class ConsoleController extends AppController
         }
         
         $this->set('voice_id', $voice_data['Voice']['id']);
-        
         $this->render('birthday');
     }
     
@@ -1415,8 +1471,49 @@ class ConsoleController extends AppController
         //バースデーデータの編集用
         if (empty($this->request->data)) {
             $this->request->data = $birthday_data[$birthday_num]; //postデータがなければ任意のデータを取得
+            /* 既にある画像データの引き継ぎ処理ここから */
+            
+            /* 既にある画像データの引き継ぎ処理ここまで */
+            
         } else {
             $id = $this->request->data['Birthday']['id'];
+            
+            /* 画像の処理ここから */
+            $image_type = array('header', 'footer', 'top');
+            foreach ($image_type as $type) {
+                $image_data = $this->request->data['Birthday'][$type . '_image'];
+                unset($this->request->data['Birthday'][$type . '_image']);
+                
+                //空のデータは無視
+                if (!$image_data['name']) {
+//                    $this->request->data['Birthday'][$type . '_image_name'] = '';
+                    
+                //保存するディレクトリ
+                } else {
+                    $upload_dir = 'files/birthday';
+//                    if (!file_exists($upload_dir)) {
+//                        mkdir($upload_dir, 0705, true);
+//                    }
+                    
+                    $upload_pass = $upload_dir . '/' . basename($image_data['name']);
+                    //既に同名のファイルがある場合
+//                    if (file_exists($upload_pass) == true) {
+//                        
+//                    }
+                    
+                    if (move_uploaded_file($image_data['tmp_name'], $upload_pass)) { //ファイルを保存
+                        $this->request->data['Birthday'][$type . '_image_name'] = $image_data['name'];
+                    } else {
+                        $this->Session->setFlash('ファイルの追加処理中にエラーが発生しました。', 'flashMessage');
+                        
+                        $this->set('voice_id', $voice_data['Voice']['id']);
+                        $this->render('birthday');
+                        return;
+                    }
+                }
+            }
+            /* 画像の処理ここまで */
+            
             $this->Birthday->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->Birthday->validates()) { //validate成功の処理
                 $this->Birthday->save($this->request->data); //validate成功でsave
@@ -1437,9 +1534,32 @@ class ConsoleController extends AppController
         $this->render('birthday');
     }
     
-    public function birthday_delete($id = null)
+    public function birthday_delete($actor = false, $birthday_num = 0)
     {
+        if (empty($actor)) {
+            throw new NotFoundException(__('存在しないデータです。'));
+        }
         
+        if ($this->request->is('post')) {
+            $voice = $this->Voice->find('first', array('conditions' => array('Voice.system_name' => $actor)));
+            $birthday_data = $this->Birthday->find('all', array(
+                'conditions' => array('Birthday.voice_id' => $voice['Voice']['id']),
+                'order' => array('Birthday.id' => 'desc')
+            ));
+            if (!$birthday_data) { //データが存在しない場合
+                throw new NotFoundException(__('存在しないデータです。'));
+            }
+            
+            $this->Birthday->Behaviors->enable('SoftDelete');
+            $id = $birthday_data[$birthday_num]['Birthday']['id'];
+            if ($this->Birthday->delete($id)) {
+                $this->Session->setFlash('削除しました。', 'flashMessage');
+            } else {
+                $this->Session->setFlash('削除できませんでした。', 'flashMessage');
+            }
+            
+            $this->redirect('/console/voice/' . $actor);
+        }
     }
     
     public function birthday_review($id = null)
