@@ -30,6 +30,7 @@
       <td>ヘッダー画像</td>
       <td>
         <span class="tmb-image header_tmb"><img class="js-tmb" src="<?php echo @$header_image_url; ?>"></span>
+        <span class="tmb-checkbox"><input type="checkbox" name="data[Birthday][header_image][delete_flg]"><span class="txt-min">画像を削除する</span></span>
         <?php echo $this->Form->input('header_image', array('type' => 'file', 'label' => false, 'class' => 'header_image')); ?>
       </td>
     </tr>
@@ -37,6 +38,7 @@
       <td>フッター画像</td>
       <td>
         <span class="tmb-image footer_tmb"><img class="js-tmb" src="<?php echo @$footer_image_url; ?>"></span>
+        <span class="tmb-checkbox"><input type="checkbox" name="data[Birthday][footer_image][delete_flg]"><span class="txt-min">画像を削除する</span></span>
         <?php echo $this->Form->input('footer_image', array('type' => 'file', 'label' => false, 'class' => 'footer_image')); ?>
       </td>
     </tr>
@@ -44,6 +46,7 @@
       <td>TOP画像</td>
       <td>
         <span class="tmb-image top_tmb"><img class="js-tmb" src="<?php echo @$top_image_url; ?>"></span>
+        <span class="tmb-checkbox"><input type="checkbox" name="data[Birthday][top_image][delete_flg]"><span class="txt-min">画像を削除する</span></span>
         <?php echo $this->Form->input('top_image', array('type' => 'file', 'label' => false, 'class' => 'top_image')); ?>
       </td>
     </tr>

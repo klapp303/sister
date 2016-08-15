@@ -228,6 +228,20 @@ td.tbl-num_top {
   width: 80px;
 }
 
+/* birthdayページ用 */
+.tmb-image {
+  position: relative;
+}
+.tmb-checkbox {
+  position: absolute;
+  margin-top: 3px;
+  z-index: 1;
+}
+.header_image, .footer_image, .top_image {
+  position: relative;
+  z-index: 2;
+}
+
 /* adminページ用 */
 .tbl-act_admin {
   width: 50px;

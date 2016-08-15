@@ -1401,8 +1401,12 @@ class ConsoleController extends AppController
                 $image_data = $this->request->data['Birthday'][$type . '_image'];
                 unset($this->request->data['Birthday'][$type . '_image']);
                 
-                //空のデータは無視
-                if (!$image_data['name']) {
+                //画像削除flgがあれば登録しないので無視
+                if (@$image_data['delete_flg'] == 'on') {
+//                    $this->request->data['Birthday'][$type . '_image_name'] = '';
+                    
+                //空のデータは登録しないので無視
+                } elseif (!$image_data['name']) {
 //                    $this->request->data['Birthday'][$type . '_image_name'] = '';
                     
                 //保存するディレクトリ
@@ -1489,8 +1493,12 @@ class ConsoleController extends AppController
                 $image_data = $this->request->data['Birthday'][$type . '_image'];
                 unset($this->request->data['Birthday'][$type . '_image']);
                 
-                //空のデータは無視
-                if (!$image_data['name']) {
+                //画像削除flgがあればnullで上書き
+                if (@$image_data['delete_flg'] == 'on') {
+                    $this->request->data['Birthday'][$type . '_image_name'] = '';
+                    
+                //空のデータは登録しないので無視
+                } elseif (!$image_data['name']) {echo'aaa';
 //                    $this->request->data['Birthday'][$type . '_image_name'] = '';
                     
                 //保存するディレクトリ
