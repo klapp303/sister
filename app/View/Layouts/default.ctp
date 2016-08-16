@@ -21,8 +21,45 @@
     $birthday = $this->Session->read('birthday');
     if ($birthday) {
         echo $this->Html->css(array(
-            $birthday
+            'birthday'
         ));
+        //バースデー仕様のcssは動的なので直書き
+        echo '<style type="text/css"><!--';
+        if (@$thema_color) {
+            echo '
+                #container {
+                  background-color: #' . $thema_color . ';
+                }
+                #content {
+                  background-color: #' . $thema_color . ';
+                }
+                #content_main {
+                  background-color: #' . $thema_color . ';
+                }
+            ';
+        }
+        if (@$shadow_color) {
+            echo '
+                #container {
+                  box-shadow: -1px 1px 10px #' . $shadow_color . ';
+                }
+            ';
+        }
+        if (@$strong_color) {
+            echo '
+                .flash-msg_' . $birthday . ' {
+                  background: #' . $strong_color . ';
+                }
+            ';
+        }
+        if (@$bg_color) {
+            echo '
+                body {
+                  background: #' . $bg_color . ';
+                }
+            ';
+        }
+        echo '--></style>';
     }
     
     echo $this->Html->script(array(

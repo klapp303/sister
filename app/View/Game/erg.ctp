@@ -58,3 +58,10 @@
           <td class="tbl-num"><?php echo $game_list['Game']['config_point']; ?></td></tr>
     <?php } ?>
   </table>
+<?php if (@$strong_color) { ?>
+  <script>
+      jQuery(function($) {
+          $('th').css('background-color', '#<?php echo $strong_color; ?>');
+      });
+  </script>
+<?php } ?>

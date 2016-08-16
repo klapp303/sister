@@ -52,11 +52,19 @@
     </tr>
     <tr>
       <td>テーマカラー</td>
-      <td><?php echo $this->Form->input('thema_color', array('type' => 'text', 'label' => false, 'size' => 24)); ?></td>
+      <td><?php echo $this->Form->input('thema_color', array('type' => 'text', 'label' => false, 'size' => 12)); ?></td>
     </tr>
     <tr>
-      <td>テーマカラー強調</td>
-      <td><?php echo $this->Form->input('thema_color_strong', array('type' => 'text', 'label' => false, 'size' => 24)); ?></td>
+      <td>シャドーカラー</td>
+      <td><?php echo $this->Form->input('shadow_color', array('type' => 'text', 'label' => false, 'size' => 12)); ?></td>
+    </tr>
+    <tr>
+      <td>強調テーマカラー</td>
+      <td><?php echo $this->Form->input('strong_color', array('type' => 'text', 'label' => false, 'size' => 12)); ?></td>
+    </tr>
+    <tr>
+      <td>背景カラー</td>
+      <td><?php echo $this->Form->input('bg_color', array('type' => 'text', 'label' => false, 'size' => 12)); ?></td>
     </tr>
     <tr>
       <td>状態</td>

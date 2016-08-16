@@ -68,3 +68,10 @@
 <h3>総評</h3>
 <span class="point"><?php echo $game_detail['Game']['point']; ?></span>
 <p class="review"><?php echo nl2br($game_detail['Game']['review']); ?></p>
+<?php if (@$strong_color) { ?>
+  <script>
+      jQuery(function($) {
+          $('th').css('background-color', '#<?php echo $strong_color; ?>');
+      });
+  </script>
+<?php } ?>

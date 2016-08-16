@@ -107,7 +107,21 @@ class AppController extends Controller
                 if ($birthday) {
                     //セッション情報に1つまで書き込む
                     $this->Session->write('birthday', $voice['Voice']['system_name']);
-                
+                    
+                    //テーマカラーを設定
+                    if ($birthday['Birthday']['thema_color']) {
+                        $this->set('thema_color', $birthday['Birthday']['thema_color']);
+                    }
+                    if ($birthday['Birthday']['shadow_color']) {
+                        $this->set('shadow_color', $birthday['Birthday']['shadow_color']);
+                    }
+                    if ($birthday['Birthday']['strong_color']) {
+                        $this->set('strong_color', $birthday['Birthday']['strong_color']);
+                    }
+                    if ($birthday['Birthday']['bg_color']) {
+                        $this->set('bg_color', $birthday['Birthday']['bg_color']);
+                    }
+                    
                     //ヘッダー情報の書き換え
                     if ($birthday['Birthday']['header_title']) {
                         $this->set('header_title', $birthday['Birthday']['header_title']);

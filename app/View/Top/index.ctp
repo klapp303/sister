@@ -32,7 +32,7 @@
 
 <div class="part_top">
   <hr class="hr_top">
-  <h3 class="h_top <?php echo ($birthday)? 'h_top_' . $birthday : ''; ?>">お知らせ</h3>
+  <h3 class="h_top"<?php echo (@$thema_color)? ' style="background-color: #' . $thema_color . ';"' : ''; ?>>お知らせ</h3>
 </div>
 
 <div class="inform_top">
@@ -45,7 +45,7 @@
 
 <div class="part_top pc">
   <hr class="hr_top">
-  <h3 class="h_top <?php echo ($birthday)? 'h_top_' . $birthday : ''; ?>">バナー</h3>
+  <h3 class="h_top"<?php echo (@$thema_color)? ' style="background-color: #' . $thema_color . ';"' : ''; ?>>バナー</h3>
 </div>
 
 <div class="banner_top pc">

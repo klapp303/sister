@@ -17,7 +17,7 @@
 
 <table class="tbl_prof">
   <tr>
-    <td class="tbl-title_prof <?php echo ($birthday)? 'tbl-title_prof_' . $birthday : ''; ?>">
+    <td class="tbl-title_prof">
       お名前
     </td>
     <td class="tbl-text_prof">
@@ -25,7 +25,7 @@
     </td>
   </tr>
   <tr>
-    <td class="tbl-title_prof <?php echo ($birthday)? 'tbl-title_prof_' . $birthday : ''; ?>">
+    <td class="tbl-title_prof">
       生息地
     </td>
     <td class="tbl-text_prof">
@@ -33,7 +33,7 @@
     </td>
   </tr>
   <tr>
-    <td class="tbl-title_prof <?php echo ($birthday)? 'tbl-title_prof_' . $birthday : ''; ?>">
+    <td class="tbl-title_prof">
       好きなメーカー
     </td>
     <td class="tbl-text_prof">
@@ -41,7 +41,7 @@
     </td>
   </tr>
   <tr>
-    <td class="tbl-title_prof <?php echo ($birthday)? 'tbl-title_prof_' . $birthday : ''; ?>">
+    <td class="tbl-title_prof">
       よくやってるゲーム
     </td>
     <td class="tbl-text_prof">
@@ -49,7 +49,7 @@
     </td>
   </tr>
   <tr>
-    <td class="tbl-title_prof <?php echo ($birthday)? 'tbl-title_prof_' . $birthday : ''; ?>">
+    <td class="tbl-title_prof">
       好きな音楽
     </td>
     <td class="tbl-text_prof">
@@ -57,7 +57,7 @@
     </td>
   </tr>
   <tr>
-    <td class="tbl-title_prof <?php echo ($birthday)? 'tbl-title_prof_' . $birthday : ''; ?>">
+    <td class="tbl-title_prof">
       追っかけてる声優
     </td>
     <td class="tbl-text_prof">
@@ -65,3 +65,10 @@
     </td>
   </tr>
 </table>
+<?php if (@$strong_color) { ?>
+  <script>
+      jQuery(function($) {
+          $('.tbl-title_prof').css('background-color', '#<?php echo $strong_color; ?>');
+      });
+  </script>
+<?php } ?>

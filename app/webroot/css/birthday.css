@@ -20,16 +20,16 @@
  * body
  * ページ背景カラーは一括で指定
  */
-body {
+/*body {
   background-color: #ffebeb;
-}
+}*/
 
 /**
  * container, content, content_main
  * コンテンツ背景カラーはtop.cssにもあり
  * top.css >.h_top
  */
-#container {
+/*#container {
   background-color: #fffafa;
   box-shadow: -1px 1px 10px #ffe2ff;
 }
@@ -38,11 +38,11 @@ body {
 }
 #content_main {
   background-color: #fffafa;
-}
+}*/
 /* TOPページ用 */
-.h_top_ayachi {
+/*.h_top_ayachi {
   background-color: #fffafa !important;
-}
+}*/
 
 /**
  * フラッシュ背景カラーはdetail.cssで指定
@@ -56,26 +56,26 @@ body {
  * pages.css >.tbl-title_prof, >.tbl_link >tbody >tr >th
  */
 /* フラッシュメッセージ用 */
-.flash-msg_ayachi {
+/*.flash-msg_ayachi {
   background: #fff5f5 !important;
-}
+}*/
 /* 日記用 */
-.article_ayachi {
+/*.article_ayachi {
   background-color: #fff5f5 !important;
-}
+}*/
 /* ゲーム一覧用 */
-.game-list_ayachi >tbody >tr >th {
+/*.game-list_ayachi >tbody >tr >th {
   background-color: #fff5f5 !important;
-}
+}*/
 /* ゲームレビュー用 */
-.detail-list_erg_ayachi >tbody >tr >th {
+/*.detail-list_erg_ayachi >tbody >tr >th {
   background-color: #fff5f5 !important;
-}
+}*/
 /* authorページ用 */
-.tbl-title_prof_ayachi {
+/*.tbl-title_prof_ayachi {
   background-color: #fff5f5 !important;
-}
+}*/
 /* サイトリンク一覧用 */
-.tbl_link_ayachi >tbody >tr >th {
+/*.tbl_link_ayachi >tbody >tr >th {
   background-color: #fff5f5 !important;
-}
+}*/
