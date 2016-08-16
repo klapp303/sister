@@ -52,6 +52,7 @@ Router::connect('/console/voice/:actor/*', array('controller' => 'Console', 'act
  * preview URLs
  */
 Router::connect('/preview/diary/*', array('controller' => 'Console', 'action' => 'diary_preview'));
+Router::connect('/preview/birthday/*', array('controller' => 'Console', 'action' => 'birthday_preview'));
 
 /**
  * sitemap URLs

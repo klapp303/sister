@@ -1575,23 +1575,145 @@ class ConsoleController extends AppController
         }
     }
     
-    public function birthday_review($id = null)
+    public function birthday_preview($actor = false, $birthday_num = 0)
     {
-        if (empty($id)) {
+        if (empty($actor)) {
             throw new NotFoundException(__('存在しないデータです。'));
         }
         
-        $diary_lists = $this->Diary->find('all', array(
-            'conditions' => array(
-                'Diary.id' => $id
-            )
+        $voice = $this->Voice->find('first', array('conditions' => array('Voice.system_name' => $actor)));
+        $birthday_data = $this->Birthday->find('all', array(
+            'conditions' => array('Birthday.voice_id' => $voice['Voice']['id']),
+            'order' => array('Birthday.id' => 'desc')
         ));
-        if (!empty($diary_lists)) { //データが存在する場合
-            $this->set('sub_page', $diary_lists[0]['Diary']['title']); //breadcrumbの設定
-            $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
-            $this->set('diary_lists', $diary_lists);
+        $birthday = $birthday_data[$birthday_num];
+        if (!empty($birthday_data)) { //データが存在する場合
+            /* バースデーの設定ここから */
+            //セッション情報に1つまで書き込む
+            $this->Session->write('birthday', $actor);
+            //テーマカラーを設定
+            if ($birthday['Birthday']['thema_color']) {
+                $this->set('thema_color', $birthday['Birthday']['thema_color']);
+            }
+            if ($birthday['Birthday']['shadow_color']) {
+                $this->set('shadow_color', $birthday['Birthday']['shadow_color']);
+            }
+            if ($birthday['Birthday']['strong_color']) {
+                $this->set('strong_color', $birthday['Birthday']['strong_color']);
+            }
+            if ($birthday['Birthday']['bg_color']) {
+                $this->set('bg_color', $birthday['Birthday']['bg_color']);
+            }
+            //ヘッダー情報の書き換え
+            if ($birthday['Birthday']['header_title']) {
+                $this->set('header_title', $birthday['Birthday']['header_title']);
+            }
+            if ($birthday['Birthday']['header_image_name']) {
+                $this->set('header_image_name', $birthday['Birthday']['header_image_name']);
+            } else {
+                $this->set('header_image_name', 'flower.gif');
+            }
+            //フッター情報の書き換え
+            if ($birthday['Birthday']['footer_title']) {
+                $this->set('footer_title', $birthday['Birthday']['footer_title']);
+            }
+            if ($birthday['Birthday']['footer_image_name']) {
+                $this->set('footer_image_name', $birthday['Birthday']['footer_image_name']);
+            } else {
+                $this->set('footer_image_name', 'cake.png');
+            }
+            /* バースデーの設定ここまで */
+            
+            /* TOPページの設定ここから */
+            //バースデー用
+            $this->set('birthday_voice_data', $voice);
+            $this->set('birthday_top_image_name', $birthday['Birthday']['top_image_name']);
+            //お知らせ用
+            /* 最終更新日の取得ここから */
+            $last_update = '2014-11-28'; //サイト公開日を初期値に設定
+            $contents = array('Information', 'Banner'); //公開日を設定できるコンテンツ
+            foreach ($contents as $content) {
+                $last_data = $this->$content->find('first', array(
+                    'conditions' => array($content . '.date_from <=' => date('Y-m-d'), $content . '.publish' => 1),
+                    'order' => array($content . '.date_from' => 'desc')
+                ));
+                if ($last_data) {
+                    if ($last_update <= $last_data[$content]['date_from']) {
+                        $last_update = $last_data[$content]['date_from'];
+                    }
+                }
+            }
+            $articles = array('Game', 'Diary', 'Product'); //作成日で管理する記事
+            foreach ($articles as $article) {
+                $last_data = $this->$article->find('first', array(
+                    'conditions' => array($article . '.created <=' => date('Y-m-d', strtotime('+1 day')), $article . '.publish' => 1),
+                    'order' => array($article . '.created' => 'desc')
+                ));
+                if ($last_data) {
+                    if ($last_update <= $last_data[$article]['created']) {
+                        $last_update = $last_data[$article]['created'];
+                    }
+                }
+            }
+            $last_update = mb_strimwidth($last_update, 0, 10);
+            $this->set('last_update', $last_update);
+            /* 最終更新部の取得ここまで */
+            $information_lists = $this->Information->find('all', array(
+                'conditions' => array(
+                    array('or' => array(
+                        'Information.date_from <=' => date('Y-m-d'),
+                        'Information.date_from' => null
+                    )),
+                    array('or' => array(
+                        'Information.date_to >=' => date('Y-m-d'),
+                        'Information.date_to' => null
+                    )),
+                    'Information.publish' => 1
+                ),
+                'order' => array('Information.id' => 'desc')
+            ));
+            $this->set('information_lists', $information_lists);
+            //バナー用
+            $banner_lists = $this->Banner->find('all', array(
+                'conditions' => array(
+                    array('or' => array(
+                        'Banner.date_from <=' => date('Y-m-d'),
+                        'Banner.date_from' => null
+                    )),
+                    array('or' => array(
+                        'Banner.date_to >=' => date('Y-m-d'),
+                        'Banner.date_to' => null
+                    )),
+                    'Banner.publish' => 1
+                ),
+                'order' => array('Banner.sort' => 'desc')
+            ));
+            //バースデーバナー用
+            if ($birthday) {
+                $birthday_banner_lists = $this->Banner->find('all', array(
+                    'conditions' => array(
+                        'Banner.birthday_id' => $birthday['Birthday']['id']
+                    )
+                ));
+                if ($birthday_banner_lists) {
+                    $banner_lists = $birthday_banner_lists;
+                }
+            }
+            $this->set('banner_lists', $banner_lists);
+            //メーカーバナー用
+            $maker_lists = $this->Maker->find('all', array(
+                'conditions' => array('Maker.publish' => 1),
+                'order' => array('Maker.title' => 'asc')
+            ));
+            $this->set('maker_lists', $maker_lists);
+            /* TOPページの設定ここまで */
+            
+            $this->layout = 'sister_fullwidth';
+            $this->render('../Top/index');
+            
         } else { //データが存在しない場合
-            $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+            $this->Session->setFlash('設定データが見つかりませんでした。', 'flashMessage');
+            $this->redirect('/console/voice/' . $actor);
         }
     }
     
