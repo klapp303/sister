@@ -78,7 +78,7 @@
                                     <?php } elseif ($diary_list['Diary']['publish'] == 1) { ?>
                                       <span class="icon-true icon-button"><?php echo $this->Html->link('公開', '/diary/' . $diary_list['Diary']['id'], array('target' => '_blank')); ?></span>
                                     <?php } ?></td>
-          <td class="tbl-act_diary"><?php echo $this->Html->link('プレビュー', '/console/diary_preview/' . $diary_list['Diary']['id'], array('target' => '_blank')); ?><br>
+          <td class="tbl-act_diary"><?php echo $this->Html->link('プレビュー', '/preview/diary/' . $diary_list['Diary']['id'], array('target' => '_blank')); ?><br>
                                     <?php echo $this->Html->link('修正', '/console/diary/edit/' . $diary_list['Diary']['id']); ?>
                                     <?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'diary_delete', $diary_list['Diary']['id']), null, '本当に#' . $diary_list['Diary']['id'] . 'を削除しますか'); ?></td></tr>
     <?php } ?>

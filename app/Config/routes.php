@@ -49,6 +49,11 @@ Router::connect('/console/voice/:actor/edit/:id', array('controller' => 'Console
 Router::connect('/console/voice/:actor/*', array('controller' => 'Console', 'action' => 'voice')); //paginator用
 
 /**
+ * preview URLs
+ */
+Router::connect('/preview/diary/*', array('controller' => 'Console', 'action' => 'diary_preview'));
+
+/**
  * sitemap URLs
  */
 Router::connect('/sitemap.xml', array('controller' => 'SiteMaps', 'action' => 'index'));
