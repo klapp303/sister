@@ -241,6 +241,14 @@ td.tbl-num_top {
   position: relative;
   z-index: 2;
 }
+.color-sample {
+  float: left;
+  width: 24px;
+  height: 24px;
+  background-color: #ffffff;
+  margin-right: 8px;
+  margin-bottom: 4px;
+}
 
 /* adminページ用 */
 .tbl-act_admin {

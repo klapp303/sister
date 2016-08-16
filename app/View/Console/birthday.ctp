@@ -20,52 +20,76 @@
     
     <tr>
       <td>ヘッダータイトル</td>
-      <td><?php echo $this->Form->input('header_title', array('type' => 'text', 'label' => false, 'size' => 49)); ?></td>
+      <td><?php echo $this->Form->input('header_title', array('type' => 'text', 'label' => false, 'size' => 49, 'placeholder' => '例）虹(+0.5)の妹たちを ｐｒｐｒするサイト')); ?></td>
     </tr>
     <tr>
       <td>フッタータイトル</td>
-      <td><?php echo $this->Form->input('footer_title', array('type' => 'text', 'label' => false, 'size' => 49)); ?></td>
+      <td><?php echo $this->Form->input('footer_title', array('type' => 'text', 'label' => false, 'size' => 49, 'placeholder' => '例）虹妹ｐｒｐｒ推進委員会')); ?></td>
     </tr>
-    <tr>
-      <td>ヘッダー画像</td>
-      <td>
-        <span class="tmb-image header_tmb"><img class="js-tmb" src="<?php echo @$header_image_url; ?>"></span>
-        <span class="tmb-checkbox"><input type="checkbox" name="data[Birthday][header_image][delete_flg]"><span class="txt-min">画像を削除する</span></span>
-        <?php echo $this->Form->input('header_image', array('type' => 'file', 'label' => false, 'class' => 'header_image')); ?>
-      </td>
-    </tr>
-    <tr>
-      <td>フッター画像</td>
-      <td>
-        <span class="tmb-image footer_tmb"><img class="js-tmb" src="<?php echo @$footer_image_url; ?>"></span>
-        <span class="tmb-checkbox"><input type="checkbox" name="data[Birthday][footer_image][delete_flg]"><span class="txt-min">画像を削除する</span></span>
-        <?php echo $this->Form->input('footer_image', array('type' => 'file', 'label' => false, 'class' => 'footer_image')); ?>
-      </td>
-    </tr>
-    <tr>
-      <td>TOP画像</td>
-      <td>
-        <span class="tmb-image top_tmb"><img class="js-tmb" src="<?php echo @$top_image_url; ?>"></span>
-        <span class="tmb-checkbox"><input type="checkbox" name="data[Birthday][top_image][delete_flg]"><span class="txt-min">画像を削除する</span></span>
-        <?php echo $this->Form->input('top_image', array('type' => 'file', 'label' => false, 'class' => 'top_image')); ?>
-      </td>
-    </tr>
-    <tr>
-      <td>テーマカラー</td>
-      <td><?php echo $this->Form->input('thema_color', array('type' => 'text', 'label' => false, 'size' => 12)); ?></td>
-    </tr>
-    <tr>
-      <td>シャドーカラー</td>
-      <td><?php echo $this->Form->input('shadow_color', array('type' => 'text', 'label' => false, 'size' => 12)); ?></td>
-    </tr>
-    <tr>
-      <td>強調テーマカラー</td>
-      <td><?php echo $this->Form->input('strong_color', array('type' => 'text', 'label' => false, 'size' => 12)); ?></td>
-    </tr>
-    <tr>
-      <td>背景カラー</td>
-      <td><?php echo $this->Form->input('bg_color', array('type' => 'text', 'label' => false, 'size' => 12)); ?></td>
-    </tr>
+    <?php
+    $array_image = array(
+        'ヘッダー画像' => 'header',
+        'フッター画像' => 'footer',
+        'TOP画像' => 'top'
+    );
+    ?>
+    <?php foreach ($array_image as $key => $val) { ?>
+      <tr>
+        <td><?php echo $key; ?></td>
+        <td>
+          <span class="tmb-image <?php echo $val; ?>_tmb"><img class="js-tmb" src="<?php echo @${$val . '_image_url'}; ?>"></span>
+          <span class="tmb-checkbox"><input type="checkbox" name="data[Birthday][<?php echo $val; ?>_image][delete_flg]"><span class="txt-min">画像を削除する</span></span>
+          <?php echo $this->Form->input($val . '_image', array('type' => 'file', 'label' => false, 'class' => $val . '_image')); ?>
+        </td>
+      </tr>
+      <script>
+          jQuery(function($) {
+              $(function() {
+//                  $('.header_image').before('<span class="tmb-image header_tmb"></span>');
+                  
+                  //アップロードするファイルを選択
+                  $('.<?php echo $val; ?>_image').change(function() {
+                      var file = $(this).prop('files')[0];
+                      
+                      //画像以外は処理を停止
+                      if (! file.type.match('image.*')) {
+                          //クリア
+                          $(this).val('');
+                          $('span').html('');
+                          return;
+                      }
+                      
+                      //画像表示
+                      var reader = new FileReader();
+                      reader.onload = function() {
+                          var img_src = $('<img class="js-tmb">').attr('src', reader.result);
+                          $('.<?php echo $val; ?>_tmb').html(img_src);
+                      };
+                      reader.readAsDataURL(file);
+                      //元画像を非表示
+                      $('.js-tmb_pre').hide();
+                  });
+              });
+          });
+      </script>
+    <?php } ?>
+    <?php
+    $array_color = array(
+        'テーマカラー' => 'thema',
+        'シャドーカラー' => 'shadow',
+        '強調テーマカラー' => 'strong',
+        '背景カラー' => 'bg'
+    );
+    ?>
+    <?php foreach ($array_color as $key => $val) { ?>
+      <tr>
+        <td><?php echo $key; ?></td>
+        <td>
+          <?php echo $this->Form->input($val . '_color', array('type' => 'text', 'label' => false, 'size' => 12, 'placeholder' => '例）ffffff')); ?>
+          <div class="color-sample"<?php echo (@$this->request->data['Birthday'][$val . '_color'])? ' style="background-color: #' . $this->request->data['Birthday'][$val . '_color'] . ';"' : ''; ?>></div>
+        </td>
+      </tr>
+    <?php } ?>
     <tr>
       <td>状態</td>
       <td><?php echo $this->Form->input('publish', array('type' => 'select', 'label' => false, 'options' => array(0 => '非適用', 1 => '適用'))); ?></td>
@@ -81,81 +105,3 @@
     </tr>
     <?php echo $this->Form->end(); ?><!-- form end -->
   </table>
-<script>
-    jQuery(function($) {
-        $(function() {
-//            $('.header_image').before('<span class="tmb-image header_tmb"></span>');
-//            $('.footer_image').before('<span class="tmb-image footer_tmb"></span>');
-//            $('.top_image').before('<span class="tmb-image top_tmb"></span>');
-            
-            //アップロードするファイルを選択
-            $('.header_image').change(function() {
-                var file = $(this).prop('files')[0];
-                
-                //画像以外は処理を停止
-                if (! file.type.match('image.*')) {
-                    //クリア
-                    $(this).val('');
-                    $('span').html('');
-                    return;
-                }
-                
-                //画像表示
-                var reader = new FileReader();
-                reader.onload = function() {
-                    var img_src = $('<img class="js-tmb">').attr('src', reader.result);
-                    $('.header_tmb').html(img_src);
-                };
-                reader.readAsDataURL(file);
-                //元画像を非表示
-                $('.js-tmb_pre').hide();
-            });
-            
-            //アップロードするファイルを選択
-            $('.footer_image').change(function() {
-                var file = $(this).prop('files')[0];
-                
-                //画像以外は処理を停止
-                if (! file.type.match('image.*')) {
-                    //クリア
-                    $(this).val('');
-                    $('span').html('');
-                    return;
-                }
-                
-                //画像表示
-                var reader = new FileReader();
-                reader.onload = function() {
-                    var img_src = $('<img class="js-tmb">').attr('src', reader.result);
-                    $('.footer_tmb').html(img_src);
-                };
-                reader.readAsDataURL(file);
-                //元画像を非表示
-                $('.js-tmb_pre').hide();
-            });
-            
-            //アップロードするファイルを選択
-            $('.top_image').change(function() {
-                var file = $(this).prop('files')[0];
-                
-                //画像以外は処理を停止
-                if (! file.type.match('image.*')) {
-                    //クリア
-                    $(this).val('');
-                    $('span').html('');
-                    return;
-                }
-                
-                //画像表示
-                var reader = new FileReader();
-                reader.onload = function() {
-                    var img_src = $('<img class="js-tmb">').attr('src', reader.result);
-                    $('.top_tmb').html(img_src);
-                };
-                reader.readAsDataURL(file);
-                //元画像を非表示
-                $('.js-tmb_pre').hide();
-            });
-        });
-    });
-</script>
