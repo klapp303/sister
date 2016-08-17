@@ -4,7 +4,7 @@
 
   <table class="prof-list_voice">
     <tr><td class="tbl-ico"><?php if ($profile['Voice']['publish'] == 0) { ?>
-                              <span class="icon-false">非適用</span>
+                              <span class="icon-false">非公開</span>
                             <?php } elseif ($profile['Voice']['publish'] == 1) { ?>
                               <span class="icon-true">適用</span>
                             <?php } ?></td>
@@ -18,7 +18,7 @@
   <?php if ($birthday_data) { ?>
     <table class="prof-list_voice">
       <tr><td class="tbl-ico"><?php if ($birthday_data['Birthday']['publish'] == 0) { ?>
-                                <span class="icon-false">非公開</span>
+                                <span class="icon-false">非適用</span>
                               <?php } elseif ($birthday_data['Birthday']['publish'] == 1) { ?>
                                 <span class="icon-true">公開</span>
                               <?php } ?></td>
