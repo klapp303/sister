@@ -39,7 +39,6 @@
           <span class="li-act_banner">
             <?php echo $this->Html->link('修正', '/console/banner/edit/' . $banner_list['Banner']['id']); ?>
             <?php // echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'banner_delete', $banner_list['Banner']['id']), null, '本当に#' . $banner_list['Banner']['id'] . 'を削除しますか'); ?>
-            <?php echo $this->Html->link('削除', '/console/banner_delete/'.$banner_list['Banner']['id'], array('confirm' => '本当に#' . $banner_list['Banner']['id'] . 'を削除しますか？')); ?>
           </span></li>
     <?php } ?>
   </ul>
