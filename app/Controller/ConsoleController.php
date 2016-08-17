@@ -1608,7 +1608,7 @@ class ConsoleController extends AppController
         }
         
         //postデータがなければバナー一覧を取得
-        if (empty($this->request->is('post'))) {
+        if (!$this->request->is('post')) {
             $banner_lists = $this->Banner->find('all', array(
                 'conditions' => array('Banner.birthday_id !=' => $birthday['Birthday']['id']),
                 'order' => array('Banner.id' => 'desc')
