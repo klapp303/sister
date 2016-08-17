@@ -1,4 +1,5 @@
 <?php // echo $this->Html->script('jquery-tmb', array('inline' => false)); ?>
+<?php echo $this->Html->script('http://code.jquery.com/ui/1.11.3/jquery-ui.js', array('inline' => false)); ?>
 <h3>バースデー仕様の設定<span class="txt-min txt-n">　　（各項目は任意です）</span></h3>
 
   <table>
@@ -105,3 +106,52 @@
     </tr>
     <?php echo $this->Form->end(); ?><!-- form end -->
   </table>
+
+<?php if (preg_match('#/console/birthday_edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
+  <h3>バースデーバナー一覧</h3>
+
+    <div class="detail-title-min_banner">
+      <span class="li-num">sort<?php echo $this->Paginator->sort('Banner.sort', '▼'); ?></span>
+      <span class="li-num">id<?php echo $this->Paginator->sort('Banner.id', '▼'); ?></span>
+      <span class="li-tmb_banner">プレビュー</span>
+      <span class="li-act_banner">action</span>
+    </div>
+    
+    <?php echo $this->Form->create('Banner', array( //使用するModel
+        'type' => 'post', //デフォルトはpost送信
+        'url' => array('controller' => 'console', 'action' => 'birthday_banner_sort', $actor), //Controllerのactionを指定
+        'inputDefaults' => array('div' => ''),
+        'class' => 'sort-form_banner'
+    )); ?><!-- form start -->
+    
+    <ul class="detail-list-min_banner sortable">
+      <?php foreach ($banner_lists as $banner_list) { ?>
+        <li><?php echo $this->Form->input($banner_list['Banner']['id'].'.id', array('type' => 'hidden', 'value' => $banner_list['Banner']['id'])); ?>
+            <span class="li-num"><?php echo $banner_list['Banner']['sort']; ?></span>
+            <span class="li-num"><?php echo $banner_list['Banner']['id']; ?></span>
+            <span class="li-tmb_banner"><a href="<?php echo $banner_list['Banner']['link_url']; ?>" target="_blank">
+                <?php echo $this->Html->image('../files/banner/' . $banner_list['Banner']['image_name'], array('alt' => $banner_list['Banner']['title'], 'class' => 'img_banner')); ?></a></span>
+            <span class="li-act_banner">
+              <?php echo $this->Html->link('修正', '/console/banner/edit/' . $banner_list['Banner']['id']); ?>
+              <?php // echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'banner_delete', $banner_list['Banner']['id']), null, '本当に#' . $banner_list['Banner']['id'] . 'を削除しますか'); ?>
+              <?php echo $this->Html->link('解除', '/console/birthday_banner_delete/' . $actor . '/' . $banner_list['Banner']['id'], array('confirm' => '本当に#' . $banner_list['Banner']['id'] . 'をバースデーバナーから解除しますか？')); ?>
+            </span></li>
+      <?php } ?>
+    </ul>
+    
+    <div class="sort-button_birthday">
+      <?php echo $this->Form->submit('並び替える', array('div' => false, 'class' => 'sort-btn_banner')); ?>
+    </div>
+    <?php echo $this->Form->end(); ?><!-- form end -->
+  
+  <script>
+      $(function() {
+          $('.sortable').sortable();
+          $('.sortable').disableSelection();
+      });
+  </script>
+  
+  <div class="link-page_birthday">
+    <span class="link-page"><?php echo $this->Html->link('⇨ バースデーバナーを追加する', '/console/birthday_banner_add/' . $actor); ?></span>
+  </div>
+<?php } ?>

@@ -249,6 +249,19 @@ td.tbl-num_top {
   margin-right: 8px;
   margin-bottom: 4px;
 }
+.sort-button_birthday {
+  text-align: right;
+  margin-right: 70px;
+}
+.link-page_birthday {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.tbl-chk_birthday {
+  width: 20px;
+}
 
 /* adminページ用 */
 .tbl-act_admin {

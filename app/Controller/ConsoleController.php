@@ -1487,6 +1487,15 @@ class ConsoleController extends AppController
                 }
             }
             /* 既にある画像データの引き継ぎ処理ここまで */
+            /* バースデーバナー一覧の取得ここから */
+            $this->Paginator->settings = array(
+//                'limit' => 20,
+                'conditions' => array('Banner.birthday_id' => $this->request->data['Birthday']['id']),
+                'order' => array('Banner.sort' => 'desc', 'Banner.id' => 'desc')
+            );
+            $banner_lists = $this->Paginator->paginate('Banner');
+            $this->set(compact('banner_lists'));
+            /* バースデーバナー一覧の取得ここまで */
             
         } else {
             $id = $this->request->data['Birthday']['id'];
@@ -1576,6 +1585,95 @@ class ConsoleController extends AppController
             }
             
             $this->redirect('/console/voice/' . $actor);
+        }
+    }
+    
+    public function birthday_banner_add($actor = false, $birthday_num = 0)
+    {
+        if ($actor) {
+            $voice = $this->Voice->find('first', array('conditions' => array('Voice.system_name' => $actor)));
+            $birthday_data = $this->Birthday->find('all', array(
+                'conditions' => array('Birthday.voice_id' => $voice['Voice']['id']),
+                'order' => array('Birthday.id' => 'desc')
+            ));
+            if (!$birthday_data) { //データが存在しない場合
+                $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+            }
+            $birthday = $birthday_data[$birthday_num];
+            $birthday_id = $birthday['Birthday']['id'];
+            $this->set(compact('actor', 'birthday_id'));
+            
+        } else {
+            $this->redirect('/console/index');
+        }
+        
+        //postデータがなければバナー一覧を取得
+        if (empty($this->request->is('post'))) {
+            $banner_lists = $this->Banner->find('all', array(
+                'conditions' => array('Banner.birthday_id !=' => $birthday['Birthday']['id']),
+                'order' => array('Banner.id' => 'desc')
+            ));
+            //既に他のバースデー設定と紐付いている場合があるので
+            $banner_lists = $this->Banner->belongsToBirthdayFromBanner($banner_lists);
+            $this->set(compact('banner_lists'));
+            
+        //バースデーバナーの追加用
+        } else {
+            foreach ($this->request->data['Banner'] as $key => $val) {
+                if ($val['birthday_flg'] == 1) {
+                    $this->Banner->create();
+                    $this->Banner->id = $key;
+                    if ($this->Banner->saveField('birthday_id', $val['birthday_id'])) {
+//                        $this->Session->setFlash('バースデーバナーを追加しました。', 'flashMessage');
+                    } else {
+                        $this->Session->setFlash('バースデーバナーを追加できませんでした。', 'flashMessage');
+                    }
+                }
+            }
+            
+            $this->redirect('/console/birthday_edit/' . $actor);
+        }
+        
+        $this->render('birthday_banner');
+    }
+    
+    public function birthday_banner_delete($actor = false, $id = null)
+    {
+        if (empty($id)) {
+            throw new NotFoundException(__('存在しないデータです。'));
+        }
+        
+        //post送信ではないので
+        $banner = $this->Banner->find('first', array('conditions' => array('Banner.id' => $id)));
+        if (!$banner) {
+            $this->Session->setFlash('データがありません。', 'flashMessage');
+        } else {
+            //バースデーバナーの設定を解除する
+            $this->Banner->id = $banner['Banner']['id'];
+            if ($this->Banner->saveField('birthday_id', 0)) {
+                $this->Session->setFlash('解除しました。', 'flashMessage');
+            } else {
+                $this->Sessin->setFlasha('解除できませんでした。', 'flashMessage');
+            }
+        }
+        
+        $this->redirect('/console/birthday_edit/' . $actor);
+    }
+    
+    public function birthday_banner_sort($actor = false)
+    {
+        if ($this->request->is('post')) {
+            $sort_id['Banner'] = array_values($this->request->data['Banner']);
+            foreach ($sort_id['Banner'] as $key => $val) {
+                $sort_id['Banner'][$key]['sort'] = count($sort_id['Banner']) - $key;
+            }
+            if ($this->Banner->saveMany($sort_id['Banner'])) {
+                $this->Session->setFlash('並び順を変更しました。', 'flashMessage');
+            } else {
+                $this->Session->setFlash('並び順を変更できませんでした。', 'flashMessage');
+            }
+            
+            $this->redirect('/console/birthday_edit/' . $actor);
         }
     }
     
