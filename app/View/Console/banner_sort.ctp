@@ -1,4 +1,3 @@
-<?php echo $this->Html->script('jquery-tmb', array('inline' => false)); ?>
 <?php echo $this->Html->script('http://code.jquery.com/ui/1.11.3/jquery-ui.js', array('inline' => false)); ?>
 <h3>バナー一覧</h3>
 
