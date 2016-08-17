@@ -697,6 +697,8 @@ class ConsoleController extends AppController
             'order' => array('Banner.id' => 'desc')
         );
         $banner_lists = $this->Paginator->paginate('Banner');
+        //バースデーバナーの情報を取得
+        $banner_lists = $this->Banner->belongsToBirthdayFromBanner($banner_lists);
         $this->set('banner_lists', $banner_lists);
     }
     
@@ -735,6 +737,8 @@ class ConsoleController extends AppController
             'order' => array('Banner.id' => 'desc')
         );
         $banner_lists = $this->Paginator->paginate('Banner');
+        //バースデーバナーの情報を取得
+        $banner_lists = $this->Banner->belongsToBirthdayFromBanner($banner_lists);
         $this->set('banner_lists', $banner_lists);
         
         //バナーの編集用

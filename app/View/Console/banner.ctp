@@ -88,7 +88,9 @@
             <?php echo $this->Html->image('../files/banner/'.$banner_list['Banner']['image_name'], array('alt' => $banner_list['Banner']['title'], 'class' => 'img_banner')); ?></td>
           <td class="tbl-date"><?php echo $banner_list['Banner']['date_from']; ?><?php echo ($banner_list['Banner']['date_from'])? '～' : ''; ?>
                                <?php echo ($banner_list['Banner']['date_to'])? '<br>～' : ''; ?><?php echo $banner_list['Banner']['date_to']; ?></td>
-          <td class="tbl-ico"><?php if ($banner_list['Banner']['publish'] == 0) { ?>
+          <td class="tbl-ico"><?php if ($banner_list['Banner']['Birthday']['publish'] == 1) { ?>
+                                <span class="icon-like"><?php echo $banner_list['Banner']['Birthday']['nickname']; ?></span>
+                              <?php } elseif ($banner_list['Banner']['publish'] == 0) { ?>
                                 <span class="icon-false">非公開</span>
                               <?php } elseif ($banner_list['Banner']['publish'] == 1) { ?>
                                 <?php if ($banner_list['Banner']['date_to'] && $banner_list['Banner']['date_to'] < date('Y-m-d')) { ?>
