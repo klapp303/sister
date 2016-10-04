@@ -85,7 +85,7 @@
     <?php foreach ($banner_lists as $banner_list) { ?>
       <tr><td class="tbl-num"><?php echo $banner_list['Banner']['id']; ?></td>
           <td class="tbl-tmb_banner"><a href="<?php echo $banner_list['Banner']['link_url']; ?>" target="_blank">
-            <?php echo $this->Html->image('../files/banner/'.$banner_list['Banner']['image_name'], array('alt' => $banner_list['Banner']['title'], 'class' => 'img_banner')); ?></a></td>
+            <?php echo $this->Html->image('../files/banner/' . $banner_list['Banner']['image_name'], array('alt' => $banner_list['Banner']['title'], 'class' => 'img_banner')); ?></a></td>
           <td class="tbl-date"><?php echo $banner_list['Banner']['date_from']; ?><?php echo ($banner_list['Banner']['date_from'])? '～' : ''; ?>
                                <?php echo ($banner_list['Banner']['date_to'])? '<br>～' : ''; ?><?php echo $banner_list['Banner']['date_to']; ?></td>
           <td class="tbl-ico"><?php if ($banner_list['Banner']['Birthday']['publish'] == 1) { ?>
