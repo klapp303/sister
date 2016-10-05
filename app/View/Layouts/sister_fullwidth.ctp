@@ -13,6 +13,9 @@
       if (isset($this->request['id']) == true && isset($game_detail['Game']['title']) == true) {
           echo $this->element('common_tag', array('title' => 'short'));
           echo ' ' . $game_detail['Game']['title'];
+      } elseif (@preg_match('#/tools/#', $_SERVER['REQUEST_URI']) && isset($sub_page) == true) {
+          echo $this->element('common_tag', array('title' => 'short'));
+          echo ' ' . $sub_page;
       } else {
           echo $this->element('common_tag', array('title' => 'normal'));
       }
