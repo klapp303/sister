@@ -38,7 +38,8 @@ class AppController extends Controller
                 'menu' => array(
                     1 => array('label' => 'サイト紹介', 'link' => '/information/'),
                     2 => array('label' => '管理人の紹介', 'link' => '/author/'),
-                    3 => array('label' => 'リンク', 'link' => '/link/')
+                    3 => array('label' => '自作ツール', 'link' => '/tools/'),
+                    4 => array('label' => 'リンク', 'link' => '/link/')
                 )
             ),
             2 => array(
@@ -46,8 +47,7 @@ class AppController extends Controller
                 'link' => '#',
                 'menu' => array(
                     1 => array('label' => 'エロゲレビュー', 'link' => '/game/erg/'),
-                    2 => array('label' => 'モンハンメモ', 'link' => '/game/mh/'),
-                    3 => array('label' => '自作ツール', 'link' => '/tools/')
+                    2 => array('label' => 'モンハンメモ', 'link' => '/game/mh/')
                 )
             ),
             3 => array(

@@ -24,17 +24,17 @@ if (@$array_menu[1]['menu'][1]['link'] == '/information/') {
 if (@$array_menu[1]['menu'][2]['link'] == '/author/') {
     $array_menu[1]['menu'][2]['text'] = 'サイト管理者のプロフィールです。';
 }
-if (@$array_menu[1]['menu'][3]['link'] == '/link/') {
-    $array_menu[1]['menu'][3]['text'] = '外部サイトのリンク一覧です。身内と開発用が多め。';
+if (@$array_menu[1]['menu'][3]['link'] == '/tools/') {
+    $array_menu[1]['menu'][3]['text'] = '自作ツールの公開スペースです。';
+}
+if (@$array_menu[1]['menu'][4]['link'] == '/link/') {
+    $array_menu[1]['menu'][4]['text'] = '外部サイトのリンク一覧です。身内と開発用が多め。';
 }
 if (@$array_menu[2]['menu'][1]['link'] == '/game/erg/') {
     $array_menu[2]['menu'][1]['text'] = 'えちぃゲームのレビューです。気まぐれ更新。';
 }
 if (@$array_menu[2]['menu'][2]['link'] == '/game/mh/') {
     $array_menu[2]['menu'][2]['text'] = 'モンハンちょっといい話。妹成分ほぼないです。';
-}
-if (@$array_menu[2]['menu'][3]['link'] == '/tools/') {
-    $array_menu[2]['menu'][3]['text'] = '自作ツールの公開スペースです。ゲーム関係とは限らないです。';
 }
 if (@$array_menu[5]['link'] == '/diary/') {
     $array_menu[5]['text'] = '管理人の日記です。イベントレポ多め。';
