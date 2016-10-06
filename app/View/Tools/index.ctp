@@ -9,5 +9,6 @@
 <ul class="link-page">
   <?php foreach ($array_tools['list'] as $tool) { ?>
     <li><?php echo $this->Html->link('⇨ ' . $tool['name'], '/tools/' . $tool['url']); ?></li>
+    <li><?php echo $this->Html->link('⇨ イベントスケジュール管理ツール', 'http://eventer.daynight.jp/', array('target' => '_blank')); ?></li>
   <?php } ?>
 </ul>
