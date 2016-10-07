@@ -7,12 +7,13 @@
 /app/Config/myconfig.php
 
 /app/tmp
-/app/backup
 
 /app/webroot/files/banner
 /app/webroot/files/birthday
 /app/webroot/files/maker
 /app/webroot/files/photo
+
+/backup
 
 /lib/Cake/Console/Templates/skel/tmp/
 
