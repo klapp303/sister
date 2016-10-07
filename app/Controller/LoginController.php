@@ -7,8 +7,8 @@ App::uses('Folder', 'Utility'); //フォルダAPI用
 class LoginController extends AppController
 {
     public $uses = array(
-        'Administrator', 'Banner', 'Diary', 'DiaryGenre', 'Game', 'Information', 'Link',
-        'Maker', 'Music', 'Photo', 'Product', 'SisterComment', 'Voice'
+        'Administrator', 'Banner', 'Birthday', 'Diary', 'DiaryGenre', 'Game', 'Information', 'Link',
+        'Maker', 'Music', 'Photo', 'Product', 'SisterComment'/*, 'Tool'*/, 'Voice'
     ); //使用するModel
     
     public $components = array(
@@ -73,8 +73,8 @@ class LoginController extends AppController
                 if ($backup_flg == 1) { //flgがあればバックアップを作成
                     //DBデータを取得する
                     $array_model = array(
-                        'Administrator', 'Banner', 'Diary', 'DiaryGenre', 'Game', 'Information', 'Link',
-                        'Maker', 'Music', 'Photo', 'Product', 'SisterComment', 'Voice'
+                        'Administrator', 'Banner', 'Birthday', 'Diary', 'DiaryGenre', 'Game', 'Information', 'Link',
+                        'Maker', 'Music', 'Photo', 'Product', 'SisterComment'/*, 'Tool'*/, 'Voice'
                     );
                     foreach ($array_model as $model) {
                         $this->$model->Behaviors->disable('SoftDelete');
