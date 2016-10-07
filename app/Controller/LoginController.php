@@ -98,7 +98,7 @@ class LoginController extends AppController
                         $file->close();
                         $admin_mail = Configure::read('admin_mail');
                         $email = new CakeEmail('gmail');
-                        $email->to('$admin_mail')
+                        $email->to($admin_mail)
                                 ->subject('【虹妹ｐｒｐｒシステム通知】バックアップエラー通知')
                                 ->template('backup_error', 'sister_mail')
                                 ->viewVars(array(
