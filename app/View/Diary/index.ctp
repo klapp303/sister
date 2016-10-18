@@ -1,4 +1,16 @@
 <?php echo $this->Html->css('diary', array('inline' => false)); ?>
+<?php echo $this->Html->script('jquery.lazyload.min', array('inline' => false)); ?>
+<script>
+    $(function() {
+        $('img.lazy').lazyload( {
+            //LazyLoadのオプション設定
+            threshold: 200 //数値のpxまでスクロールしたら画像を読み込み
+//            effect: 'fadeIn', //読み込みにフェードイン効果
+//            effect_speed: 3000, //読み込み速度、単位はs
+//            failure_limit: 3 //非表示の判定があってもいくつ先まで判定させるか
+        } );
+    });
+</script>
 <?php $birthday = $this->Session->read('birthday'); ?>
 <div id="menu_top" class="mobile cf">
   <?php echo $this->element('submenu_mobile', array('diary_lists' => $diary_lists)); ?>

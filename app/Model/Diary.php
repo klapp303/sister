@@ -67,6 +67,7 @@ class Diary extends AppModel
     public function changeCodeToDiary($diary_lists = false)
     {
         foreach ($diary_lists as $key => $diary_list) {
+            //日記のジャンルが備忘録ならば本文を<pre>タグで囲む
             if ($diary_list['Diary']['genre_id'] == 4) {
                 $diary_lists[$key]['Diary']['text'] = '<pre>' . $diary_list['Diary']['text'] . '</pre>';
             }
@@ -105,5 +106,16 @@ class Diary extends AppModel
         }
         
         return $image;
+    }
+    
+    public function formatDiaryToLazy($diary_lists = false)
+    {
+        foreach ($diary_lists as $key => $diary_list) {
+            //日記の本文に画像リンクがあればLazyLoad用に変換する
+            $text = str_replace('<img src=', '<img data-original=', $diary_list['Diary']['text']);
+            $text = str_replace('class="img_diary"', 'class="img_diary lazy"', $text);
+            $diary_lists[$key]['Diary']['text'] = $text;
+        }
+        return $diary_lists;
     }
 }
