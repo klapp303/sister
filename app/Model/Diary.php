@@ -110,6 +110,13 @@ class Diary extends AppModel
     
     public function formatDiaryToLazy($diary_lists = false)
     {
+        //ユーザーエージェントを取得
+        $ua = $_SERVER['HTTP_USER_AGENT'];
+        //googlebotならばLazyLoadを使わないので変換せずに返す
+        if (preg_match("/Googlebot/", $ua) === 1) {
+            return $diary_lists;
+        }
+        
         foreach ($diary_lists as $key => $diary_list) {
             //日記の本文に画像リンクがあればLazyLoad用に変換する
             $text = str_replace('<img src=', '<img data-original=', $diary_list['Diary']['text']);
