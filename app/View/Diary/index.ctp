@@ -1,4 +1,5 @@
 <?php echo $this->Html->css('diary', array('inline' => false)); ?>
+<?php // echo $this->Html->script('img_check', array('inline' => false)); ?>
 <?php echo $this->Html->script('jquery.lazyload.min', array('inline' => false)); ?>
 <script>
     $(function() {
