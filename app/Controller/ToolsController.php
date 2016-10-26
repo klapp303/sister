@@ -24,7 +24,7 @@ class ToolsController extends AppController
         $this->set('array_tools', $array_tools);
     }
     
-    public function ranking()
+    public function ranking($data_type = false)
     {
         //breadcrumbの設定
         $tool_name = $this->Tool->getToolName('ranking');
@@ -36,6 +36,15 @@ class ToolsController extends AppController
         }
         if (@$this->Session->read('sort_log')) {
             $this->Session->delete('sort_log');
+        }
+        if (@$this->Session->read('sort_confirm')) {
+            $this->Session->delete('sort_confirm');
+        }
+        
+        //デフォルトのデータがある場合は設定
+        if ($data_type) {
+            $ranking_data = $this->Tool->createRankingData($data_type);
+            $this->request->data['Tool']['data'] = $ranking_data;
         }
     }
     
@@ -92,16 +101,26 @@ class ToolsController extends AppController
         
         //ソートするデータ数が複数ない場合
         if (count($sort_data) < 2) {
-            $this->Session->setFlash('データが少なすぎます。<br>データとデータの間は改行してください。', 'flashMessage');
+            $this->Session->setFlash('データ数が少なすぎます。<br>データとデータの間は改行してください。', 'flashMessage');
             $this->render('ranking');
             return;
         }
         
         //ソートするデータ数が100より多い場合
         if (count($sort_data) > 100) {
-            $this->Session->setFlash('データ数が多すぎます。<br>途中でイヤになりますよ。', 'flashMessage');
-            $this->render('ranking');
-            return;
+            $sort_confirm = @$this->Session->read('sort_confirm');
+            //最初は確認メッセージを出してSession情報を更新する
+            if (!@$sort_confirm || $sort_confirm != count($sort_data)) {
+                $this->Session->write('sort_confirm', count($sort_data));
+                $this->Session->setFlash('データ数が多すぎます。<br>途中でイヤになりますよ。', 'flashMessage');
+                
+                $this->render('ranking');
+                return;
+                
+            //次は同じSession情報ならばソート開始
+            } else {
+                
+            }
         }
         
         //ソートの処理内容

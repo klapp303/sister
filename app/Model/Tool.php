@@ -64,4 +64,27 @@ class Tool extends AppModel{
         
         return $tool_name;
     }
+    
+    public function createRankingData($data_type = false, $data = false)
+    {
+        if ($data_type == 'fortuna') {
+            $data = '竹達彩奈';
+            $data .= PHP_EOL . '悠木碧';
+            $data .= PHP_EOL . '小倉唯';
+            $data .= PHP_EOL . '内田真礼';
+        }
+        
+        //イベ幸データベース内のアーティスト一覧
+        if ($data_type == 'evesachi') {
+            $this->loadModel('EventerArtist');
+            $artist_lists = $this->EventerArtist->getArtistLists('list');
+            //データの整形
+            $data = '';
+            foreach ($artist_lists as $artist) {
+                $data .= PHP_EOL . $artist;
+            }
+        }
+        
+        return $data;
+    }
 }

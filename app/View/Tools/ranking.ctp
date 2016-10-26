@@ -1,5 +1,5 @@
 <?php echo $this->Html->css('tools', array('inline' => false)); ?>
-<h3><?php echo $sub_page; ?> <span class="txt-min">ver1.0</span></h3>
+<h3><?php echo $sub_page; ?> <span class="txt-min">ver1.1</span></h3>
 
 <?php if (@$sort_data) { ?>
   <ol class="result_rank">
