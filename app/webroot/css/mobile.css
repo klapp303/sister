@@ -104,6 +104,12 @@
   padding-left: 20px;
 }
 
+/* tools */
+.update-log {
+  width: auto;
+  margin: 20px 20px 30px 20px;
+}
+
 /* erg */
 .game-list {
   width: 100%;

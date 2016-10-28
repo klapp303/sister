@@ -36,3 +36,24 @@
 .link-page >li {
   margin-bottom: 10px;
 }
+
+/* ツール更新履歴用 */
+.h4_tools {
+  margin-top: 50px;
+  margin-left: 20px;
+}
+.update-log {
+  width: 360px;
+  margin: 20px 40px 50px 40px;
+  max-height: 150px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.update-date {
+  font-size: 12px;
+  text-align: right;
+  margin-right: 20px;
+}
+.update-log >hr {
+  width: 90%;
+}

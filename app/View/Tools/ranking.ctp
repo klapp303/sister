@@ -1,5 +1,5 @@
 <?php echo $this->Html->css('tools', array('inline' => false)); ?>
-<h3><?php echo $sub_page; ?> <span class="txt-min">ver1.1</span></h3>
+<h3><?php echo $tool_data['name']; ?> <span class="txt-min">ver<?php echo $tool_data['version_latest']; ?></span></h3>
 
 <?php if (@$sort_data) { ?>
   <ol class="result_rank">
@@ -13,7 +13,7 @@
   <hr>
 <?php } ?>
 
-<p class="intro_rank">
+<p class="intro_tools">
   データを複数入力すると、自動的に二択の選択肢が作られていきます。<br>
   画面に従ってどちらかを選んでいく事で最終的にソートが可能です。<br>
   <br>
@@ -37,3 +37,13 @@
     </tr>
     <?php echo $this->Form->end(); ?><!-- form end -->
   </table>
+
+<h4 class="h4_tools">更新履歴</h4>
+
+  <div class="update-log">
+    <?php foreach ($tool_data['version'] as $key => $version) { ?>
+      <div><span class="txt-min">ver<?php echo $key; ?></span> <?php echo $version[1]; ?></div>
+      <div class="update-date"><?php echo $version[0]; ?></div>
+      <hr>
+    <?php } ?>
+  </div>

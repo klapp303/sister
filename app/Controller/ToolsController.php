@@ -15,9 +15,9 @@ class ToolsController extends AppController
     public function index()
     {
         $array_tools = $this->Tool->getArrayTools();
-        //urlが設定されてなければ公開前と判断してunset
+        //ツール名とurlが設定されてなければ公開前と判断してunset
         foreach ($array_tools['list'] as $key => $tool) {
-            if (!$tool['url']) {
+            if (!$tool['name'] || !$tool['url']) {
                 unset($array_tools['list'][$key]);
             }
         }
@@ -26,9 +26,10 @@ class ToolsController extends AppController
     
     public function ranking($data_type = false)
     {
+        $tool_data = $this->Tool->getToolName('ranking');
+        $this->set('tool_data', $tool_data);
         //breadcrumbの設定
-        $tool_name = $this->Tool->getToolName('ranking');
-        $this->set('sub_page', $tool_name);
+        $this->set('sub_page', $tool_data['name']);
         
         //前にソートしたsessionデータが残っていれば削除
         if (@$this->Session->read('sort_data')) {
@@ -50,9 +51,10 @@ class ToolsController extends AppController
     
     public function ranking_sort($reset = null)
     {
+        $tool_data = $this->Tool->getToolName('ranking');
+        $this->set('tool_data', $tool_data);
         //breadcrumbの設定
-        $tool_name = $this->Tool->getToolName('ranking');
-        $this->set('sub_page', $tool_name);
+        $this->set('sub_page', $tool_data['name']);
         
         if (!$this->request->is('post')) {
             //ひとつ前の選択肢に戻るから遷移の場合ならばredirectしない

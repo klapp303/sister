@@ -39,9 +39,21 @@ class Tool extends AppModel{
         $array_tools = array(
             0 => array(
                 'name' => 'ランキング作成ツール',
-                'url' => 'ranking'
+                'url' => 'ranking',
+                'version' => array(
+                    '1.0' => array('2016-06-29', 'ツール公開')
+                )
             )
         );
+        //データに最新versionを加えておく
+        foreach ($array_tools as $key => $tool) {
+            $name = $tool['name'];
+            $ver = '1.0';
+            foreach ($tool['version'] as $key2 => $version) {
+                $ver = $key2; //latest version
+            }
+            $array_tools[$key]['version_latest'] = $ver;
+        }
         $count = count($array_tools);
         
         $data['list'] = $array_tools;
@@ -52,17 +64,19 @@ class Tool extends AppModel{
     
     public function getToolName($url = false)
     {
-        $tool_name = '自作ツール'; //ツール名の設定がない場合
-        
         $tool_lists = $this->getArrayTools();
         foreach ($tool_lists['list'] as $tool) {
             if ($tool['url'] == $url) {
-                $tool_name = $tool['name'];
+                $data['name'] = $tool['name'];
+                $data['url'] = $tool['url'];
+                //version情報は最新を上にするため
+                $data['version'] = array_reverse($tool['version']);
+                $data['version_latest'] = $tool['version_latest'];
                 break;
             }
         }
         
-        return $tool_name;
+        return $data;
     }
     
     public function createRankingData($data_type = false, $data = false)

@@ -1,5 +1,5 @@
 <?php echo $this->Html->css('tools', array('inline' => false)); ?>
-<h3><?php echo $sub_page; ?> <span class="txt-min">ver1.1</span></h3>
+<h3><?php echo $tool_data['name']; ?> <span class="txt-min">ver<?php echo $tool_data['version_latest']; ?></span></h3>
 
   <table class="tbl_rank">
     <tr><td class="title_rank"><?php echo $select['left']['data']; ?></td>
