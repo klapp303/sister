@@ -158,6 +158,10 @@ class ToolsController extends AppController
         
         //配列をソート値の降順に並び替える
         foreach ($sort_data as $key => $val) {
+            //ソート値が同じ場合、データの値によってソートされてしまうので
+            if ($val['sort'] == 0) {
+                $val['sort'] = 0 - $key;
+            }
             $tmp_array_sort[$key] = $val['sort'];
         }
         array_multisort($tmp_array_sort, SORT_DESC, $sort_data);
