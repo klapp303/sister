@@ -66,7 +66,8 @@ class ToolsController extends AppController
             }
         }
         
-        //rankingページから遷移の場合、ソート開始
+        //ソートの処理内容
+        //rankingページから遷移の場合、ソートを開始
         if (@$this->request->data['Tool']['data']) {
             $data = $this->request->data['Tool']['data'];
             //postデータを改行毎の配列にする
@@ -79,13 +80,44 @@ class ToolsController extends AppController
             foreach ($array_data as $key => $val) {
                 $sort_data[$key]['data'] = $val;
                 $sort_data[$key]['sort'] = 0;
-                $sort_data[$key]['flg'] = 0;
+//                $sort_data[$key]['flg'] = 0;
             }
             //選択肢の順番が予測しにくいように配列をランダムに並び替え
             shuffle($sort_data);
             //1つ目のデータは基準値としてソート値を代入しておく
             $sort_data[0]['sort'] = count($sort_data);
-        //ranking_sortページから遷移の場合、ソート途中
+            
+            //ソートするデータ数が複数ない場合
+            if (count($sort_data) < 2) {
+                $this->Session->setFlash('データ数が少なすぎます。<br>データとデータの間は改行してください。', 'flashMessage');
+                $this->render('ranking');
+                return;
+            }
+            //ソートするデータ数が100より多い場合
+            if (count($sort_data) > 100) {
+                $sort_confirm = @$this->Session->read('sort_confirm');
+                //最初は確認メッセージを出してSession情報を更新する
+                if (!@$sort_confirm || $sort_confirm != count($sort_data)) {
+                    $this->Session->write('sort_confirm', count($sort_data));
+                    $this->Session->setFlash('データ数が多すぎます。<br>途中でイヤになりますよ。', 'flashMessage');
+                    
+                    $this->render('ranking');
+                    return;
+                    
+                //2回目も同じSession情報ならばソート開始
+                } else {
+                    
+                }
+            }
+            
+            //選択肢を作成
+            $select = [];
+            $select['left']['key'] = 1;
+            $select['left']['data'] = $sort_data[1]['data'];
+            $select['right']['key'] = 0;
+            $select['right']['data'] = $sort_data[0]['data'];
+            
+        //ranking_sortページから遷移の場合、ソートの途中
         } else {
             //通常はsession情報のsort_dataから読み込む
             if (@!$rsest) {
@@ -99,66 +131,117 @@ class ToolsController extends AppController
             } else {
                 $sort_data = $this->Session->read('sort_log');
             }
-        }
-        
-        //ソートするデータ数が複数ない場合
-        if (count($sort_data) < 2) {
-            $this->Session->setFlash('データ数が少なすぎます。<br>データとデータの間は改行してください。', 'flashMessage');
-            $this->render('ranking');
-            return;
-        }
-        
-        //ソートするデータ数が100より多い場合
-        if (count($sort_data) > 100) {
-            $sort_confirm = @$this->Session->read('sort_confirm');
-            //最初は確認メッセージを出してSession情報を更新する
-            if (!@$sort_confirm || $sort_confirm != count($sort_data)) {
-                $this->Session->write('sort_confirm', count($sort_data));
-                $this->Session->setFlash('データ数が多すぎます。<br>途中でイヤになりますよ。', 'flashMessage');
+            
+            //ソートが完了している場合は結果を表示
+            $sort_end_flg = 1;
+            foreach ($sort_data as $val) {
+                if ($val['sort'] == 0) {
+                    $sort_end_flg = 0;
+                }
+            }
+            if ($sort_end_flg == 1) {
+                $this->Session->setFlash('ソートが完了しました。', 'flashMessage');
+                $this->set('sort_data', $sort_data);
+                //textarea用のデータを整形
+                $sort_data_text = $sort_data[0]['data'];
+                foreach ($sort_data as $key => $val) {
+                    if ($key == 0) {
+                        continue;
+                    }
+                    $sort_data_text = $sort_data_text . '&#13;' . $val['data'];
+                }
+                $this->set('sort_data_text', $sort_data_text);
                 
                 $this->render('ranking');
-                return;
+            }
+            
+            //ソート中のデータを選択した場合
+            if (@$this->request->data['Tool']['sort'] == 'left') {
+                $selected = 'left';
+                $left_key = $this->request->data['Tool']['left_key'];
+                $right_key = $this->request->data['Tool']['right_key'];
+//                $sort_data[$right_key]['flg'] = 1;
                 
-            //次は同じSession情報ならばソート開始
-            } else {
+                //次の選択肢を作成
+                $select = [];
+                //比較データはより上位のものを選ぶ
+                $right_new_key = $right_key -1;
+                if ($right_new_key >= 0) {
+                    //上位の比較データがあれば選択肢にする
+                    $select['right']['key'] = $right_new_key;
+                    $select['right']['data'] = $sort_data[$right_new_key]['data'];
+                    //ソート中のデータは同じデータを選択肢にする
+                    $select['left']['key'] = $left_key;
+                    $select['left']['data'] = $sort_data[$left_key]['data'];
+                } else {
+                    //上位の比較データがなければソート中のデータのソート値を確定
+                    foreach ($sort_data as $key => $val) {
+                        if ($val['sort'] > 0) {
+                            $sort_data[$key]['sort']--;
+                        }
+                    }
+                    $sort_data[$left_key]['sort'] = $sort_data[$right_key]['sort'] +1;
+                    //ソート中のデータは次のデータを選択肢にする
+                    $left_new_key = $left_key +1;
+                    $select['left']['key'] = $left_new_key;
+                    $select['left']['data'] = $sort_data[$left_new_key]['data'];
+                    //比較データはソート済の中から選ぶ
+                    if ($left_key%2 == 0) {
+                        $right_new_key = $left_key /2;
+                    } else {
+                        $right_new_key = ($left_key +1) /2 -1;
+                    }
+                    $select['right']['key'] = $right_new_key;
+                    $select['right']['data'] = $sort_data[$right_new_key]['data'];
+                    //flgはリセットしておく
+//                    foreach ($sort_data as $key => $val) {
+//                        $sort_data[$key]['flg'] = 0;
+//                    }
+                }
+            }
+            
+            //比較データを選択した場合
+            if (@$this->request->data['Tool']['sort'] == 'right') {
+                $selected = 'right';
+                $left_key = $this->request->data['Tool']['left_key'];
+                $right_key = $this->request->data['Tool']['right_key'];
+//                $sort_data[$right_key]['flg'] = 1;
                 
+                //次の選択肢を作成
+                $select = [];
+                //比較データはより下位のものを選ぶ
+                $right_new_key = $right_key +1;
+                if ($right_new_key < $left_key) {
+                    //下位の比較データがあれば選択肢にする
+                    $select['right']['key'] = $right_new_key;
+                    $select['right']['data'] = $sort_data[$right_new_key]['data'];
+                    //ソート中のデータは同じデータを選択肢にする
+                    $select['left']['key'] = $left_key;
+                    $select['left']['data'] = $sort_data[$left_key]['data'];
+                } else {
+                    //下位の比較データがなければソート中のデータのソート値を確定
+                    $sort_data[$left_key]['sort'] = $sort_data[$right_key]['sort'] -1;
+                    //ソート中のデータは次のデータを選択肢にする
+                    $left_new_key = $left_key +1;
+                    $select['left']['key'] = $left_new_key;
+                    $select['left']['data'] = $sort_data[$left_new_key]['data'];
+                    //比較データはソート済の中から選ぶ
+                    if ($left_key%2 == 0) {
+                        $right_new_key = $left_key /2;
+                    } else {
+                        $right_new_key = ($left_key +1) /2 -1;
+                    }
+                    $select['right']['key'] = $right_new_key;
+                    $select['right']['data'] = $sort_data[$right_new_key]['data'];
+                    //flgはリセットしておく
+//                    foreach ($sort_data as $key => $val) {
+//                        $sort_data[$key]['flg'] = 0;
+//                    }
+                }
             }
         }
         
-        //ソートの処理内容
-//        echo'<pre>';print_r($this->request->data);echo'</pre>';
-        if (@$this->request->data['Tool']['sort'] == 'left') {
-            $left_key = $this->request->data['Tool']['left_key'];
-            $right_key = $this->request->data['Tool']['right_key'];
-            //ソート中のデータが選択された場合は比較データにflg処理
-            $sort_data[$right_key]['flg'] = 1;
-            //比較データ全てにflg処理があればソート値を最大に決める
-            if ($sort_data[0]['flg'] == 1) {
-                $sort_data[$left_key]['sort'] = $sort_data[0]['sort'] +1;
-                $sort_data[$left_key]['flg'] = 1; //並び替えるとソート中のデータが配列の最初に来るので
-            }
-        }
-        if (@$this->request->data['Tool']['sort'] == 'right') {
-            $left_key = $this->request->data['Tool']['left_key'];
-            $right_key = $this->request->data['Tool']['right_key'];
-            //比較データが選択された場合は比較済データのソート値をずらして、ソート値を決める
-            foreach ($sort_data as $key => &$val) {
-                if ($key > $right_key && $val['sort'] != 0) {
-                    $val['sort']--;
-                }
-            }
-            unset($val);
-            $sort_data[$left_key]['sort'] = $sort_data[$right_key]['sort'] -1;
-            //比較データ全てにflg処理
-            foreach ($sort_data as &$val) {
-                if ($val['sort'] > 0) {
-                    $val['flg'] = 1;
-                }
-            }
-            unset($val);
-        }
-        
-        //配列をソート値の降順に並び替える
+        //ソート結果をソート値の降順に並び替える
         foreach ($sort_data as $key => $val) {
             //ソート値が同じ場合、データの値によってソートされてしまうので
             if ($val['sort'] == 0) {
@@ -167,78 +250,11 @@ class ToolsController extends AppController
             $tmp_array_sort[$key] = $val['sort'];
         }
         array_multisort($tmp_array_sort, SORT_DESC, $sort_data);
+//        echo'<pre>';print_r($select);echo'</pre>';
 //        echo'<pre>';print_r($sort_data);echo'</pre>';
         
-        //ソートが完了している場合は結果を表示
-        $sort_end_flg = 1;
-        foreach ($sort_data as $val) {
-            if ($val['sort'] == 0) {
-                $sort_end_flg = 0;
-            }
-        }
-        if ($sort_end_flg == 1) {
-            $this->Session->setFlash('ソートが完了しました。', 'flashMessage');
-            $this->set('sort_data', $sort_data);
-            //textarea用のデータを整形
-            $sort_data_text = $sort_data[0]['data'];
-            foreach ($sort_data as $key => $val) {
-                if ($key == 0) {
-                    continue;
-                }
-                $sort_data_text = $sort_data_text . '&#13;' . $val['data'];
-            }
-            $this->set('sort_data_text', $sort_data_text);
-            
-            $this->render('ranking');
-        }
-        
-        //次の選択肢を作成
-        $select = [];
-        //ソート中のデータがない場合
-        if ($sort_data[0]['flg'] == 1) {
-            foreach ($sort_data as $key => $val) {
-                //次のデータを選択肢にする
-                if ($val['sort'] == 0) {
-                    $select['left']['key'] = $key;
-                    $select['left']['data'] = $val['data'];
-                    $select['right']['key'] = $key -1;
-                    $select['right']['data'] = $sort_data[$key -1]['data'];
-                    //flgはリセットしておく
-                    foreach ($sort_data as &$flg) {
-                        $flg['flg'] = 0;
-                    }
-                    unset($flg);
-                    break;
-                }
-            }
-        //ソート中のデータがある場合
-        } else {
-            foreach ($sort_data as $key => $val) {
-                //flgからソート中の続きを選択肢にする
-                if ($val['flg'] == 1) {
-                    $select['right']['key'] = $key -1;
-                    $select['right']['data'] = $sort_data[$key -1]['data'];
-                    foreach ($sort_data as $key2 => $val2) {
-                        if ($val2['sort'] == 0) {
-                            $select['left']['key'] = $key2;
-                            $select['left']['data'] = $val2['data'];
-                            break 2;
-                        }
-                    }
-                }
-            }
-        }
-        //そもそもソート開始の場合
-        if (!$select) {
-            $select['left']['key'] = 1;
-            $select['left']['data'] = $sort_data[1]['data'];
-            $select['right']['key'] = 0;
-            $select['right']['data'] = $sort_data[0]['data'];
-        }
         $this->set('select', $select);
-//        echo'<pre>';print_r($select);echo'</pre>';
-        
-        //ソート結果をsessionデータとして渡す
+        //ソート結果はsession情報として渡す
         $this->Session->write('sort_data', $sort_data);
     }
 }
