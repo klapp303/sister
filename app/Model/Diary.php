@@ -99,6 +99,18 @@ class Diary extends AppModel
                     $image = $image[1];
                 }
             }
+            
+            //テキスト中に <img data-original=""> がある場合
+            $text_array = explode('data-original="', $text, 2);
+            if (@$text_array[1] && @!$image) {
+                $image_array = explode('"', $text_array[1], 2);
+                $image = $image_array[0];
+                //URLが / から始まる場合は先頭の / は除く
+                if (strstr($image, '/') == $image) {
+                    $image = explode('/', $image, 2);
+                    $image = $image[1];
+                }
+            }
         }
         
         if (@!$image) {
