@@ -80,7 +80,7 @@ class ToolsController extends AppController
             foreach ($array_data as $key => $val) {
                 $sort_data[$key]['data'] = $val;
                 $sort_data[$key]['sort'] = 0;
-//                $sort_data[$key]['flg'] = 0;
+                $sort_data[$key]['flg'] = 0;
             }
             //選択肢の順番が予測しにくいように配列をランダムに並び替え
             shuffle($sort_data);
@@ -132,41 +132,18 @@ class ToolsController extends AppController
                 $sort_data = $this->Session->read('sort_log');
             }
             
-            //ソートが完了している場合は結果を表示
-            $sort_end_flg = 1;
-            foreach ($sort_data as $val) {
-                if ($val['sort'] == 0) {
-                    $sort_end_flg = 0;
-                }
-            }
-            if ($sort_end_flg == 1) {
-                $this->Session->setFlash('ソートが完了しました。', 'flashMessage');
-                $this->set('sort_data', $sort_data);
-                //textarea用のデータを整形
-                $sort_data_text = $sort_data[0]['data'];
-                foreach ($sort_data as $key => $val) {
-                    if ($key == 0) {
-                        continue;
-                    }
-                    $sort_data_text = $sort_data_text . '&#13;' . $val['data'];
-                }
-                $this->set('sort_data_text', $sort_data_text);
-                
-                $this->render('ranking');
-            }
-            
             //ソート中のデータを選択した場合
             if (@$this->request->data['Tool']['sort'] == 'left') {
                 $selected = 'left';
                 $left_key = $this->request->data['Tool']['left_key'];
                 $right_key = $this->request->data['Tool']['right_key'];
-//                $sort_data[$right_key]['flg'] = 1;
+                $sort_data[$right_key]['flg'] = 1;
                 
                 //次の選択肢を作成
                 $select = [];
                 //比較データはより上位のものを選ぶ
                 $right_new_key = $right_key -1;
-                if ($right_new_key >= 0) {
+                if ($right_new_key >= 0 && $sort_data[$right_new_key]['flg'] != 1) {
                     //上位の比較データがあれば選択肢にする
                     $select['right']['key'] = $right_new_key;
                     $select['right']['data'] = $sort_data[$right_new_key]['data'];
@@ -176,11 +153,20 @@ class ToolsController extends AppController
                 } else {
                     //上位の比較データがなければソート中のデータのソート値を確定
                     foreach ($sort_data as $key => $val) {
-                        if ($val['sort'] > 0) {
+                        if ($val['sort'] > 0 && $key >= $right_key) {
                             $sort_data[$key]['sort']--;
                         }
                     }
                     $sort_data[$left_key]['sort'] = $sort_data[$right_key]['sort'] +1;
+                    //ソート結果をソート値の降順に並び替える
+                    foreach ($sort_data as $key => $val) {
+                        //ソート値が同じ場合、データの値によってソートされてしまうので
+                        if ($val['sort'] == 0) {
+                            $val['sort'] = 0 - $key;
+                        }
+                        $tmp_array_sort[$key] = $val['sort'];
+                    }
+                    array_multisort($tmp_array_sort, SORT_DESC, $sort_data);
                     //ソート中のデータは次のデータを選択肢にする
                     $left_new_key = $left_key +1;
                     $select['left']['key'] = $left_new_key;
@@ -194,9 +180,9 @@ class ToolsController extends AppController
                     $select['right']['key'] = $right_new_key;
                     $select['right']['data'] = $sort_data[$right_new_key]['data'];
                     //flgはリセットしておく
-//                    foreach ($sort_data as $key => $val) {
-//                        $sort_data[$key]['flg'] = 0;
-//                    }
+                    foreach ($sort_data as $key => $val) {
+                        $sort_data[$key]['flg'] = 0;
+                    }
                 }
             }
             
@@ -205,13 +191,13 @@ class ToolsController extends AppController
                 $selected = 'right';
                 $left_key = $this->request->data['Tool']['left_key'];
                 $right_key = $this->request->data['Tool']['right_key'];
-//                $sort_data[$right_key]['flg'] = 1;
+                $sort_data[$right_key]['flg'] = 1;
                 
                 //次の選択肢を作成
                 $select = [];
                 //比較データはより下位のものを選ぶ
                 $right_new_key = $right_key +1;
-                if ($right_new_key < $left_key) {
+                if ($right_new_key < $left_key && $sort_data[$right_new_key]['flg'] != 1) {
                     //下位の比較データがあれば選択肢にする
                     $select['right']['key'] = $right_new_key;
                     $select['right']['data'] = $sort_data[$right_new_key]['data'];
@@ -220,7 +206,21 @@ class ToolsController extends AppController
                     $select['left']['data'] = $sort_data[$left_key]['data'];
                 } else {
                     //下位の比較データがなければソート中のデータのソート値を確定
+                    foreach ($sort_data as $key => $val) {
+                        if ($val['sort'] > 0 && $key > $right_key) {
+                            $sort_data[$key]['sort']--;
+                        }
+                    }
                     $sort_data[$left_key]['sort'] = $sort_data[$right_key]['sort'] -1;
+                    //ソート結果をソート値の降順に並び替える
+                    foreach ($sort_data as $key => $val) {
+                        //ソート値が同じ場合、データの値によってソートされてしまうので
+                        if ($val['sort'] == 0) {
+                            $val['sort'] = 0 - $key;
+                        }
+                        $tmp_array_sort[$key] = $val['sort'];
+                    }
+                    array_multisort($tmp_array_sort, SORT_DESC, $sort_data);
                     //ソート中のデータは次のデータを選択肢にする
                     $left_new_key = $left_key +1;
                     $select['left']['key'] = $left_new_key;
@@ -234,22 +234,36 @@ class ToolsController extends AppController
                     $select['right']['key'] = $right_new_key;
                     $select['right']['data'] = $sort_data[$right_new_key]['data'];
                     //flgはリセットしておく
-//                    foreach ($sort_data as $key => $val) {
-//                        $sort_data[$key]['flg'] = 0;
-//                    }
+                    foreach ($sort_data as $key => $val) {
+                        $sort_data[$key]['flg'] = 0;
+                    }
                 }
             }
         }
         
-        //ソート結果をソート値の降順に並び替える
-        foreach ($sort_data as $key => $val) {
-            //ソート値が同じ場合、データの値によってソートされてしまうので
+        //ソートが完了している場合は結果を表示
+        $sort_end_flg = 1;
+        foreach ($sort_data as $val) {
             if ($val['sort'] == 0) {
-                $val['sort'] = 0 - $key;
+                $sort_end_flg = 0;
             }
-            $tmp_array_sort[$key] = $val['sort'];
         }
-        array_multisort($tmp_array_sort, SORT_DESC, $sort_data);
+        if ($sort_end_flg == 1) {
+            $this->Session->setFlash('ソートが完了しました。', 'flashMessage');
+            $this->set('sort_data', $sort_data);
+            //textarea用のデータを整形
+            $sort_data_text = $sort_data[0]['data'];
+            foreach ($sort_data as $key => $val) {
+                if ($key == 0) {
+                    continue;
+                }
+                $sort_data_text = $sort_data_text . '&#13;' . $val['data'];
+            }
+            $this->set('sort_data_text', $sort_data_text);
+            
+            $this->render('ranking');
+        }
+        
 //        echo'<pre>';print_r($select);echo'</pre>';
 //        echo'<pre>';print_r($sort_data);echo'</pre>';
         
