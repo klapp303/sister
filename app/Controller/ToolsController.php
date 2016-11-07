@@ -38,6 +38,9 @@ class ToolsController extends AppController
         if (@$this->Session->read('sort_log')) {
             $this->Session->delete('sort_log');
         }
+        if (@$this->Session->read('select_log')) {
+            $this->Session->delete('select_log');
+        }
         if (@$this->Session->read('sort_confirm')) {
             $this->Session->delete('sort_confirm');
         }
@@ -49,7 +52,7 @@ class ToolsController extends AppController
         }
     }
     
-    public function ranking_sort($reset = null)
+    public function ranking_sort($reset = false)
     {
         $tool_data = $this->Tool->getToolName('ranking');
         $this->set('tool_data', $tool_data);
@@ -117,19 +120,25 @@ class ToolsController extends AppController
             $select['right']['key'] = 0;
             $select['right']['data'] = $sort_data[0]['data'];
             
+            //ひとつ前の選択肢に戻るを表示しないため
+            $this->set('sort_back', 'no');
+            
         //ranking_sortページから遷移の場合、ソートの途中
         } else {
             //通常はsession情報のsort_dataから読み込む
-            if (@!$rsest) {
+            if (@!$reset) {
                 $sort_data = $this->Session->read('sort_data');
                 //ひとつ前の選択肢に戻れるようsession情報にlogを残しておく
                 if ($sort_data) {
                     $this->Session->delete('sort_log');
                     $this->Session->write('sort_log', $sort_data);
+                    $this->Session->delete('select_log');
+                    $this->Session->write('select_log', $this->request->data);
                 }
             //ひとつ前の選択肢に戻った場合はsession情報のsort_logから読み込む
             } else {
                 $sort_data = $this->Session->read('sort_log');
+                $select_log = $this->Session->read('select_log');
             }
             
             //ソート中のデータを選択した場合
@@ -238,6 +247,19 @@ class ToolsController extends AppController
                         $sort_data[$key]['flg'] = 0;
                     }
                 }
+            }
+            
+            //ひとつ前の選択肢から戻った場合
+            if (@$reset) {
+                //次の選択肢を作成
+                $select = [];
+                //前の選択肢から取得する
+                $left_new_key = $select_log['Tool']['left_key'];
+                $select['left']['key'] = $left_new_key;
+                $select['left']['data'] = $sort_data[$left_new_key]['data'];
+                $right_new_key = $select_log['Tool']['right_key'];
+                $select['right']['key'] = $right_new_key;
+                $select['right']['data'] = $sort_data[$right_new_key]['data'];
             }
         }
         
