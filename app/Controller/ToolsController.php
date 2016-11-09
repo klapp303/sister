@@ -293,4 +293,121 @@ class ToolsController extends AppController
         //ソート結果はsession情報として渡す
         $this->Session->write('sort_data', $sort_data);
     }
+    
+    public function mh_skill()
+    {
+        $tool_data = $this->Tool->getToolName('mh_skill');
+        $this->set('tool_data', $tool_data);
+        //breadcrumbの設定
+        $this->set('sub_page', $tool_data['name']);
+        
+        
+    }
+    
+    public function mh_skill_sim()
+    {
+        $tool_data = $this->Tool->getToolName('mh_skill');
+        $this->set('tool_data', $tool_data);
+        //breadcrumbの設定
+        $this->set('sub_page', $tool_data['name']);
+        
+        if (!$this->request->is('post')) {
+            $this->redirect('/tools/mh_skill/');
+        }
+        
+        //期待値の計算内容
+        $weapon_data = $this->request->data['weapon'];
+        $skill_data = $this->request->data['skill'];
+        //基礎攻撃力に変換
+        
+        //スキル
+        //ここから攻撃力の計算
+        //攻撃力UP
+        if ($skill_data[1] == 1) {
+            $weapon_data['attack'] += 10;
+        } elseif($skill_data[1] == 2) {
+            $weapon_data['attack'] += 15;
+        } elseif($skill_data[1] == 3) {
+            $weapon_data['attack'] += 20;
+        }
+        //挑戦者
+        if ($skill_data[3] == 1) {
+            $weapon_data['attack'] += 10*0.67;
+        } elseif ($skill_data[3] == 2) {
+            $weapon_data['attack'] += 20*0.67;
+        }
+        //フルチャージ、逆恨み
+        if ($skill_data[6] == 1 || $skill_data[6] == 3) {
+            $weapon_data['attack'] += 20;
+        } elseif ($skill_data[6] == 2 || $skill_data[6] == 4) {
+            $weapon_data['attack'] += 20*0.5;
+        }
+        //北風、南風
+        if ($skill_data[7] == 1) {
+            $weapon_data['attack'] += 20;
+        } elseif ($skill_data[7] == 2) {
+            $weapon_data['attack'] += 15;
+        }
+        //護符爪
+        $weapon_data['attack'] += 15;
+        //ネコ飯
+        $weapon_data['attack'] += 7;
+        //怪力の種 or 鬼人笛
+        $weapon_data['attack'] += 10;
+        
+        //ここから会心率の計算
+        //見切り
+        if ($skill_data[2] == 1) {
+            $weapon_data['critical'] += 10;
+        } elseif($skill_data[2] == 2) {
+            $weapon_data['critical'] += 20;
+        } elseif ($skill_data[2] == 3) {
+            $weapon_data['critical'] += 30;
+        }
+        //挑戦者
+        if ($skill_data[3] == 1) {
+            $weapon_data['critical'] += 10;
+        } elseif ($skill_data[3] == 2) {
+            $weapon_data['critical'] += 15;
+        }
+        //弱点特効
+        if ($skill_data[4] == 1) {
+            $weapon_data['critical'] += 50;
+        }
+        //連撃
+        if ($skill_data[5] == 1) {
+            $weapon_data['critical'] += 25;
+        }
+        //会心率が100%の判定
+        
+        //物理値に変換
+        //会心強化1.25 1.4
+        
+        //斬れ味補正
+        
+        
+        //ここから属性値の計算
+        //各属性攻撃強化
+        if ($skill_data[11] == 1) {
+            $weapon_data['element'] = $weapon_data['element'] *1.05 +4;
+        } elseif ($skill_data[11] == 2) {
+            $weapon_data['element'] = $weapon_data['element'] *1.1 +6;
+        }
+        //属性攻撃強化
+        if ($skill_data[12] == 1) {
+            $weapon_data['element'] *= 1.1;
+        }
+        //属性会心強化
+        if ($skill_data[13] == 1) {
+            //会心時に太刀ならば属性値1.25倍
+        }
+        //W属性の判定
+        //係数は最大1.2倍まで
+        
+        //斬れ味補正
+        
+        echo'<pre>';print_r($weapon_data);echo'</pre>';
+        
+        exit;
+    }
 }
