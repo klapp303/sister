@@ -20,6 +20,10 @@
   細かいダメージ計算をしたい人は他サイトにいけばいいんじゃないかな。
 </p>
 
+<?php if (@$weapon_sim) { ?>
+  <pre><?php print_r($weapon_sim); ?></pre>
+<?php } ?>
+
   <table>
     <?php echo $this->Form->create('Tool', array( //使用するModel
         'type' => 'post', //デフォルトはpost送信
@@ -35,7 +39,7 @@
         <?php echo $this->Form->input('weapon.attack', array('type' => 'text', 'label' => false, 'placeholder' => '例）200', 'size' => 4, 'value'=>200)); ?>
         <?php echo $this->Form->input('weapon.critical', array('type' => 'text', 'label' => false, 'placeholder' => '例）10', 'size' => 4, 'value'=>10)); ?>
         <?php echo $this->Form->input('weapon.element', array('type' => 'text', 'label' => false, 'placeholder' => '例）30', 'size' => 4, 'value'=>26)); ?>
-        <?php echo $this->Form->input('weapon.sharp', array('type' => 'text', 'label' => false, 'placeholder' => '例）4', 'size' => 4, 'value'=>4)); ?>
+        <?php echo $this->Form->input('weapon.sharp', array('type' => 'text', 'label' => false, 'placeholder' => '例）4', 'size' => 4, 'value'=>5)); ?>
       </td>
     </tr>
     <tr>
@@ -63,8 +67,10 @@
         <?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'value' => 3, 'hiddenField' => false)); ?>逆恨み（常時）
         <?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'value' => 4, 'hiddenField' => false)); ?>逆恨み（半分）
         <br>
-        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>北風の狩人
-        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'value' => 2, 'hiddenField' => false)); ?>南風の狩人
+        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>北風の狩人（常時）
+        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'value' => 2, 'hiddenField' => false)); ?>北風の狩人（半分）
+        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'value' => 3)); ?>南風の狩人（常時）
+        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'value' => 4, 'hiddenField' => false)); ?>南風の狩人（半分）
         <br>
         <?php echo $this->Form->input('skill.9', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>鈍器使い
         <br>

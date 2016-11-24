@@ -318,7 +318,7 @@ class ToolsController extends AppController
         //期待値の計算内容
         $weapon_data = $this->request->data['weapon'];
         $skill_data = $this->request->data['skill'];
-        //基礎攻撃力に変換
+        //基礎攻撃力に変換は今回なし
         
         //スキル
         //ここから攻撃力の計算
@@ -346,7 +346,11 @@ class ToolsController extends AppController
         if ($skill_data[7] == 1) {
             $weapon_data['attack'] += 20;
         } elseif ($skill_data[7] == 2) {
+            $weapon_data['attack'] += 20*0.5;
+        } elseif ($skill_data[7] == 3) {
             $weapon_data['attack'] += 15;
+        } elseif ($skill_data[7] == 4) {
+            $weapon_data['attack'] += 15*0.5;
         }
         //護符爪
         $weapon_data['attack'] += 15;
@@ -366,9 +370,9 @@ class ToolsController extends AppController
         }
         //挑戦者
         if ($skill_data[3] == 1) {
-            $weapon_data['critical'] += 10;
+            $weapon_data['critical'] += 10*0.67;
         } elseif ($skill_data[3] == 2) {
-            $weapon_data['critical'] += 15;
+            $weapon_data['critical'] += 15*0.67;
         }
         //弱点特効
         if ($skill_data[4] == 1) {
@@ -379,35 +383,83 @@ class ToolsController extends AppController
             $weapon_data['critical'] += 25;
         }
         //会心率が100%の判定
+        //TODO
         
         //物理値に変換
-        //会心強化1.25 1.4
-        
+        //会心マイナス
+        if ($weapon_data['critical'] < 0) {
+            $weapon_data['attack'] = $weapon_data['attack'] *0.75 *(-$weapon_data['critical']) + $weapon_data['attack'] *1 *(100 + $weapon_data['critical']);
+        //会心強化あり
+        } elseif ($skill_data[8] == 1) {
+            $weapon_data['attack'] = $weapon_data['attack'] *1.4 *$weapon_data['critical'] + $weapon_data['attack'] *1 *(100 - $weapon_data['critical']);
+        //会心強化なし
+        } else {
+            $weapon_data['attack'] = $weapon_data['attack'] *1.25 *$weapon_data['critical'] + $weapon_data['attack'] *1 *(100 - $weapon_data['critical']);
+        }
+        $weapon_data['attack'] = $weapon_data['attack'] /100;
         //斬れ味補正
-        
+        if ($weapon_data['sharp'] == 0) { //赤
+            $weapon_data['attack'] = $weapon_data['attack'] *0.5 *0.5;
+        } elseif ($weapon_data['sharp'] == 1) { //橙
+            $weapon_data['attack'] = $weapon_data['attack'] *0.75 *0.5;
+        } elseif ($weapon_data['sharp'] == 2) { //黄
+            $weapon_data['attack'] = $weapon_data['attack'] *1.0 *0.5;
+        } elseif ($weapon_data['sharp'] == 3) { //緑
+            $weapon_data['attack'] = $weapon_data['attack'] *1.05;
+        } elseif ($weapon_data['sharp'] == 4) { //青
+            $weapon_data['attack'] = $weapon_data['attack'] *1.2;
+        } elseif ($weapon_data['sharp'] == 5) { //白
+            $weapon_data['attack'] = $weapon_data['attack'] *1.32;
+//        } elseif ($weapon_data['sharp'] == 6) { //紫
+//            $weapon_data['attack'] = $weapon_data['attack'] *1.45;
+        }
+        //中腹補正、大剣太刀はモーション中間かつ武器中腹ヒットで1.05
+        $weapon_data['attack'] += $weapon_data['attack'] *0.05 *0.25;
         
         //ここから属性値の計算
         //各属性攻撃強化
         if ($skill_data[11] == 1) {
             $weapon_data['element'] = $weapon_data['element'] *1.05 +4;
-        } elseif ($skill_data[11] == 2) {
+        } elseif ($skill_data[11] == 2 && $skill_data[12] == 0) {
             $weapon_data['element'] = $weapon_data['element'] *1.1 +6;
         }
         //属性攻撃強化
-        if ($skill_data[12] == 1) {
+        if ($skill_data[12] == 1 && $skill_data[11] != 2) {
             $weapon_data['element'] *= 1.1;
+        //W属性強化
+        } elseif ($skill_data[12] == 1 && $skill_data[11] == 2) {
+            $weapon_data['element'] = $weapon_data['element'] *1.2 +6;
         }
         //属性会心強化
-        if ($skill_data[13] == 1) {
+        if ($skill_data[13] == 1 && $weapon_data['critical'] > 0) {
             //会心時に太刀ならば属性値1.25倍
+            $weapon_data['element'] = $weapon_data['element'] *1.25 *$weapon_data['critical'] + $weapon_data['element'] *1 *(100 - $weapon_data['critical']);
+            $weapon_data['element'] = $weapon_data['element'] /100;
         }
-        //W属性の判定
-        //係数は最大1.2倍まで
-        
         //斬れ味補正
+        if ($weapon_data['sharp'] == 0) { //赤
+            $weapon_data['element'] = $weapon_data['element'] *0.25;
+        } elseif ($weapon_data['sharp'] == 1) { //橙
+            $weapon_data['element'] = $weapon_data['element'] *0.5;
+        } elseif ($weapon_data['sharp'] == 2) { //黄
+            $weapon_data['element'] = $weapon_data['element'] *0.75;
+        } elseif ($weapon_data['sharp'] == 3) { //緑
+            $weapon_data['element'] = $weapon_data['element'] *1;
+        } elseif ($weapon_data['sharp'] == 4) { //青
+            $weapon_data['element'] = $weapon_data['element'] *1.0625;
+        } elseif ($weapon_data['sharp'] == 5) { //白
+            $weapon_data['element'] = $weapon_data['element'] *1.125;
+//        } elseif ($weapon_data['sharp'] == 6) { //紫
+//            $weapon_data['attack'] = $weapon_data['attack'] *1.2;
+        }
         
-        echo'<pre>';print_r($weapon_data);echo'</pre>';
+//        echo'<pre>';print_r($weapon_data);echo'</pre>';
         
-        exit;
+        //小数点以下を切り捨て
+        $weapon_sim['attack'] = floor($weapon_data['attack']);
+        $weapon_sim['element'] = floor($weapon_data['element']);
+        $this->set('weapon_sim', $weapon_sim);
+        
+        $this->render('mh_skill');
     }
 }
