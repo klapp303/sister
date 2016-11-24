@@ -50,7 +50,7 @@ class Tool extends AppModel{
                 'name' => 'MHスキル期待値シミュレータ',
                 'url' => 'mh_skill',
                 'version' => array(
-                    '1.0' => array('2016-00-00', 'ツール公開')
+                    '1.0' => array('2016-11-26', 'ツール公開')
                 )
             )
         );
