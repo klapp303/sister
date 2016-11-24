@@ -383,7 +383,11 @@ class ToolsController extends AppController
             $weapon_data['critical'] += 25;
         }
         //会心率が100%の判定
-        //TODO
+        if ($weapon_data['critical'] > 100) {
+            $weapon_data['critical'] = 100;
+        } elseif ($weapon_data['critical'] < -100) {
+            $weapon_data['critical'] = -100;
+        }
         
         //物理値に変換
         //会心マイナス
