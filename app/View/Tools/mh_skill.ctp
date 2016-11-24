@@ -1,14 +1,11 @@
 <?php echo $this->Html->css('tools', array('inline' => false)); ?>
 <h3><?php echo $tool_data['name']; ?> <span class="txt-min">ver<?php echo $tool_data['version_latest']; ?></span></h3>
 
-<?php if (@$sort_data) { ?>
-  <ol class="result_rank">
-    <?php foreach ($sort_data as $key => $val) { ?>
-      <li><?php echo $key +1; ?>. <?php echo $val['data']; ?></li>
-    <?php } ?>
-  </ol>
-  
-  <textarea class="result_txt_rank"><?php echo $sort_data_text; ?></textarea>
+<?php if (@$weapon_sim) { ?>
+  <div class="result_mh_sim">
+    物理期待値： <?php echo $weapon_sim['attack']; ?><br>
+    属性期待値： <?php echo $weapon_sim['element']; ?>
+  </div>
   
   <hr>
 <?php } ?>
@@ -20,10 +17,6 @@
   細かいダメージ計算をしたい人は他サイトにいけばいいんじゃないかな。
 </p>
 
-<?php if (@$weapon_sim) { ?>
-  <pre><?php print_r($weapon_sim); ?></pre>
-<?php } ?>
-
   <table>
     <?php echo $this->Form->create('Tool', array( //使用するModel
         'type' => 'post', //デフォルトはpost送信
@@ -32,14 +25,15 @@
     )); ?><!-- form start -->
     <tr>
       <td rowspan="2"><label>武器</label></td>
-      <td><?php echo $this->Form->input('weapon.name', array('type' => 'text', 'label' => false, 'placeholder' => '例）攻撃力200')); ?></td>
+      <td><?php // echo $this->Form->input('weapon.name', array('type' => 'text', 'label' => false, 'placeholder' => '例）鉄刀')); ?></td>
     </tr>
     <tr>
       <td>
-        <?php echo $this->Form->input('weapon.attack', array('type' => 'text', 'label' => false, 'placeholder' => '例）200', 'size' => 4, 'value'=>200)); ?>
-        <?php echo $this->Form->input('weapon.critical', array('type' => 'text', 'label' => false, 'placeholder' => '例）10', 'size' => 4, 'value'=>10)); ?>
-        <?php echo $this->Form->input('weapon.element', array('type' => 'text', 'label' => false, 'placeholder' => '例）30', 'size' => 4, 'value'=>26)); ?>
-        <?php echo $this->Form->input('weapon.sharp', array('type' => 'text', 'label' => false, 'placeholder' => '例）4', 'size' => 4, 'value'=>5)); ?>
+        攻撃力<?php echo $this->Form->input('weapon.attack', array('type' => 'text', 'label' => false, 'placeholder' => '例）200', 'size' => 3)); ?>　
+        会心率<?php echo $this->Form->input('weapon.critical', array('type' => 'text', 'label' => false, 'placeholder' => '例）10', 'size' => 3)); ?>　
+        属性値<?php echo $this->Form->input('weapon.element', array('type' => 'text', 'label' => false, 'placeholder' => '例）30', 'size' => 3)); ?>　
+        <?php $array_sharp = array(5 => '白', 4 => '青', 3 => '緑', 2 => '黄'); ?>
+        斬れ味<?php echo $this->Form->input('weapon.sharp', array('type' => 'select', 'label' => false, 'options' => $array_sharp)); ?>
       </td>
     </tr>
     <tr>

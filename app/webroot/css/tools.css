@@ -1,27 +1,4 @@
 @charset "utf-8";
-/* rankingページ用 */
-.tbl_rank {
-  margin-bottom: 50px !important;
-}
-.title_rank {
-  padding-top: 30px;
-  padding-bottom: 30px;
-  text-align: center;
-  font-weight: bold;
-}
-.select_rank {
-  padding-left: 20px !important;
-  padding-right: 20px !important;
-}
-.result_rank {
-  list-style-type: none;
-  margin-bottom: 30px;
-}
-.result_txt_rank {
-  margin-left: 40px;
-  margin-bottom: 30px;
-}
-
 /* コンテンツ説明文用 */
 .intro_tools,
 .intro_rank {
@@ -56,4 +33,33 @@
 }
 .update-log >hr {
   width: 90%;
+}
+
+/* rankingページ用 */
+.tbl_rank {
+  margin-bottom: 50px !important;
+}
+.title_rank {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+  font-weight: bold;
+}
+.select_rank {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+.result_rank {
+  list-style-type: none;
+  margin-bottom: 30px;
+}
+.result_txt_rank {
+  margin-left: 40px;
+  margin-bottom: 30px;
+}
+
+/* mh_skillページ用 */
+.result_mh_sim {
+  padding-left: 40px;
+  padding-bottom: 30px;
 }
