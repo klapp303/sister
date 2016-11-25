@@ -352,6 +352,14 @@ class ToolsController extends AppController
         } elseif ($skill_data[7] == 4) {
             $weapon_data['attack'] += 15*0.5;
         }
+        //鈍器使い
+        if ($skill_data[9] == 1) {
+            if ($weapon_data['sharp'] < 3) { //黄
+                $weapon_data['attack'] += 25;
+            } elseif ($weapon_data['sharp'] == 3) { //緑
+                $weapon_data['attack'] += 15;
+            }
+        }
         //護符爪
         $weapon_data['attack'] += 15;
         //ネコ飯
