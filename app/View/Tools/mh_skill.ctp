@@ -1,4 +1,5 @@
 <?php echo $this->Html->css('tools', array('inline' => false)); ?>
+<?php echo $this->Html->script('jquery-check_radio', array('inline' => false)); ?>
 <h3><?php echo $tool_data['name']; ?> <span class="txt-min">ver<?php echo $tool_data['version_latest']; ?></span></h3>
 
 <?php if (@$weapon_sim) { ?>
@@ -40,16 +41,16 @@
     <tr>
       <td><label>スキル</label></td>
       <td>
-        <?php echo $this->Form->input('skill.1', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>攻撃力UP【小】
-        <?php echo $this->Form->input('skill.1', array('type' => 'checkbox', 'label' => false, 'value' => 2, 'hiddenField' => false)); ?>攻撃力UP【中】
-        <?php echo $this->Form->input('skill.1', array('type' => 'checkbox', 'label' => false, 'value' => 3, 'hiddenField' => false)); ?>攻撃力UP【大】
+        <?php echo $this->Form->input('skill.1', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-1', 'value' => 1)); ?>攻撃力UP【小】
+        <?php echo $this->Form->input('skill.1', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-1', 'value' => 2, 'hiddenField' => false)); ?>攻撃力UP【中】
+        <?php echo $this->Form->input('skill.1', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-1', 'value' => 3, 'hiddenField' => false)); ?>攻撃力UP【大】
         <br>
-        <?php echo $this->Form->input('skill.2', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>見切り+1
-        <?php echo $this->Form->input('skill.2', array('type' => 'checkbox', 'label' => false, 'value' => 2, 'hiddenField' => false)); ?>見切り+2
-        <?php echo $this->Form->input('skill.2', array('type' => 'checkbox', 'label' => false, 'value' => 3, 'hiddenField' => false)); ?>見切り+3
+        <?php echo $this->Form->input('skill.2', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-2', 'value' => 1)); ?>見切り+1
+        <?php echo $this->Form->input('skill.2', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-2', 'value' => 2, 'hiddenField' => false)); ?>見切り+2
+        <?php echo $this->Form->input('skill.2', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-2', 'value' => 3, 'hiddenField' => false)); ?>見切り+3
         <br>
-        <?php echo $this->Form->input('skill.3', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>挑戦者+1
-        <?php echo $this->Form->input('skill.3', array('type' => 'checkbox', 'label' => false, 'value' => 2, 'hiddenField' => false)); ?>挑戦者+2
+        <?php echo $this->Form->input('skill.3', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-3', 'value' => 1)); ?>挑戦者+1
+        <?php echo $this->Form->input('skill.3', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-3', 'value' => 2, 'hiddenField' => false)); ?>挑戦者+2
         <br>
         <?php echo $this->Form->input('skill.4', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>弱点特効
         <br>
@@ -57,20 +58,20 @@
         <br>
         <?php echo $this->Form->input('skill.8', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>会心強化
         <br>
-        <?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>フルチャージ（常時）
-        <?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'value' => 2, 'hiddenField' => false)); ?>フルチャージ（半分）
-        <?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'value' => 3, 'hiddenField' => false)); ?>逆恨み（常時）
-        <?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'value' => 4, 'hiddenField' => false)); ?>逆恨み（半分）
+        <?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-4', 'value' => 1)); ?>フルチャージ（常時）
+        <?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-4', 'value' => 2, 'hiddenField' => false)); ?>フルチャージ（半分）
+        <?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-4', 'value' => 3, 'hiddenField' => false)); ?>逆恨み（常時）
+        <?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-4', 'value' => 4, 'hiddenField' => false)); ?>逆恨み（半分）
         <br>
-        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>北風の狩人（常時）
-        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'value' => 2, 'hiddenField' => false)); ?>北風の狩人（半分）
-        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'value' => 3)); ?>南風の狩人（常時）
-        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'value' => 4, 'hiddenField' => false)); ?>南風の狩人（半分）
+        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-5', 'value' => 1)); ?>北風の狩人（常時）
+        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-5', 'value' => 2, 'hiddenField' => false)); ?>北風の狩人（半分）
+        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-5', 'value' => 3)); ?>南風の狩人（常時）
+        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-5', 'value' => 4, 'hiddenField' => false)); ?>南風の狩人（半分）
         <br>
         <?php echo $this->Form->input('skill.9', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>鈍器使い
         <br>
-        <?php echo $this->Form->input('skill.11', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>各属性攻撃強化+1
-        <?php echo $this->Form->input('skill.11', array('type' => 'checkbox', 'label' => false, 'value' => 2, 'hiddenField' => false)); ?>各属性攻撃強化+2
+        <?php echo $this->Form->input('skill.11', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-6', 'value' => 1)); ?>各属性攻撃強化+1
+        <?php echo $this->Form->input('skill.11', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-6', 'value' => 2, 'hiddenField' => false)); ?>各属性攻撃強化+2
         <br>
         <?php echo $this->Form->input('skill.12', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>属性攻撃強化
         <br>
