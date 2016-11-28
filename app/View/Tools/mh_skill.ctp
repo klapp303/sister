@@ -31,7 +31,7 @@
     </tr>
     <tr>
       <td>
-        攻撃力<?php echo $this->Form->input('weapon.attack', array('type' => 'text', 'label' => false, 'placeholder' => '例）200', 'size' => 3)); ?>　
+        攻撃力<?php echo $this->Form->input('weapon.attack', array('type' => 'text', 'label' => false, 'placeholder' => '例）200', 'size' => 3, 'required')); ?>　
         会心率<?php echo $this->Form->input('weapon.critical', array('type' => 'text', 'label' => false, 'placeholder' => '例）10', 'size' => 3)); ?>　
         属性値<?php echo $this->Form->input('weapon.element', array('type' => 'text', 'label' => false, 'placeholder' => '例）30', 'size' => 3)); ?>　
         <?php $array_sharp = array(5 => '白', 4 => '青', 3 => '緑', 2 => '黄'); ?>
@@ -81,9 +81,71 @@
     
     <tr>
       <td></td>
-      <td><?php echo $this->Form->submit('計算する'); ?></td>
+      <td><?php echo $this->Form->submit('計算する', array('id' => 'mh_skill_submit')); ?></td>
     </tr>
     <?php echo $this->Form->end(); ?><!-- form end -->
+    <script>
+        jQuery(function($) {
+            $('#mh_skill_submit').click(function() {
+                var error_flg = 0;
+                //攻撃力のvalidate
+                var attack = $('#weaponAttack').val();
+                if (attack) {
+                    //全角は半角に変換
+                    attack = attack.replace(/[０-９]/g, function(s) {
+                        return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+                    });
+                    //数字以外はfalse
+                    if (/^[-]?([1-9]\d*|0)$/.test(attack) === false) {
+                        error_flg = 1;
+                    }
+                    //0以下はfalse
+                    if (attack <= 0) {
+                        error_flg = 1;
+                    }
+                }
+                
+                //会心率のvalidate
+                var critical = $('#weaponCritical').val();
+                if (critical) {
+                    //全角は半角に変換
+                    critical = critical.replace(/[０-９]/g, function(s) {
+                        return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+                    });
+                    //数字以外はfalse
+                    if (/^[-]?([1-9]\d*|0)$/.test(critical) === false) {
+                        error_flg = 1;
+                    }
+                    //100より上、-100未満はfalse
+                    if (critical < -100 || critical > 100) {
+                        error_flg = 1;
+                    }
+                }
+                
+                //属性値のvalidate
+                var element = $('#weaponElement').val();
+                if (element) {
+                    //全角は半角に変換
+                    element = element.replace(/[０-９]/g, function(s) {
+                        return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+                    });
+                    //数字以外はfalse
+                    if (/^[-]?([1-9]\d*|0)$/.test(element) === false) {
+                        error_flg = 1;
+                    }
+                    //0未満はfalse
+                    if (element < 0) {
+                        error_flg = 1;
+                    }
+                }
+                
+                if (error_flg == 1) {
+                    alert('入力された値が正しくありません。');
+                    return false;
+                }
+            });
+        });
+    </script>
   </table>
 
 <h4 class="h4_tools shiyou-h">仕様の詳細とか（クリックで表示）</h4>
