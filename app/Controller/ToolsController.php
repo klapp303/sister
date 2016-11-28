@@ -429,40 +429,42 @@ class ToolsController extends AppController
         $weapon_data['attack'] += $weapon_data['attack'] *0.05 *0.25;
         
         //ここから属性値の計算
-        //各属性攻撃強化
-        if ($skill_data[11] == 1) {
-            $weapon_data['element'] = $weapon_data['element'] *1.05 +4;
-        } elseif ($skill_data[11] == 2 && $skill_data[12] == 0) {
-            $weapon_data['element'] = $weapon_data['element'] *1.1 +6;
-        }
-        //属性攻撃強化
-        if ($skill_data[12] == 1 && $skill_data[11] != 2) {
-            $weapon_data['element'] *= 1.1;
-        //W属性強化
-        } elseif ($skill_data[12] == 1 && $skill_data[11] == 2) {
-            $weapon_data['element'] = $weapon_data['element'] *1.2 +6;
-        }
-        //属性会心強化
-        if ($skill_data[13] == 1 && $weapon_data['critical'] > 0) {
-            //会心時に太刀ならば属性値1.25倍
-            $weapon_data['element'] = $weapon_data['element'] *1.25 *$weapon_data['critical'] + $weapon_data['element'] *1 *(100 - $weapon_data['critical']);
-            $weapon_data['element'] = $weapon_data['element'] /100;
-        }
-        //斬れ味補正
-        if ($weapon_data['sharp'] == 0) { //赤
-            $weapon_data['element'] = $weapon_data['element'] *0.25;
-        } elseif ($weapon_data['sharp'] == 1) { //橙
-            $weapon_data['element'] = $weapon_data['element'] *0.5;
-        } elseif ($weapon_data['sharp'] == 2) { //黄
-            $weapon_data['element'] = $weapon_data['element'] *0.75;
-        } elseif ($weapon_data['sharp'] == 3) { //緑
-            $weapon_data['element'] = $weapon_data['element'] *1;
-        } elseif ($weapon_data['sharp'] == 4) { //青
-            $weapon_data['element'] = $weapon_data['element'] *1.0625;
-        } elseif ($weapon_data['sharp'] == 5) { //白
-            $weapon_data['element'] = $weapon_data['element'] *1.125;
-//        } elseif ($weapon_data['sharp'] == 6) { //紫
-//            $weapon_data['attack'] = $weapon_data['attack'] *1.2;
+        if ($weapon_data['element'] > 0) {
+            //各属性攻撃強化
+            if ($skill_data[11] == 1) {
+                $weapon_data['element'] = $weapon_data['element'] *1.05 +4;
+            } elseif ($skill_data[11] == 2 && $skill_data[12] == 0) {
+                $weapon_data['element'] = $weapon_data['element'] *1.1 +6;
+            }
+            //属性攻撃強化
+            if ($skill_data[12] == 1 && $skill_data[11] != 2) {
+                $weapon_data['element'] *= 1.1;
+            //W属性強化
+            } elseif ($skill_data[12] == 1 && $skill_data[11] == 2) {
+                $weapon_data['element'] = $weapon_data['element'] *1.2 +6;
+            }
+            //属性会心強化
+            if ($skill_data[13] == 1 && $weapon_data['critical'] > 0) {
+                //会心時に太刀ならば属性値1.25倍
+                $weapon_data['element'] = $weapon_data['element'] *1.25 *$weapon_data['critical'] + $weapon_data['element'] *1 *(100 - $weapon_data['critical']);
+                $weapon_data['element'] = $weapon_data['element'] /100;
+            }
+            //斬れ味補正
+            if ($weapon_data['sharp'] == 0) { //赤
+                $weapon_data['element'] = $weapon_data['element'] *0.25;
+            } elseif ($weapon_data['sharp'] == 1) { //橙
+                $weapon_data['element'] = $weapon_data['element'] *0.5;
+            } elseif ($weapon_data['sharp'] == 2) { //黄
+                $weapon_data['element'] = $weapon_data['element'] *0.75;
+            } elseif ($weapon_data['sharp'] == 3) { //緑
+                $weapon_data['element'] = $weapon_data['element'] *1;
+            } elseif ($weapon_data['sharp'] == 4) { //青
+                $weapon_data['element'] = $weapon_data['element'] *1.0625;
+            } elseif ($weapon_data['sharp'] == 5) { //白
+                $weapon_data['element'] = $weapon_data['element'] *1.125;
+//            } elseif ($weapon_data['sharp'] == 6) { //紫
+//                $weapon_data['attack'] = $weapon_data['attack'] *1.2;
+            }
         }
         
 //        echo'<pre>';print_r($weapon_data);echo'</pre>';
