@@ -253,8 +253,8 @@ class DiaryController extends AppController
         $hidden_id = 4; //日記一覧では非表示にするジャンル
         
         /* search wordを整形ここから */
-        $search_word = @$this->request->query['search_word'];
-        $search_word = str_replace('　', ' ', $search_word); //and検索用
+        $search_query = @$this->request->query['search_word'];
+        $search_word = str_replace('　', ' ', $search_query); //and検索用
         $search_word = str_replace(' OR ', '|', $search_word); //or検索用
         $this->request->query['search_word'] = $search_word;
         /* search wordを整形ここまで */
@@ -270,6 +270,7 @@ class DiaryController extends AppController
             'order' => array('Diary.date' => 'desc', 'Diary.id' => 'desc')
         );
         $diary_lists = $this->Paginator->paginate('Diary');
+        $this->request->data['Diary']['search_word'] = $search_query; //seach wordを戻しておく
         if (!empty($diary_lists)) { //データが存在する場合
             $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
             $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
