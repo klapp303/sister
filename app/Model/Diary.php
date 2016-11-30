@@ -30,11 +30,16 @@ class Diary extends AppModel
     public $filterArgs = array(
 //        'title' => array('type' => 'like', 'field' => 'Diary.title'),
 //        'text' => array('type' => 'like', 'field' => 'Diary.text'),
-        'search_word' => array('type' => 'query', 'method' => 'multiWordSearch')
+        'search_word' => array(
+            'type' => 'like',
+            'field' => array('Diary.title', 'Diary.text'),
+            'connectorAnd' => ' ',
+            'connectorOr' => '|'
+        )
     );
     
     //マルチ検索のフィルタ設定
-    public function multiWordSearch($data = [])
+    /*public function multiWordSearch($data = [])
     {
         $keyword = mb_convert_kana($data['search_word'], "s", "UTF-8");
         $keywords = explode(' ', $keyword);
@@ -62,7 +67,7 @@ class Diary extends AppModel
         }
         
         return $conditions;
-    }
+    }*/
     
     public function changeCodeToDiary($diary_lists = false)
     {

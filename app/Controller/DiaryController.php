@@ -252,6 +252,12 @@ class DiaryController extends AppController
         $month = date('m');
         $hidden_id = 4; //日記一覧では非表示にするジャンル
         
+        /* search wordを整形ここから */
+        $search_word = @$this->request->query['search_word'];
+        $search_word = str_replace('　', ' ', $search_word); //and検索用
+        $search_word = str_replace(' OR ', '|', $search_word); //or検索用
+        $this->request->query['search_word'] = $search_word;
+        /* search wordを整形ここまで */
         $this->Diary->recursive = 0;
         $this->Prg->commonProcess('Diary');
 //        $this->Prg->parsedParams();
