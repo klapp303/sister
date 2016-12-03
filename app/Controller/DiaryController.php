@@ -52,6 +52,7 @@ class DiaryController extends AppController
             if (!empty($diary_lists)) { //データが存在する場合
                 $this->set('sub_page', $diary_lists[0]['Diary']['title']); //breadcrumbの設定
                 $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
+                $diary_lists = $this->Diary->changePhotoToFull($diary_lists); //任意の日記は詳細ページのみ画像をfullsize
                 $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
                 $this->set('diary_lists', $diary_lists);
                 //OGPタグ用

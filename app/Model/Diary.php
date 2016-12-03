@@ -81,6 +81,22 @@ class Diary extends AppModel
         return $diary_lists;
     }
     
+    public function changePhotoToFull($diary_lists = false)
+    {
+        //画像のfullsizeを適用する日記idを設定
+        $array_id = [92];
+        
+        foreach ($diary_lists as $key => $diary_list) {
+            if (in_array($diary_list['Diary']['id'], $array_id)) {
+                //日記の本文に画像リンクがあればfullsize用に変換する
+                $text = preg_replace("/<img src=\"\/files\/photo\/.*?\/.*?\//", '<img src="/files/photo/full/', $diary_list['Diary']['text']);
+                $diary_lists[$key]['Diary']['text'] = $text;
+            }
+        }
+        
+        return $diary_lists;
+    }
+    
     public function getThumbnailFromText($text = false, $image = false)
     {
         if ($text) {
@@ -140,6 +156,7 @@ class Diary extends AppModel
             $text = str_replace('class="img_diary"', 'class="img_diary lazy"', $text);
             $diary_lists[$key]['Diary']['text'] = $text;
         }
+        
         return $diary_lists;
     }
 }
