@@ -116,11 +116,11 @@
       <td>
         <table>
           <tr class="txt-min"><td>　　曲名</td><td>作詞者</td><td>作曲者</td></tr>
-          <?php for ($i = 0; $i < 15; $i++) { ?>
+          <?php for ($i = 0; $i < 24; $i++) { ?>
             <?php if (preg_match('#/console/voice/' . $profile['Voice']['system_name'] . '/edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
               <?php echo $this->Form->input('Music.' . $i . '.id', array('type' => 'hidden')); ?>
             <?php } ?>
-            <tr class="tbl-music_voice-<?php echo ($i < 5)? 'sg' : 'al'; ?><?php echo (@$mode_music)? '_' . $mode_music : ''; ?>">
+            <tr class="tbl-music_voice-<?php echo ($i < 8)? 'sg' : 'al'; ?><?php echo (@$mode_music)? '_' . $mode_music : ''; ?>">
               <td><?php echo sprintf('%02d', $i +1); ?><?php echo $this->Form->input('Music.' . $i . '.title', array('type' => 'text', 'label' => false, 'size' => 21)); ?></td>
               <td><?php echo $this->Form->input('Music.' . $i . '.writer', array('type' => 'text', 'label' => false, 'size' => 8)); ?></td>
               <td><?php echo $this->Form->input('Music.' . $i . '.composer', array('type' => 'text', 'label' => false, 'size' => 8)); ?></td>
