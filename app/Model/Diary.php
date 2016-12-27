@@ -159,4 +159,103 @@ class Diary extends AppModel
         
         return $diary_lists;
     }
+    
+    //旧ブログの整形用
+    public function formatDiaryFromFc2($text_url = false, $diary_lists = [])
+    {
+        $past_diary = file_get_contents($text_url);
+        $past_diary = explode('--------', $past_diary);
+        //最終行は削除しておく
+        unset($past_diary[count($past_diary) -1]);
+        
+        //diary_genreを取得しておく
+        $genre_lists = $this->DiaryGenre->find('list');
+        
+        //データの整形
+        foreach ($past_diary as $key => $val) {
+            //title
+            $diary = explode('TITLE: ', $val);
+            $diary = explode('STATUS: ', $diary[1]);
+            $title = $diary[0];
+            
+            //genre_id
+            $diary = explode('CATEGORY: ', $diary[1]);
+            $diary = explode('DATE: ', $diary[2]); //PRIMARY CATEGORYもあるので
+            $category = rtrim($diary[0]);
+            //genre_idに変換
+            if ($category == '雑記') {
+                $genre_id = 2;
+            } elseif ($category == '情報') {
+                $genre_id = 1;
+            } elseif ($category == '発売日') {
+                $genre_id = 1;
+            } elseif ($category == 'カラオケ') {
+                $genre_id = 1;
+            } elseif ($category == 'アニメ') {
+                $genre_id = 2;
+            } elseif ($category == 'ゲーム') {
+                $genre_id = 2;
+            } elseif ($category == 'イベントレポ') {
+                $genre_id = 3;
+            } elseif ($category == 'ポケモン(旧)') {
+                $genre_id = 6;
+            } elseif ($category == 'モンハン') {
+                $genre_id = 5;
+            } elseif ($category == 'ドラクエ') {
+                $genre_id = 1;
+            } else {
+                $genre_id = 1;
+            }
+            
+            //date
+            $diary = explode('BODY:', $diary[1]);
+            $date = substr($diary[0], 0, -6);
+            //Y-m-dに変換
+            $date = date('Y-m-d', strtotime($date));
+            
+            //text
+            $diary = explode('EXTENDED', $diary[1]);
+            $body = ltrim($diary[0]);
+            $body = substr($body, 0, -6);
+            
+            //debug用
+//            $diary_lists[$key]['title'] = $title;
+//            $diary_lists[$key]['category'] = $category;
+//            $diary_lists[$key]['date'] = $date;
+//            $diary_lists[$key]['body'] = $body;
+            
+            //配列に変換
+            $diary_lists[$key]['Diary']['id'] = 0;
+            $diary_lists[$key]['Diary']['title'] = $title;
+            $diary_lists[$key]['Diary']['date'] = $date;
+            $diary_lists[$key]['Diary']['text'] = $body;
+            $diary_lists[$key]['Diary']['genre_id'] = $genre_id;
+            $diary_lists[$key]['DiaryGenre']['title'] = 'その他';
+            foreach ($genre_lists as $genre_key => $genre_val) {
+                if ($genre_key == $genre_id) {
+                    $diary_lists[$key]['DiaryGenre']['title'] = $genre_val;
+                }
+            }
+            $diary_lists[$key]['Diary']['publish'] = 0;
+            $diary_lists[$key]['Diary']['created'] = '2016-12-16 00:00:00';
+            $diary_lists[$key]['Diary']['modified'] = '2016-12-16 00:00:00';
+        }
+//        echo'<pre>';print_r($diary_lists);echo'</pre>';
+        
+        return $diary_lists;
+    }
+    
+    public function chooseDiaryToNew($diary_lists = false)
+    {
+        //既に同じ月日の日記があれば削除
+        $db_diary_dates = $this->find('list', array('fields' => 'Diary.date'));
+        foreach($diary_lists as $key => $val) {
+            if (in_array($val['Diary']['date'], $db_diary_dates)) {
+                unset($diary_lists[$key]);
+            }
+        }
+        
+//        echo'<pre>';print_r($diary_lists);echo'</pre>';exit;
+        return $diary_lists;
+    }
 }

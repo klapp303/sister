@@ -333,4 +333,69 @@ class DiaryController extends AppController
         
         $this->render('index');
     }
+    
+    public function past() {
+        return;
+        
+        $year = date('Y');
+        $month = date('m');
+        $hidden_id = 4; //日記一覧では非表示にするジャンル
+        
+        $diary_lists = $this->Diary->formatDiaryFromFc2('agumion_blog_backup.txt');
+        $diary_lists = $this->Diary->chooseDiaryToNew($diary_lists);
+//        $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
+//        $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
+        $this->set('diary_lists', $diary_lists);
+        
+        //カレンダー用
+        $diary_cal_lists = $this->Diary->find('list', array( //任意月の日記リストを取得
+            'conditions' => array(
+                'Diary.date >=' => date($year . '-' . $month . '-01'),
+                'Diary.date <=' => date($year . '-' . $month . '-31'),
+                'Diary.publish' => 1,
+                'Diary.genre_id !=' => $hidden_id
+            ),
+            'fields' => 'Diary.date'
+        ));
+        foreach ($diary_cal_lists as &$diary_cal_date) {
+            $diary_date = new DateTime($diary_cal_date);
+            $diary_cal_date = $diary_date->format('d');
+        }
+        $this->set('year', $year);
+        $this->set('month', $month);
+        $this->set('diary_cal_lists', $diary_cal_lists);
+        
+        //カレンダー前月来月リンク用
+        $prev_year = date('Y', strtotime($year . '-' . $month . '-01 -1 month'));
+        $prev_month = date('m', strtotime($year . '-' . $month . '-01 -1 month'));
+        $this->set('prev_year', $prev_year);
+        $this->set('prev_month', $prev_month);
+        $next_year = date('Y', strtotime($year . '-' . $month . '-01 +1 month'));
+        $next_month = date('m', strtotime($year . '-' . $month . '-01 +1 month'));
+        $this->set('next_year', $next_year);
+        $this->set('next_month', $next_month);
+        
+        //ジャンル別メニュー用
+        $genre_lists = $this->DiaryGenre->find('all', array(
+//            'conditions' => array('DiaryGenre.id >' => 1) //その他ジャンルを除外
+        ));
+        $this->set('genre_lists', $genre_lists);
+        
+        //ジャンル別メニュー日記数用
+        foreach ($genre_lists as $genre_list) {
+            ${'diary_counts_genre' . $genre_list['DiaryGenre']['id']} = $this->Diary->find('count', array(
+                'conditions' => array(
+                    'Diary.genre_id' => $genre_list['DiaryGenre']['id'],
+                    'Diary.publish' => 1
+                )
+            ));
+            $this->set('diary_counts_genre' . $genre_list['DiaryGenre']['id'], ${'diary_counts_genre' . $genre_list['DiaryGenre']['id']});
+        }
+        $diary_counts_all = $this->Diary->find('count', array( //すべてのジャンルの日記合計数を取得しておく
+            'conditions' => array('Diary.publish' => 1)
+        ));
+        $this->set('diary_counts_all', $diary_counts_all);
+        
+        $this->render('index');
+    }
 }
