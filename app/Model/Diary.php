@@ -240,22 +240,57 @@ class Diary extends AppModel
             $diary_lists[$key]['Diary']['created'] = '2016-12-16 00:00:00';
             $diary_lists[$key]['Diary']['modified'] = '2016-12-16 00:00:00';
         }
+        //日記を降順に並び替え
+        $diary_lists = array_reverse($diary_lists);
 //        echo'<pre>';print_r($diary_lists);echo'</pre>';
         
         return $diary_lists;
     }
     
-    public function chooseDiaryToNew($diary_lists = false)
+    public function selectDiaryToNew($diary_lists = false, $page_id = false, $data = [])
     {
         //既に同じ月日の日記があれば削除
         $db_diary_dates = $this->find('list', array('fields' => 'Diary.date'));
-        foreach($diary_lists as $key => $val) {
+        foreach ($diary_lists as $key => $val) {
             if (in_array($val['Diary']['date'], $db_diary_dates)) {
                 unset($diary_lists[$key]);
             }
         }
         
-//        echo'<pre>';print_r($diary_lists);echo'</pre>';exit;
-        return $diary_lists;
+        //キーを振り直しておく
+        $diary_lists = array_merge($diary_lists);
+        
+        /* paginatorの設定ここから */
+        $limit = 5;
+        if (!$page_id) {
+            $page_id = 1;
+        }
+        if (!preg_match('/^0$|^-?[1-9][0-9]*$/', $page_id)) {
+            return false;
+        }
+        $diary_count = count($diary_lists);
+        
+        //日記を取得
+        foreach ($diary_lists as $key => $val) {
+            if ($key +1 <= ($page_id -1) * $limit || $page_id * $limit < $key +1) {
+                unset($diary_lists[$key]);
+            }
+        }
+        if (!$diary_lists) {
+            return false;
+        }
+        $data['lists'] = $diary_lists;
+//        echo'<pre>';print_r($diary_lists);echo'</pre>';
+        
+        //設定を取得
+        $paginator_setting = array(
+            'current_page' => $page_id,
+            'max_page' => ceil($diary_count / $limit)
+        );
+        $data['paginator'] = $paginator_setting;
+//        echo'<pre>';print_r($paginator_setting);echo'</pre>';
+        /* paginatorの設定ここまで */
+        
+        return $data;
     }
 }

@@ -334,7 +334,7 @@ class DiaryController extends AppController
         $this->render('index');
     }
     
-    public function past() {
+    public function past($page_id = false) {
         return;
         
         $year = date('Y');
@@ -342,10 +342,21 @@ class DiaryController extends AppController
         $hidden_id = 4; //日記一覧では非表示にするジャンル
         
         $diary_lists = $this->Diary->formatDiaryFromFc2('agumion_blog_backup.txt');
-        $diary_lists = $this->Diary->chooseDiaryToNew($diary_lists);
+        $diary_data = $this->Diary->selectDiaryToNew($diary_lists, $page_id);
+        //cakeのpaginatorは使えないので日記データとpaginatorの設定を分ける
+        $diary_lists = $diary_data['lists'];
+        $paginator_setting = $diary_data['paginator'];
+        //データが存在しない場合
+        if (!$diary_lists) {
+            $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+            
+            $this->redirect('/diary/past');
+        }
+        
 //        $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
 //        $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
         $this->set('diary_lists', $diary_lists);
+        $this->set('paginator_setting', $paginator_setting);
         
         //カレンダー用
         $diary_cal_lists = $this->Diary->find('list', array( //任意月の日記リストを取得
