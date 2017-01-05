@@ -23,7 +23,12 @@
         'url' => array('controller' => 'Diary', 'action' => 'genre', 'genre_id' => $this->request->params['genre_id'])
     )); ?>
   <?php } ?>
-  <div class="mobile"><?php echo $this->Paginator->numbers($paginator_option); ?></div>
+  <div class="mobile">
+    <?php echo $this->Paginator->numbers($paginator_option); ?>
+    <?php if (@$paginator_setting) { //過去日記用のページリンク
+        echo $this->element('sister_past_paginator');
+    } ?>
+  </div>
 <?php } ?>
 
 <?php foreach ($diary_lists as $diary_list) { ?>
@@ -47,4 +52,7 @@
     )); ?>
   <?php } ?>
   <?php echo $this->Paginator->numbers($paginator_option); ?>
+  <?php if (@$paginator_setting) { //過去日記用のページリンク
+      echo $this->element('sister_past_paginator');
+  } ?>
 <?php } ?>
