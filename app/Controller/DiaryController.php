@@ -335,13 +335,11 @@ class DiaryController extends AppController
     }
     
     public function past($page_id = false) {
-        return;
-        
         $year = date('Y');
         $month = date('m');
         $hidden_id = 4; //日記一覧では非表示にするジャンル
         
-        $diary_lists = $this->Diary->formatDiaryFromFc2('agumion_blog_backup.txt');
+        $diary_lists = $this->Diary->formatDiaryFromFc2('agumion_blog_backup_02.txt');
         $diary_data = $this->Diary->selectDiaryToNew($diary_lists, $page_id);
         //cakeのpaginatorは使えないので日記データとpaginatorの設定を分ける
         $diary_lists = $diary_data['lists'];

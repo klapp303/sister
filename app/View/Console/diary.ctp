@@ -34,7 +34,7 @@
     </tr>
     <tr>
       <td>日付</td>
-      <td><?php echo $this->Form->input('date', array('type' => 'date', 'label' => false, 'dateFormat' => 'YMD', 'monthNames' => false, 'separator' => '/', 'maxYear' => date('Y') +1, 'minYear' => 2013)); ?></td>
+      <td><?php echo $this->Form->input('date', array('type' => 'date', 'label' => false, 'dateFormat' => 'YMD', 'monthNames' => false, 'separator' => '/', 'maxYear' => date('Y') +1, 'minYear' => 2010)); ?></td>
     </tr>
     <tr>
       <td>ジャンル</td>
