@@ -32,7 +32,7 @@
 <?php } ?>
 
 <?php foreach ($diary_lists as $diary_list) { ?>
-  <div class="article"<?php echo (@$strong_color)? ' style="background-color: #' . $strong_color . ';"' : ''; ?>>
+  <div id="article-<?php echo $diary_list['Diary']['id']; ?>" class="article"<?php echo (@$strong_color)? ' style="background-color: #' . $strong_color . ';"' : ''; ?>>
     <div class="art-header"><h3 id="diary-<?php echo $diary_list['Diary']['id']; ?>">
       <?php echo $this->Html->link($diary_list['Diary']['title'], '/diary/' . $diary_list['Diary']['id']); ?></h3></div>
     <hr>

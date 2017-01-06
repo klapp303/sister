@@ -120,6 +120,7 @@
         <div id="menu_side">
           <?php echo $this->element('searchbox'); ?>
           <?php echo $this->element('calendar'); ?>
+          <?php echo $this->element('diarylist'); ?>
           <?php echo $this->element('genrelist'); ?>
         </div>
       </div>

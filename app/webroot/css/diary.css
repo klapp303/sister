@@ -101,6 +101,24 @@ pre {/* 備忘録日記用 */
   color: #ffffff;
 }
 
+/* 日記メニュー用 */
+#diarylist {
+  padding: 10px 0;
+  text-align: left;
+}
+#diarylist >ul {
+  padding-right: 10px;
+}
+#diarylist >ul >li >a {
+  text-decoration: none;
+}
+#diarylist >ul >li >a:link,
+#diarylist >ul >li >a:visited,
+#diarylist >ul >li >a:hover,
+#diarylist >ul >li >a:active {
+  color: #ffffff;
+}
+
 /* ジャンルメニュー用 */
 #genrelist {
   padding: 10px 0;
