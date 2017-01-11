@@ -30,6 +30,7 @@ class DiaryController extends AppController
         $year = date('Y');
         $month = date('m');
         $hidden_id = 4; //日記一覧では非表示にするジャンル
+        
         //diaryページの日記一覧を設定
         $this->Paginator->settings = array(
             'limit' => 5,
@@ -112,32 +113,8 @@ class DiaryController extends AppController
         }
         
         //カレンダー用
-        $diary_cal_lists = $this->Diary->find('list', array( //任意月の日記リストを取得
-            'conditions' => array(
-                'Diary.date >=' => date($year . '-' . $month . '-01'),
-                'Diary.date <=' => date($year . '-' . $month . '-31'),
-                'Diary.publish' => 1,
-                'Diary.genre_id !=' => $hidden_id
-            ),
-            'fields' => 'Diary.date'
-        ));
-        foreach ($diary_cal_lists as &$diary_cal_date) {
-            $diary_date = new DateTime($diary_cal_date);
-            $diary_cal_date = $diary_date->format('d');
-        }
-        $this->set('year', $year);
-        $this->set('month', $month);
-        $this->set('diary_cal_lists', $diary_cal_lists);
-        
-        //カレンダー前月来月リンク用
-        $prev_year = date('Y', strtotime($year . '-' . $month . '-01 -1 month'));
-        $prev_month = date('m', strtotime($year . '-' . $month . '-01 -1 month'));
-        $this->set('prev_year', $prev_year);
-        $this->set('prev_month', $prev_month);
-        $next_year = date('Y', strtotime($year . '-' . $month . '-01 +1 month'));
-        $next_month = date('m', strtotime($year . '-' . $month . '-01 +1 month'));
-        $this->set('next_year', $next_year);
-        $this->set('next_month', $next_month);
+        $calendar = $this->Diary->getCalendarMenu($year, $month, $hidden_id);
+        $this->set('calendar', $calendar);
         
         //ジャンル別メニュー用
         $genre_lists = $this->DiaryGenre->find('all', array(
@@ -166,6 +143,7 @@ class DiaryController extends AppController
         $year = date('Y');
         $month = date('m');
         $hidden_id = 4; //日記一覧では非表示にするジャンル
+        
         //パラメータにgenre_idがあればジャンル別一覧ページを表示
         if (isset($this->request->params['genre_id']) == true) {
             $this->Paginator->settings = array(
@@ -193,32 +171,8 @@ class DiaryController extends AppController
         }
         
         //カレンダー用
-        $diary_cal_lists = $this->Diary->find('list', array( //任意月の日記リストを取得
-            'conditions' => array(
-                'Diary.date >=' => date($year . '-' . $month . '-01'),
-                'Diary.date <=' => date($year . '-' . $month . '-31'),
-                'Diary.publish' => 1,
-                'Diary.genre_id !=' => $hidden_id
-            ),
-            'fields' => 'Diary.date'
-        ));
-        foreach ($diary_cal_lists as &$diary_cal_date) {
-            $diary_date = new DateTime($diary_cal_date);
-            $diary_cal_date = $diary_date->format('d');
-        }
-        $this->set('year', $year);
-        $this->set('month', $month);
-        $this->set('diary_cal_lists', $diary_cal_lists);
-        
-        //カレンダー前月来月リンク用
-        $prev_year = date('Y', strtotime($year . '-' . $month . '-01 -1 month'));
-        $prev_month = date('m', strtotime($year . '-' . $month . '-01 -1 month'));
-        $this->set('prev_year', $prev_year);
-        $this->set('prev_month', $prev_month);
-        $next_year = date('Y', strtotime($year . '-' . $month . '-01 +1 month'));
-        $next_month = date('m', strtotime($year . '-' . $month . '-01 +1 month'));
-        $this->set('next_year', $next_year);
-        $this->set('next_month', $next_month);
+        $calendar = $this->Diary->getCalendarMenu($year, $month, $hidden_id);
+        $this->set('calendar', $calendar);
         
         //ジャンル別メニュー用
         $genre_lists = $this->DiaryGenre->find('all', array(
@@ -283,32 +237,8 @@ class DiaryController extends AppController
         }
         
         //カレンダー用
-        $diary_cal_lists = $this->Diary->find('list', array( //任意月の日記リストを取得
-            'conditions' => array(
-                'Diary.date >=' => date($year . '-' . $month . '-01'),
-                'Diary.date <=' => date($year . '-' . $month . '-31'),
-                'Diary.publish' => 1,
-                'Diary.genre_id !=' => $hidden_id
-            ),
-            'fields' => 'Diary.date'
-        ));
-        foreach ($diary_cal_lists as &$diary_cal_date) {
-            $diary_date = new DateTime($diary_cal_date);
-            $diary_cal_date = $diary_date->format('d');
-        }
-        $this->set('year', $year);
-        $this->set('month', $month);
-        $this->set('diary_cal_lists', $diary_cal_lists);
-        
-        //カレンダー前月来月リンク用
-        $prev_year = date('Y', strtotime($year . '-' . $month . '-01 -1 month'));
-        $prev_month = date('m', strtotime($year . '-' . $month . '-01 -1 month'));
-        $this->set('prev_year', $prev_year);
-        $this->set('prev_month', $prev_month);
-        $next_year = date('Y', strtotime($year . '-' . $month . '-01 +1 month'));
-        $next_month = date('m', strtotime($year . '-' . $month . '-01 +1 month'));
-        $this->set('next_year', $next_year);
-        $this->set('next_month', $next_month);
+        $calendar = $this->Diary->getCalendarMenu($year, $month, $hidden_id);
+        $this->set('calendar', $calendar);
         
         //ジャンル別メニュー用
         $genre_lists = $this->DiaryGenre->find('all', array(
@@ -334,7 +264,8 @@ class DiaryController extends AppController
         $this->render('index');
     }
     
-    public function past($page_id = false) {
+    public function past($page_id = false)
+    {
         $year = date('Y');
         $month = date('m');
         $hidden_id = 4; //日記一覧では非表示にするジャンル
@@ -357,32 +288,8 @@ class DiaryController extends AppController
         $this->set('paginator_setting', $paginator_setting);
         
         //カレンダー用
-        $diary_cal_lists = $this->Diary->find('list', array( //任意月の日記リストを取得
-            'conditions' => array(
-                'Diary.date >=' => date($year . '-' . $month . '-01'),
-                'Diary.date <=' => date($year . '-' . $month . '-31'),
-                'Diary.publish' => 1,
-                'Diary.genre_id !=' => $hidden_id
-            ),
-            'fields' => 'Diary.date'
-        ));
-        foreach ($diary_cal_lists as &$diary_cal_date) {
-            $diary_date = new DateTime($diary_cal_date);
-            $diary_cal_date = $diary_date->format('d');
-        }
-        $this->set('year', $year);
-        $this->set('month', $month);
-        $this->set('diary_cal_lists', $diary_cal_lists);
-        
-        //カレンダー前月来月リンク用
-        $prev_year = date('Y', strtotime($year . '-' . $month . '-01 -1 month'));
-        $prev_month = date('m', strtotime($year . '-' . $month . '-01 -1 month'));
-        $this->set('prev_year', $prev_year);
-        $this->set('prev_month', $prev_month);
-        $next_year = date('Y', strtotime($year . '-' . $month . '-01 +1 month'));
-        $next_month = date('m', strtotime($year . '-' . $month . '-01 +1 month'));
-        $this->set('next_year', $next_year);
-        $this->set('next_month', $next_month);
+        $calendar = $this->Diary->getCalendarMenu($year, $month, $hidden_id);
+        $this->set('calendar', $calendar);
         
         //ジャンル別メニュー用
         $genre_lists = $this->DiaryGenre->find('all', array(

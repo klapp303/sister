@@ -38,6 +38,50 @@ class Diary extends AppModel
         )
     );
     
+    public function getCalendarMenu($year = false, $month = false, $hidden_id = false, $mode = false, $calendar = [])
+    {
+        if (!$year) {
+            $year = date('Y');
+        }
+        if (!$month) {
+            $month = date('m');
+        }
+        if (!$hidden_id) {
+            $hidden_id = 0;
+        }
+        
+        //カレンダーの作成
+        $diary_cal_lists = $this->find('list', array( //任意月の日記リストを取得
+            'conditions' => array(
+                'Diary.date >=' => date($year . '-' . $month . '-01'),
+                'Diary.date <=' => date($year . '-' . $month . '-31'),
+                'Diary.publish' => 1,
+                'Diary.genre_id !=' => $hidden_id
+            ),
+            'fields' => 'Diary.date'
+        ));
+        foreach ($diary_cal_lists as &$diary_cal_date) {
+            $diary_date = new DateTime($diary_cal_date);
+            $diary_cal_date = $diary_date->format('d');
+        }
+        $calendar['current']['year'] = $year;
+        $calendar['current']['month'] = $month;
+        $calendar['diary_cal_lists'] = $diary_cal_lists;
+        
+        //カレンダー前月来月リンク用
+        $pre_year = date('Y', strtotime($year . '-' . $month . '-01 -1 month'));
+        $pre_month = date('m', strtotime($year . '-' . $month . '-01 -1 month'));
+        $calendar['pre']['year'] = $pre_year;
+        $calendar['pre']['month'] = $pre_month;
+        $next_year = date('Y', strtotime($year . '-' . $month . '-01 +1 month'));
+        $next_month = date('m', strtotime($year . '-' . $month . '-01 +1 month'));
+        $calendar['next']['year'] = $next_year;
+        $calendar['next']['month'] = $next_month;
+//        echo'<pre>';print_r($calendar);echo'</pre>';
+        
+        return $calendar;
+    }
+    
     //マルチ検索のフィルタ設定
     /*public function multiWordSearch($data = [])
     {

@@ -1,13 +1,13 @@
 <?php
-$first_week = date('w', mktime(0, 0, 0, $month, 1, $year));
-$last_day = date('t', mktime(0, 0, 0, $month, 1, $year));
-$last_week = date('w', mktime(0,0, 0, $month, $last_day, $year));
+$first_week = date('w', mktime(0, 0, 0, $calendar['current']['month'], 1, $calendar['current']['year']));
+$last_day = date('t', mktime(0, 0, 0, $calendar['current']['month'], 1, $calendar['current']['year']));
+$last_week = date('w', mktime(0,0, 0, $calendar['current']['month'], $last_day, $calendar['current']['year']));
 ?>
 <div id="calendar" class="side-menu_block">
   <div class="cal-header">
-    <span class="cal-link fl"><?php echo $this->Html->link('<<', '/diary/' . $prev_year . '/' . $prev_month); ?></span>
-    <?php echo $year . '年' . $month . '月'; ?>
-    <span class="cal-link fr"><?php echo $this->Html->link('>>', '/diary/' . $next_year . '/' . $next_month); ?></span>
+    <span class="cal-link fl"><?php echo $this->Html->link('<<', '/diary/' . $calendar['pre']['year'] . '/' . $calendar['pre']['month']); ?></span>
+    <?php echo $calendar['current']['year'] . '年' . $calendar['current']['month'] . '月'; ?>
+    <span class="cal-link fr"><?php echo $this->Html->link('>>', '/diary/' . $calendar['next']['year'] . '/' . $calendar['next']['month']); ?></span>
   </div>
   <div class="cal-body cf">
     <table>
@@ -22,17 +22,17 @@ $last_week = date('w', mktime(0,0, 0, $month, $last_day, $year));
                 $first_week = 7;
             }
             if (($i % 7) == (7 - $first_week)) {
-                if (in_array($i, $diary_cal_lists)) {
+                if (in_array($i, $calendar['diary_cal_lists'])) {
                     echo '<td>';
-                    echo $this->Html->link($i, '/diary/' . $year . '/' . $month . '/' . $i);
+                    echo $this->Html->link($i, '/diary/' . $calendar['current']['year'] . '/' . $calendar['current']['month'] . '/' . $i);
                     echo '</td><tr></tr>';
                 } else {
                     echo '<td>' . $i . '</td></tr><tr>';
                 }
             } else {
-                if (in_array($i, $diary_cal_lists)) {
+                if (in_array($i, $calendar['diary_cal_lists'])) {
                     echo '<td>';
-                    echo $this->Html->link($i, '/diary/' . $year . '/' . $month . '/' . $i);
+                    echo $this->Html->link($i, '/diary/' . $calendar['current']['year'] . '/' . $calendar['current']['month'] . '/' . $i);
                     echo '</td>';
                 } else {
                     echo '<td>' . $i . '</td>';
