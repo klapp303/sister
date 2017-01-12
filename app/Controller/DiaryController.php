@@ -219,14 +219,15 @@ class DiaryController extends AppController
         $this->render('index');
     }
     
-    public function past($page_id = false)
+    public function past($id = false)
     {
         $year = date('Y');
         $month = date('m');
         $hidden_id = 4; //日記一覧では非表示にするジャンル
         
         $diary_lists = $this->Diary->formatDiaryFromFc2('agumion_blog_backup_02.txt');
-        $diary_data = $this->Diary->selectDiaryToNew($diary_lists, $page_id);
+        $diary_counts = count($diary_lists);
+        $diary_data = $this->Diary->selectDiaryToNew($diary_lists, @$this->request->params['named']['page']);
         //cakeのpaginatorは使えないので日記データとpaginatorの設定を分ける
         $diary_lists = $diary_data['lists'];
         $paginator_setting = $diary_data['paginator'];
@@ -249,6 +250,9 @@ class DiaryController extends AppController
         //ジャンルメニュー用
         $genre_menu = $this->DiaryGenre->getGenreMenu();
         $this->set('genre_menu', $genre_menu);
+        
+        //breadcrumbの設定
+        $this->set('sub_page', '過去日記(' . $diary_counts . ')');
         
         $this->render('index');
     }

@@ -1,5 +1,4 @@
 <?php echo $this->Html->css('diary', array('inline' => false)); ?>
-<?php // echo $this->Html->script('img_check', array('inline' => false)); ?>
 <?php echo $this->Html->script('jquery.lazyload.min', array('inline' => false)); ?>
 <script>
     $(function() {
@@ -13,6 +12,15 @@
     });
 </script>
 <?php $birthday = $this->Session->read('birthday'); ?>
+<?php
+//過去日記かどうか
+if (preg_match('#/diary/past#', $_SERVER['REQUEST_URI'])) {
+    $past = 'past/';
+    echo $this->Html->script('img_check', array('inline' => false));
+} else {
+    $past = null;
+}
+?>
 <div id="menu_top" class="mobile cf">
   <?php echo $this->element('submenu_mobile', array('diary_lists' => $diary_lists)); ?>
 </div>
@@ -25,7 +33,7 @@
   <?php } ?>
   <div class="mobile">
     <?php echo $this->Paginator->numbers($paginator_option); ?>
-    <?php if (@$paginator_setting) { //過去日記用のページリンク
+    <?php if ($past) { //過去日記用のページリンク
         echo $this->element('sister_past_paginator');
     } ?>
   </div>
@@ -34,12 +42,12 @@
 <?php foreach ($diary_lists as $diary_list) { ?>
   <div id="article-<?php echo $diary_list['Diary']['id']; ?>" class="article"<?php echo (@$strong_color)? ' style="background-color: #' . $strong_color . ';"' : ''; ?>>
     <div class="art-header"><h3 id="diary-<?php echo $diary_list['Diary']['id']; ?>">
-      <?php echo $this->Html->link($diary_list['Diary']['title'], '/diary/' . $diary_list['Diary']['id']); ?></h3></div>
+      <?php echo $this->Html->link($diary_list['Diary']['title'], '/diary/' . $past . $diary_list['Diary']['id']); ?></h3></div>
     <hr>
     <div class="art-body"><?php echo nl2br($diary_list['Diary']['text']); ?></div>
     <hr>
     <div class="art-footer">
-      <span><?php echo $this->Html->link($diary_list['DiaryGenre']['title'], '/diary/genre/' . $diary_list['Diary']['genre_id']); ?></span>
+      <span><?php echo $this->Html->link($diary_list['DiaryGenre']['title'], '/diary/' . $past . 'genre/' . $diary_list['Diary']['genre_id']); ?></span>
       <span class="fr"><?php echo $diary_list['Diary']['date']; ?></span>
     </div>
   </div>
@@ -52,7 +60,7 @@
     )); ?>
   <?php } ?>
   <?php echo $this->Paginator->numbers($paginator_option); ?>
-  <?php if (@$paginator_setting) { //過去日記用のページリンク
+  <?php if ($past) { //過去日記用のページリンク
       echo $this->element('sister_past_paginator');
   } ?>
 <?php } ?>

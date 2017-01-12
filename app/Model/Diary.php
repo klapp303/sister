@@ -261,6 +261,7 @@ class Diary extends AppModel
             $diary = explode('EXTENDED', $diary[1]);
             $body = ltrim($diary[0]);
             $body = substr($body, 0, -6);
+            $body = str_replace('<img src=', '<img class="img_diary_past" src=', $body);
             
             //debug用
 //            $diary_lists[$key]['title'] = $title;
@@ -269,7 +270,7 @@ class Diary extends AppModel
 //            $diary_lists[$key]['body'] = $body;
             
             //配列に変換
-            $diary_lists[$key]['Diary']['id'] = 0;
+            $diary_lists[$key]['Diary']['id'] = $key +1;
             $diary_lists[$key]['Diary']['title'] = $title;
             $diary_lists[$key]['Diary']['date'] = $date;
             $diary_lists[$key]['Diary']['text'] = $body;
