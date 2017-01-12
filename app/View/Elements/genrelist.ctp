@@ -1,15 +1,17 @@
 <div id="genrelist" class="side-menu_block">
   <ul>
-    <li><?php echo $this->Html->link('すべて(' . $diary_counts_all . ')', '/diary/'); ?></li>
     <?php
-    foreach ($genre_lists as $genre_list) {
-        if ($genre_list['DiaryGenre']['id'] != 1) {
+    foreach ($genre_menu as $genre) {
+        if ($genre['id'] != 'all') {
             echo '<li>';
-            echo $this->Html->link($genre_list['DiaryGenre']['title'] . '(' . ${'diary_counts_genre' . $genre_list['DiaryGenre']['id']} . ')', '/diary/genre/' . $genre_list['DiaryGenre']['id']);
+            echo $this->Html->link($genre['title'] . '(' . $genre['count'] . ')', '/diary/genre/' . $genre['id']);
+            echo '</li>';
+        } else {
+            echo '<li>';
+            echo $this->Html->link($genre['title'] . '(' . $genre['count'] . ')', '/diary/');
             echo '</li>';
         }
     }
     ?>
-    <li><?php echo $this->Html->link('その他('.$diary_counts_genre1.')', '/diary/genre/1'); ?></li>
   </ul>
 </div>

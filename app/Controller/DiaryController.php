@@ -116,26 +116,9 @@ class DiaryController extends AppController
         $calendar = $this->Diary->getCalendarMenu($year, $month, $hidden_id);
         $this->set('calendar', $calendar);
         
-        //ジャンル別メニュー用
-        $genre_lists = $this->DiaryGenre->find('all', array(
-//            'conditions' => array('DiaryGenre.id >' => 1) //その他ジャンルを除外
-        ));
-        $this->set('genre_lists', $genre_lists);
-        
-        //ジャンル別メニュー日記数用
-        foreach ($genre_lists as $genre_list) {
-            ${'diary_counts_genre' . $genre_list['DiaryGenre']['id']} = $this->Diary->find('count', array(
-                'conditions' => array(
-                    'Diary.genre_id' => $genre_list['DiaryGenre']['id'],
-                    'Diary.publish' => 1
-                )
-            ));
-            $this->set('diary_counts_genre' . $genre_list['DiaryGenre']['id'], ${'diary_counts_genre' . $genre_list['DiaryGenre']['id']});
-        }
-        $diary_counts_all = $this->Diary->find('count', array( //すべてのジャンルの日記合計数を取得しておく
-            'conditions' => array('Diary.publish' => 1)
-        ));
-        $this->set('diary_counts_all', $diary_counts_all);
+        //ジャンルメニュー用
+        $genre_menu = $this->DiaryGenre->getGenreMenu();
+        $this->set('genre_menu', $genre_menu);
     }
     
     public function genre()
@@ -174,29 +157,18 @@ class DiaryController extends AppController
         $calendar = $this->Diary->getCalendarMenu($year, $month, $hidden_id);
         $this->set('calendar', $calendar);
         
-        //ジャンル別メニュー用
-        $genre_lists = $this->DiaryGenre->find('all', array(
-//            'conditions' => array('DiaryGenre.id >' => 1) //その他ジャンルを除外
-        ));
-        $this->set('genre_lists', $genre_lists);
-        
-        //ジャンル別メニュー日記数用
-        foreach ($genre_lists as $genre_list) {
-            ${'diary_counts_genre' . $genre_list['DiaryGenre']['id']} = $this->Diary->find('count', array(
-                'conditions' => array(
-                    'Diary.genre_id' => $genre_list['DiaryGenre']['id'],
-                    'Diary.publish' => 1
-                )
-            ));
-            $this->set('diary_counts_genre' . $genre_list['DiaryGenre']['id'], ${'diary_counts_genre' . $genre_list['DiaryGenre']['id']});
-        }
-        $diary_counts_all = $this->Diary->find('count', array( //すべてのジャンルの日記合計数を取得しておく
-            'conditions' => array('Diary.publish' => 1)
-        ));
-        $this->set('diary_counts_all', $diary_counts_all);
+        //ジャンルメニュー用
+        $genre_menu = $this->DiaryGenre->getGenreMenu();
+        $this->set('genre_menu', $genre_menu);
         
         //breadcrumbの設定
-        $this->set('sub_page', $genre_lists[$this->request->params['genre_id'] - 1]['DiaryGenre']['title'] . '(' . ${'diary_counts_genre' . $this->request->params['genre_id']} . ')');
+        foreach ($genre_menu as $val) {
+            if ($val['id'] == $this->request->params['genre_id']) {
+                $current_genre['title'] = $val['title'];
+                $current_genre['count'] = $val['count'];
+            }
+        }
+        $this->set('sub_page', $current_genre['title'] . '(' . $current_genre['count'] . ')');
         
         $this->render('index');
     }
@@ -240,26 +212,9 @@ class DiaryController extends AppController
         $calendar = $this->Diary->getCalendarMenu($year, $month, $hidden_id);
         $this->set('calendar', $calendar);
         
-        //ジャンル別メニュー用
-        $genre_lists = $this->DiaryGenre->find('all', array(
-//            'conditions' => array('DiaryGenre.id >' => 1) //その他ジャンルを除外
-        ));
-        $this->set('genre_lists', $genre_lists);
-        
-        //ジャンル別メニュー日記数用
-        foreach ($genre_lists AS $genre_list) {
-            ${'diary_counts_genre' . $genre_list['DiaryGenre']['id']} = $this->Diary->find('count', array(
-                'conditions' => array(
-                    'Diary.genre_id' => $genre_list['DiaryGenre']['id'],
-                    'Diary.publish' => 1
-                )
-            ));
-            $this->set('diary_counts_genre' . $genre_list['DiaryGenre']['id'], ${'diary_counts_genre' . $genre_list['DiaryGenre']['id']});
-        }
-        $diary_counts_all = $this->Diary->find('count', array( //すべてのジャンルの日記合計数を取得しておく
-            'conditions' => array('Diary.publish' => 1)
-        ));
-        $this->set('diary_counts_all', $diary_counts_all);
+        //ジャンルメニュー用
+        $genre_menu = $this->DiaryGenre->getGenreMenu();
+        $this->set('genre_menu', $genre_menu);
         
         $this->render('index');
     }
@@ -291,26 +246,9 @@ class DiaryController extends AppController
         $calendar = $this->Diary->getCalendarMenu($year, $month, $hidden_id);
         $this->set('calendar', $calendar);
         
-        //ジャンル別メニュー用
-        $genre_lists = $this->DiaryGenre->find('all', array(
-//            'conditions' => array('DiaryGenre.id >' => 1) //その他ジャンルを除外
-        ));
-        $this->set('genre_lists', $genre_lists);
-        
-        //ジャンル別メニュー日記数用
-        foreach ($genre_lists as $genre_list) {
-            ${'diary_counts_genre' . $genre_list['DiaryGenre']['id']} = $this->Diary->find('count', array(
-                'conditions' => array(
-                    'Diary.genre_id' => $genre_list['DiaryGenre']['id'],
-                    'Diary.publish' => 1
-                )
-            ));
-            $this->set('diary_counts_genre' . $genre_list['DiaryGenre']['id'], ${'diary_counts_genre' . $genre_list['DiaryGenre']['id']});
-        }
-        $diary_counts_all = $this->Diary->find('count', array( //すべてのジャンルの日記合計数を取得しておく
-            'conditions' => array('Diary.publish' => 1)
-        ));
-        $this->set('diary_counts_all', $diary_counts_all);
+        //ジャンルメニュー用
+        $genre_menu = $this->DiaryGenre->getGenreMenu();
+        $this->set('genre_menu', $genre_menu);
         
         $this->render('index');
     }
