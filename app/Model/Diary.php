@@ -302,14 +302,14 @@ class Diary extends AppModel
         }
         
         //日付で日記を選ぶ
-        foreach ($diary_lists as $key => $val) {
-            if ($val['Diary']['date'] > '2011-08-19') {
-                unset($diary_lists[$key]);
-            }
+//        foreach ($diary_lists as $key => $val) {
+//            if ($val['Diary']['date'] > '2011-08-19') {
+//                unset($diary_lists[$key]);
+//            }
 //            if ($val['Diary']['date'] < '2010-01-01') {
 //                unset($diary_lists[$key]);
 //            }
-        }
+//        }
         
         //キーを振り直しておく
         $diary_lists = array_merge($diary_lists);
