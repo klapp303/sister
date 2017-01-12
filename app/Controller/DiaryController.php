@@ -227,7 +227,7 @@ class DiaryController extends AppController
         
         $diary_lists = $this->Diary->formatDiaryFromFc2('agumion_blog_backup_02.txt');
         $diary_counts = count($diary_lists);
-        $diary_data = $this->Diary->selectDiaryToNew($diary_lists, @$this->request->params['named']['page']);
+        $diary_data = $this->Diary->selectDiaryToNew($diary_lists, @$id, @$this->request->params['named']['page']);
         //cakeのpaginatorは使えないので日記データとpaginatorの設定を分ける
         $diary_lists = $diary_data['lists'];
         $paginator_setting = $diary_data['paginator'];

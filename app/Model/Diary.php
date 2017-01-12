@@ -292,7 +292,7 @@ class Diary extends AppModel
         return $diary_lists;
     }
     
-    public function selectDiaryToNew($diary_lists = false, $page_id = false, $data = [])
+    public function selectDiaryToNew($diary_lists = false, $id = false, $page = false, $data = ['lists' => false, 'paginator' => false])
     {
         //既に同じ月日の日記があれば削除
         $db_diary_dates = $this->find('list', array('fields' => 'Diary.date'));
@@ -315,19 +315,30 @@ class Diary extends AppModel
         //キーを振り直しておく
         $diary_lists = array_merge($diary_lists);
         
+        //日記idがある場合は詳細ページなので1つだけ取得してreturn
+        if ($id) {
+            foreach ($diary_lists as $val) {
+                if ($val['Diary']['id'] == $id) {
+                    $data['lists'][0] = $val;
+                }
+            }
+            
+            return $data;
+        }
+        
         /* paginatorの設定ここから */
         $limit = 5;
-        if (!$page_id) {
-            $page_id = 1;
+        if (!$page) {
+            $page = 1;
         }
-        if (!preg_match('/^0$|^-?[1-9][0-9]*$/', $page_id)) {
+        if (!preg_match('/^0$|^-?[1-9][0-9]*$/', $page)) {
             return false;
         }
         $diary_count = count($diary_lists);
         
         //日記を取得
         foreach ($diary_lists as $key => $val) {
-            if ($key +1 <= ($page_id -1) * $limit || $page_id * $limit < $key +1) {
+            if ($key +1 <= ($page -1) * $limit || $page * $limit < $key +1) {
                 unset($diary_lists[$key]);
             }
         }
@@ -339,7 +350,7 @@ class Diary extends AppModel
         
         //設定を取得
         $paginator_setting = array(
-            'current_page' => $page_id,
+            'current_page' => $page,
             'max_page' => ceil($diary_count / $limit)
         );
         $data['paginator'] = $paginator_setting;
