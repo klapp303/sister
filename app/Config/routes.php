@@ -9,7 +9,7 @@ Router::connect('/logout/', array('controller' => 'Login', 'action' => 'logout')
  * 'Pages' controller's URLs
  */
 $array_pages = array('information', 'author', 'link');
-foreach ($array_pages AS $menu) {
+foreach ($array_pages as $menu) {
     Router::connect('/' . $menu . '/', array('controller' => 'Pages', 'action' => $menu));
 }
 
