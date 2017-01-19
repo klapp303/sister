@@ -154,7 +154,7 @@ class Diary extends AppModel
             }
             
             //テキスト中に <img src=""> がある場合
-            $text_array = explode('src="', $text, 2);
+            $text_array = explode('<img src="', $text, 2);
             if (@$text_array[1]) {
                 $image_array = explode('"', $text_array[1], 2);
                 $image = $image_array[0];
@@ -166,7 +166,7 @@ class Diary extends AppModel
             }
             
             //テキスト中に <img data-original=""> がある場合
-            $text_array = explode('data-original="', $text, 2);
+            $text_array = explode('<img data-original="', $text, 2);
             if (@$text_array[1] && @!$image) {
                 $image_array = explode('"', $text_array[1], 2);
                 $image = $image_array[0];
