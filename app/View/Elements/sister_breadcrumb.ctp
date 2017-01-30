@@ -1,13 +1,20 @@
 <?php $breadcrumbs = array(); ?>
+<?php
+//urlからパンくずを作成するので末尾を / に揃えておく
+$request_url = $_SERVER['REQUEST_URI'];
+if (mb_substr($request_url, -1) != '/') {
+    $request_url = $request_url . '/';
+}
+?>
 <?php foreach ($array_menu as $menu) { //$array_menuはAppControllerで定義 ?>
-    <?php if (preg_match('*' . $menu['link'] . '*', $_SERVER['REQUEST_URI'])) {
+    <?php if (preg_match('*' . $menu['link'] . '*', $request_url)) {
         $breadcrumbs = array(
             0 => array('menu' => $menu['title'], 'link' => $menu['link'])
         );
         break;
     } ?>
     <?php foreach ($menu['menu'] as $sub_menu) { ?>
-        <?php if (preg_match('*' . $sub_menu['link'] . '*', $_SERVER['REQUEST_URI'])) {
+        <?php if (preg_match('*' . $sub_menu['link'] . '*', $request_url)) {
             $breadcrumbs = array(
                 0 => array('menu' => $menu['title'], 'link' => $menu['link']),
                 1 => array('menu' => $sub_menu['label'], 'link' => $sub_menu['link'])
