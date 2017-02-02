@@ -47,7 +47,7 @@ class Tool extends AppModel{
                 )
             ),
             1 => array(
-                'name' => 'MHスキル期待値シミュレータ',
+                'name' => 'MHXスキル期待値シミュレータ',
                 'url' => 'mh_skill',
                 'version' => array(
                     '1.0' => array('2016-11-26', 'ツール公開'),
