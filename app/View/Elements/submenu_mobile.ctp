@@ -3,7 +3,7 @@
   <ul>
     <?php foreach ($diary_lists as $diary_list) { ?>
       <li><a href="#diary-<?php echo $diary_list['Diary']['id']; ?>">
-        <?php echo mb_strimwidth($diary_list['Diary']['title'], 0, 40, '...', 'UTF-8'); ?></a></li>
+        <?php echo mb_strimwidth($diary_list['Diary']['title'], 0, 45, '...', 'UTF-8'); ?></a></li>
     <?php } ?>
   </ul>
 </div>

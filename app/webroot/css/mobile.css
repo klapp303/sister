@@ -199,6 +199,13 @@
   border: 1px solid #000000;
   background-color: #ffffff;
 }
+#pagelink_mobile >ul >li {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+}
 /*#pagelink_mobile >ul >li >a {
   text-decoration: none;
 }*/
