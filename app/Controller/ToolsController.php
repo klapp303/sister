@@ -301,7 +301,10 @@ class ToolsController extends AppController
         //breadcrumbの設定
         $this->set('sub_page', $tool_data['name']);
         
-        
+        //前に計算したログのsessionデータが残っていれば削除
+        if (@$this->Session->read('weapon_logs')) {
+            $this->Session->delete('weapon_logs');
+        }
     }
     
     public function mh_skill_sim()
@@ -473,6 +476,30 @@ class ToolsController extends AppController
         $weapon_sim['attack'] = floor($weapon_data['attack']);
         $weapon_sim['element'] = floor($weapon_data['element']);
         $this->set('weapon_sim', $weapon_sim);
+        
+        //ここからログの保存用
+        if (@$this->Session->read('weapon_logs')) {
+            $weapon_logs = $this->Session->read('weapon_logs');
+        } else {
+            $weapon_logs = array();
+        }
+        $this->set('weapon_logs', $weapon_logs);
+        //結果を新しくログに追加
+        $attack_log = ($this->request->data['weapon']['attack'])? $this->request->data['weapon']['attack'] : 0;
+        $element_log = ($this->request->data['weapon']['element'])? $this->request->data['weapon']['element'] : 0;
+        $current_logs = array(
+            array(
+                'name' => '攻撃力' . $attack_log . ' / 属性値' . $element_log,
+                'attack' => $weapon_sim['attack'],
+                'element' => $weapon_sim['element']
+            )
+        );
+        $weapon_logs = array_merge($current_logs, $weapon_logs);
+        //ログの保持は最大4件にしておく
+        if (count($weapon_logs) > 4) {
+            unset($weapon_logs[4]);
+        }
+        $this->Session->write('weapon_logs', $weapon_logs);
         
         $this->render('mh_skill');
     }

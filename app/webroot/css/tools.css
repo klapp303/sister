@@ -63,3 +63,12 @@
   padding-left: 40px;
   padding-bottom: 30px;
 }
+.log_mh_sim {
+  font-size: 75%;
+  padding-left: 40px;
+  padding-bottom: 30px;
+}
+.log_mh_sim >div {
+  margin-right: 20px;
+  margin-bottom: 20px;
+}

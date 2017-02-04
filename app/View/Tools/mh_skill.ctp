@@ -8,6 +8,19 @@
     属性期待値： <?php echo $weapon_sim['element']; ?>
   </div>
   
+  <?php if (@$weapon_logs) { ?>
+    <div class="log_mh_sim cf">
+      <h4>結果ログ（最新から最大4件表示）</h4>
+      <?php foreach ($weapon_logs as $log) { ?>
+        <div class="fl">
+          <?php echo $log['name']; ?><br>
+          物理期待値： <?php echo $log['attack']; ?><br>
+          属性期待値： <?php echo $log['element']; ?>
+        </div>
+      <?php } ?>
+    </div>
+  <?php } ?>
+  
   <hr>
 <?php } ?>
 
