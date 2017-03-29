@@ -425,8 +425,8 @@ class ToolsController extends AppController
             $weapon_data['attack'] = $weapon_data['attack'] *1.2;
         } elseif ($weapon_data['sharp'] == 5) { //白
             $weapon_data['attack'] = $weapon_data['attack'] *1.32;
-//        } elseif ($weapon_data['sharp'] == 6) { //紫
-//            $weapon_data['attack'] = $weapon_data['attack'] *1.45;
+        } elseif ($weapon_data['sharp'] == 6) { //紫
+            $weapon_data['attack'] = $weapon_data['attack'] *1.45;
         }
         //中腹補正、大剣太刀はモーション中間かつ武器中腹ヒットで1.05
         $weapon_data['attack'] += $weapon_data['attack'] *0.05 *0.25;

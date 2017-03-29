@@ -47,7 +47,7 @@
         攻撃力<?php echo $this->Form->input('weapon.attack', array('type' => 'text', 'label' => false, 'placeholder' => '例）200', 'size' => 3, 'required')); ?>　
         会心率<?php echo $this->Form->input('weapon.critical', array('type' => 'text', 'label' => false, 'placeholder' => '例）10', 'size' => 3)); ?>　
         属性値<?php echo $this->Form->input('weapon.element', array('type' => 'text', 'label' => false, 'placeholder' => '例）30', 'size' => 3)); ?>　
-        <?php $array_sharp = array(5 => '白', 4 => '青', 3 => '緑', 2 => '黄'); ?>
+        <?php $array_sharp = array(6 => '紫', 5 => '白', 4 => '青', 3 => '緑', 2 => '黄'); ?>
         斬れ味<?php echo $this->Form->input('weapon.sharp', array('type' => 'select', 'label' => false, 'options' => $array_sharp)); ?>
       </td>
     </tr>
@@ -164,7 +164,7 @@
 <h4 class="h4_tools shiyou-h">仕様の詳細とか（クリックで表示）</h4>
   
   <p class="intro_tools shiyou-body" style="display: none;">
-    <b>このツールは基本的にMHXを想定しています。</b><br>
+    <b>このツールは基本的にMHX、MHXXを想定しています。</b><br>
     護符爪ネコ飯、怪力の種 or 鬼人笛、斬れ味補正を考慮した結果が表示されます。<br>
     基本的に武器は太刀を想定、他の近接武器でも大きな違いはありませんが、属性会心強化とか倍率が変わってくるものもあります。<br>
     一方でガンナーは計算方法が全然違うので参考にならないかと。<br>
@@ -175,7 +175,7 @@
     スキルの横の「常時」や「半分」は文字通り全体のどれだけ発動しているかで参考までに分けています。<br>
     火山でドリンク飲まないと逆恨みは常時だぞー！<br>
     <br>
-    その他、太刀想定なので武器の中腹判定は1/4で発生として計算。<br>
+    その他、大剣太刀想定なので武器の中腹判定は1/4で発生として計算。<br>
     W属性の上限対応、会心率が100%超える場合にも一応は対応しています。
   </p>
   <script>
