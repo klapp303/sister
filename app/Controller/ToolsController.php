@@ -465,8 +465,8 @@ class ToolsController extends AppController
                 $weapon_data['element'] = $weapon_data['element'] *1.0625;
             } elseif ($weapon_data['sharp'] == 5) { //白
                 $weapon_data['element'] = $weapon_data['element'] *1.125;
-//            } elseif ($weapon_data['sharp'] == 6) { //紫
-//                $weapon_data['attack'] = $weapon_data['attack'] *1.2;
+            } elseif ($weapon_data['sharp'] == 6) { //紫
+                $weapon_data['attack'] = $weapon_data['attack'] *1.2;
             }
         }
         
