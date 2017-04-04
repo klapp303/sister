@@ -65,7 +65,8 @@
         <?php echo $this->Form->input('skill.3', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-3', 'value' => 1)); ?>挑戦者+1
         <?php echo $this->Form->input('skill.3', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-3', 'value' => 2, 'hiddenField' => false)); ?>挑戦者+2
         <br>
-        <?php echo $this->Form->input('skill.4', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>弱点特効
+        <?php echo $this->Form->input('skill.4', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>弱点特効（プロハン）
+        <?php echo $this->Form->input('skill.4', array('type' => 'checkbox', 'label' => false, 'value' => 2)); ?>弱点特効（半分）
         <br>
         <?php echo $this->Form->input('skill.5', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>連撃
         <br>
@@ -166,11 +167,11 @@
   <p class="intro_tools shiyou-body" style="display: none;">
     <b>このツールは基本的にMHX、MHXXを想定しています。</b><br>
     護符爪ネコ飯、怪力の種 or 鬼人笛、斬れ味補正を考慮した結果が表示されます。<br>
-    基本的に武器は太刀を想定、他の近接武器でも大きな違いはありませんが、属性会心強化とか倍率が変わってくるものもあります。<br>
+    基本的に武器は大剣太刀を想定、他の近接武器でも大きな違いはありませんが、属性会心強化とか倍率が変わってくるものもあります。<br>
     一方でガンナーは計算方法が全然違うので参考にならないかと。<br>
     <br>
     挑戦者は2/3で発動を想定（モンスターの怒り時間は2/3を想定）。<br>
-    弱点特効は100%発動を想定、頑張って狙ってください。<br>
+    弱点特効（プロハン）は100%発動を想定、頑張って狙ってください。<br>
     連撃は一律25%会心率アップとして計算、多分実際との誤差は微々たる範囲です。<br>
     スキルの横の「常時」や「半分」は文字通り全体のどれだけ発動しているかで参考までに分けています。<br>
     火山でドリンク飲まないと逆恨みは常時だぞー！<br>

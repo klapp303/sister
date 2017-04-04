@@ -183,6 +183,8 @@ class Tool extends AppModel{
         //弱点特効
         if ($skill_data[4] == 1) {
             $weapon_data['critical'] += 50;
+        } elseif ($skill_data[4] == 2) {
+            $weapon_data['critical'] += 50*0.5;
         }
         //連撃
         if ($skill_data[5] == 1) {
