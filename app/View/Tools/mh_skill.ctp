@@ -44,16 +44,24 @@
     </tr>
     <tr>
       <td>
+        <?php $array_category = array(1 => '大剣', 2 => '太刀', 3 => '片手剣', 4 => '双剣', 5 => 'ハンマー', 6 => '狩猟笛', 7 => 'ランス', 8 => 'ガンランス', 9 => 'ｽﾗｯｼｭｱｯｸｽ', 10 => 'ﾁｬｰｼﾞｱｯｸｽ', 11 => '操虫棍'); ?>
+        <?php echo $this->Form->input('weapon.category', array('type' => 'select', 'label' => false, 'options' => $array_category)); ?>　
         攻撃力<?php echo $this->Form->input('weapon.attack', array('type' => 'text', 'label' => false, 'placeholder' => '例）200', 'size' => 3, 'required')); ?>　
         会心率<?php echo $this->Form->input('weapon.critical', array('type' => 'text', 'label' => false, 'placeholder' => '例）10', 'size' => 3)); ?>　
         属性値<?php echo $this->Form->input('weapon.element', array('type' => 'text', 'label' => false, 'placeholder' => '例）30', 'size' => 3)); ?>　
         <?php $array_sharp = array(6 => '紫', 5 => '白', 4 => '青', 3 => '緑', 2 => '黄'); ?>
         斬れ味<?php echo $this->Form->input('weapon.sharp', array('type' => 'select', 'label' => false, 'options' => $array_sharp)); ?>
+        <?php // $array_bullet = array(1 => '通常弾・連射矢', 2 => '貫通弾・貫通矢', 3 => '散弾・拡散矢'); ?>
+        <!--弾・矢--><?php // echo $this->Form->input('weapon.bullet', array('type' => 'select', 'label' => false, 'options' => $array_bullet)); ?>
       </td>
     </tr>
     <tr>
       <td><label>スキル</label></td>
       <td>
+        <?php // echo $this->Form->input('skill.101', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?><!--通常弾・連射矢UP
+        <?php // echo $this->Form->input('skill.101', array('type' => 'checkbox', 'label' => false, 'value' => 2, 'hiddenField' => false)); ?>貫通弾・貫通矢UP
+        <?php // echo $this->Form->input('skill.101', array('type' => 'checkbox', 'label' => false, 'value' => 3, 'hiddenField' => false)); ?>散弾・拡散矢UP-->
+        <!--<br>-->
         <?php echo $this->Form->input('skill.1', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-1', 'value' => 1)); ?>攻撃力UP【小】
         <?php echo $this->Form->input('skill.1', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-1', 'value' => 2, 'hiddenField' => false)); ?>攻撃力UP【中】
         <?php echo $this->Form->input('skill.1', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-1', 'value' => 3, 'hiddenField' => false)); ?>攻撃力UP【大】
@@ -167,8 +175,7 @@
   <p class="intro_tools shiyou-body" style="display: none;">
     <b>このツールは基本的にMHX、MHXXを想定しています。</b><br>
     護符爪ネコ飯、怪力の種 or 鬼人笛、斬れ味補正を考慮した結果が表示されます。<br>
-    基本的に武器は大剣太刀を想定、他の近接武器でも大きな違いはありませんが、属性会心強化とか倍率が変わってくるものもあります。<br>
-    一方でガンナーは計算方法が全然違うので参考にならないかと。<br>
+    ガンナーは計算方法が全然違うので気が向けば実装します。<br>
     <br>
     挑戦者は2/3で発動を想定（モンスターの怒り時間は2/3を想定）。<br>
     弱点特効（プロハン）は100%発動を想定、頑張って狙ってください。<br>
@@ -176,7 +183,7 @@
     スキルの横の「常時」や「半分」は文字通り全体のどれだけ発動しているかで参考までに分けています。<br>
     火山でドリンク飲まないと逆恨みは常時だぞー！<br>
     <br>
-    その他、大剣太刀想定なので武器の中腹判定は1/4で発生として計算。<br>
+    その他、大剣太刀の中腹判定は1/4で発生として計算。<br>
     W属性の上限対応、会心率が100%超える場合にも一応は対応しています。
   </p>
   <script>

@@ -53,7 +53,8 @@ class Tool extends AppModel{
                     '1.0' => array('2016-11-26', 'ツール公開'),
                     '1.1' => array('2016-11-28', '全角数字でも入力できるようにする'),
                     '1.2' => array('2017-02-04', '結果ログを表示させる'),
-                    '1.3' => array('2017-03-28', '斬れ味 紫ゲージに対応させる（MHXX）')
+                    '1.3' => array('2017-03-28', '斬れ味 紫ゲージに対応させる（MHXX）'),
+                    '1.4' => array('2017-04-13', '剣士武器の種類選択を追加<br>　　　斬れ味 紫の下方修正および、<br>　　　鈍器の上方修正に対応させる（MHXX）')
                 )
             )
         );
@@ -150,13 +151,19 @@ class Tool extends AppModel{
         } elseif ($skill_data[7] == 4) {
             $weapon_data['attack'] += 15*0.5;
         }
-        //鈍器使い
-        if ($skill_data[9] == 1) {
-            if ($weapon_data['sharp'] < 3) { //黄
-                $weapon_data['attack'] += 25;
-            } elseif ($weapon_data['sharp'] == 3) { //緑
-                $weapon_data['attack'] += 15;
-            }
+        //剣士用
+        if (!in_array($weapon_data['category'], array(12, 13, 14))) {
+            //鈍器使い(MHX)
+//            if ($skill_data[9] == 1) {
+//                if ($weapon_data['sharp'] < 3) { //黄
+//                    $weapon_data['attack'] += 25;
+//                } elseif ($weapon_data['sharp'] == 3) { //緑
+//                    $weapon_data['attack'] += 15;
+//                }
+//            }
+        //ガンナー用
+        } else {
+            
         }
         //護符爪
         $weapon_data['attack'] += 15;
@@ -209,24 +216,47 @@ class Tool extends AppModel{
             $weapon_data['attack'] = $weapon_data['attack'] *1.25 *$weapon_data['critical'] + $weapon_data['attack'] *1 *(100 - $weapon_data['critical']);
         }
         $weapon_data['attack'] = $weapon_data['attack'] /100;
-        //斬れ味補正
-        if ($weapon_data['sharp'] == 0) { //赤
-            $weapon_data['attack'] = $weapon_data['attack'] *0.5 *0.5;
-        } elseif ($weapon_data['sharp'] == 1) { //橙
-            $weapon_data['attack'] = $weapon_data['attack'] *0.75 *0.5;
-        } elseif ($weapon_data['sharp'] == 2) { //黄
-            $weapon_data['attack'] = $weapon_data['attack'] *1.0 *0.5;
-        } elseif ($weapon_data['sharp'] == 3) { //緑
-            $weapon_data['attack'] = $weapon_data['attack'] *1.05;
-        } elseif ($weapon_data['sharp'] == 4) { //青
-            $weapon_data['attack'] = $weapon_data['attack'] *1.2;
-        } elseif ($weapon_data['sharp'] == 5) { //白
-            $weapon_data['attack'] = $weapon_data['attack'] *1.32;
-        } elseif ($weapon_data['sharp'] == 6) { //紫
-            $weapon_data['attack'] = $weapon_data['attack'] *1.39;
+        //剣士用
+        if (!in_array($weapon_data['category'], array(12, 13, 14))) {
+            //斬れ味補正
+            if ($weapon_data['sharp'] == 0) { //赤
+                $weapon_data['attack'] = $weapon_data['attack'] *0.5 *0.5;
+            } elseif ($weapon_data['sharp'] == 1) { //橙
+                $weapon_data['attack'] = $weapon_data['attack'] *0.75 *0.5;
+            } elseif ($weapon_data['sharp'] == 2) { //黄
+                $weapon_data['attack'] = $weapon_data['attack'] *1.0 *0.5;
+                //鈍器使い
+                if ($skill_data[9] == 1) {
+                    $weapon_data['attack'] = $weapon_data['attack'] *1.15;
+                }
+            } elseif ($weapon_data['sharp'] == 3) { //緑
+                $weapon_data['attack'] = $weapon_data['attack'] *1.05;
+                //鈍器使い
+                if ($skill_data[9] == 1) {
+                    $weapon_data['attack'] = $weapon_data['attack'] *1.1;
+                }
+            } elseif ($weapon_data['sharp'] == 4) { //青
+                $weapon_data['attack'] = $weapon_data['attack'] *1.2;
+            } elseif ($weapon_data['sharp'] == 5) { //白
+                $weapon_data['attack'] = $weapon_data['attack'] *1.32;
+            } elseif ($weapon_data['sharp'] == 6) { //紫
+                $weapon_data['attack'] = $weapon_data['attack'] *1.39;
+            }
+            //中腹補正、大剣太刀はモーション中間かつ武器中腹ヒットで1.05
+            if (in_array($weapon_data['category'], array(1, 2))) {
+                $weapon_data['attack'] += $weapon_data['attack'] *0.05 *0.25;
+            }
+        //ガンナー用
+        } else {
+            //弾・矢補正
+            if ($weapon_data['bullet'] == 1) { //通常弾・連射矢
+                
+            } elseif ($weapon_data['bullet'] == 2) { //貫通弾・貫通矢
+                
+            } elseif ($weapon_data['bullet'] == 3) { //散弾・拡散矢
+                
+            }
         }
-        //中腹補正、大剣太刀はモーション中間かつ武器中腹ヒットで1.05
-        $weapon_data['attack'] += $weapon_data['attack'] *0.05 *0.25;
         
         //ここから属性値の計算
         if ($weapon_data['element'] > 0) {
@@ -245,25 +275,45 @@ class Tool extends AppModel{
             }
             //属性会心強化
             if ($skill_data[13] == 1 && $weapon_data['critical'] > 0) {
-                //会心時に太刀ならば属性値1.25倍
-                $weapon_data['element'] = $weapon_data['element'] *1.25 *$weapon_data['critical'] + $weapon_data['element'] *1 *(100 - $weapon_data['critical']);
-                $weapon_data['element'] = $weapon_data['element'] /100;
+                //大剣は会心時に属性値1.2倍
+                if ($weapon_data['category'] == 1) {
+                    $weapon_data['element'] = $weapon_data['element'] *1.2 *$weapon_data['critical'] + $weapon_data['element'] *1 *(100 - $weapon_data['critical']);
+                    $weapon_data['element'] = $weapon_data['element'] /100;
+                //ライトボウガン、ヘビィボウガンは会心時に属性値1.3倍
+                } elseif (in_array($weapon_data['category'], array(12, 13))) {
+                    $weapon_data['element'] = $weapon_data['element'] *1.3 *$weapon_data['critical'] + $weapon_data['element'] *1 *(100 - $weapon_data['critical']);
+                    $weapon_data['element'] = $weapon_data['element'] /100;
+                //片手剣、双剣、弓は会心時に属性値1.35倍
+                } elseif (in_array($weapom_data['category'], array(3, 4, 14))) {
+                    $weapon_data['element'] = $weapon_data['element'] *1.35 *$weapon_data['critical'] + $weapon_data['element'] *1 *(100 - $weapon_data['critical']);
+                    $weapon_data['element'] = $weapon_data['element'] /100;
+                //それ以外は会心時に属性値1.25倍
+                } else {
+                    $weapon_data['element'] = $weapon_data['element'] *1.25 *$weapon_data['critical'] + $weapon_data['element'] *1 *(100 - $weapon_data['critical']);
+                    $weapon_data['element'] = $weapon_data['element'] /100;
+                }
             }
-            //斬れ味補正
-            if ($weapon_data['sharp'] == 0) { //赤
-                $weapon_data['element'] = $weapon_data['element'] *0.25;
-            } elseif ($weapon_data['sharp'] == 1) { //橙
-                $weapon_data['element'] = $weapon_data['element'] *0.5;
-            } elseif ($weapon_data['sharp'] == 2) { //黄
-                $weapon_data['element'] = $weapon_data['element'] *0.75;
-            } elseif ($weapon_data['sharp'] == 3) { //緑
-                $weapon_data['element'] = $weapon_data['element'] *1;
-            } elseif ($weapon_data['sharp'] == 4) { //青
-                $weapon_data['element'] = $weapon_data['element'] *1.0625;
-            } elseif ($weapon_data['sharp'] == 5) { //白
-                $weapon_data['element'] = $weapon_data['element'] *1.125;
-            } elseif ($weapon_data['sharp'] == 6) { //紫
-                $weapon_data['attack'] = $weapon_data['attack'] *1.2;
+            //剣士用
+            if (!in_array($weapon_data['category'], array(12, 13, 14))) {
+                //斬れ味補正
+                if ($weapon_data['sharp'] == 0) { //赤
+                    $weapon_data['element'] = $weapon_data['element'] *0.25;
+                } elseif ($weapon_data['sharp'] == 1) { //橙
+                    $weapon_data['element'] = $weapon_data['element'] *0.5;
+                } elseif ($weapon_data['sharp'] == 2) { //黄
+                    $weapon_data['element'] = $weapon_data['element'] *0.75;
+                } elseif ($weapon_data['sharp'] == 3) { //緑
+                    $weapon_data['element'] = $weapon_data['element'] *1;
+                } elseif ($weapon_data['sharp'] == 4) { //青
+                    $weapon_data['element'] = $weapon_data['element'] *1.0625;
+                } elseif ($weapon_data['sharp'] == 5) { //白
+                    $weapon_data['element'] = $weapon_data['element'] *1.125;
+                } elseif ($weapon_data['sharp'] == 6) { //紫
+                    $weapon_data['element'] = $weapon_data['element'] *1.2;
+                }
+            //ガンナー用
+            } else {
+                
             }
         }
         
