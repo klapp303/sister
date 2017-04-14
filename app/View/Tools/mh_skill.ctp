@@ -1,5 +1,6 @@
 <?php echo $this->Html->css('tools', array('inline' => false)); ?>
 <?php echo $this->Html->script('jquery-check_radio', array('inline' => false)); ?>
+<?php // echo $this->Html->script('jquery-select_select', array('inline' => false)); ?>
 <h3><?php echo $tool_data['name']; ?> <span class="txt-min">ver<?php echo $tool_data['version_latest']; ?></span></h3>
 
 <?php if (@$weapon_sim) { ?>
@@ -44,24 +45,73 @@
     </tr>
     <tr>
       <td>
-        <?php $array_category = array(1 => '大剣', 2 => '太刀', 3 => '片手剣', 4 => '双剣', 5 => 'ハンマー', 6 => '狩猟笛', 7 => 'ランス', 8 => 'ガンランス', 9 => 'ｽﾗｯｼｭｱｯｸｽ', 10 => 'ﾁｬｰｼﾞｱｯｸｽ', 11 => '操虫棍'); ?>
-        <?php echo $this->Form->input('weapon.category', array('type' => 'select', 'label' => false, 'options' => $array_category)); ?>　
+        <?php $array_category = array(1 => '大剣', 2 => '太刀', 3 => '片手剣', 4 => '双剣', 5 => 'ハンマー', 6 => '狩猟笛', 7 => 'ランス', 8 => 'ガンランス', 9 => 'ｽﾗｯｼｭｱｯｸｽ', 10 => 'ﾁｬｰｼﾞｱｯｸｽ', 11 => '操虫棍', 12 => 'ﾗｲﾄﾎﾞｳｶﾞﾝ', 13 => 'ﾍﾋﾞｨﾎﾞｳｶﾞﾝ', 14 => '弓'); ?>
+        <?php echo $this->Form->input('weapon.category', array('type' => 'select', 'label' => false, 'id' => 'js-pulldown_1', 'options' => $array_category)); ?>　
         攻撃力<?php echo $this->Form->input('weapon.attack', array('type' => 'text', 'label' => false, 'placeholder' => '例）200', 'size' => 3, 'required')); ?>　
         会心率<?php echo $this->Form->input('weapon.critical', array('type' => 'text', 'label' => false, 'placeholder' => '例）10', 'size' => 3)); ?>　
         属性値<?php echo $this->Form->input('weapon.element', array('type' => 'text', 'label' => false, 'placeholder' => '例）30', 'size' => 3)); ?>　
-        <?php $array_sharp = array(6 => '紫', 5 => '白', 4 => '青', 3 => '緑', 2 => '黄'); ?>
-        斬れ味<?php echo $this->Form->input('weapon.sharp', array('type' => 'select', 'label' => false, 'options' => $array_sharp)); ?>
-        <?php // $array_bullet = array(1 => '通常弾・連射矢', 2 => '貫通弾・貫通矢', 3 => '散弾・拡散矢'); ?>
-        <!--弾・矢--><?php // echo $this->Form->input('weapon.bullet', array('type' => 'select', 'label' => false, 'options' => $array_bullet)); ?>
+        <?php // $array_sharp = array(6 => '紫', 5 => '白', 4 => '青', 3 => '緑', 2 => '黄'); ?>
+        <!--斬れ味--><?php // echo $this->Form->input('weapon.sharp', array('type' => 'select', 'label' => false, 'options' => $array_sharp)); ?>
+        <select name="data[weapon][sharp]" id="js-pulldown_2">
+          <?php $array_sharp = array(6 => '紫', 5 => '白', 4 => '青', 3 => '緑', 2 => '黄', 1 => '赤'); ?>
+          <?php foreach ($array_sharp as $value => $label) { ?>
+            <option value="<?php echo $value; ?>" class="js-sharp">
+              <?php echo $label; ?></option>
+          <?php } ?>
+        </select>
+        <select name="" id="js-pulldown_op" disabled="disabled" style="display: none;">
+          <?php $array_sharp = array(6 => '紫', 5 => '白', 4 => '青', 3 => '緑', 2 => '黄', 1 => '赤'); ?>
+          <?php foreach ($array_sharp as $value => $label) { ?>
+            <option value="<?php echo $value; ?>" class="js-sharp"<?php echo ($value == 6)? ' selected="selected"' : ''; ?>>
+              <?php echo $label; ?></option>
+          <?php } ?>
+          <?php $array_bullet = array(101 => '通常弾・連射矢', 102 => '貫通弾・貫通矢', 103 => '散弾・拡散矢'); ?>
+          <?php foreach ($array_bullet as $value => $label) { ?>
+            <option value="<?php echo $value; ?>" class="js-bullet"<?php echo ($value == 101)? ' selected="selected"' : ''; ?>>
+              <?php echo $label; ?></option>
+          <?php } ?>
+        </select>
+        <script>
+            jQuery(function($) {
+                $(document).ready(function() {
+                    //プルダウンのoption内容を取得
+                    var pd_option = $("#js-pulldown_op option").clone();
+                    
+                    $("#js-pulldown_1").change(function() {
+                        //選択された武器種を取得
+                        var weapon = $("#js-pulldown_1").val();
+                        if (weapon >= 12) {
+                            var weapon_cat = 'js-bullet';
+                            //ガンナーならガンナー用スキルを表示
+                            $('.js-bullet-form').css('display', 'block');
+                        } else {
+                            var weapon_cat = 'js-sharp';
+                            //剣士ならガンナー用スキルを非表示
+                            $('.js-bullet-form').css('display', 'none');
+                        }
+                        
+                        //プルダウンのoptionを書き換える
+                        $("#js-pulldown_2 option").remove();
+                        $(pd_option).appendTo("#js-pulldown_2");
+                        //選択値以外のクラスのoptionを削除
+                        $("#js-pulldown_2 option[class != " + weapon_cat + "]").remove();
+                        //「▼選択」optionを先頭に表示
+//                        $("#js-pulldown_2").prepend('<option selected="selected"></option>');
+                    });
+                });
+            });
+        </script>
       </td>
     </tr>
     <tr>
       <td><label>スキル</label></td>
       <td>
-        <?php // echo $this->Form->input('skill.101', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?><!--通常弾・連射矢UP
-        <?php // echo $this->Form->input('skill.101', array('type' => 'checkbox', 'label' => false, 'value' => 2, 'hiddenField' => false)); ?>貫通弾・貫通矢UP
-        <?php // echo $this->Form->input('skill.101', array('type' => 'checkbox', 'label' => false, 'value' => 3, 'hiddenField' => false)); ?>散弾・拡散矢UP-->
-        <!--<br>-->
+        <div class="js-bullet-form" style="display: none;">
+          <?php echo $this->Form->input('skill.101', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>通常弾・連射矢UP
+          <?php echo $this->Form->input('skill.101', array('type' => 'checkbox', 'label' => false, 'value' => 2, 'hiddenField' => false)); ?>貫通弾・貫通矢UP
+          <?php echo $this->Form->input('skill.101', array('type' => 'checkbox', 'label' => false, 'value' => 3, 'hiddenField' => false)); ?>散弾・拡散矢UP
+          <br>
+        </div>
         <?php echo $this->Form->input('skill.1', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-1', 'value' => 1)); ?>攻撃力UP【小】
         <?php echo $this->Form->input('skill.1', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-1', 'value' => 2, 'hiddenField' => false)); ?>攻撃力UP【中】
         <?php echo $this->Form->input('skill.1', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-1', 'value' => 3, 'hiddenField' => false)); ?>攻撃力UP【大】
@@ -74,7 +124,7 @@
         <?php echo $this->Form->input('skill.3', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-3', 'value' => 2, 'hiddenField' => false)); ?>挑戦者+2
         <br>
         <?php echo $this->Form->input('skill.4', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>弱点特効（プロハン）
-        <?php echo $this->Form->input('skill.4', array('type' => 'checkbox', 'label' => false, 'value' => 2)); ?>弱点特効（半分）
+        <?php echo $this->Form->input('skill.4', array('type' => 'checkbox', 'label' => false, 'value' => 2, 'hiddenField' => false)); ?>弱点特効（半分）
         <br>
         <?php echo $this->Form->input('skill.5', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>連撃
         <br>
