@@ -188,10 +188,18 @@ class Tool extends AppModel{
             $weapon_data['critical'] += 15*0.67;
         }
         //弱点特効
-        if ($skill_data[4] == 1) {
-            $weapon_data['critical'] += 50;
-        } elseif ($skill_data[4] == 2) {
-            $weapon_data['critical'] += 50*0.5;
+        if ($weapon_data['sharp'] != 102) { //貫通弾・貫通矢以外
+            if ($skill_data[4] == 1) {
+                $weapon_data['critical'] += 50;
+            } elseif ($skill_data[4] == 2) {
+                $weapon_data['critical'] += 50*0.5;
+            }
+        } else { //貫通弾・貫通矢は4hit中1hitにのみ適用
+            if ($skill_data[4] == 1) {
+                $weapon_data['critical'] += 50/4;
+            } elseif ($skill_data[4] == 2) {
+                $weapon_data['critical'] += 50*0.5/4;
+            }
         }
         //連撃
         if ($skill_data[5] == 1) {
@@ -249,12 +257,31 @@ class Tool extends AppModel{
         //ガンナー用
         } else {
             //弾・矢補正
-            if ($weapon_data['bullet'] == 1) { //通常弾・連射矢
-                
-            } elseif ($weapon_data['bullet'] == 2) { //貫通弾・貫通矢
-                
-            } elseif ($weapon_data['bullet'] == 3) { //散弾・拡散矢
-                
+            if ($weapon_data['sharp'] == 101) { //通常弾・連射矢
+                $weapon_data['attack'] = $weapon_data['attack'] *1.5; //クリティカル距離
+                if ($skill_data[101] == 1) {
+                    $weapon_data['attack'] = $weapon_data['attack'] *1.1;
+                }
+            } elseif ($weapon_data['sharp'] == 102) { //貫通弾・貫通矢
+                //クリティカル距離
+                if ($skill_data[102] == 1) { //弾導強化ならば全4hit分を1.5倍
+                    $weapon_data['attack'] = $weapon_data['attack'] *1.5;
+                } else { //通常は4hit中3hit分のみクリティカル距離判定
+                    $weapon_data['attack'] = $weapon_data['attack'] *3*1.5 + $weapon_data['attack'] *1;
+                    $weapon_data['attack'] = $weapon_data['attack'] /4;
+                }
+                if ($skill_data[101] == 2) {
+                    $weapon_data['attack'] = $weapon_data['attack'] *1.1;
+                }
+            } elseif ($weapon_data['sharp'] == 103) { //散弾・拡散矢
+                $weapon_data['attack'] = $weapon_data['attack'] *1.5; //クリティカル距離
+                if ($skill_data[101] == 3) {
+                    if ($weapon_data['category'] == 14) { //拡散矢は1.3倍
+                        $weapon_data['attack'] = $weapon_data['attack'] *1.3;
+                    } else { //散弾は1.2倍
+                        $weapon_data['attack'] = $weapon_data['attack'] *1.2;
+                    }
+                }
             }
         }
         

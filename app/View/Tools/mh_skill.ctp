@@ -111,6 +111,8 @@
           <?php echo $this->Form->input('skill.101', array('type' => 'checkbox', 'label' => false, 'value' => 2, 'hiddenField' => false)); ?>貫通弾・貫通矢UP
           <?php echo $this->Form->input('skill.101', array('type' => 'checkbox', 'label' => false, 'value' => 3, 'hiddenField' => false)); ?>散弾・拡散矢UP
           <br>
+          <?php echo $this->Form->input('skill.102', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>弾導強化
+          <br><br>
         </div>
         <?php echo $this->Form->input('skill.1', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-1', 'value' => 1)); ?>攻撃力UP【小】
         <?php echo $this->Form->input('skill.1', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-1', 'value' => 2, 'hiddenField' => false)); ?>攻撃力UP【中】
@@ -225,7 +227,6 @@
   <p class="intro_tools shiyou-body" style="display: none;">
     <b>このツールは基本的にMHX、MHXXを想定しています。</b><br>
     護符爪ネコ飯、怪力の種 or 鬼人笛、斬れ味補正を考慮した結果が表示されます。<br>
-    ガンナーは計算方法が全然違うので気が向けば実装します。<br>
     <br>
     挑戦者は2/3で発動を想定（モンスターの怒り時間は2/3を想定）。<br>
     弱点特効（プロハン）は100%発動を想定、頑張って狙ってください。<br>
@@ -234,7 +235,10 @@
     火山でドリンク飲まないと逆恨みは常時だぞー！<br>
     <br>
     その他、大剣太刀の中腹判定は1/4で発生として計算。<br>
-    W属性の上限対応、会心率が100%超える場合にも一応は対応しています。
+    W属性の上限対応、会心率が100%を超える場合にも一応は対応しています。<br>
+    貫通弾・貫通矢は一律4hitと想定して、クリティカル距離は3hit分のみで計算。<br>
+    弾導強化があれば全4hit分をクリティカル距離として計算。<br>
+    また弱点特効は1hit分にのみ適用しています。概算だからね、しかたないね。
   </p>
   <script>
       jQuery(function($) {
