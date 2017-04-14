@@ -60,17 +60,22 @@
         属性値<?php echo $this->Form->input('weapon.element', array('type' => 'text', 'label' => false, 'placeholder' => '例）30', 'size' => 3)); ?>　
         <?php // $array_sharp = array(6 => '紫', 5 => '白', 4 => '青', 3 => '緑', 2 => '黄'); ?>
         <!--斬れ味--><?php // echo $this->Form->input('weapon.sharp', array('type' => 'select', 'label' => false, 'options' => $array_sharp)); ?>
+        <span class="js-sharp-form" style="display: <?php echo ($weapon_mode == 'sharp')? 'inline' : 'none'; ?>;">斬れ味</span>
         <select name="data[weapon][sharp]" id="js-pulldown_2">
-          <?php if ($weapon_mode == 'sharp') { ?>
+          <?php
+          //斬れ味の値をなぜか引き継げないのでここで取得
+          @$sharp_val = $this->request->data['weapon']['sharp'];
+          ?>
+          <?php if ($weapon_mode == 'sharp') { //初期表示：剣士 ?>
             <?php $array_sharp = array(6 => '紫', 5 => '白', 4 => '青', 3 => '緑', 2 => '黄', 1 => '赤'); ?>
             <?php foreach ($array_sharp as $value => $label) { ?>
-              <option value="<?php echo $value; ?>" class="js-sharp">
+              <option value="<?php echo $value; ?>" class="js-sharp"<?php echo ($value == $sharp_val)? ' selected="selected"' : ''; ?>>
                 <?php echo $label; ?></option>
             <?php } ?>
-          <?php } elseif ($weapon_mode == 'bullet') { ?>
+          <?php } elseif ($weapon_mode == 'bullet') { //初期表示：ガンナー ?>
             <?php $array_sharp = array(101 => '通常弾・連射矢', 102 => '貫通弾・貫通矢', 103 => '散弾・拡散矢'); ?>
             <?php foreach ($array_sharp as $value => $label) { ?>
-              <option value="<?php echo $value; ?>" class="js-bullet">
+              <option value="<?php echo $value; ?>" class="js-bullet"<?php echo ($value == $sharp_val)? ' selected="selected"' : ''; ?>>
                 <?php echo $label; ?></option>
             <?php } ?>
           <?php } ?>
@@ -96,14 +101,17 @@
                     $("#js-pulldown_1").change(function() {
                         //選択された武器種を取得
                         var weapon = $("#js-pulldown_1").val();
+                        //ガンナーの場合
                         if (weapon >= 12) {
                             var weapon_cat = 'js-bullet';
-                            //ガンナーならガンナー用スキルを表示
-                            $('.js-bullet-form').css('display', 'block');
+                            $('.js-bullet-form').css('display', 'block'); //ガンナースキルを表示
+                            $('.js-sharp-form').css('display', 'none'); //'斬れ味'を非表示
+                            
+                        //剣士の場合
                         } else {
                             var weapon_cat = 'js-sharp';
-                            //剣士ならガンナー用スキルを非表示
-                            $('.js-bullet-form').css('display', 'none');
+                            $('.js-bullet-form').css('display', 'none'); //ガンナースキルを非表示
+                            $('.js-sharp-form').css('display', 'inline'); //'斬れ味'を表示
                         }
                         
                         //プルダウンのoptionを書き換える
@@ -111,7 +119,7 @@
                         $(pd_option).appendTo("#js-pulldown_2");
                         //選択値以外のクラスのoptionを削除
                         $("#js-pulldown_2 option[class != " + weapon_cat + "]").remove();
-                        //「▼選択」optionを先頭に表示
+                        //空欄の選択肢を先頭に追加
 //                        $("#js-pulldown_2").prepend('<option selected="selected"></option>');
                     });
                 });
