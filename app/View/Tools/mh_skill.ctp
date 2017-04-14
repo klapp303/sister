@@ -149,31 +149,47 @@
         <?php echo $this->Form->input('skill.3', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-3', 'value' => 1)); ?>挑戦者+1
         <?php echo $this->Form->input('skill.3', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-3', 'value' => 2, 'hiddenField' => false)); ?>挑戦者+2
         <br>
+        <?php echo $this->Form->input('skill.14', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-4', 'value' => 1)); ?>力の解放+1
+        <?php echo $this->Form->input('skill.14', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-4', 'value' => 2, 'hiddenField' => false)); ?>力の解放+2
+        <br>
         <?php echo $this->Form->input('skill.4', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>弱点特効（プロハン）
         <?php echo $this->Form->input('skill.4', array('type' => 'checkbox', 'label' => false, 'value' => 2, 'hiddenField' => false)); ?>弱点特効（半分）
         <br>
         <?php echo $this->Form->input('skill.5', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>連撃
         <br>
+        <?php echo $this->Form->input('skill.15', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>抜刀会心（大剣のみ）
+        <br>
         <?php echo $this->Form->input('skill.8', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>会心強化
         <br>
-        <?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-4', 'value' => 1)); ?>フルチャージ（常時）
-        <?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-4', 'value' => 2, 'hiddenField' => false)); ?>フルチャージ（半分）
-        <?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-4', 'value' => 3, 'hiddenField' => false)); ?>逆恨み（常時）
-        <?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-4', 'value' => 4, 'hiddenField' => false)); ?>逆恨み（半分）
+        <?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-5', 'value' => 1)); ?>フルチャージ（常時）
+        <?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-5', 'value' => 2, 'hiddenField' => false)); ?>フルチャージ（半分）
+        <?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-5', 'value' => 3, 'hiddenField' => false)); ?>逆恨み（常時）
+        <?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-5', 'value' => 4, 'hiddenField' => false)); ?>逆恨み（半分）
         <br>
-        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-5', 'value' => 1)); ?>北風の狩人（常時）
-        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-5', 'value' => 2, 'hiddenField' => false)); ?>北風の狩人（半分）
-        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-5', 'value' => 3)); ?>南風の狩人（常時）
-        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-5', 'value' => 4, 'hiddenField' => false)); ?>南風の狩人（半分）
+        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-6', 'value' => 1)); ?>北風の狩人（常時）
+        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-6', 'value' => 2, 'hiddenField' => false)); ?>北風の狩人（半分）
+        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-6', 'value' => 3)); ?>南風の狩人（常時）
+        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-6', 'value' => 4, 'hiddenField' => false)); ?>南風の狩人（半分）
         <br>
         <?php echo $this->Form->input('skill.9', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>鈍器使い
         <br>
-        <?php echo $this->Form->input('skill.11', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-6', 'value' => 1)); ?>各属性攻撃強化+1
-        <?php echo $this->Form->input('skill.11', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-6', 'value' => 2, 'hiddenField' => false)); ?>各属性攻撃強化+2
+        <?php echo $this->Form->input('skill.11', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-7', 'value' => 1)); ?>各属性攻撃強化+1
+        <?php echo $this->Form->input('skill.11', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-7', 'value' => 2, 'hiddenField' => false)); ?>各属性攻撃強化+2
         <br>
         <?php echo $this->Form->input('skill.12', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>属性攻撃強化
         <br>
         <?php echo $this->Form->input('skill.13', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>属性会心強化
+        <br><br>
+        <?php echo $this->Form->input('skill.17', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-8', 'value' => 1)); ?>死中に活（常時）
+        <?php echo $this->Form->input('skill.17', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-8', 'value' => 2, 'hiddenField' => false)); ?>死中に活（半分）
+        <br>
+        <?php echo $this->Form->input('skill.18', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-9', 'value' => 1)); ?>龍気活性（常時）
+        <?php echo $this->Form->input('skill.18', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-9', 'value' => 2, 'hiddenField' => false)); ?>龍気活性（半分）
+        <br>
+        <!--<?php // echo $this->Form->input('skill.19', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>裏会心
+        <br>-->
+        <?php echo $this->Form->input('skill.16', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-10', 'value' => 1)); ?>火事場＋2（プロハン）
+        <?php echo $this->Form->input('skill.16', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-10', 'value' => 2, 'hiddenField' => false)); ?>ネコの火事場術（プロハン）
       </td>
     </tr>
     
@@ -253,12 +269,15 @@
     護符爪ネコ飯、怪力の種 or 鬼人笛、斬れ味補正を考慮した結果が表示されます。<br>
     <br>
     挑戦者は2/3で発動を想定（モンスターの怒り時間は2/3を想定）。<br>
+    力の解放（笑）は300s経過後に90s発動を想定、計算が面倒な割に期待値はあっ…（察し）<br>
+    挑戦者やフルチャージ、力の解放の被りも考慮しています（重複発動なし）。<br>
     弱点特効（プロハン）は100%発動を想定、頑張って狙ってください。<br>
     連撃は一律25%会心率アップとして計算、多分実際との誤差は微々たる範囲です。<br>
     スキルの横の「常時」や「半分」は文字通り全体のどれだけ発動しているかで参考までに分けています。<br>
     火山でドリンク飲まないと逆恨みは常時だぞー！<br>
     <br>
     その他、大剣太刀の中腹判定は1/4で発生として計算。<br>
+    抜刀会心は大剣のみ、3回に1回発動として計算。<br>
     W属性の上限対応、会心率が100%を超える場合にも一応は対応しています。<br>
     貫通弾・貫通矢は一律4hitと想定して、クリティカル距離は3hit分のみで計算。<br>
     弾導強化があれば全4hit分をクリティカル距離として計算。<br>
