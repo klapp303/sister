@@ -45,6 +45,14 @@
     </tr>
     <tr>
       <td>
+        <?php
+        //値の引き継ぎが剣士かガンナーかを取得
+        if (@$this->request->data['weapon']['category'] >= 12) {
+            $weapon_mode = 'bullet';
+        } else {
+            $weapon_mode = 'sharp';
+        }
+        ?>
         <?php $array_category = array(1 => '大剣', 2 => '太刀', 3 => '片手剣', 4 => '双剣', 5 => 'ハンマー', 6 => '狩猟笛', 7 => 'ランス', 8 => 'ガンランス', 9 => 'ｽﾗｯｼｭｱｯｸｽ', 10 => 'ﾁｬｰｼﾞｱｯｸｽ', 11 => '操虫棍', 12 => 'ﾗｲﾄﾎﾞｳｶﾞﾝ', 13 => 'ﾍﾋﾞｨﾎﾞｳｶﾞﾝ', 14 => '弓'); ?>
         <?php echo $this->Form->input('weapon.category', array('type' => 'select', 'label' => false, 'id' => 'js-pulldown_1', 'options' => $array_category)); ?>　
         攻撃力<?php echo $this->Form->input('weapon.attack', array('type' => 'text', 'label' => false, 'placeholder' => '例）200', 'size' => 3, 'required')); ?>　
@@ -53,10 +61,18 @@
         <?php // $array_sharp = array(6 => '紫', 5 => '白', 4 => '青', 3 => '緑', 2 => '黄'); ?>
         <!--斬れ味--><?php // echo $this->Form->input('weapon.sharp', array('type' => 'select', 'label' => false, 'options' => $array_sharp)); ?>
         <select name="data[weapon][sharp]" id="js-pulldown_2">
-          <?php $array_sharp = array(6 => '紫', 5 => '白', 4 => '青', 3 => '緑', 2 => '黄', 1 => '赤'); ?>
-          <?php foreach ($array_sharp as $value => $label) { ?>
-            <option value="<?php echo $value; ?>" class="js-sharp">
-              <?php echo $label; ?></option>
+          <?php if ($weapon_mode == 'sharp') { ?>
+            <?php $array_sharp = array(6 => '紫', 5 => '白', 4 => '青', 3 => '緑', 2 => '黄', 1 => '赤'); ?>
+            <?php foreach ($array_sharp as $value => $label) { ?>
+              <option value="<?php echo $value; ?>" class="js-sharp">
+                <?php echo $label; ?></option>
+            <?php } ?>
+          <?php } elseif ($weapon_mode == 'bullet') { ?>
+            <?php $array_sharp = array(101 => '通常弾・連射矢', 102 => '貫通弾・貫通矢', 103 => '散弾・拡散矢'); ?>
+            <?php foreach ($array_sharp as $value => $label) { ?>
+              <option value="<?php echo $value; ?>" class="js-bullet">
+                <?php echo $label; ?></option>
+            <?php } ?>
           <?php } ?>
         </select>
         <select name="" id="js-pulldown_op" disabled="disabled" style="display: none;">
@@ -106,7 +122,7 @@
     <tr>
       <td><label>スキル</label></td>
       <td>
-        <div class="js-bullet-form" style="display: none;">
+        <div class="js-bullet-form" style="display: <?php echo ($weapon_mode == 'sharp')? 'none' : 'block'; ?>;">
           <?php echo $this->Form->input('skill.101', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>通常弾・連射矢UP
           <?php echo $this->Form->input('skill.101', array('type' => 'checkbox', 'label' => false, 'value' => 2, 'hiddenField' => false)); ?>貫通弾・貫通矢UP
           <?php echo $this->Form->input('skill.101', array('type' => 'checkbox', 'label' => false, 'value' => 3, 'hiddenField' => false)); ?>散弾・拡散矢UP
