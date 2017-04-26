@@ -353,13 +353,22 @@ class Tool extends AppModel{
         //物理値に変換
         //会心マイナス
         if ($weapon_data['critical'] < 0) {
-            $weapon_data['attack'] = $weapon_data['attack'] *0.75 *(-$weapon_data['critical']) + $weapon_data['attack'] *1 *(100 + $weapon_data['critical']);
-        //会心強化あり
-        } elseif ($skill_data[8] == 1) {
-            $weapon_data['attack'] = $weapon_data['attack'] *1.4 *$weapon_data['critical'] + $weapon_data['attack'] *1 *(100 - $weapon_data['critical']);
-        //会心強化なし
+            //痛恨会心あり
+            if ($skill_data[8] == 2) {
+                $weapon_data['attack'] = $weapon_data['attack'] *2 *(-$weapon_data['critical'] *0.3) + $weapon_data['attack'] *0.75 *(-$weapon_data['critical'] *0.7) + $weapon_data['attack'] *1 *(100 + $weapon_data['critical']);
+            //痛恨会心なし
+            } else {
+                $weapon_data['attack'] = $weapon_data['attack'] *0.75 *(-$weapon_data['critical']) + $weapon_data['attack'] *1 *(100 + $weapon_data['critical']);
+            }
+        //会心プラス
         } else {
-            $weapon_data['attack'] = $weapon_data['attack'] *1.25 *$weapon_data['critical'] + $weapon_data['attack'] *1 *(100 - $weapon_data['critical']);
+            //超会心あり
+            if ($skill_data[8] == 1) {
+                $weapon_data['attack'] = $weapon_data['attack'] *1.4 *$weapon_data['critical'] + $weapon_data['attack'] *1 *(100 - $weapon_data['critical']);
+            //超会心なし
+            } else {
+                $weapon_data['attack'] = $weapon_data['attack'] *1.25 *$weapon_data['critical'] + $weapon_data['attack'] *1 *(100 - $weapon_data['critical']);
+            }
         }
         $weapon_data['attack'] = $weapon_data['attack'] /100;
         //剣士用

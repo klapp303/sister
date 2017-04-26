@@ -159,7 +159,8 @@
         <br>
         <?php echo $this->Form->input('skill.15', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>抜刀会心（大剣のみ）
         <br>
-        <?php echo $this->Form->input('skill.8', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>会心強化
+        <?php echo $this->Form->input('skill.8', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>超会心
+        <?php echo $this->Form->input('skill.8', array('type' => 'checkbox', 'label' => false, 'value' => 2)); ?>痛恨会心
         <br>
         <?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-5', 'value' => 1)); ?>フルチャージ（常時）
         <?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-5', 'value' => 2, 'hiddenField' => false)); ?>フルチャージ（半分）
@@ -186,8 +187,6 @@
         <?php echo $this->Form->input('skill.18', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-9', 'value' => 1)); ?>龍気活性（常時）
         <?php echo $this->Form->input('skill.18', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-9', 'value' => 2, 'hiddenField' => false)); ?>龍気活性（半分）
         <br>
-        <!--<?php // echo $this->Form->input('skill.19', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>裏会心
-        <br>-->
         <?php echo $this->Form->input('skill.16', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-10', 'value' => 1)); ?>火事場＋2（プロハン）
         <?php echo $this->Form->input('skill.16', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-10', 'value' => 2, 'hiddenField' => false)); ?>ネコの火事場術（プロハン）
       </td>
