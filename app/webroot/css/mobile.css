@@ -165,7 +165,7 @@
 }
 
 /* diary */
-.img_diary {
+.img_diary, .img_diary_past {
   max-width: 100%;
   max-height: 430px;
 }

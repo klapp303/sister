@@ -262,6 +262,8 @@ class Diary extends AppModel
             $body = ltrim($diary[0]);
             $body = substr($body, 0, -6);
             $body = str_replace('<img src=', '<img class="img_diary_past" src=', $body);
+            //画像の表示サイズ指定を削除
+            $body = preg_replace('/ border="[0-9]*" width="[0-9]*" height="[0-9]*"/', '', $body);
             
             //debug用
 //            $diary_lists[$key]['title'] = $title;
