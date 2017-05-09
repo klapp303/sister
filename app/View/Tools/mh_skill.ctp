@@ -160,7 +160,7 @@
         <?php echo $this->Form->input('skill.15', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>抜刀会心（大剣のみ）
         <br>
         <?php echo $this->Form->input('skill.8', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>超会心
-        <?php echo $this->Form->input('skill.8', array('type' => 'checkbox', 'label' => false, 'value' => 2)); ?>痛恨会心
+        <?php echo $this->Form->input('skill.8', array('type' => 'checkbox', 'label' => false, 'value' => 2, 'hiddenField' => false)); ?>痛恨会心
         <br>
         <?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-5', 'value' => 1)); ?>フルチャージ（常時）
         <?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-5', 'value' => 2, 'hiddenField' => false)); ?>フルチャージ（半分）
@@ -169,7 +169,7 @@
         <br>
         <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-6', 'value' => 1)); ?>北風の狩人（常時）
         <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-6', 'value' => 2, 'hiddenField' => false)); ?>北風の狩人（半分）
-        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-6', 'value' => 3)); ?>南風の狩人（常時）
+        <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-6', 'value' => 3, 'hiddenField' => false)); ?>南風の狩人（常時）
         <?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'class' => 'js-check-6', 'value' => 4, 'hiddenField' => false)); ?>南風の狩人（半分）
         <br>
         <?php echo $this->Form->input('skill.9', array('type' => 'checkbox', 'label' => false, 'value' => 1)); ?>鈍器使い
