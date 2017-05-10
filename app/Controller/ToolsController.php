@@ -352,6 +352,7 @@ class ToolsController extends AppController
         $this->Session->write('weapon_logs', $weapon_logs);
         
         //値の引き継ぎに応じて、選択済みスキルの背景色を予め変えておく
+        //有効スキル
         $array_checked = array();
         foreach ($skill_data as $key => $val) {
             if ($val >0) {
@@ -359,7 +360,13 @@ class ToolsController extends AppController
                 $array_checked[] = $skillId;
             }
         }
-        $this->set(compact('array_checked'));
+        //無効スキル
+        $array_invalid = array();
+        foreach ($weapon_sim['skill_invalid'] as $key => $val) {
+            $invalidId = 'js-skill-' . $key . '-' . $val;
+            $array_invalid[] = $invalidId;
+        }
+        $this->set(compact('array_checked', 'array_invalid'));
         
         $this->render('mh_skill');
     }

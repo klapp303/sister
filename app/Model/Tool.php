@@ -217,6 +217,25 @@ class Tool extends AppModel{
         $weapon_data['attack'] += 10;
         
         //ここから会心率の計算
+        //会心率の上限による無効なスキルの判定その1
+        if ($weapon_data['critical'] >= 100) {
+            //武器の会心率が100%以上なので
+            if ($skill_data[2]) { //見切りは無効なスキルとして処理
+                $skill_invalid[2] = $skill_data[2];
+            }
+            if ($skill_data[5]) { //連撃は無効なスキルと処理
+                $skill_invalid[5] = $skill_data[5];
+            }
+            if ($skill_data[4]) { //弱点特効は無効なスキルとして処理
+                $skill_invalid[4] = $skill_data[4];
+            }
+            if ($skill_data[15]) { //抜刀会心は無効なスキルとして処理
+                $skill_invalid[15] = $skill_data[15];
+            }
+            if ($skill_data[14]) { //力の解放は無効なスキルとして処理
+                $skill_invalid[14] = $skill_data[14];
+            }
+        }
         //見切り
         if ($skill_data[2] == 1) {
             $weapon_data['critical'] += 10;
@@ -225,9 +244,38 @@ class Tool extends AppModel{
         } elseif ($skill_data[2] == 3) {
             $weapon_data['critical'] += 30;
         }
+        //会心率の上限による無効なスキルの判定その2
+        if ($weapon_data['critical'] >= 100) {
+            //会心率が100%を超えたので
+            if ($skill_data[5]) { //連撃は無効なスキルと処理
+                $skill_invalid[5] = $skill_data[5];
+            }
+            if ($skill_data[4]) { //弱点特効は無効なスキルとして処理
+                $skill_invalid[4] = $skill_data[4];
+            }
+            if ($skill_data[15]) { //抜刀会心は無効なスキルとして処理
+                $skill_invalid[15] = $skill_data[15];
+            }
+            if ($skill_data[14]) { //力の解放は無効なスキルとして処理
+                $skill_invalid[14] = $skill_data[14];
+            }
+        }
         //連撃
         if ($skill_data[5] == 1) {
             $weapon_data['critical'] += 25;
+        }
+        //会心率の上限による無効なスキルの判定その3
+        if ($weapon_data['critical'] >= 100) {
+            //会心率が100%を超えたので
+            if ($skill_data[4]) { //弱点特効は無効なスキルとして処理
+                $skill_invalid[4] = $skill_data[4];
+            }
+            if ($skill_data[15]) { //抜刀会心は無効なスキルとして処理
+                $skill_invalid[15] = $skill_data[15];
+            }
+            if ($skill_data[14]) { //力の解放は無効なスキルとして処理
+                $skill_invalid[14] = $skill_data[14];
+            }
         }
         //挑戦者
         if ($skill_data[3] == 1) {
@@ -289,6 +337,10 @@ class Tool extends AppModel{
                 } else {
                     $weapon_data['critical'] += 100/3;
                 }
+            }
+        }  else { //大剣以外の場合は無効なスキルとして処理
+            if ($skill_data[15] == 1) {
+                $skill_invalid[15] = 1;
             }
         }
         //力の解放
@@ -450,6 +502,9 @@ class Tool extends AppModel{
             //弾・矢補正
             if ($weapon_data['sharp'] == 101) { //通常弾・連射矢
                 $weapon_data['attack'] = $weapon_data['attack'] *1.5; //クリティカル距離
+                if ($skill_data[104] == 1) { //弾導強化があれば無効なスキルとして処理
+                    $skill_invalid[104] = 1;
+                }
                 if ($skill_data[101] == 1) {
                     $weapon_data['attack'] = $weapon_data['attack'] *1.1;
                 }
@@ -478,6 +533,9 @@ class Tool extends AppModel{
                 }
             } elseif ($weapon_data['sharp'] == 103) { //散弾・拡散矢
                 $weapon_data['attack'] = $weapon_data['attack'] *1.5; //クリティカル距離
+                if ($skill_data[104] == 1) { //弾導強化があれば無効なスキルとして処理
+                    $skill_invalid[104] = 1;
+                }
                 if ($skill_data[103] == 1) {
                     if ($weapon_data['category'] == 14) { //拡散矢は1.3倍
                         $weapon_data['attack'] = $weapon_data['attack'] *1.3;
@@ -580,7 +638,7 @@ class Tool extends AppModel{
         $weapon_sim['attack'] = floor($weapon_data['attack']);
         $weapon_sim['element'] = floor($weapon_data['element']);
         
-        $weapon_sim['invalid'] = $skill_invalid;
+        $weapon_sim['skill_invalid'] = $skill_invalid;
         
         return $weapon_sim;
     }

@@ -124,10 +124,18 @@
                     });
                     
                     //選択済みのスキルの背景色は予め変えておく
+                    //有効スキル
                     var checkedId = <?php echo json_encode(@$array_checked, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
                     if (checkedId) {
                         $.each(checkedId, function(i, val) {
                             $('#' + val).css('background', '#a9bcf5');
+                        });
+                    }
+                    //無効スキル
+                    var invalidId = <?php echo json_encode(@$array_invalid, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
+                    if (invalidId) {
+                        $.each(invalidId, function(i, val) {
+                            $('#' + val).css('background', '#f7819f');
                         });
                     }
                 });
