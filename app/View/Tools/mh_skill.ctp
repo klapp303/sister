@@ -180,8 +180,10 @@
         <span id="js-skill-7-3"><?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-7-3 js-check-6', 'value' => 3, 'hiddenField' => false)); ?>南風の狩人（常時）</span>
         <span id="js-skill-7-4"><?php echo $this->Form->input('skill.7', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-7-4 js-check-6', 'value' => 4, 'hiddenField' => false)); ?>南風の狩人（半分）</span>
         <br>
-        <span id="js-skill-9-1"><?php echo $this->Form->input('skill.9', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-9-1', 'value' => 1)); ?>鈍器使い</span>
-        <br>
+        <div class="js-sharp-form" style="display: <?php echo ($weapon_mode == 'sharp')? 'block' : 'none'; ?>;">
+          <span id="js-skill-9-1"><?php echo $this->Form->input('skill.9', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-9-1', 'value' => 1)); ?>鈍器使い</span>
+          <br>
+        </div>
         <span id="js-skill-11-1"><?php echo $this->Form->input('skill.11', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-11-1 js-check-7', 'value' => 1)); ?>各属性攻撃強化+1</span>
         <span id="js-skill-11-2"><?php echo $this->Form->input('skill.11', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-11-2 js-check-7', 'value' => 2, 'hiddenField' => false)); ?>各属性攻撃強化+2</span>
         <br>
