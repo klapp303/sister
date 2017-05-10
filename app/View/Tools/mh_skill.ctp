@@ -140,10 +140,10 @@
       <td>
         <div class="js-bullet-form" style="display: <?php echo ($weapon_mode == 'sharp')? 'none' : 'block'; ?>;">
           <span id="js-skill-101-1"><?php echo $this->Form->input('skill.101', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-101-1', 'value' => 1)); ?>通常弾・連射矢UP</span>
-          <span id="js-skill-101-2"><?php echo $this->Form->input('skill.101', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-101-2', 'value' => 2, 'hiddenField' => false)); ?>貫通弾・貫通矢UP</span>
-          <span id="js-skill-101-3"><?php echo $this->Form->input('skill.101', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-101-3', 'value' => 3, 'hiddenField' => false)); ?>散弾・拡散矢UP</span>
+          <span id="js-skill-102-1"><?php echo $this->Form->input('skill.102', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-102-1', 'value' => 1)); ?>貫通弾・貫通矢UP</span>
+          <span id="js-skill-103-1"><?php echo $this->Form->input('skill.103', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-103-1', 'value' => 1)); ?>散弾・拡散矢UP</span>
           <br>
-          <span id="js-skill-102-1"><?php echo $this->Form->input('skill.102', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-102-1', 'value' => 1)); ?>弾導強化</span>
+          <span id="js-skill-104-1"><?php echo $this->Form->input('skill.104', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-104-1', 'value' => 1)); ?>弾導強化</span>
           <br><br>
         </div>
         <span id="js-skill-1-1"><?php echo $this->Form->input('skill.1', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-1-1 js-check-1', 'value' => 1)); ?>攻撃力UP【小】</span>

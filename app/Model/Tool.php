@@ -117,7 +117,7 @@ class Tool extends AppModel{
         return $data;
     }
     
-    public function MHSkillSim($weapon_data, $skill_data)
+    public function MHSkillSim($weapon_data, $skill_data, $skill_invalid = [])
     {
         //基礎攻撃力に変換（今回なし）
         
@@ -138,8 +138,15 @@ class Tool extends AppModel{
             $weapon_data['attack'] += 20*0.67;
         }
         //フルチャージ
-        if ($skill_data[16] || $skill_data[18]) { //火事場、龍気活性がある場合はフルチャージは処理しない
-            $skill_data[6] = null;
+        if ($skill_data[16] || $skill_data[18] == 1) { //火事場 or 龍気活性（常時）がある場合は無効なスキルとして処理
+            if ($skill_data[6] == 1) {
+                $skill_data[6] = 0;
+                $skill_invalid[6] = 1;
+            }
+            if ($skill_data[6] == 2) {
+                $skill_data[6] = 0;
+                $skill_invalid[6] = 2;
+            }
         }
         if ($skill_data[6] == 1) {
             if ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
@@ -180,6 +187,10 @@ class Tool extends AppModel{
         if ($skill_data[18] == 1) {
             $weapon_data['attack'] += 20;
         } elseif ($skill_data[18] == 2) {
+            if ($skill_data[6] == 1) { //フルチャージ（常時）があれば無効なスキルとして処理
+                $skill_data[18] = 0;
+                $skill_invalid[18] = 2;
+            }
             $weapon_data['attack'] += 20*0.5;
         }
         //剣士用
@@ -287,8 +298,9 @@ class Tool extends AppModel{
                 //既に100%以上ならば処理はしない
             }  elseif ($weapon_data['critical'] +30 >= 100) {
                 //発動すると100%を超えるならば差の会心率をスキル値に適用
-                if ($skill_data[6] == 1) {
-                    //フルチャージ（常時）がある場合は処理はしない
+                if ($skill_data[6] == 1) { //フルチャージ（常時）がある場合は無効なスキルとして処理
+                    $skill_data[14] = 0;
+                    $skill_invalid[14] = 1;
                 } elseif ($skill_data[3] && $skill_data[6] == 2) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
                     $weapon_data['critical'] += (100 - $weapon_data['critical'])*90/390*0.17;
                 } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
@@ -300,8 +312,9 @@ class Tool extends AppModel{
                 }
             } else {
                 //通常の処理
-                if ($skill_data[6] == 1) {
-                    //フルチャージ（常時）がある場合は処理はしない
+                if ($skill_data[6] == 1) { //フルチャージ（常時）がある場合は無効なスキルとして処理
+                    $skill_data[14] = 0;
+                    $skill_invalid[14] = 1;
                 } elseif ($skill_data[3] && $skill_data[6] == 2) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
                     $weapon_data['critical'] += 30*90/390*0.17;
                 } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
@@ -318,8 +331,9 @@ class Tool extends AppModel{
                 //既に100%以上ならば処理はしない
             }  elseif ($weapon_data['critical'] +50 >= 100) {
                 //発動すると100%を超えるならば差の会心率をスキル値に適用
-                if ($skill_data[6] == 1) {
-                    //フルチャージ（常時）がある場合は処理はしない
+                if ($skill_data[6] == 1) { //フルチャージ（常時）がある場合は無効なスキルとして処理
+                    $skill_data[14] = 0;
+                    $skill_invalid[14] = 2;
                 } elseif ($skill_data[3] && $skill_data[6] == 2) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
                     $weapon_data['critical'] += (100 - $weapon_data['critical'])*90/390*0.17;
                 } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
@@ -331,8 +345,9 @@ class Tool extends AppModel{
                 }
             } else {
                 //通常の処理
-                if ($skill_data[6] == 1) {
-                    //フルチャージ（常時）がある場合は処理はしない
+                if ($skill_data[6] == 1) { //フルチャージ（常時）がある場合は無効なスキルとして処理
+                    $skill_data[14] = 0;
+                    $skill_invalid[14] = 2;
                 } elseif ($skill_data[3] && $skill_data[6] == 2) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
                     $weapon_data['critical'] += 50*90/390*0.17;
                 } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
@@ -361,6 +376,10 @@ class Tool extends AppModel{
             } else {
                 $weapon_data['attack'] = $weapon_data['attack'] *0.75 *(-$weapon_data['critical']) + $weapon_data['attack'] *1 *(100 + $weapon_data['critical']);
             }
+            //超会心があれば無効なスキルとして処理
+            if ($skill_data[8] == 1) {
+                $skill_invalid[8] = 1;
+            }
         //会心プラス
         } else {
             //超会心あり
@@ -370,6 +389,10 @@ class Tool extends AppModel{
             } else {
                 $weapon_data['attack'] = $weapon_data['attack'] *1.25 *$weapon_data['critical'] + $weapon_data['attack'] *1 *(100 - $weapon_data['critical']);
             }
+            //痛恨会心があれば無効なスキルとして処理
+            if ($skill_data[8] == 2) {
+                $skill_invalid[8] = 2;
+            }
         }
         $weapon_data['attack'] = $weapon_data['attack'] /100;
         //剣士用
@@ -377,8 +400,16 @@ class Tool extends AppModel{
             //斬れ味補正
             if ($weapon_data['sharp'] == 0) { //赤
                 $weapon_data['attack'] = $weapon_data['attack'] *0.5 *0.5;
+                //鈍器使い
+                if ($skill_data[9] == 1) {
+                    $weapon_data['attack'] = $weapon_data['attack'] *1.15;
+                }
             } elseif ($weapon_data['sharp'] == 1) { //橙
                 $weapon_data['attack'] = $weapon_data['attack'] *0.75 *0.5;
+                //鈍器使い
+                if ($skill_data[9] == 1) {
+                    $weapon_data['attack'] = $weapon_data['attack'] *1.15;
+                }
             } elseif ($weapon_data['sharp'] == 2) { //黄
                 $weapon_data['attack'] = $weapon_data['attack'] *1.0 *0.5;
                 //鈍器使い
@@ -393,10 +424,22 @@ class Tool extends AppModel{
                 }
             } elseif ($weapon_data['sharp'] == 4) { //青
                 $weapon_data['attack'] = $weapon_data['attack'] *1.2;
+                //鈍器使いがあれば無効なスキルとして処理
+                if ($skill_data[9] == 1) {
+                    $skill_invalid[9] = 1; 
+                }
             } elseif ($weapon_data['sharp'] == 5) { //白
                 $weapon_data['attack'] = $weapon_data['attack'] *1.32;
+                //鈍器使いがあれば無効なスキルとして処理
+                if ($skill_data[9] == 1) {
+                    $skill_invalid[9] = 1; 
+                }
             } elseif ($weapon_data['sharp'] == 6) { //紫
                 $weapon_data['attack'] = $weapon_data['attack'] *1.39;
+                //鈍器使いがあれば無効なスキルとして処理
+                if ($skill_data[9] == 1) {
+                    $skill_invalid[9] = 1; 
+                }
             }
             //中腹補正、大剣太刀はモーション中間かつ武器中腹ヒットで1.05
             if (in_array($weapon_data['category'], array(1, 2))) {
@@ -410,25 +453,43 @@ class Tool extends AppModel{
                 if ($skill_data[101] == 1) {
                     $weapon_data['attack'] = $weapon_data['attack'] *1.1;
                 }
+                if ($skill_data[102] == 1) { //貫通弾・貫通矢UPがあれば無効なスキルとして処理
+                    $skill_invalid[102] = 1;
+                }
+                if ($skill_data[103] == 1) { //散弾・拡散矢UPがあれば無効なスキルとして処理
+                    $skill_invalid[103] = 1;
+                }
             } elseif ($weapon_data['sharp'] == 102) { //貫通弾・貫通矢
                 //クリティカル距離
-                if ($skill_data[102] == 1) { //弾導強化ならば全4hit分を1.5倍
+                if ($skill_data[104] == 1) { //弾導強化ならば全4hit分を1.5倍
                     $weapon_data['attack'] = $weapon_data['attack'] *1.5;
                 } else { //通常は4hit中3hit分のみクリティカル距離判定
                     $weapon_data['attack'] = $weapon_data['attack'] *3*1.5 + $weapon_data['attack'] *1;
                     $weapon_data['attack'] = $weapon_data['attack'] /4;
                 }
-                if ($skill_data[101] == 2) {
+                if ($skill_data[102] == 1) {
                     $weapon_data['attack'] = $weapon_data['attack'] *1.1;
+                }
+                if ($skill_data[101] == 1) { //通常弾・連射矢UPがあれば無効なスキルとして処理
+                    $skill_invalid[101] = 1;
+                }
+                if ($skill_data[103] == 1) { //散弾・拡散矢UPがあれば無効なスキルとして処理
+                    $skill_invalid[103] = 1;
                 }
             } elseif ($weapon_data['sharp'] == 103) { //散弾・拡散矢
                 $weapon_data['attack'] = $weapon_data['attack'] *1.5; //クリティカル距離
-                if ($skill_data[101] == 3) {
+                if ($skill_data[103] == 1) {
                     if ($weapon_data['category'] == 14) { //拡散矢は1.3倍
                         $weapon_data['attack'] = $weapon_data['attack'] *1.3;
                     } else { //散弾は1.2倍
                         $weapon_data['attack'] = $weapon_data['attack'] *1.2;
                     }
+                }
+                if ($skill_data[101] == 1) { //通常弾・連射矢UPがあれば無効なスキルとして処理
+                    $skill_invalid[101] = 1;
+                }
+                if ($skill_data[102] == 1) { //貫通段・貫通矢UPがあれば無効なスキルとして処理
+                    $skill_invalid[102] = 1;
                 }
             }
         }
@@ -455,23 +516,27 @@ class Tool extends AppModel{
                 $weapon_data['element'] = $weapon_data['element'] *1.2 +6;
             }
             //属性会心強化
-            if ($skill_data[13] == 1 && $weapon_data['critical'] > 0) {
-                //大剣は会心時に属性値1.2倍
-                if ($weapon_data['category'] == 1) {
-                    $weapon_data['element'] = $weapon_data['element'] *1.2 *$weapon_data['critical'] + $weapon_data['element'] *1 *(100 - $weapon_data['critical']);
-                    $weapon_data['element'] = $weapon_data['element'] /100;
-                //ライトボウガン、ヘビィボウガンは会心時に属性値1.3倍
-                } elseif (in_array($weapon_data['category'], array(12, 13))) {
-                    $weapon_data['element'] = $weapon_data['element'] *1.3 *$weapon_data['critical'] + $weapon_data['element'] *1 *(100 - $weapon_data['critical']);
-                    $weapon_data['element'] = $weapon_data['element'] /100;
-                //片手剣、双剣、弓は会心時に属性値1.35倍
-                } elseif (in_array($weapom_data['category'], array(3, 4, 14))) {
-                    $weapon_data['element'] = $weapon_data['element'] *1.35 *$weapon_data['critical'] + $weapon_data['element'] *1 *(100 - $weapon_data['critical']);
-                    $weapon_data['element'] = $weapon_data['element'] /100;
-                //それ以外は会心時に属性値1.25倍
-                } else {
-                    $weapon_data['element'] = $weapon_data['element'] *1.25 *$weapon_data['critical'] + $weapon_data['element'] *1 *(100 - $weapon_data['critical']);
-                    $weapon_data['element'] = $weapon_data['element'] /100;
+            if ($skill_data[13] == 1) {
+                if ($weapon_data['critical'] > 0) {
+                    //大剣は会心時に属性値1.2倍
+                    if ($weapon_data['category'] == 1) {
+                        $weapon_data['element'] = $weapon_data['element'] *1.2 *$weapon_data['critical'] + $weapon_data['element'] *1 *(100 - $weapon_data['critical']);
+                        $weapon_data['element'] = $weapon_data['element'] /100;
+                    //ライトボウガン、ヘビィボウガンは会心時に属性値1.3倍
+                    } elseif (in_array($weapon_data['category'], array(12, 13))) {
+                        $weapon_data['element'] = $weapon_data['element'] *1.3 *$weapon_data['critical'] + $weapon_data['element'] *1 *(100 - $weapon_data['critical']);
+                        $weapon_data['element'] = $weapon_data['element'] /100;
+                    //片手剣、双剣、弓は会心時に属性値1.35倍
+                    } elseif (in_array($weapom_data['category'], array(3, 4, 14))) {
+                        $weapon_data['element'] = $weapon_data['element'] *1.35 *$weapon_data['critical'] + $weapon_data['element'] *1 *(100 - $weapon_data['critical']);
+                        $weapon_data['element'] = $weapon_data['element'] /100;
+                    //それ以外は会心時に属性値1.25倍
+                    } else {
+                        $weapon_data['element'] = $weapon_data['element'] *1.25 *$weapon_data['critical'] + $weapon_data['element'] *1 *(100 - $weapon_data['critical']);
+                        $weapon_data['element'] = $weapon_data['element'] /100;
+                    }
+                } else { //会心率がマイナスの場合は無効なスキルとして処理
+                    $skill_invalid[13] = 1;
                 }
             }
             //剣士用
@@ -496,6 +561,17 @@ class Tool extends AppModel{
             } else {
                 
             }
+        } else {
+            //属性値がない場合は属性スキルを無効として処理
+            if ($skill_data[11]) {
+                $skill_invalid[11] = $skill_data[11];
+            }
+            if ($skill_data[12]) {
+                $skill_invalid[12] = $skill_data[12];
+            }
+            if ($skill_data[13]) {
+                $skill_invalid[13] = $skill_data[13];
+            }
         }
         
 //        echo'<pre>';print_r($weapon_data);echo'</pre>';
@@ -503,6 +579,8 @@ class Tool extends AppModel{
         //小数点以下を切り捨て
         $weapon_sim['attack'] = floor($weapon_data['attack']);
         $weapon_sim['element'] = floor($weapon_data['element']);
+        
+        $weapon_sim['invalid'] = $skill_invalid;
         
         return $weapon_sim;
     }

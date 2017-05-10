@@ -325,6 +325,7 @@ class ToolsController extends AppController
         //スキル計算
         $weapon_sim = $this->Tool->MHSkillSim($weapon_data, $skill_data);
         $this->set('weapon_sim', $weapon_sim);
+//        echo'<pre>';print_r($weapon_sim);echo'</pre>';
         
         //ここからログの保存用
         if (@$this->Session->read('weapon_logs')) {
