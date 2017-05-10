@@ -168,7 +168,7 @@
         <span id="js-skill-15-1"><?php echo $this->Form->input('skill.15', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-15-1', 'value' => 1)); ?>抜刀会心（大剣のみ）</span>
         <br>
         <span id="js-skill-8-1"><?php echo $this->Form->input('skill.8', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-8-1', 'value' => 1)); ?>超会心</span>
-        <span id="js-skill-8-2"><?php echo $this->Form->input('skill.8', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-8-2', 'value' => 2, 'hiddenField' => false)); ?>痛恨会心</span>
+        <span id="js-skill-19-1"><?php echo $this->Form->input('skill.19', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-19-1', 'value' => 1)); ?>痛恨会心</span>
         <br>
         <span id="js-skill-6-1"><?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-6-1 js-check-5', 'value' => 1)); ?>フルチャージ（常時）</span>
         <span id="js-skill-6-2"><?php echo $this->Form->input('skill.6', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-6-2 js-check-5', 'value' => 2, 'hiddenField' => false)); ?>フルチャージ（半分）</span>

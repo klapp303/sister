@@ -370,7 +370,7 @@ class Tool extends AppModel{
         //会心マイナス
         if ($weapon_data['critical'] < 0) {
             //痛恨会心あり
-            if ($skill_data[8] == 2) {
+            if ($skill_data[19] == 1) {
                 $weapon_data['attack'] = $weapon_data['attack'] *2 *(-$weapon_data['critical'] *0.3) + $weapon_data['attack'] *0.75 *(-$weapon_data['critical'] *0.7) + $weapon_data['attack'] *1 *(100 + $weapon_data['critical']);
             //痛恨会心なし
             } else {
@@ -390,8 +390,8 @@ class Tool extends AppModel{
                 $weapon_data['attack'] = $weapon_data['attack'] *1.25 *$weapon_data['critical'] + $weapon_data['attack'] *1 *(100 - $weapon_data['critical']);
             }
             //痛恨会心があれば無効なスキルとして処理
-            if ($skill_data[8] == 2) {
-                $skill_invalid[8] = 2;
+            if ($skill_data[19] == 1) {
+                $skill_invalid[19] = 1;
             }
         }
         $weapon_data['attack'] = $weapon_data['attack'] /100;
