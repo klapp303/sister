@@ -350,6 +350,16 @@ class ToolsController extends AppController
         }
         $this->Session->write('weapon_logs', $weapon_logs);
         
+        //値の引き継ぎに応じて、選択済みスキルの背景色を予め変えておく
+        $array_checked = array();
+        foreach ($skill_data as $key => $val) {
+            if ($val >0) {
+                $skillId = 'js-skill-' . $key . '-' . $val;
+                $array_checked[] = $skillId;
+            }
+        }
+        $this->set(compact('array_checked'));
+        
         $this->render('mh_skill');
     }
 }

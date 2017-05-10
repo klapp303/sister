@@ -72,3 +72,11 @@
   margin-right: 20px;
   margin-bottom: 20px;
 }
+.table_mh_sim >tbody >tr >td >span,
+.table_mh_sim >tbody >tr >td >div >span {
+  line-height: 2;
+  padding: 2px 8px 2px 4px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+}
