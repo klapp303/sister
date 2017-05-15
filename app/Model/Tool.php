@@ -57,7 +57,8 @@ class Tool extends AppModel{
                     '1.4' => array('2017-04-13', '剣士武器の種類選択を追加<br>　　　斬れ味 紫ゲージの下方修正および、<br>　　　鈍器使いの上方修正に対応(MHXX)'),
                     '2.0' => array('2017-04-15', 'ガンナー武器の種類選択を追加<br>　　　ガンナースキルの追加<br>　　　新スキルの追加(MHXX)'),
                     '2.1' => array('2017-05-09', '超会心、南風の狩人が正しく反映されないバグを修正'),
-                    '2.2' => array('2017-05-10', '選択されたスキルを分かりやすくする（有効：青、無効：赤）')
+                    '2.2' => array('2017-05-10', '選択されたスキルを分かりやすくする（有効：青、無効：赤）'),
+                    '2.3' => array('2017-05-15', '龍気活性が固定上昇になっていたので修正')
                 )
             )
         );
@@ -182,16 +183,6 @@ class Tool extends AppModel{
         if ($skill_data[17] == 1) {
             $weapon_data['attack'] += 20;
         } elseif ($skill_data[17] == 2) {
-            $weapon_data['attack'] += 20*0.5;
-        }
-        //龍気活性
-        if ($skill_data[18] == 1) {
-            $weapon_data['attack'] += 20;
-        } elseif ($skill_data[18] == 2) {
-            if ($skill_data[6] == 1) { //フルチャージ（常時）があれば無効なスキルとして処理
-                $skill_data[18] = 0;
-                $skill_invalid[18] = 2;
-            }
             $weapon_data['attack'] += 20*0.5;
         }
         //剣士用
@@ -552,11 +543,22 @@ class Tool extends AppModel{
                 }
             }
         }
+        //龍気活性
+        if ($skill_data[18] == 1) {
+            $weapon_data['attack'] = $weapon_data['attack'] *1.1;
+        } elseif ($skill_data[18] == 2) {
+            if ($skill_data[6] == 1) { //フルチャージ（常時）があれば無効なスキルとして処理
+                $skill_data[18] = 0;
+                $skill_invalid[18] = 2;
+            } else {
+                $weapon_data['attack'] = $weapon_data['attack'] *1.05;
+            }
+        }
         //火事場
         if ($skill_data[16] == 1) {
-            $weapon_data['attack'] = $weapon_data['attack'] * 1.3;
+            $weapon_data['attack'] = $weapon_data['attack'] *1.3;
         } elseif ($skill_data[16] == 2) {
-            $weapon_data['attack'] = $weapon_data['attack'] * 1.35;
+            $weapon_data['attack'] = $weapon_data['attack'] *1.35;
         }
         
         //ここから属性値の計算
