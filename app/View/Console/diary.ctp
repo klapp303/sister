@@ -1,4 +1,3 @@
-<?php echo $this->Html->script('jquery-file_insert', array('inline' => false)); ?>
 <?php echo $this->Html->script('sub_pop', array('inline' => false)); ?>
 <h3>日記の作成</h3>
 
@@ -28,6 +27,45 @@
           <input type="text" class="js-insert_data">
           <?php echo $this->Html->link('画像一覧を確認', array('controller' => 'console', 'action' => 'photo', $mode = 'sub_pop'), array('target' => 'sub_pop', 'onClick' => 'disp("/console/photo/")')); ?></td>
     </tr>
+    <script>
+        jQuery(function($) {
+            $.fn.extend({
+                insertAtCaret: function(v) {
+                    var o = this.get(0);
+                    o.focus();
+                    if ($.browser.msie) {
+//                    if ($.support.noCloneEvent) {
+                        var r = document.selection.createRange();
+                        r.text = v;
+                        r.select();
+                    } else {
+                        var s = o.value;
+                        var p = o.selectionStart;
+                        var np = p + v.length;
+                        o.value = s.substr(0, p) + v + s.substr(p);
+                        o.setSelectionRange(np, np);
+                    }
+                }
+            });
+            
+            $('.js-insert').click(function() {
+//                var img_name = $(this).attr('data');
+                var img_name = $('.js-insert_data').val();
+                if (!img_name) {
+                    alert('画像ファイルを選んでください');
+                    return false;
+                }
+                var date = new Date();
+                
+                //年月ベースの画像URLを設定するため
+                var year = date.getFullYear();
+                var month = date.getMonth() + 1;
+                var month = ('0' + month).slice(-2);
+                
+                $('.js-insert_area').insertAtCaret('<img src="/files/photo/' + year + '/' + month + '/' + img_name + '" alt="" class="img_diary">');
+            });
+        });
+    </script>
     <tr>
       <td>記事</td>
       <td><?php echo $this->Form->input('text', array('type' => 'textarea', 'label' => false, 'cols' => 50, 'rows' => 30, 'class' => 'js-insert_area')); ?></td>

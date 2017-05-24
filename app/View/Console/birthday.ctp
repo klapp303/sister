@@ -45,31 +45,29 @@
     </tr>
     <script>
         jQuery(function($) {
-            $(function() {
-//                $('.header_image').before('<span class="tmb-image header_tmb"></span>');
+//            $('.header_image').before('<span class="tmb-image header_tmb"></span>');
+            
+            //アップロードするファイルを選択
+            $('.<?php echo $val; ?>_image').change(function() {
+                var file = $(this).prop('files')[0];
                 
-                //アップロードするファイルを選択
-                $('.<?php echo $val; ?>_image').change(function() {
-                    var file = $(this).prop('files')[0];
-                    
-                    //画像以外は処理を停止
-                    if (! file.type.match('image.*')) {
-                        //クリア
-                        $(this).val('');
-                        $('span').html('');
-                        return;
-                    }
-                    
-                    //画像表示
-                    var reader = new FileReader();
-                    reader.onload = function() {
-                        var img_src = $('<img class="js-tmb">').attr('src', reader.result);
-                        $('.<?php echo $val; ?>_tmb').html(img_src);
-                    };
-                    reader.readAsDataURL(file);
-                    //元画像を非表示
-                    $('.js-tmb_pre').hide();
-                });
+                //画像以外は処理を停止
+                if (!file.type.match('image.*')) {
+                    //クリア
+                    $(this).val('');
+                    $('span').html('');
+                    return;
+                }
+                
+                //画像表示
+                var reader = new FileReader();
+                reader.onload = function() {
+                    var img_src = $('<img class="js-tmb">').attr('src', reader.result);
+                    $('.<?php echo $val; ?>_tmb').html(img_src);
+                };
+                reader.readAsDataURL(file);
+                //元画像を非表示
+                $('.js-tmb_pre').hide();
             });
         });
     </script>
@@ -145,7 +143,7 @@
   <?php echo $this->Form->end(); ?><!-- form end -->
 
 <script>
-    $(function() {
+    jQuery(function($) {
         $('.sortable').sortable();
         $('.sortable').disableSelection();
     });

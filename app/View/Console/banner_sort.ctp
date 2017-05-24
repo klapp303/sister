@@ -47,7 +47,7 @@
   <?php echo $this->Form->end(); ?><!-- form end -->
 
 <script>
-    $(function() {
+    jQuery(function($) {
         $('.sortable').sortable();
         $('.sortable').disableSelection();
     });

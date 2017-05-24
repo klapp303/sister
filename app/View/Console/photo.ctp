@@ -18,32 +18,30 @@
     </tr>
     <script>
         jQuery(function($) {
-            $(function() {
-                var key = <?php echo json_encode($i, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
-                $('.photo_' + key).before('<span class="tmb-image tmb_' + key + '"></span>');
+            var key = <?php echo json_encode($i, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
+            $('.photo_' + key).before('<span class="tmb-image tmb_' + key + '"></span>');
+            
+            //アップロードするファイルを選択
+            $('.photo_' + key).change(function() {
+                var file = $(this).prop('files')[0];
                 
-                //アップロードするファイルを選択
-                $('.photo_' + key).change(function() {
-                    var file = $(this).prop('files')[0];
-                    
-                    //画像以外は処理を停止
-                    if (! file.type.match('image.*')) {
-                        //クリア
-                        $(this).val('');
-                        $('span').html('');
-                        return;
-                    }
-                    
-                    //画像表示
-                    var reader = new FileReader();
-                    reader.onload = function() {
-                        var img_src = $('<img class="js-tmb">').attr('src', reader.result);
-                        $('.tmb_' + key).html(img_src);
-                    };
-                    reader.readAsDataURL(file);
-                    //元画像を非表示
-                    $('.js-tmb_pre').hide();
-                });
+                //画像以外は処理を停止
+                if (!file.type.match('image.*')) {
+                    //クリア
+                    $(this).val('');
+                    $('span').html('');
+                    return;
+                }
+                
+                //画像表示
+                var reader = new FileReader();
+                reader.onload = function() {
+                    var img_src = $('<img class="js-tmb">').attr('src', reader.result);
+                    $('.tmb_' + key).html(img_src);
+                };
+                reader.readAsDataURL(file);
+                //元画像を非表示
+                $('.js-tmb_pre').hide();
             });
         });
     </script>

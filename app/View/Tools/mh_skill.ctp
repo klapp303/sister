@@ -1,6 +1,4 @@
 <?php echo $this->Html->css('tools', array('inline' => false)); ?>
-<?php echo $this->Html->script('jquery-check_radio', array('inline' => false)); ?>
-<?php // echo $this->Html->script('jquery-select_select', array('inline' => false)); ?>
 <h3><?php echo $tool_data['name']; ?> <span class="txt-min">ver<?php echo $tool_data['version_latest']; ?></span></h3>
 
 <?php if (@$weapon_sim): ?>
@@ -96,13 +94,13 @@
             jQuery(function($) {
                 $(document).ready(function() {
                     //プルダウンのoption内容を取得
-                    var pd_option = $("#js-pulldown_op option").clone();
+                    var pd_option = $('#js-pulldown_op option').clone();
                     
-                    $("#js-pulldown_1").change(function() {
+                    $('#js-pulldown_1').change(function() {
                         //選択された武器種を取得
-                        var weapon = $("#js-pulldown_1").val();
+                        var weapon = $('#js-pulldown_1').val();
                         //ガンナーの場合
-                        if (weapon >=12) {
+                        if (weapon >= 12) {
                             var weapon_cat = 'js-bullet';
                             $('.js-bullet-form').css('display', 'block'); //ガンナースキルを表示
                             $('.js-sharp-form').css('display', 'none'); //'斬れ味'を非表示
@@ -115,12 +113,12 @@
                         }
                         
                         //プルダウンのoptionを書き換える
-                        $("#js-pulldown_2 option").remove();
-                        $(pd_option).appendTo("#js-pulldown_2");
+                        $('#js-pulldown_2 option').remove();
+                        $(pd_option).appendTo('#js-pulldown_2');
                         //選択値以外のクラスのoptionを削除
-                        $("#js-pulldown_2 option[class != " + weapon_cat + "]").remove();
+                        $('#js-pulldown_2 option[class != ' + weapon_cat + ']').remove();
                         //空欄の選択肢を先頭に追加
-//                        $("#js-pulldown_2").prepend('<option selected="selected"></option>');
+//                        $('#js-pulldown_2').prepend('<option selected="selected"></option>');
                     });
                     
                     //選択済みのスキルの背景色は予め変えておく
@@ -217,6 +215,42 @@
     <?php echo $this->Form->end(); ?><!-- form end -->
     <script>
         jQuery(function($) {
+            //スキル選択時に背景色を変更
+            $('[class^=js-skill-]').change(function() {
+                if ($(this).is(':checked')) {
+                    var skillClass = $(this).attr('class');
+                    var skillClass_array = skillClass.split(' ');
+                    //もし択一のcheckboxならば他の選択肢の背景色は戻しておく
+                    if (skillClass_array[1]) {
+                        var text = skillClass_array[0];
+                        while (text.substr(text.length -1) !== '-' || !text) {
+                            var text = text.substr(0, text.length -1);
+                        }
+                        var skillId = text;
+                        $('[id^=' + skillId + ']').css('background-color', '');
+                    }
+                    $('#' + skillClass_array[0]).css('background-color', '#a9bcf5');
+                } else {
+                    var skillClass = $(this).attr('class');
+                    var skillClass_array = skillClass.split(' ');
+                    $('#' + skillClass_array[0]).css('background-color', '');
+                }
+            });
+            
+            //スキルのcheckboxを択一にする
+            var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+            $.each(arr, function(i, val) {
+                $('.js-check-' + val).click(function() {
+                    if ($(this).prop('checked')) {
+                        //一旦全てのcheckをクリアして…
+                        $('.js-check-' + val).prop('checked', false);
+                        //選択されたものだけをcheckする
+                        $(this).prop('checked', true);
+                    }
+                });
+            });
+            
+            //validate
             $('#mh_skill_submit').click(function() {
                 var error_flg = 0;
                 //攻撃力のvalidate
@@ -231,7 +265,7 @@
                         error_flg = 1;
                     }
                     //0以下はfalse
-                    if (attack <=0) {
+                    if (attack <= 0) {
                         error_flg = 1;
                     }
                 }
@@ -248,7 +282,7 @@
                         error_flg = 1;
                     }
                     //100より上、-100未満はfalse
-                    if (critical <-100 || critical >100) {
+                    if (critical <- 100 || critical >100) {
                         error_flg = 1;
                     }
                 }
@@ -302,12 +336,8 @@
   </p>
   <script>
       jQuery(function($) {
-          $(function() {
-              $('.shiyou-h').click(
-                  function() {
-                      $('.shiyou-body').toggle();
-                  }
-              );
+          $('.shiyou-h').click(function() {
+              $('.shiyou-body').toggle();
           });
       });
   </script>

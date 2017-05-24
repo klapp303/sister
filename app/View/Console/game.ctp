@@ -49,12 +49,8 @@
     <script>
         jQuery(function($) {
             var review = <?php echo json_encode($review, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
-            $(function() {
-                $('.js-button_' + review).click(
-                    function() {
-                        $('.js-hide_' + review).toggle();
-                    }
-                );
+            $('.js-button_' + review).click(function() {
+                $('.js-hide_' + review).toggle();
             });
         });
     </script>

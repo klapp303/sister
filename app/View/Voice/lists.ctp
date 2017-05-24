@@ -47,12 +47,8 @@
           <script>
               jQuery(function($) {
                   var id = <?php echo json_encode($id, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
-                  $(function() {
-                      $('.js-hide-button_' + id).click(
-                          function() {
-                              $('.js-hide_' + id).toggle();
-                          }
-                      );
+                  $('.js-hide-button_' + id).click(function() {
+                      $('.js-hide_' + id).toggle();
                   });
               });
           </script>
@@ -93,12 +89,8 @@
           <!--script>
               jQuery(function($) {
                   var id = <?php // echo json_encode($id, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
-                  $(function() {
-                      $('.js-hide-button_' + id).click(
-                          function() {
-                              $('.js-hide_' + id).toggle();
-                          }
-                      );
+                  $('.js-hide-button_' + id).click(function() {
+                      $('.js-hide_' + id).toggle();
                   });
               });
           </script-->
