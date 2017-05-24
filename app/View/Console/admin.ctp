@@ -34,11 +34,11 @@
         <!--th>パスワード</th-->
         <th class="tbl-act_admin">action</th></tr>
     
-    <?php foreach ($admin_lists as $admin_list) { ?>
-      <tr><td class="tbl-num"><?php echo $admin_list['Administrator']['id']; ?></td>
-          <td class="txt-c"><?php echo $admin_list['Administrator']['admin_name']; ?></td>
-          <!--td><?php // echo $admin_list['Administrator']['password']; ?></td-->
-          <td class="tbl-act_admin"><?php // echo $this->Html->link('修正', '/console/admin/edit/' . $admin_list['Administrator']['id']); ?>
-                                    <?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'admin_delete', $admin_list['Administrator']['id']), null, '本当に#' . $admin_list['Administrator']['id'] . 'を削除しますか'); ?></td></tr>
-    <?php } ?>
+    <?php foreach ($admin_lists as $admin_list): ?>
+    <tr><td class="tbl-num"><?php echo $admin_list['Administrator']['id']; ?></td>
+        <td class="txt-c"><?php echo $admin_list['Administrator']['admin_name']; ?></td>
+        <!--td><?php // echo $admin_list['Administrator']['password']; ?></td-->
+        <td class="tbl-act_admin"><?php // echo $this->Html->link('修正', '/console/admin/edit/' . $admin_list['Administrator']['id']); ?>
+                                  <?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'admin_delete', $admin_list['Administrator']['id']), null, '本当に#' . $admin_list['Administrator']['id'] . 'を削除しますか'); ?></td></tr>
+    <?php endforeach; ?>
   </table>

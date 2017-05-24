@@ -1,10 +1,10 @@
 <div id="pagelink_mobile">
   <p><span>ページ内リンク</span></p>
   <ul>
-    <?php foreach ($diary_lists as $diary_list) { ?>
-      <li><a href="#diary-<?php echo $diary_list['Diary']['id']; ?>">
-        <?php echo mb_strimwidth($diary_list['Diary']['title'], 0, 45, '...', 'UTF-8'); ?></a></li>
-    <?php } ?>
+    <?php foreach ($diary_lists as $diary_list): ?>
+    <li><a href="#diary-<?php echo $diary_list['Diary']['id']; ?>">
+      <?php echo mb_strimwidth($diary_list['Diary']['title'], 0, 45, '...', 'UTF-8'); ?></a></li>
+    <?php endforeach; ?>
   </ul>
 </div>
 

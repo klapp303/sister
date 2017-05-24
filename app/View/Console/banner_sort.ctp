@@ -19,28 +19,28 @@
   )); ?><!-- form start -->
   
   <ul class="detail-list-min_banner sortable">
-    <?php foreach ($banner_lists as $banner_list) { ?>
-      <li><?php echo $this->Form->input($banner_list['Banner']['id'].'.id', array('type' => 'hidden', 'value' => $banner_list['Banner']['id'])); ?>
-          <span class="li-num"><?php echo $banner_list['Banner']['sort']; ?></span>
-          <span class="li-num"><?php echo $banner_list['Banner']['id']; ?></span>
-          <span class="li-tmb_banner"><a href="<?php echo $banner_list['Banner']['link_url']; ?>" target="_blank">
-              <?php echo $this->Html->image('../files/banner/' . $banner_list['Banner']['image_name'], array('alt' => $banner_list['Banner']['title'], 'class' => 'img_banner')); ?></a></span>
-          <span class="li-date"><?php echo $banner_list['Banner']['date_from']; ?><?php echo ($banner_list['Banner']['date_from'])? '～' : ''; ?>
-                                <?php echo ($banner_list['Banner']['date_to'])? '<br>～' : '' ; ?><?php echo $banner_list['Banner']['date_to']; ?></span>
-          <span class="li-ico"><?php if ($banner_list['Banner']['publish'] == 0) { ?>
-                                 <span class="icon-false">非公開</span>
-                               <?php } elseif ($banner_list['Banner']['publish'] == 1) { ?>
-                                 <?php if ($banner_list['Banner']['date_to'] && $banner_list['Banner']['date_to'] < date('Y-m-d')) { ?>
-                                   <span class="icon-false">終了</span>
-                                 <?php } else { ?>
-                                   <span class="icon-true">公開</span>
-                                 <?php } ?>
-                               <?php } ?></span>
-          <span class="li-act_banner">
-            <?php echo $this->Html->link('修正', '/console/banner/edit/' . $banner_list['Banner']['id']); ?>
-            <?php // echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'banner_delete', $banner_list['Banner']['id']), null, '本当に#' . $banner_list['Banner']['id'] . 'を削除しますか'); ?>
-          </span></li>
-    <?php } ?>
+    <?php foreach ($banner_lists as $banner_list): ?>
+    <li><?php echo $this->Form->input($banner_list['Banner']['id'].'.id', array('type' => 'hidden', 'value' => $banner_list['Banner']['id'])); ?>
+        <span class="li-num"><?php echo $banner_list['Banner']['sort']; ?></span>
+        <span class="li-num"><?php echo $banner_list['Banner']['id']; ?></span>
+        <span class="li-tmb_banner"><a href="<?php echo $banner_list['Banner']['link_url']; ?>" target="_blank">
+            <?php echo $this->Html->image('../files/banner/' . $banner_list['Banner']['image_name'], array('alt' => $banner_list['Banner']['title'], 'class' => 'img_banner')); ?></a></span>
+        <span class="li-date"><?php echo $banner_list['Banner']['date_from']; ?><?php echo ($banner_list['Banner']['date_from'])? '～' : ''; ?>
+                              <?php echo ($banner_list['Banner']['date_to'])? '<br>～' : ''; ?><?php echo $banner_list['Banner']['date_to']; ?></span>
+        <span class="li-ico"><?php if ($banner_list['Banner']['publish'] == 0): ?>
+                             <span class="icon-false">非公開</span>
+                             <?php elseif ($banner_list['Banner']['publish'] == 1): ?>
+                               <?php if ($banner_list['Banner']['date_to'] && $banner_list['Banner']['date_to'] < date('Y-m-d')): ?>
+                               <span class="icon-false">終了</span>
+                               <?php else: ?>
+                               <span class="icon-true">公開</span>
+                               <?php endif; ?>
+                             <?php endif; ?></span>
+        <span class="li-act_banner">
+          <?php echo $this->Html->link('修正', '/console/banner/edit/' . $banner_list['Banner']['id']); ?>
+          <?php // echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'banner_delete', $banner_list['Banner']['id']), null, '本当に#' . $banner_list['Banner']['id'] . 'を削除しますか'); ?>
+        </span></li>
+    <?php endforeach; ?>
   </ul>
   
   <?php echo $this->Form->submit('並び替える', array('div' => false, 'class' => 'sort-btn_banner')); ?>

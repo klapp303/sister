@@ -46,14 +46,14 @@
   </tr>
 </table>
 <table class="tbl-csl_top">
-  <?php foreach ($voice_lists as $voice_list) { ?>
-    <tr>
-      <td><?php echo $voice_list['Voice']['nickname']; ?></td>
-      <td class="tbl-num_top"><?php echo ${$voice_list['Voice']['system_name'].'_count'}; ?>件</td>
-      <td class="tbl-num_top"><?php echo ${$voice_list['Voice']['system_name'].'_p_count'}; ?>件</td>
-      <td class="tbl-date_top"><?php echo ${$voice_list['Voice']['system_name'].'_lastupdate'}; ?></td>
-    </tr>
-  <?php } ?>
+  <?php foreach ($voice_lists as $voice_list): ?>
+  <tr>
+    <td><?php echo $voice_list['Voice']['nickname']; ?></td>
+    <td class="tbl-num_top"><?php echo ${$voice_list['Voice']['system_name'] . '_count'}; ?>件</td>
+    <td class="tbl-num_top"><?php echo ${$voice_list['Voice']['system_name'] . '_p_count'}; ?>件</td>
+    <td class="tbl-date_top"><?php echo ${$voice_list['Voice']['system_name'] . '_lastupdate'}; ?></td>
+  </tr>
+  <?php endforeach; ?>
 </table>
 <table class="tbl-csl_top">
   <tr>

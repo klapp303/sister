@@ -19,19 +19,19 @@
 <h3>出演リスト</h3>
 
 <ul class="link-page">
-  <?php foreach ($array_voiceMenu as $menu) { ?>
-    <?php if ($menu['genre'] != 'music') { ?>
-      <li><?php echo $this->Html->link('⇨ ' . $menu['title'], '/voice/' . $voice['Voice']['system_name'] . '/' . $menu['genre'] . '/'); ?></li>
-    <?php } ?>
-  <?php } ?>
+  <?php foreach ($array_voiceMenu as $menu): ?>
+    <?php if ($menu['genre'] != 'music'): ?>
+    <li><?php echo $this->Html->link('⇨ ' . $menu['title'], '/voice/' . $voice['Voice']['system_name'] . '/' . $menu['genre'] . '/'); ?></li>
+    <?php endif; ?>
+  <?php endforeach; ?>
 </ul>
 
 <h3>音楽リスト</h3>
 
 <ul class="link-page">
-  <?php foreach ($array_voiceMenu as $menu) { ?>
-    <?php if ($menu['genre'] == 'music') { ?>
-      <li><?php echo $this->Html->link('⇨ ' . $menu['title'], '/voice/' . $voice['Voice']['system_name'] . '/' . $menu['genre'] . '/'); ?></li>
-    <?php } ?>
-  <?php } ?>
+  <?php foreach ($array_voiceMenu as $menu): ?>
+    <?php if ($menu['genre'] == 'music'): ?>
+    <li><?php echo $this->Html->link('⇨ ' . $menu['title'], '/voice/' . $voice['Voice']['system_name'] . '/' . $menu['genre'] . '/'); ?></li>
+    <?php endif; ?>
+  <?php endforeach; ?>
 </ul>

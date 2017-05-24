@@ -1,5 +1,5 @@
 jQuery(function($) {
-    $(document).ready(function(){
+    $(function(){
         var selectorArr = [
             {'class' : '.img_diary', 'url' : 'data-original'}, //日記用、未使用
             {'class' : '.img_diary_past', 'url' : 'src'} //過去日記用

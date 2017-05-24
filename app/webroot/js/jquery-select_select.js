@@ -1,5 +1,5 @@
 jQuery(function($) {
-    $(document).ready(function() {
+    $(function() {
         //プルダウンのoption内容をコピー
         var pd2 = $("#lv2Pulldown option").clone();
 //        var pd3 = $("#lv3Pulldown option").clone();

@@ -1,20 +1,20 @@
 <h3>楽曲の追加</h3>
 
   <table>
-    <?php if (preg_match('#/console/music/edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
-      <?php echo $this->Form->create('Music', array( //使用するModel
-          'type' => 'put', //変更はput
-          'url' => array('controller' => 'console', 'action' => 'music_edit'), //Controllerのactionを指定
-          'inputDefaults' => array('div' => '')
-      )); ?>
-      <?php echo $this->Form->input('id', array('type' => 'hidden', 'label' => false, 'value' => $id)); ?>
-    <?php } else { //登録用 ?>
-      <?php echo $this->Form->create('Music', array( //使用するModel
-          'type' => 'post', //デフォルトはpost送信
-          'url' => array('controller' => 'console', 'action' => 'music_add'), //Controllerのactionを指定
-          'inputDefaults' => array('div' => '')
-      )); ?>
-    <?php } ?><!-- form start -->
+    <?php if (preg_match('#/console/music/edit/#', $_SERVER['REQUEST_URI'])): //編集用 ?>
+    <?php echo $this->Form->create('Music', array( //使用するModel
+        'type' => 'put', //変更はput
+        'url' => array('controller' => 'console', 'action' => 'music_edit'), //Controllerのactionを指定
+        'inputDefaults' => array('div' => '')
+    )); ?>
+    <?php echo $this->Form->input('id', array('type' => 'hidden', 'label' => false, 'value' => $id)); ?>
+    <?php else: //登録用 ?>
+    <?php echo $this->Form->create('Music', array( //使用するModel
+        'type' => 'post', //デフォルトはpost送信
+        'url' => array('controller' => 'console', 'action' => 'music_add'), //Controllerのactionを指定
+        'inputDefaults' => array('div' => '')
+    )); ?>
+    <?php endif; ?><!-- form start -->
     
     <tr>
       <td>タイトル</td>
@@ -51,11 +51,11 @@
     
     <tr>
       <td></td>
-      <td class="tbl-button"><?php if (preg_match('#/console/music/edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
-                               <?php echo $this->Form->submit('修正する'); ?>
-                             <?php } else { //登録用 ?>
-                               <?php echo $this->Form->submit('追加する'); ?>
-                             <?php } ?></td>
+      <td class="tbl-button"><?php if (preg_match('#/console/music/edit/#', $_SERVER['REQUEST_URI'])): //編集用 ?>
+                             <?php echo $this->Form->submit('修正する'); ?>
+                             <?php else: //登録用 ?>
+                             <?php echo $this->Form->submit('追加する'); ?>
+                             <?php endif; ?></td>
     </tr>
     <?php echo $this->Form->end(); ?><!-- form end -->
   </table>
@@ -70,15 +70,15 @@
         <th class="tbl-ico">状態</th>
         <th class="tbl-act_information">action</th></tr>
     
-    <?php foreach ($music_lists as $music_list) { ?>
-      <tr><td class="tbl-num"><?php echo $music_list['Music']['id']; ?></td>
-          <td><?php echo $music_list['Music']['title']; ?></td>
-          <td class="tbl-ico"><?php if ($music_list['Music']['publish'] == 0) { ?>
-                                <span class="icon-false">非公開</span>
-                              <?php } elseif ($music_list['Music']['publish'] == 1) { ?>
-                                <span class="icon-true">公開</span>
-                              <?php } ?></td>
-          <td class="tbl-act_information"><?php echo $this->Html->link('修正', '/console/music/edit/' . $music_list['Music']['id']); ?>
-                                    <?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'music_delete', $music_list['Music']['id']), null, '本当に#' . $music_list['Music']['id'] . 'を削除しますか'); ?></td></tr>
-    <?php } ?>
+    <?php foreach ($music_lists as $music_list): ?>
+    <tr><td class="tbl-num"><?php echo $music_list['Music']['id']; ?></td>
+        <td><?php echo $music_list['Music']['title']; ?></td>
+        <td class="tbl-ico"><?php if ($music_list['Music']['publish'] == 0): ?>
+                            <span class="icon-false">非公開</span>
+                            <?php elseif ($music_list['Music']['publish'] == 1): ?>
+                            <span class="icon-true">公開</span>
+                            <?php endif; ?></td>
+        <td class="tbl-act_information"><?php echo $this->Html->link('修正', '/console/music/edit/' . $music_list['Music']['id']); ?>
+                                        <?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'music_delete', $music_list['Music']['id']), null, '本当に#' . $music_list['Music']['id'] . 'を削除しますか'); ?></td></tr>
+    <?php endforeach; ?>
   </table>

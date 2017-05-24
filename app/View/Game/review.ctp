@@ -10,9 +10,9 @@
         <?php echo $this->Html->image('../files/maker/' . $game_detail['Maker']['image_name'], array('alt' => $game_detail['Maker']['title'], 'class' => 'img-maker_erg')); ?></a></td>
     <td><?php echo $game_detail['Maker']['title']; ?></td>
     <td class="tbl-date_erg"><?php echo $game_detail['Game']['release_date']; ?></td>
-    <td class="tbl-link_erg"><?php if ($game_detail['Game']['link_url']) {?>
-                               <a href="<?php echo $game_detail['Game']['link_url']; ?>" target="_blank"><?php echo $game_detail['Game']['link_url']; ?></a>
-                             <?php } ?></td>
+    <td class="tbl-link_erg"><?php if ($game_detail['Game']['link_url']): ?>
+                             <a href="<?php echo $game_detail['Game']['link_url']; ?>" target="_blank"><?php echo $game_detail['Game']['link_url']; ?></a>
+                             <?php endif; ?></td>
   </tr>
 </table>
 
@@ -27,10 +27,10 @@
   </tr>
   <tr>
     <td class="tbl-1_erg_mobile"><?php echo $game_detail['Game']['release_date']; ?></td>
-    <td colspan="2" class="tbl-2_erg_mobile"><?php if ($game_detail['Game']['link_url']) {?>
-                                               <a href="<?php echo $game_detail['Game']['link_url']; ?>" target="_blank">
-                                                 <?php echo mb_strimwidth($game_detail['Game']['link_url'], 0, 32, '...'); ?></a>
-                                             <?php } ?></td>
+    <td colspan="2" class="tbl-2_erg_mobile"><?php if ($game_detail['Game']['link_url']): ?>
+                                             <a href="<?php echo $game_detail['Game']['link_url']; ?>" target="_blank">
+                                               <?php echo mb_strimwidth($game_detail['Game']['link_url'], 0, 32, '...'); ?></a>
+                                             <?php endif; ?></td>
   </tr>
 </table>
 
@@ -68,10 +68,10 @@
 <h3>総評</h3>
 <span class="point"><?php echo $game_detail['Game']['point']; ?></span>
 <p class="review"><?php echo nl2br($game_detail['Game']['review']); ?></p>
-<?php if (@$strong_color) { ?>
-  <script>
-      jQuery(function($) {
-          $('th').css('background-color', '#<?php echo $strong_color; ?>');
-      });
-  </script>
-<?php } ?>
+<?php if (@$strong_color): ?>
+<script>
+    jQuery(function($) {
+        $('th').css('background-color', '#<?php echo $strong_color; ?>');
+    });
+</script>
+<?php endif; ?>

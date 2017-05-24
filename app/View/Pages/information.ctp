@@ -41,18 +41,18 @@ if (@$array_menu[5]['link'] == '/diary/') {
 }
 ?>
 <div class="list_info">
-<?php foreach ($array_menu as $menu) { ?>
-  <table class="tbl_info">
-    <?php if (!$menu['menu']) { ?>
-      <tr><th colspan="3" class="tbl-title-h_info"><?php echo $menu['title']; ?></th>
-          <td class="tbl-text_info"><?php echo (@$menu['text'])? $menu['text'] : ''; ?></td></tr>
-    <?php } else { ?>
-      <tr><th colspan="3" class="tbl-title-h_info"><?php echo $menu['title']; ?></th></tr>
-      <?php foreach ($menu['menu'] as $sub_menu) { ?>
-        <tr><td></td><td class="tbl-title-d_info"><?php echo $sub_menu['label']; ?></td>
-            <td class="tbl-text_info"><?php echo (@$sub_menu['text'])? $sub_menu['text'] : ''; ?></td></tr>
-      <?php } ?>
-    <?php } ?>
-  </table>
-<?php } ?>
+<?php foreach ($array_menu as $menu): ?>
+<table class="tbl_info">
+  <?php if (!$menu['menu']): ?>
+  <tr><th colspan="3" class="tbl-title-h_info"><?php echo $menu['title']; ?></th>
+      <td class="tbl-text_info"><?php echo (@$menu['text'])? $menu['text'] : ''; ?></td></tr>
+  <?php else: ?>
+  <tr><th colspan="3" class="tbl-title-h_info"><?php echo $menu['title']; ?></th></tr>
+    <?php foreach ($menu['menu'] as $sub_menu): ?>
+    <tr><td></td><td class="tbl-title-d_info"><?php echo $sub_menu['label']; ?></td>
+        <td class="tbl-text_info"><?php echo (@$sub_menu['text'])? $sub_menu['text'] : ''; ?></td></tr>
+    <?php endforeach; ?>
+  <?php endif; ?>
+</table>
+<?php endforeach; ?>
 </div>

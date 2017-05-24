@@ -1,20 +1,20 @@
 <h3>リンクの追加</h3>
 
   <table>
-    <?php if (preg_match('#/console/link/edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
-      <?php echo $this->Form->create('Link', array( //使用するModel
-          'type' => 'put', //変更はput
-          'url' => array('controller' => 'console', 'action' => 'link_edit'), //Controllerのactionを指定
-          'inputDefaults' => array('div' => '')
-      )); ?>
-      <?php echo $this->Form->input('id', array('type' => 'hidden', 'label' => false, 'value' => $id)); ?>
-    <?php } else { //登録用 ?>
-      <?php echo $this->Form->create('Link', array( //使用するModel
-          'type' => 'post', //デフォルトはpost送信
-          'url' => array('controller' => 'console', 'action' => 'link_add'), //Controllerのactionを指定
-          'inputDefaults' => array('div' => '')
-      )); ?>
-    <?php } ?><!-- form start -->
+    <?php if (preg_match('#/console/link/edit/#', $_SERVER['REQUEST_URI'])): //編集用 ?>
+    <?php echo $this->Form->create('Link', array( //使用するModel
+        'type' => 'put', //変更はput
+        'url' => array('controller' => 'console', 'action' => 'link_edit'), //Controllerのactionを指定
+        'inputDefaults' => array('div' => '')
+    )); ?>
+    <?php echo $this->Form->input('id', array('type' => 'hidden', 'label' => false, 'value' => $id)); ?>
+    <?php else: //登録用 ?>
+    <?php echo $this->Form->create('Link', array( //使用するModel
+        'type' => 'post', //デフォルトはpost送信
+        'url' => array('controller' => 'console', 'action' => 'link_add'), //Controllerのactionを指定
+        'inputDefaults' => array('div' => '')
+    )); ?>
+    <?php endif; ?><!-- form start -->
     
     <tr>
       <td>タイトル</td>
@@ -40,11 +40,11 @@
     
     <tr>
       <td></td>
-      <td class="tbl-button"><?php if (preg_match('#/console/link/edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
-                               <?php echo $this->Form->submit('修正する'); ?>
-                             <?php } else { //登録用 ?>
-                               <?php echo $this->Form->submit('作成する'); ?>
-                             <?php } ?></td>
+      <td class="tbl-button"><?php if (preg_match('#/console/link/edit/#', $_SERVER['REQUEST_URI'])): //編集用 ?>
+                             <?php echo $this->Form->submit('修正する'); ?>
+                             <?php else: //登録用 ?>
+                             <?php echo $this->Form->submit('作成する'); ?>
+                             <?php endif; ?></td>
     </tr>
     <?php echo $this->Form->end(); ?><!-- form end -->
   </table>
@@ -61,25 +61,25 @@
                             状態</th>
         <th class="tbl-act_link">action</th></tr>
     
-    <?php foreach ($link_lists as $link_list) { ?>
-      <tr><td class="tbl-num"><?php echo $link_list['Link']['id']; ?></td>
-          <td><?php echo $link_list['Link']['title']; ?></td>
-          <td><?php echo $link_list['Link']['description']; ?></td>
-          <td class="tbl-ico"><?php if ($link_list['Link']['category'] == 'myself') { ?>
-                                <span class="txt-min">自分</span>
-                              <?php } elseif ($link_list['Link']['category'] == 'friends') { ?>
-                                <span class="txt-min">友人</span>
-                              <?php } elseif ($link_list['Link']['category'] == 'develop') { ?>
-                                <span class="txt-min">開発</span>
-                              <?php } elseif ($link_list['Link']['category'] == 'others') { ?>
-                                <span class="txt-min">その他</span>
-                              <?php } ?><br>
-                              <?php if ($link_list['Link']['publish'] == 0) { ?>
-                                <span class="icon-false">非公開</span>
-                              <?php } elseif ($link_list['Link']['publish'] == 1) { ?>
-                                <span class="icon-true">公開</span>
-                              <?php } ?></td>
-          <td class="tbl-act_link"><?php echo $this->Html->link('修正', '/console/link/edit/' . $link_list['Link']['id']); ?>
-                                   <?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'link_delete', $link_list['Link']['id']), null, '本当に#' . $link_list['Link']['id'] . 'を削除しますか'); ?></td></tr>
-    <?php } ?>
+    <?php foreach ($link_lists as $link_list): ?>
+    <tr><td class="tbl-num"><?php echo $link_list['Link']['id']; ?></td>
+        <td><?php echo $link_list['Link']['title']; ?></td>
+        <td><?php echo $link_list['Link']['description']; ?></td>
+        <td class="tbl-ico"><?php if ($link_list['Link']['category'] == 'myself'): ?>
+                            <span class="txt-min">自分</span>
+                            <?php elseif ($link_list['Link']['category'] == 'friends'): ?>
+                            <span class="txt-min">友人</span>
+                            <?php elseif ($link_list['Link']['category'] == 'develop'): ?>
+                            <span class="txt-min">開発</span>
+                            <?php elseif ($link_list['Link']['category'] == 'others'): ?>
+                            <span class="txt-min">その他</span>
+                            <?php endif; ?><br>
+                            <?php if ($link_list['Link']['publish'] == 0): ?>
+                            <span class="icon-false">非公開</span>
+                            <?php elseif ($link_list['Link']['publish'] == 1): ?>
+                            <span class="icon-true">公開</span>
+                            <?php endif; ?></td>
+        <td class="tbl-act_link"><?php echo $this->Html->link('修正', '/console/link/edit/' . $link_list['Link']['id']); ?>
+                                 <?php echo $this->Form->postLink('削除', array('controller' => 'Console', 'action' => 'link_delete', $link_list['Link']['id']), null, '本当に#' . $link_list['Link']['id'] . 'を削除しますか'); ?></td></tr>
+    <?php endforeach; ?>
   </table>

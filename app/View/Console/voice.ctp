@@ -1,25 +1,25 @@
 <h3>声優データの登録</h3>
 
   <table>
-    <?php if (preg_match('#/console/voice_edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
-      <?php echo $this->Form->create('Voice', array( //使用するModel
-          'type' => 'put', //変更はput
-          'url' => array('controller' => 'console', 'action' => 'voice_edit'), //Controllerのactionを指定
-          'inputDefaults' => array('div' => '')
-      )); ?>
-      <?php echo $this->Form->input('id', array('type' => 'hidden', 'label' => false)); ?>
-      <?php echo $this->Form->input('system_name', array('type' => 'hidden', 'label' => false)); ?>
-    <?php } else { //登録用 ?>
-      <?php echo $this->Form->create('Voice', array( //使用するModel
-          'type' => 'post', //デフォルトはpost送信
-          'url' => array('controller' => 'console', 'action' => 'voice_add'), //Controllerのactionを指定
-          'inputDefaults' => array('div' => '')
-      )); ?>
+    <?php if (preg_match('#/console/voice_edit/#', $_SERVER['REQUEST_URI'])): //編集用 ?>
+    <?php echo $this->Form->create('Voice', array( //使用するModel
+        'type' => 'put', //変更はput
+        'url' => array('controller' => 'console', 'action' => 'voice_edit'), //Controllerのactionを指定
+        'inputDefaults' => array('div' => '')
+    )); ?>
+    <?php echo $this->Form->input('id', array('type' => 'hidden', 'label' => false)); ?>
+    <?php echo $this->Form->input('system_name', array('type' => 'hidden', 'label' => false)); ?>
+    <?php else: //登録用 ?>
+    <?php echo $this->Form->create('Voice', array( //使用するModel
+        'type' => 'post', //デフォルトはpost送信
+        'url' => array('controller' => 'console', 'action' => 'voice_add'), //Controllerのactionを指定
+        'inputDefaults' => array('div' => '')
+    )); ?>
     <tr>
       <td>システムネーム</td>
       <td><?php echo $this->Form->input('system_name', array('type' => 'text', 'label' => false, 'size' => 49)); ?></td>
     </tr>
-    <?php } ?><!-- form start -->
+    <?php endif; ?><!-- form start -->
     
     <tr>
       <td>名前</td>
@@ -48,11 +48,11 @@
     
     <tr>
       <td></td>
-      <td class="tbl-button"><?php if (preg_match('#/console/voice_edit/#', $_SERVER['REQUEST_URI'])) { //編集用 ?>
-                               <?php echo $this->Form->submit('修正する'); ?>
-                             <?php } else { //登録用 ?>
-                               <?php echo $this->Form->submit('登録する'); ?>
-                             <?php } ?></td>
+      <td class="tbl-button"><?php if (preg_match('#/console/voice_edit/#', $_SERVER['REQUEST_URI'])): //編集用 ?>
+                             <?php echo $this->Form->submit('修正する'); ?>
+                             <?php else: //登録用 ?>
+                             <?php echo $this->Form->submit('登録する'); ?>
+                             <?php endif; ?></td>
     </tr>
     <?php echo $this->Form->end(); ?><!-- form end -->
   </table>

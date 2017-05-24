@@ -65,10 +65,10 @@
     </td>
   </tr>
 </table>
-<?php if (@$strong_color) { ?>
-  <script>
-      jQuery(function($) {
-          $('.tbl-title_prof').css('background-color', '#<?php echo $strong_color; ?>');
-      });
-  </script>
-<?php } ?>
+<?php if (@$strong_color): ?>
+<script>
+    jQuery(function($) {
+        $('.tbl-title_prof').css('background-color', '#<?php echo $strong_color; ?>');
+    });
+</script>
+<?php endif; ?>

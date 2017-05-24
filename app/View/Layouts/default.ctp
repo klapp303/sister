@@ -83,9 +83,9 @@
         <?php echo $this->Flash->render(); ?>
         
         <?php echo $this->element('bourbon_house'); ?>
-        <?php if (env('SERVER_ADDR') == '127.0.0.1') { ?>
-          <?php echo $this->fetch('content'); ?>
-        <?php } ?>
+        <?php if (env('SERVER_ADDR') == '127.0.0.1'): ?>
+        <?php echo $this->fetch('content'); ?>
+        <?php endif; ?>
       </div>
       
       <div id="footer">

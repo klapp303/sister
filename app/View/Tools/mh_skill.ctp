@@ -3,27 +3,27 @@
 <?php // echo $this->Html->script('jquery-select_select', array('inline' => false)); ?>
 <h3><?php echo $tool_data['name']; ?> <span class="txt-min">ver<?php echo $tool_data['version_latest']; ?></span></h3>
 
-<?php if (@$weapon_sim) { ?>
-  <div class="result_mh_sim">
-    物理期待値： <?php echo $weapon_sim['attack']; ?><br>
-    属性期待値： <?php echo $weapon_sim['element']; ?>
-  </div>
-  
-  <?php if (@$weapon_logs) { ?>
-    <div class="log_mh_sim cf">
-      <h4>結果ログ（最新から最大4件表示）</h4>
-      <?php foreach ($weapon_logs as $log) { ?>
-        <div class="fl">
-          <?php echo $log['name']; ?><br>
-          物理期待値： <?php echo $log['attack']; ?><br>
-          属性期待値： <?php echo $log['element']; ?>
-        </div>
-      <?php } ?>
+<?php if (@$weapon_sim): ?>
+<div class="result_mh_sim">
+  物理期待値： <?php echo $weapon_sim['attack']; ?><br>
+  属性期待値： <?php echo $weapon_sim['element']; ?>
+</div>
+
+  <?php if (@$weapon_logs): ?>
+  <div class="log_mh_sim cf">
+    <h4>結果ログ（最新から最大4件表示）</h4>
+    <?php foreach ($weapon_logs as $log): ?>
+    <div class="fl">
+      <?php echo $log['name']; ?><br>
+      物理期待値： <?php echo $log['attack']; ?><br>
+      属性期待値： <?php echo $log['element']; ?>
     </div>
-  <?php } ?>
-  
-  <hr>
-<?php } ?>
+    <?php endforeach; ?>
+  </div>
+  <?php endif; ?>
+
+<hr>
+<?php endif; ?>
 
 <p class="intro_tools">
   武器とスキルを選択入力すると、火力期待値のおおよそを計算します。<br>
@@ -66,31 +66,31 @@
           //斬れ味の値をなぜか引き継げないのでここで取得
           @$sharp_val = $this->request->data['weapon']['sharp'];
           ?>
-          <?php if ($weapon_mode == 'sharp') { //初期表示：剣士 ?>
-            <?php $array_sharp = array(6 => '紫', 5 => '白', 4 => '青', 3 => '緑', 2 => '黄', 1 => '赤'); ?>
-            <?php foreach ($array_sharp as $value => $label) { ?>
-              <option value="<?php echo $value; ?>" class="js-sharp"<?php echo ($value == $sharp_val)? ' selected="selected"' : ''; ?>>
-                <?php echo $label; ?></option>
-            <?php } ?>
-          <?php } elseif ($weapon_mode == 'bullet') { //初期表示：ガンナー ?>
-            <?php $array_sharp = array(101 => '通常弾 連射矢', 102 => '貫通弾 貫通矢', 103 => '散弾 拡散矢'); ?>
-            <?php foreach ($array_sharp as $value => $label) { ?>
-              <option value="<?php echo $value; ?>" class="js-bullet"<?php echo ($value == $sharp_val)? ' selected="selected"' : ''; ?>>
-                <?php echo $label; ?></option>
-            <?php } ?>
-          <?php } ?>
+          <?php if ($weapon_mode == 'sharp'): //初期表示：剣士 ?>
+          <?php $array_sharp = array(6 => '紫', 5 => '白', 4 => '青', 3 => '緑', 2 => '黄', 1 => '赤'); ?>
+            <?php foreach ($array_sharp as $value => $label): ?>
+            <option value="<?php echo $value; ?>" class="js-sharp"<?php echo ($value == $sharp_val)? ' selected="selected"' : ''; ?>>
+              <?php echo $label; ?></option>
+            <?php endforeach; ?>
+          <?php elseif ($weapon_mode == 'bullet'): //初期表示：ガンナー ?>
+          <?php $array_sharp = array(101 => '通常弾 連射矢', 102 => '貫通弾 貫通矢', 103 => '散弾 拡散矢'); ?>
+            <?php foreach ($array_sharp as $value => $label): ?>
+            <option value="<?php echo $value; ?>" class="js-bullet"<?php echo ($value == $sharp_val)? ' selected="selected"' : ''; ?>>
+              <?php echo $label; ?></option>
+            <?php endforeach; ?>
+          <?php endif; ?>
         </select>
         <select name="" id="js-pulldown_op" disabled="disabled" style="display: none;">
           <?php $array_sharp = array(6 => '紫', 5 => '白', 4 => '青', 3 => '緑', 2 => '黄', 1 => '赤'); ?>
-          <?php foreach ($array_sharp as $value => $label) { ?>
-            <option value="<?php echo $value; ?>" class="js-sharp"<?php echo ($value == 6)? ' selected="selected"' : ''; ?>>
-              <?php echo $label; ?></option>
-          <?php } ?>
+          <?php foreach ($array_sharp as $value => $label): ?>
+          <option value="<?php echo $value; ?>" class="js-sharp"<?php echo ($value == 6)? ' selected="selected"' : ''; ?>>
+            <?php echo $label; ?></option>
+          <?php endforeach; ?>
           <?php $array_bullet = array(101 => '通常弾 連射矢', 102 => '貫通弾 貫通矢', 103 => '散弾 拡散矢'); ?>
-          <?php foreach ($array_bullet as $value => $label) { ?>
-            <option value="<?php echo $value; ?>" class="js-bullet"<?php echo ($value == 101)? ' selected="selected"' : ''; ?>>
-              <?php echo $label; ?></option>
-          <?php } ?>
+          <?php foreach ($array_bullet as $value => $label): ?>
+          <option value="<?php echo $value; ?>" class="js-bullet"<?php echo ($value == 101)? ' selected="selected"' : ''; ?>>
+            <?php echo $label; ?></option>
+          <?php endforeach; ?>
         </select>
         <script>
             jQuery(function($) {
@@ -102,7 +102,7 @@
                         //選択された武器種を取得
                         var weapon = $("#js-pulldown_1").val();
                         //ガンナーの場合
-                        if (weapon >= 12) {
+                        if (weapon >=12) {
                             var weapon_cat = 'js-bullet';
                             $('.js-bullet-form').css('display', 'block'); //ガンナースキルを表示
                             $('.js-sharp-form').css('display', 'none'); //'斬れ味'を非表示
@@ -231,7 +231,7 @@
                         error_flg = 1;
                     }
                     //0以下はfalse
-                    if (attack <= 0) {
+                    if (attack <=0) {
                         error_flg = 1;
                     }
                 }
@@ -248,7 +248,7 @@
                         error_flg = 1;
                     }
                     //100より上、-100未満はfalse
-                    if (critical < -100 || critical > 100) {
+                    if (critical <-100 || critical >100) {
                         error_flg = 1;
                     }
                 }
@@ -315,9 +315,9 @@
 <h4 class="h4_tools">更新履歴</h4>
 
   <div class="update-log">
-    <?php foreach ($tool_data['version'] as $key => $version) { ?>
-      <div><span class="txt-min">ver<?php echo $key; ?></span> <?php echo $version[1]; ?></div>
-      <div class="update-date"><?php echo $version[0]; ?></div>
-      <hr>
-    <?php } ?>
+    <?php foreach ($tool_data['version'] as $key => $version): ?>
+    <div><span class="txt-min">ver<?php echo $key; ?></span> <?php echo $version[1]; ?></div>
+    <div class="update-date"><?php echo $version[0]; ?></div>
+    <hr>
+    <?php endforeach; ?>
   </div>

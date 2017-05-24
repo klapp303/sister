@@ -47,8 +47,8 @@ jQuery(function($) {
         
         //クリックイベントを設定する
         $('.move_top_button').click(function() {
-			//スムーズにスクロールする
-			$('html, body').animate({scrollTop:0}, 'slow');
-		});
+            //スムーズにスクロールする
+            $('html, body').animate({scrollTop : 0}, 'slow');
+        });
     });
 });

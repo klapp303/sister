@@ -21,7 +21,7 @@ $last_week = date('w', mktime(0,0, 0, $calendar['current']['month'], $last_day, 
             if ($first_week == 0) {
                 $first_week = 7;
             }
-            if (($i % 7) == (7 - $first_week)) {
+            if (($i %7) == (7 - $first_week)) {
                 if (in_array($i, $calendar['diary_cal_lists'])) {
                     echo '<td>';
                     echo $this->Html->link($i, '/diary/' . $calendar['current']['year'] . '/' . $calendar['current']['month'] . '/' . $i);
@@ -39,7 +39,7 @@ $last_week = date('w', mktime(0,0, 0, $calendar['current']['month'], $last_day, 
                 }
             }
         }
-        for ($i = 0; $i < (7 - $last_week - 1); $i++) {
+        for ($i = 0; $i < (7 - $last_week -1); $i++) {
             echo '<td></td>';
         }
         ?>

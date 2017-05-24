@@ -25,45 +25,45 @@
 
 <url>
   <loc>http://klapp.crap.jp/game/erg/</loc>
-  <lastmod><?php echo (@$erg_lists)? date('Y-m-d', strtotime($erg_lists[0]['Game']['modified'])): $publish_date; ?></lastmod>
+  <lastmod><?php echo (@$erg_lists)? date('Y-m-d', strtotime($erg_lists[0]['Game']['modified'])) : $publish_date; ?></lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>
-<?php foreach ($erg_lists as $erg_list) { ?>
+<?php foreach ($erg_lists as $erg_list): ?>
 <url>
   <loc>http://klapp.crap.jp/game/erg/<?php echo $erg_list['Game']['id']; ?>/</loc>
   <lastmod><?php echo date('Y-m-d', strtotime($erg_list['Game']['modified'])); ?></lastmod>
   <priority>0.8</priority>
 </url>
-<?php } ?>
+<?php endforeach; ?>
 
 <url>
   <loc>http://klapp.crap.jp/game/mh/</loc>
-  <lastmod><?php echo (@$mh_last)? date('Y-m-d', strtotime($mh_last['Information']['created'])): $publish_date; ?></lastmod>
+  <lastmod><?php echo (@$mh_last)? date('Y-m-d', strtotime($mh_last['Information']['created'])) : $publish_date; ?></lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>
-<?php foreach ($mh_lists as $mh_list) { ?>
+<?php foreach ($mh_lists as $mh_list): ?>
 <url>
   <loc>http://klapp.crap.jp/game/mh/<?php echo $mh_list; ?>/</loc>
   <priority>0.8</priority>
 </url>
-<?php } ?>
+<?php endforeach; ?>
 
 <url>
   <loc>http://klapp.crap.jp/tools/</loc>
-  <lastmod><?php echo (@$tool_last)? date('Y-m-d', strtotime($tool_last['Information']['created'])): $publish_date; ?></lastmod>
+  <lastmod><?php echo (@$tool_last)? date('Y-m-d', strtotime($tool_last['Information']['created'])) : $publish_date; ?></lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>
-<?php foreach ($tool_lists as $tool_list) { ?>
+<?php foreach ($tool_lists as $tool_list): ?>
 <url>
   <loc>http://klapp.crap.jp/tools/<?php echo $tool_list['url']; ?>/</loc>
   <priority>0.8</priority>
 </url>
-<?php } ?>
+<?php endforeach; ?>
 
-<?php foreach ($voice_lists as $voice_list) { ?>
+<?php foreach ($voice_lists as $voice_list): ?>
 <url>
   <loc>http://klapp.crap.jp/voice/<?php echo $voice_list; ?>/</loc>
   <changefreq>weekly</changefreq>
@@ -94,7 +94,7 @@
   <changefreq>weekly</changefreq>
   <priority>0.9</priority>
 </url>
-<?php } ?>
+<?php endforeach; ?>
 
 <url>
   <loc>http://klapp.crap.jp/diary/</loc>
@@ -102,10 +102,10 @@
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
 </url>
-<?php foreach ($diary_lists as $diary_list) { ?>
+<?php foreach ($diary_lists as $diary_list): ?>
 <url>
-  <loc>http://klapp.crap.jp/diary/<?php echo $diary_list['Diary']['id'] ?>/</loc>
+  <loc>http://klapp.crap.jp/diary/<?php echo $diary_list['Diary']['id']; ?>/</loc>
   <lastmod><?php echo date('Y-m-d', strtotime($diary_list['Diary']['modified'])); ?></lastmod>
   <priority>0.8</priority>
 </url>
-<?php } ?>
+<?php endforeach; ?>

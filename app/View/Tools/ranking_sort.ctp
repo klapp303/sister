@@ -31,8 +31,8 @@
   </table>
 
 <div>
-  <?php if (!preg_match('#/tools/ranking_sort/reset#', $_SERVER['REQUEST_URI']) && @$sort_back != 'no') { ?>
-    <span class="link-page"><?php echo $this->Html->link('⇨ ひとつ前の選択肢に戻る', array('action' => 'ranking_sort', 'reset')); ?></span>
-  <?php } ?>
+  <?php if (!preg_match('#/tools/ranking_sort/reset#', $_SERVER['REQUEST_URI']) && @$sort_back != 'no'): ?>
+  <span class="link-page"><?php echo $this->Html->link('⇨ ひとつ前の選択肢に戻る', array('action' => 'ranking_sort', 'reset')); ?></span>
+  <?php endif; ?>
   <span class="link-page"><?php echo $this->Html->link('⇨ 最初からランキングを作成する', '/tools/ranking/'); ?></span>
 </div>
