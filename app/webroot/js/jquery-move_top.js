@@ -1,6 +1,6 @@
 jQuery(function($) {
     //グローバル変数
-    var syncerTimeout = null ;
+    var syncerTimeout = null;
     
     //スクロールイベントの設定
     $(window).scroll(function() {
