@@ -6,7 +6,7 @@ class Banner extends AppModel
 {
     public $useTable = 'banners';
     
-    public $actsAs = array(/* 'SoftDelete', 'Search.Searchable' */);
+    public $actsAs = array('SoftDelete'/* , 'Search.Searchable' */);
     
 //    public $belongsTo = array(
 //        'SamplesGenre' => array(
