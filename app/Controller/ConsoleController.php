@@ -693,6 +693,9 @@ class ConsoleController extends AppController
     public function banner()
     {
         $this->Paginator->settings = array(
+            'conditions' => array(
+                'Banner.birthday_id' => 0
+            ),
             'limit' => 20,
             'order' => array('Banner.id' => 'desc')
         );
@@ -733,6 +736,9 @@ class ConsoleController extends AppController
     public function banner_edit()
     {
         $this->Paginator->settings = array(
+            'conditions' => array(
+                'Banner.birthday_id' => 0
+            ),
             'limit' => 20,
             'order' => array('Banner.id' => 'desc')
         );
@@ -816,6 +822,7 @@ class ConsoleController extends AppController
     {
         $this->Paginator->settings = array(
             'conditions' => array(
+                'Banner.birthday_id' => 0,
                 'Banner.publish' => 1,
                 'or' => array(
                     array('Banner.date_to' => null),
