@@ -13,10 +13,14 @@
 }
 
 /* twitterタイムライン用 */
-#twitter-widget-0 {
-  /*min-width: 180px !important;*/
-  width: 180px !important;
-  margin-right: -20px !important;
+#twitter {
+  margin-right: -20px;
+}
+#twitter >.twitter-header {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 12px;
 }
 
 /* サイドバナー用 */
