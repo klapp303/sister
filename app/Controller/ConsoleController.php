@@ -1802,7 +1802,8 @@ class ConsoleController extends AppController
                 $birthday_banner_lists = $this->Banner->find('all', array(
                     'conditions' => array(
                         'Banner.birthday_id' => $birthday['Birthday']['id']
-                    )
+                    ),
+                    'order' => array('Banner.sort' => 'desc')
                 ));
                 if ($birthday_banner_lists) {
                     $banner_lists = $birthday_banner_lists;
