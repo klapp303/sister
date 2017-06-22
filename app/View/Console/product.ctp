@@ -106,6 +106,7 @@
     </tr>
     <script>
         jQuery(function($) {
+            //ジャンルによるハードの選択肢表示
             //プルダウンのoption内容をコピー
             var pd2 = $('#lv2Pulldown option').clone();
 //            var pd3 = $('#lv3Pulldown option').clone();
@@ -169,15 +170,29 @@
       <td>
         <table>
           <tr class="txt-min"><td>　　曲名</td><td>作詞者</td><td>作曲者</td></tr>
-          <?php for ($i = 0; $i < 24; $i++): ?>
+          <?php
+          $sg_max = 10;
+          $al_max = 40;
+          $hidden_limit = 20;
+          ?>
+          <?php for ($i = 0; $i < $al_max; $i++): ?>
             <?php if (preg_match('#/console/voice/' . $profile['Voice']['system_name'] . '/edit/#', $_SERVER['REQUEST_URI'])): //編集用 ?>
-              <?php echo $this->Form->input('Music.' . $i . '.id', array('type' => 'hidden')); ?>
+            <?php echo $this->Form->input('Music.' . $i . '.id', array('type' => 'hidden')); ?>
             <?php endif; ?>
-          <tr class="tbl-music_voice-<?php echo ($i < 8)? 'sg' : 'al'; ?><?php echo (@$mode_music)? '_' . $mode_music : ''; ?>">
+          <tr class="tbl-music_voice-<?php if ($i < $sg_max) {
+                                         $tbl_music_class = 'sg';
+                                     } elseif ($i < $hidden_limit) {
+                                         $tbl_music_class = 'al';
+                                     } else {
+                                         $tbl_music_class = 'hidden';
+                                     } ?><?php echo $tbl_music_class; ?><?php echo (@$mode_music)? '_' . $mode_music : ''; ?>" <?php echo ($i >= $hidden_limit)? 'style="display: none;"' : ''; ?>>
             <td><?php echo sprintf('%02d', $i +1); ?><?php echo $this->Form->input('Music.' . $i . '.title', array('type' => 'text', 'label' => false, 'size' => 21)); ?></td>
             <td><?php echo $this->Form->input('Music.' . $i . '.writer', array('type' => 'text', 'label' => false, 'size' => 8)); ?></td>
             <td><?php echo $this->Form->input('Music.' . $i . '.composer', array('type' => 'text', 'label' => false, 'size' => 8)); ?></td>
           </tr>
+            <?php if ($i == $al_max -1): ?>
+            <tr><td></td><td></td><td><button type="button" class="js-button-hide" <?php echo (@$mode_music == 'sg')? 'style="display: none;"' : ''; ?>>＋</button></td></tr>
+            <?php endif; ?>
           <?php endfor; ?>
         </table>
       </td>
@@ -279,6 +294,7 @@
 <?php foreach($array_hard as $hard): ?>
 <script>
     jQuery(function($) {
+        //ハードによる楽曲のフォーム表示
         var hard = <?php echo json_encode($hard, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
         $('#SelectHard select').change(function() { //formのchangeイベントがあれば値を取得
             var val = $(this).val();
@@ -286,14 +302,17 @@
                 $('.tbl-music_voice' + hard).show();
                 $('.tbl-music_voice-sg' + hard).show();
                 $('.tbl-music_voice-al' + hard).hide();
+                $('.js-button-hide').hide();
             } else if (val == 'al') {
                 $('.tbl-music_voice' + hard).show();
                 $('.tbl-music_voice-sg' + hard).show();
                 $('.tbl-music_voice-al' + hard).show();
+                $('.js-button-hide').show();
             } else {
                 $('.tbl-music_voice' + hard).hide();
                 $('.tbl-music_voice-sg' + hard).hide();
                 $('.tbl-music_voice-al' + hard).hide();
+                $('.js-button-hide').hide();
             }
         });
         $('#SelectGenre select').change(function() { //formのchangeイベントがあれば値を取得
@@ -302,8 +321,15 @@
                 $('.tbl-music_voice' + hard).hide();
                 $('.tbl-music_voice-sg' + hard).hide();
                 $('.tbl-music_voice-al' + hard).hide();
+                $('.js-button-hide').hide();
             }
         });
+        
+        //AL楽曲のフォームを増やす
+        $('.js-button-hide').click(function() {
+                $('.tbl-music_voice-hidden').toggle();
+                $('.tbl-music_voice-hidden_al').toggle();
+            });
     });
 </script>
 <?php endforeach; ?>

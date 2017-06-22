@@ -282,6 +282,9 @@
 .js-show {
   display: inline;
 }
+.js-button-hide {
+  float: right;
+}
 
 /* jQuery-tmb */
 .js-tmb {
