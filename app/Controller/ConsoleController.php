@@ -7,7 +7,7 @@ App::uses('Folder', 'Utility'); //フォルダAPI用
 class ConsoleController extends AppController
 {
     public $uses = array(
-        'Diary', 'DiaryGenre', 'Photo', 'Information', 'SisterComment', 'Banner', 'Link',
+        'Diary', 'DiaryGenre', 'DiaryTag', 'Photo', 'Information', 'SisterComment', 'Banner', 'Link',
         'Administrator', 'Game', 'Maker', 'Voice', 'Birthday', 'Product', 'Music', 'Tool'
     ); //使用するModel
     
@@ -508,6 +508,91 @@ class ConsoleController extends AppController
             }
             
             $this->redirect('/console/diary_genre/');
+        }
+    }
+    
+    public function diary_tag()
+    {
+        $this->Paginator->settings = array(
+            'limit' => 20,
+            'order' => array('DiaryTag.id' => 'asc')
+        );
+        $diary_tag_lists = $this->Paginator->paginate('DiaryTag');
+        $this->set('diary_tag_lists', $diary_tag_lists);
+    }
+    
+    public function diary_tag_add()
+    {
+        if ($this->request->is('post')) {
+            $this->DiaryTag->set($this->request->data); //postデータがあればModelに渡してvalidate
+            if ($this->DiaryTag->validates()) { //validate成功の処理
+                $this->DiaryTag->save($this->request->data); //validate成功でsave
+                if ($this->DiaryTag->save($this->request->data)) {
+                    $this->Session->setFlash('タグを追加しました。', 'flashMessage');
+                } else {
+                    $this->Session->setFlash('追加できませんでした。', 'flashMessage');
+                }
+            } else { //validate失敗の処理
+                $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+            }
+        }
+        
+        $this->redirect('/console/diary_tag/');
+    }
+    
+    public function diary_tag_edit()
+    {
+        $this->Paginator->settings = array(
+            'limit' => 20,
+            'order' => array('DiaryTag.id' => 'asc')
+        );
+        $diary_tag_lists = $this->Paginator->paginate('DiaryTag');
+        $this->set('diary_tag_lists', $diary_tag_lists);
+        
+        //日記タグの編集用
+        if (empty($this->request->data)) {
+            $id = $this->request->params['id'];
+            $this->request->data = $this->DiaryTag->findById($id); //postデータがなければ$idからデータを取得
+            if (!empty($this->request->data)) { //データが存在する場合
+                $this->set('id', $id); //viewに渡すために$idをセット
+            } else { //データが存在しない場合
+                $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+            }
+        } else {
+            $id = $this->request->data['DiaryTag']['id'];
+            $this->DiaryTag->set($this->request->data); //postデータがあればModelに渡してvalidate
+            if ($this->DiaryTag->validates()) { //validate成功の処理
+                $this->DiaryTag->save($this->request->data); //validate成功でsave
+                if ($this->DiaryTag->save($id)) {
+                    $this->Session->setFlash('修正しました。', 'flashMessage');
+                } else {
+                    $this->Session->setFlash('修正できませんでした。', 'flashMessage');
+                }
+                $this->redirect('/console/diary_tag/');
+            } else { //validate失敗の処理
+                $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+                $this->set('id', $this->request->data['DiaryTag']['id']); //viewに渡すために$idをセット
+            }
+        }
+        
+        $this->render('diary_tag');
+    }
+    
+    public function diary_tag_delete($id = null)
+    {
+        if (empty($id)) {
+            throw new NotFoundException(__('存在しないデータです。'));
+        }
+        
+        if ($this->request->is('post')) {
+            $this->DiaryTag->Behaviors->enable('SoftDelete');
+            if ($this->DiaryTag->delete($id)) {
+                $this->Session->setFlash('削除しました。', 'flashMessage');
+            } else {
+                $this->Session->setFlash('削除できませんでした。', 'flashMessage');
+            }
+            
+            $this->redirect('/console/diary_tag/');
         }
     }
     

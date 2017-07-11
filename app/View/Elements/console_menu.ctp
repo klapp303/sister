@@ -25,7 +25,8 @@ $array_consoleMenu = array(
             1 => array('label' => '日記を書く', 'link' => '/console/diary/'),
             2 => array('label' => '画像をアップする', 'link' => '/console/photo/'),
             3 => array('label' => 'ジャンルで分ける', 'link' => '/console/diary_genre/'),
-            4 => array('label' => 'ブログを確認する', 'link' => '/diary/', 'target' => '_blank')
+            4 => array('label' => 'タグで分ける', 'link' => '/console/diary_tag/'),
+            5 => array('label' => 'ブログを確認する', 'link' => '/diary/', 'target' => '_blank')
         )
     ),
     4 => array(

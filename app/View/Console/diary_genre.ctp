@@ -32,7 +32,7 @@
     <?php echo $this->Form->end(); ?><!-- form end -->
   </table>
 
-<h3>日記一覧</h3>
+<h3>ジャンル一覧</h3>
 
   <?php echo $this->Paginator->numbers($paginator_option); ?>
 
