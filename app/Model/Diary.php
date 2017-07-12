@@ -204,6 +204,53 @@ class Diary extends AppModel
         return $diary_lists;
     }
     
+    public function getDiaryIdFromTag($diary_id = null, $tag_id = null, $sort = true, $diary_lists = [])
+    {
+        //タグが指定されている場合
+        if ($tag_id) {
+            //タグから日記一覧を取得
+            $this->loadModel('DiaryRegtag');
+            $diary_lists = $this->DiaryRegtag->find('list', array(
+                'conditions' => array('DiaryRegtag.tag_id' => $tag_id),
+                'fields' => 'DiaryRegtag.diary_id'
+            ));
+            //日記も指定されている場合はその日記を一覧から削除
+            if ($diary_id) {
+                foreach ($diary_lists as $key => $val) {
+                    if ($val == $diary_id) {
+                        unset($diary_lists[$key]);
+                    }
+                }
+            }
+            
+        //日記が指定されている場合
+        } elseif ($diary_id) {
+            //日記に登録されているタグを取得
+            $this->loadModel('DiaryRegtag');
+            $regtag_lists = $this->DiaryRegtag->find('list', array(
+                'conditions' => array('DiaryRegtag.diary_id' => $diary_id),
+                'fields' => 'DiaryRegtag.tag_id'
+            ));
+            //タグ毎に日記一覧を取得
+            $diary_lists = [];
+            foreach ($regtag_lists as $val) {
+                $diary_lists += $this->getDiaryIdFromTag($diary_id, $val, false); //ここでsortするとおかしくなるので
+            }
+        }
+        
+        //日記を降順にする
+        if ($sort == true) {
+            $sort_diary_lists = [];
+            foreach ($diary_lists as $val) {
+                $sort_diary_lists[$val] = $val;
+            }
+            rsort($sort_diary_lists);
+            $diary_lists = $sort_diary_lists;
+        }
+        
+        return $diary_lists;
+    }
+    
     //旧ブログの整形用
     public function formatDiaryFromFc2($text_url = null, $diary_lists = [])
     {
