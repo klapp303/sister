@@ -38,7 +38,7 @@ class Diary extends AppModel
         )
     );
     
-    public function getCalendarMenu($year = false, $month = false, $hidden_id = false, $mode = false, $calendar = [])
+    public function getCalendarMenu($year = null, $month = null, $hidden_id = null, $mode = false, $calendar = [])
     {
         if (!$year) {
             $year = date('Y');
@@ -141,7 +141,7 @@ class Diary extends AppModel
         return $diary_lists;
     }
     
-    public function getThumbnailFromText($text = false, $image = false)
+    public function getThumbnailFromText($text = null, $image = null)
     {
         if ($text) {
             //phpファイル内に $this->Html->img() がある場合
@@ -178,7 +178,7 @@ class Diary extends AppModel
             }
         }
         
-        if (@!$image) {
+        if (!$image) {
             $image = 'files/no_image.jpg';
         }
         
@@ -205,7 +205,7 @@ class Diary extends AppModel
     }
     
     //旧ブログの整形用
-    public function formatDiaryFromFc2($text_url = false, $diary_lists = [])
+    public function formatDiaryFromFc2($text_url = null, $diary_lists = [])
     {
         $past_diary = file_get_contents($text_url);
         $past_diary = explode('--------', $past_diary);
@@ -294,7 +294,7 @@ class Diary extends AppModel
         return $diary_lists;
     }
     
-    public function selectDiaryToNew($diary_lists = false, $id = false, $page = false, $data = ['lists' => false, 'paginator' => false])
+    public function selectDiaryToNew($diary_lists = false, $id = null, $page = null, $data = ['lists' => false, 'paginator' => false])
     {
         //既に同じ月日の日記があれば削除
         $db_diary_dates = $this->find('list', array('fields' => 'Diary.date'));

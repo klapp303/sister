@@ -35,7 +35,7 @@ class EventerArtist extends AppModel
 //        'title' => array('type' => 'value')
 //    );
     
-    public function getArtistLists($type = false)
+    public function getArtistLists($type = null)
     {
         //本番環境と開発環境でデータベース接続の設定を分けるため
         if (env('SERVER_ADDR') !== '127.0.0.1') {

@@ -45,7 +45,7 @@ class Product extends AppModel
 //        'title' => array('type' => 'value')
 //    );
     
-    public function getGenreAndHardList($data = false)
+    public function getGenreAndHardList()
     {
         //ジャンルとハードの選択肢を定義
         $data = array(
@@ -101,7 +101,7 @@ class Product extends AppModel
         return $data;
     }
     
-    public function editMusicData($id = false, $data = false)
+    public function editMusicData($id = null, $data = false)
     {
         //product_editでhasManyのmusicデータを編集時に加工する
         if ($data['Product']['pre_genre'] != 'music') {

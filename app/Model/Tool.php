@@ -33,7 +33,7 @@ class Tool extends AppModel{
 //        'title' => array('type' => 'value')
 //    );
     
-    public function getArrayTools($data = false)
+    public function getArrayTools($data = [])
     {
         //ファイル構造から判断できないのでここで自作ツールの一覧を定義しておく
         $array_tools = array(
@@ -79,7 +79,7 @@ class Tool extends AppModel{
         return $data;
     }
     
-    public function getToolName($url = false)
+    public function getToolName($url = null)
     {
         $tool_lists = $this->getArrayTools();
         foreach ($tool_lists['list'] as $tool) {
@@ -96,7 +96,7 @@ class Tool extends AppModel{
         return $data;
     }
     
-    public function createRankingData($data_type = false, $data = false)
+    public function createRankingData($data_type = null, $data = false)
     {
         if ($data_type == 'fortuna') {
             $data = '竹達彩奈';
@@ -119,7 +119,7 @@ class Tool extends AppModel{
         return $data;
     }
     
-    public function MHSkillSim($weapon_data, $skill_data, $skill_invalid = [])
+    public function MHSkillSim($weapon_data = false, $skill_data = false, $skill_invalid = [])
     {
         //基礎攻撃力に変換（今回なし）
         

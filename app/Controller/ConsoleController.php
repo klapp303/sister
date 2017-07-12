@@ -1439,7 +1439,7 @@ class ConsoleController extends AppController
         $this->render('voice');
     }
     
-    public function voice_edit($actor = false)
+    public function voice_edit($actor = null)
     {
         if ($actor) {
             $profile = $this->Voice->find('first', array('conditions' => array('Voice.system_name' => $actor)));
@@ -1494,7 +1494,7 @@ class ConsoleController extends AppController
         }
     }
     
-    public function birthday_add($actor = false)
+    public function birthday_add($actor = null)
     {
         $voice_data = $this->Voice->find('first', array(
             'conditions' => array('Voice.system_name' => $actor)
@@ -1588,7 +1588,7 @@ class ConsoleController extends AppController
         $this->render('birthday');
     }
     
-    public function birthday_edit($actor = false, $birthday_num = 0)
+    public function birthday_edit($actor = null, $birthday_num = 0)
     {
         if ($actor) {
             $voice = $this->Voice->find('first', array('conditions' => array('Voice.system_name' => $actor)));
@@ -1689,7 +1689,7 @@ class ConsoleController extends AppController
         $this->render('birthday');
     }
     
-    public function birthday_delete($actor = false, $birthday_num = 0)
+    public function birthday_delete($actor = null, $birthday_num = 0)
     {
         if (empty($actor)) {
             throw new NotFoundException(__('存在しないデータです。'));
@@ -1717,7 +1717,7 @@ class ConsoleController extends AppController
         }
     }
     
-    public function birthday_banner_add($actor = false, $birthday_num = 0)
+    public function birthday_banner_add($actor = null, $birthday_num = 0)
     {
         if ($actor) {
             $voice = $this->Voice->find('first', array('conditions' => array('Voice.system_name' => $actor)));
@@ -1766,7 +1766,7 @@ class ConsoleController extends AppController
         $this->render('birthday_banner');
     }
     
-    public function birthday_banner_delete($actor = false, $id = null)
+    public function birthday_banner_delete($actor = null, $id = null)
     {
         if (empty($id)) {
             throw new NotFoundException(__('存在しないデータです。'));
@@ -1789,7 +1789,7 @@ class ConsoleController extends AppController
         $this->redirect('/console/birthday_edit/' . $actor);
     }
     
-    public function birthday_banner_sort($actor = false)
+    public function birthday_banner_sort($actor = null)
     {
         if ($this->request->is('post')) {
             $sort_id['Banner'] = array_values($this->request->data['Banner']);
@@ -1806,7 +1806,7 @@ class ConsoleController extends AppController
         }
     }
     
-    public function birthday_preview($actor = false, $birthday_num = 0)
+    public function birthday_preview($actor = null, $birthday_num = 0)
     {
         if (empty($actor)) {
             throw new NotFoundException(__('存在しないデータです。'));

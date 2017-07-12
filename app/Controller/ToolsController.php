@@ -24,7 +24,7 @@ class ToolsController extends AppController
         $this->set('array_tools', $array_tools);
     }
     
-    public function ranking($data_type = false)
+    public function ranking($data_type = null)
     {
         $tool_data = $this->Tool->getToolName('ranking');
         $this->set('tool_data', $tool_data);
@@ -52,7 +52,7 @@ class ToolsController extends AppController
         }
     }
     
-    public function ranking_sort($reset = false)
+    public function ranking_sort($reset = null)
     {
         $tool_data = $this->Tool->getToolName('ranking');
         $this->set('tool_data', $tool_data);

@@ -56,6 +56,9 @@ class DiaryController extends AppController
                 $diary_lists = $this->Diary->changePhotoToFull($diary_lists); //任意の日記は詳細ページのみ画像をfullsize
                 $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
                 $this->set('diary_lists', $diary_lists);
+                //サイドメニュー用
+//                $tag_diary_lists = array();
+//                $this->set('tag_diary_lists', $tag_diary_lists);
                 //OGPタグ用
                 $this->set('ogp_title', $diary_lists[0]['Diary']['title']);
                 $this->set('ogp_image', $this->Diary->getThumbnailFromText($diary_lists[0]['Diary']['text']));
@@ -219,7 +222,7 @@ class DiaryController extends AppController
         $this->render('index');
     }
     
-    public function past($id = false)
+    public function past($id = null)
     {
         $year = date('Y');
         $month = date('m');
