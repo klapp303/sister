@@ -334,6 +334,43 @@ class ConsoleController extends AppController
         $this->render('/Diary/index');
     }
     
+    public function diary_regtag_edit()
+    {
+        if (empty($this->request->data)) {
+            $id = $this->request->params['id'];
+            $diary_data = $this->Diary->findById($id); //postデータがなければ$idからデータを取得
+            if (!empty($diary_data)) { //データが存在する場合
+                $this->set('id', $id); //viewに渡すために$idをセット
+                $this->set('diary_title', $diary_data['Diary']['title']);
+                //タグの準備
+                $this->set('regtag_lists', array());
+                $this->set('tag_lists', array());
+            } else { //データが存在しない場合
+                $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+                $this->redirect('/console/diary/');
+            }
+        } else {
+            echo'<pre>';print_r($this->request->data);echo'</pre>';exit;
+            
+            $id = $this->request->data['Diary']['id'];
+            $this->Diary->set($this->request->data); //postデータがあればModelに渡してvalidate
+            if ($this->Diary->validates()) { //validate成功の処理
+                $this->Diary->save($this->request->data); //validate成功でsave
+                if ($this->Diary->save($id)) {
+                    $this->Session->setFlash('修正しました。', 'flashMessage');
+                } else {
+                    $this->Session->setFlash('修正できませんでした。', 'flashMessage');
+                }
+                $this->redirect('/console/diary/');
+            } else { //validate失敗の処理
+                $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
+                $this->set('id', $this->request->data['Diary']['id']); //viewに渡すために$idをセット
+            }
+        }
+        
+        $this->render('diary_regtag');
+    }
+    
     public function photo($mode = null)
     {
         if ($mode == 'sub_pop') {

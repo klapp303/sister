@@ -33,7 +33,7 @@ Router::connect('/Diary/genre/:genre_id/*', //paginator用
 /**
  * 'Console' controller's URLs
  */
-$array_consoles = array('information', 'comment', 'banner', 'link', 'game', 'maker', 'music', 'diary', 'diary_genre', 'diary_tag');
+$array_consoles = array('information', 'comment', 'banner', 'link', 'game', 'maker', 'music', 'diary', 'diary_regtag', 'diary_genre', 'diary_tag');
 //Router::connect('/console/diary/edit/:id',
 //        array('controller' => 'Console', 'action' => 'diary_edit'),
 //        array('id' => '[0-9]+')); //idを数字のみに制限
