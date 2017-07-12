@@ -7,7 +7,7 @@ App::uses('Folder', 'Utility'); //フォルダAPI用
 class LoginController extends AppController
 {
     public $uses = array(
-        'Administrator', 'Banner', 'Birthday', 'Diary', 'DiaryGenre', 'DiaryTag', 'Game', 'Information', 'Link',
+        'Administrator', 'Banner', 'Birthday', 'Diary', 'DiaryGenre', 'DiaryTag', 'DiaryRegtag', 'Game', 'Information', 'Link',
         'Maker', 'Music', 'Photo', 'Product', 'SisterComment'/*, 'Tool'*/, 'Voice'
     ); //使用するModel
     
@@ -73,7 +73,7 @@ class LoginController extends AppController
                 if ($backup_flg == 1) { //flgがあればバックアップを作成
                     //DBデータを取得する
                     $array_model = array(
-                        'Administrator', 'Banner', 'Birthday', 'Diary', 'DiaryGenre', 'DiaryTag', 'Game', 'Information', 'Link',
+                        'Administrator', 'Banner', 'Birthday', 'Diary', 'DiaryGenre', 'DiaryTag', 'DiaryRegtag', 'Game', 'Information', 'Link',
                         'Maker', 'Music', 'Photo', 'Product', 'SisterComment'/*, 'Tool'*/, 'Voice'
                     );
                     foreach ($array_model as $model) {

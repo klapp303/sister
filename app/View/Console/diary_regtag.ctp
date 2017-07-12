@@ -13,15 +13,15 @@
     </tr>
     <tr>
       <td><select name="regtag-lists" size="15" style="width: 200px;" multiple="multiple">
-        <?php foreach ($regtag_lists as $key => $val): ?>
-        <option value="<?php echo $key; ?>"><?php echo $val; ?></option>
+        <?php foreach ($regtag_lists as $regtag): ?>
+        <option value="<?php echo $regtag['tag_id']; ?>"><?php echo $regtag['title']; ?></option>
         <?php endforeach; ?>
       </select></td>
       <td><button type="button" class="tag-add-button"><< 追加する</button><br><br>
           <button type="button" class="regtag-delete-button">>> 削除する</butotn></td>
       <td><select name="tag-lists" size="15" style="width: 200px;" multiple="multiple">
-        <?php foreach ($tag_lists as $key => $val): ?>
-        <option value="<?php echo $key; ?>"><?php echo $val; ?></option>
+        <?php foreach ($tag_lists as $tag): ?>
+        <option value="<?php echo $tag['tag_id']; ?>"><?php echo $tag['title']; ?></option>
         <?php endforeach; ?>
       </select></td>
     </tr>

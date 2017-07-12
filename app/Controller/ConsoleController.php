@@ -7,7 +7,7 @@ App::uses('Folder', 'Utility'); //フォルダAPI用
 class ConsoleController extends AppController
 {
     public $uses = array(
-        'Diary', 'DiaryGenre', 'DiaryTag', 'Photo', 'Information', 'SisterComment', 'Banner', 'Link',
+        'Diary', 'DiaryGenre', 'DiaryTag', 'DiaryRegtag', 'Photo', 'Information', 'SisterComment', 'Banner', 'Link',
         'Administrator', 'Game', 'Maker', 'Voice', 'Birthday', 'Product', 'Music', 'Tool'
     ); //使用するModel
     
@@ -343,8 +343,9 @@ class ConsoleController extends AppController
                 $this->set('id', $id); //viewに渡すために$idをセット
                 $this->set('diary_title', $diary_data['Diary']['title']);
                 //タグの準備
-                $this->set('regtag_lists', array());
-                $this->set('tag_lists', array());
+                $tag_lists = $this->DiaryRegtag->getArrayRegtag($id);
+                $this->set('regtag_lists', $tag_lists['regtag_lists']);
+                $this->set('tag_lists', $tag_lists['tag_lists']);
             } else { //データが存在しない場合
                 $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
                 $this->redirect('/console/diary/');
