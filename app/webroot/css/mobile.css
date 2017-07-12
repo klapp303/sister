@@ -181,22 +181,26 @@
 #menu_top {
   margin: 10px 0;
 }
-#pagelink_mobile {
+#menu_top >.pagelink_mobile {
   float: left;
   width: 65%;
 }
-#pagelink_mobile >p {
+#menu_bottom >.pagelink_mobile {
+  float: left;
+  width: 100%;
+}
+.pagelink_mobile >p {
   margin: 0;
   text-align: center;
 }
-#pagelink_mobile >p >span {
+.pagelink_mobile >p >span {
   font-size: 12px;
   padding: 3px 5px;
   border: 1px solid #000000;
   background-color: #ffffff;
   z-index: 2;
 }
-#pagelink_mobile >ul {
+.pagelink_mobile >ul {
   list-style-type: none;
   margin: -10px 0 0 0;
   padding: 10px 0 0 0;
@@ -204,23 +208,23 @@
   border: 1px solid #000000;
   background-color: #ffffff;
 }
-#pagelink_mobile >ul >li {
+.pagelink_mobile >ul >li {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
 }
-/*#pagelink_mobile >ul >li >a {
+/*.pagelink_mobile >ul >li >a {
   text-decoration: none;
 }*/
-#pagelink_mobile >ul >li >a:link,
-#pagelink_mobile >ul >li >a:visited,
-#pagelink_mobile >ul >li >a:hover,
-#pagelink_mobile >ul >li >a:active {
+.pagelink_mobile >ul >li >a:link,
+.pagelink_mobile >ul >li >a:visited,
+.pagelink_mobile >ul >li >a:hover,
+.pagelink_mobile >ul >li >a:active {
   color: #000000;
 }
-#searchbox_mobile {
+.searchbox_mobile {
   float: right;
   width: 35%;
   margin-top: 5px;

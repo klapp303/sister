@@ -22,7 +22,7 @@ if (preg_match('#/diary/past#', $_SERVER['REQUEST_URI'])) {
 }
 ?>
 <div id="menu_top" class="mobile cf">
-  <?php echo $this->element('submenu_mobile', array('diary_lists' => $diary_lists)); ?>
+  <?php echo $this->element('submenu_mobile', array('diary_lists' => $diary_lists, 'mode' => 'top')); ?>
 </div>
 
 <?php if (isset($this->request->params['id']) == false && isset($this->request->params['year_id']) == false): ?>
@@ -63,4 +63,10 @@ if (preg_match('#/diary/past#', $_SERVER['REQUEST_URI'])) {
   <?php if ($past) { //過去日記用のページリンク
       echo $this->element('sister_past_paginator');
   } ?>
+<?php endif; ?>
+
+<?php if (@$tag_diary_lists): ?>
+<div id="menu_bottom" class="mobile cf">
+  <?php echo $this->element('submenu_mobile', array('diary_lists' => $tag_diary_lists, 'mode' => 'bottom')); ?>
+</div>
 <?php endif; ?>
