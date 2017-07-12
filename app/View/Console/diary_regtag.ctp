@@ -5,7 +5,7 @@
       'url' => array('controller' => 'console', 'action' => 'diary_regtag_edit'), //Controllerのactionを指定
       'inputDefaults' => array('div' => '')
   )); ?>
-  <?php echo $this->Form->input('DiaryRegTag.diary_id', array('type' => 'hidden', 'value' => $id)); ?>
+  <?php echo $this->Form->input('Diary.diary_id', array('type' => 'hidden', 'value' => $id)); ?>
   
   <table>
     <tr>

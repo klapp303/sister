@@ -351,22 +351,53 @@ class ConsoleController extends AppController
                 $this->redirect('/console/diary/');
             }
         } else {
-            echo'<pre>';print_r($this->request->data);echo'</pre>';exit;
-            
-            $id = $this->request->data['Diary']['id'];
-            $this->Diary->set($this->request->data); //postデータがあればModelに渡してvalidate
-            if ($this->Diary->validates()) { //validate成功の処理
-                $this->Diary->save($this->request->data); //validate成功でsave
-                if ($this->Diary->save($id)) {
-                    $this->Session->setFlash('修正しました。', 'flashMessage');
+            $diary_id = $this->request->data['Diary']['diary_id'];
+            $save_data = [];
+            $check_tag = [];
+            //既に登録されているタグを取得
+            $regtag_lists = $this->DiaryRegtag->find('list', array(
+                'conditions' => array('DiaryRegtag.diary_id' => $diary_id),
+                'fields' => 'DiaryRegtag.tag_id'
+            ));
+            foreach ($this->request->data['DiaryRegTag'] as $tag) {
+                //既にテーブルに登録されているかを判定
+                if (in_array($tag['tag_id'], $regtag_lists)) {
+                    //登録されている場合は処理済みフラグ
+                    $check_tag[] = $tag['tag_id'];
+                    
                 } else {
-                    $this->Session->setFlash('修正できませんでした。', 'flashMessage');
+                    //登録されていない場合は新規登録
+                    $save_data[] = array(
+                        'diary_id' => $diary_id,
+                        'tag_id' => $tag['tag_id']
+                    );
                 }
-                $this->redirect('/console/diary/');
-            } else { //validate失敗の処理
-                $this->Session->setFlash('入力内容に不備があります。', 'flashMessage');
-                $this->set('id', $this->request->data['Diary']['id']); //viewに渡すために$idをセット
             }
+            if ($this->DiaryRegtag->saveMany($save_data)) {
+                $error_flg = 0;
+            } else {
+                $this->Session->setFlash('タグを登録できませんでした。', 'flashMessage');
+                $error_flg = 1;
+            }
+            
+            //登録されているタグで未処理のタグは削除
+            foreach ($regtag_lists as $key => $regtag) {
+                if (!in_array($regtag, $check_tag)) {
+                    $this->DiaryRegtag->Behaviors->enable('SoftDelete');
+                    if ($this->DiaryRegtag->delete($key)) {
+//                        $this->Session->setFlash('削除しました。', 'flashM<essage');
+                    } else {
+                        $this->Session->setFlash('一部のタグを削除できませんでした。', 'flashMessage');
+                        $error_flg = 1;
+                    }
+                }
+            }
+            
+            if ($error_flg == 0) {
+                $this->Session->setFlash('日記にタグを登録しました。', 'flashMessage');
+            }
+            
+            $this->redirect('/console/diary/');
         }
         
         $this->render('diary_regtag');
