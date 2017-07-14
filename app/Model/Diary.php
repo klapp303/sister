@@ -223,6 +223,8 @@ class Diary extends AppModel
                 }
             }
             
+//            return $diary_lists;
+            
         //日記が指定されている場合
         } elseif ($diary_id) {
             //日記に登録されているタグを取得
@@ -235,6 +237,17 @@ class Diary extends AppModel
             $diary_lists = [];
             foreach ($regtag_lists as $val) {
                 $diary_lists += $this->getDiaryIdFromTag($diary_id, $val, false); //ここでsortするとおかしくなるので
+            }
+        }
+        
+        //非公開の日記は除外する
+        foreach ($diary_lists as $key => $val) {
+            $publish = $this->find('list', array(
+                'conditions' => array('Diary.id' => $val),
+                'fields' => array('publish', 'publish')
+            ));
+            if (@!$publish[1]) {
+                unset($diary_lists[$key]);
             }
         }
         
