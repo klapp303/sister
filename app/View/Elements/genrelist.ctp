@@ -13,5 +13,6 @@
         }
     }
     ?>
+    <li><?php echo $this->Html->link('過去日記(55)', '/diary/past/'); ?></li>
   </ul>
 </div>
