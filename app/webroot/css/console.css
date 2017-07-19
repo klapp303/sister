@@ -98,12 +98,12 @@ td.tbl-num_top {
   width: 80px;
 }
 
-.detail-title-min_banner {
+.detail-title-min_banner, .detail-title-min_genre {
   width: 580px;
   margin-left: 20px;
   font-weight: bold;
 }
-.detail-list-min_banner {
+.detail-list-min_banner, .detail-list-min_genre {
   list-style-type: none;
   width: 580px;
   margin-top: 0;
@@ -111,7 +111,8 @@ td.tbl-num_top {
   margin-bottom: 20px;
   padding: 0;
 }
-.detail-title-min_banner >span, .detail-list-min_banner >li >span {
+.detail-title-min_banner >span, .detail-list-min_banner >li >span,
+.detail-title-min_genre >span, .detail-list-min_genre >li >span {
   display: table-cell;
   padding-left: 5px;
   padding-right: 5px;
@@ -122,10 +123,14 @@ td.tbl-num_top {
   width: 136px;
   max-height: 120px;
 }
+.li-txt_genre {
+  width: 160px;
+  padding-left: 20px !important;
+}
 .li-act_banner {
   width: 92px;
 }
-.sort-form_banner {
+.sort-form_banner, .sort-form_genre {
   margin-left: 0 !important;
 }
 
@@ -136,7 +141,7 @@ td.tbl-num_top {
   max-height: 120px;
 }
 
-.link-page_banner {
+.link-page_banner, .link-page_genre {
   text-align: right;
   margin-right: 20px;
   margin-bottom: 20px;

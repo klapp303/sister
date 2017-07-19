@@ -20,7 +20,7 @@
   
   <ul class="detail-list-min_banner sortable">
     <?php foreach ($banner_lists as $banner_list): ?>
-    <li><?php echo $this->Form->input($banner_list['Banner']['id'].'.id', array('type' => 'hidden', 'value' => $banner_list['Banner']['id'])); ?>
+    <li><?php echo $this->Form->input($banner_list['Banner']['id'] . '.id', array('type' => 'hidden', 'value' => $banner_list['Banner']['id'])); ?>
         <span class="li-num"><?php echo $banner_list['Banner']['sort']; ?></span>
         <span class="li-num"><?php echo $banner_list['Banner']['id']; ?></span>
         <span class="li-tmb_banner"><a href="<?php echo $banner_list['Banner']['link_url']; ?>" target="_blank">
