@@ -38,7 +38,7 @@ class Diary extends AppModel
         )
     );
     
-    public function getCalendarMenu($year = null, $month = null, $hidden_id = null, $mode = false, $calendar = [])
+    public function getCalendarMenu($year = null, $month = null, $calendar = [])
     {
         if (!$year) {
             $year = date('Y');
@@ -46,20 +46,22 @@ class Diary extends AppModel
         if (!$month) {
             $month = date('m');
         }
-        if (!$hidden_id) {
-            $hidden_id = 0;
-        }
         
-        //カレンダーの作成
-        $diary_cal_lists = $this->find('list', array( //任意月の日記リストを取得
+        //カレンダー用日記の取得
+        $diary_cal_datas = $this->find('all', array( //任意月の日記リストを取得
             'conditions' => array(
                 'Diary.date >=' => date($year . '-' . $month . '-01'),
                 'Diary.date <=' => date($year . '-' . $month . '-31'),
                 'Diary.publish' => 1,
-                'Diary.genre_id !=' => $hidden_id
+                'DiaryGenre.publish' => 1
             ),
-            'fields' => 'Diary.date'
+            'fields' => array('Diary.id', 'Diary.date')
         ));
+        //カレンダーの作成
+        $diary_cal_lists = [];
+        foreach ($diary_cal_datas as $cal_data) {
+            $diary_cal_lists[$cal_data['Diary']['id']] = $cal_data['Diary']['date'];
+        }
         foreach ($diary_cal_lists as &$diary_cal_date) {
             $diary_date = new DateTime($diary_cal_date);
             $diary_cal_date = $diary_date->format('d');

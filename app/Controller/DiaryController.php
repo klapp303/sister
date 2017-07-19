@@ -29,12 +29,11 @@ class DiaryController extends AppController
     {
         $year = date('Y');
         $month = date('m');
-        $hidden_id = 4; //日記一覧では非表示にするジャンル
         
         //diaryページの日記一覧を設定
         $this->Paginator->settings = array(
             'limit' => 5,
-            'conditions' => array('Diary.publish' => 1, 'Diary.genre_id !=' => $hidden_id),
+            'conditions' => array('Diary.publish' => 1, 'DiaryGenre.publish' => 1),
             'order' => array('Diary.date' => 'desc', 'Diary.id' => 'desc')
         );
         $diary_lists = $this->Paginator->paginate('Diary');
@@ -81,7 +80,7 @@ class DiaryController extends AppController
                     'Diary.date >=' => date($this->request->params['year_id'] . '-' . $this->request->params['month_id'] . '-01 00:00:00'),
                     'Diary.date <=' => date($this->request->params['year_id'] . '-' . $this->request->params['month_id'] . '-31 23:59:59'),
                     'Diary.publish' => 1,
-                    'Diary.genre_id !=' => $hidden_id
+                    'DiaryGenre.publish' => 1
                 ),
                 'order' => array('Diary.date' => 'desc', 'Diary.id' => 'desc')
             ));
@@ -104,7 +103,7 @@ class DiaryController extends AppController
                     'Diary.date >=' => date($this->request->params['year_id'] . '-' . $this->request->params['month_id'] . '-' . $this->request->params['date_id'] . ' 00:00:00'),
                     'Diary.date <=' => date($this->request->params['year_id'] . '-' . $this->request->params['month_id'] . '-' . $this->request->params['date_id'] . ' 23:59:59'),
                     'Diary.publish' => 1,
-                    'Diary.genre_id !=' => $hidden_id
+                    'DiaryGenre.publish' => 1
                 ),
                 'order' => array('Diary.date' => 'desc', 'Diary.id' => 'desc')
             ));
@@ -121,7 +120,7 @@ class DiaryController extends AppController
         }
         
         //カレンダー用
-        $calendar = $this->Diary->getCalendarMenu($year, $month, $hidden_id);
+        $calendar = $this->Diary->getCalendarMenu($year, $month);
         $this->set('calendar', $calendar);
         
         //ジャンルメニュー用
@@ -133,7 +132,6 @@ class DiaryController extends AppController
     {
         $year = date('Y');
         $month = date('m');
-        $hidden_id = 4; //日記一覧では非表示にするジャンル
         
         //パラメータにgenre_idがあればジャンル別一覧ページを表示
         if (isset($this->request->params['genre_id']) == true) {
@@ -162,7 +160,7 @@ class DiaryController extends AppController
         }
         
         //カレンダー用
-        $calendar = $this->Diary->getCalendarMenu($year, $month, $hidden_id);
+        $calendar = $this->Diary->getCalendarMenu($year, $month);
         $this->set('calendar', $calendar);
         
         //ジャンルメニュー用
@@ -185,7 +183,6 @@ class DiaryController extends AppController
     {
         $year = date('Y');
         $month = date('m');
-        $hidden_id = 4; //日記一覧では非表示にするジャンル
         
         /* search wordを整形ここから */
         $search_query = @$this->request->query['search_word'];
@@ -217,7 +214,7 @@ class DiaryController extends AppController
         }
         
         //カレンダー用
-        $calendar = $this->Diary->getCalendarMenu($year, $month, $hidden_id);
+        $calendar = $this->Diary->getCalendarMenu($year, $month);
         $this->set('calendar', $calendar);
         
         //ジャンルメニュー用
@@ -231,7 +228,6 @@ class DiaryController extends AppController
     {
         $year = date('Y');
         $month = date('m');
-        $hidden_id = 4; //日記一覧では非表示にするジャンル
         
         $diary_lists = $this->Diary->formatDiaryFromFc2('agumion_blog_backup_02.txt');
         $diary_counts = count($diary_lists);
@@ -252,7 +248,7 @@ class DiaryController extends AppController
         $this->set('paginator_setting', $paginator_setting);
         
         //カレンダー用
-        $calendar = $this->Diary->getCalendarMenu($year, $month, $hidden_id);
+        $calendar = $this->Diary->getCalendarMenu($year, $month);
         $this->set('calendar', $calendar);
         
         //ジャンルメニュー用
