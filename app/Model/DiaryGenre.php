@@ -23,11 +23,12 @@ class DiaryGenre extends AppModel
         )
     );
     
-    public function getGenreMenu($mode = false, $genre_menu = [])
+    public function getGenreMenu($genre_menu = [])
     {
         //ジャンルメニューの作成
         $genre_lists = $this->find('list', array(
-//            'conditions' => array('DiaryGenre.title !=' => 'その他'), //その他ジャンルを除外
+            'conditions' => array('DiaryGenre.publish' => 1),
+            'order' => array('DiaryGenre.sort' => 'asc'),
             'fields' => 'DiaryGenre.title'
         ));
         foreach ($genre_lists as $key => $val) {
@@ -47,17 +48,6 @@ class DiaryGenre extends AppModel
                 )
             ));
         }
-        
-        //メニュー並び替え
-        //その他ジャンルを最後にする
-        foreach ($genre_menu as $key => $val) {
-            if ($val['title'] == 'その他') {
-                $genre_other = $val;
-                unset($genre_menu[$key]);
-            }
-        }
-        $genre_menu[] = $genre_other;
-        $genre_menu = array_merge($genre_menu);
         
         //すべての日記用
         $diary_counts_all = $this->Diary->find('count', array( //すべてのジャンルの日記合計数を取得しておく

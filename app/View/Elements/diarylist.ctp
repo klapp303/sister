@@ -1,3 +1,4 @@
+<?php if (count($diary_lists) > 1 || @count($tag_diary_lists) > 0): ?>
 <div id="diarylist" class="side-menu_block">
   <ul>
     <?php
@@ -20,3 +21,4 @@
     ?>
   </ul>
 </div>
+<?php endif; ?>
