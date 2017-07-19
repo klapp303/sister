@@ -24,6 +24,10 @@
       <td>状態</td>
       <td><?php echo $this->Form->input('publish', array('type' => 'select', 'label' => false, 'options' => array(0 => '非公開', 1 => '公開'))); ?></td>
     </tr>
+    <tr>
+      <td>menu</td>
+      <td><?php echo $this->Form->input('menu', array('type' => 'select', 'label' => false, 'options' => array(0 => '表示しない', 1 => '表示する'))); ?></td>
+    </tr>
     
     <tr>
       <td></td>
@@ -53,6 +57,11 @@
                             <span class="icon-false">非公開</span>
                             <?php elseif ($genre_list['DiaryGenre']['publish'] == 1): ?>
                             <span class="icon-true">公開</span>
+                            <?php endif; ?><br>
+                            <?php if ($genre_list['DiaryGenre']['menu'] == 0): ?>
+                            <span class="icon-false">なし</span>
+                            <?php elseif ($genre_list['DiaryGenre']['menu'] == 1): ?>
+                            <span class="icon-like">menu</span>
                             <?php endif; ?></td>
         <td class="tbl-act_genre"><?php echo $this->Html->link('日記の確認', '/diary/genre/' . $genre_list['DiaryGenre']['id'], array('target' => '_blank')); ?><br>
                                   <?php echo $this->Html->link('修正', '/console/diary_genre/edit/' . $genre_list['DiaryGenre']['id']); ?>

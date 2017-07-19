@@ -583,7 +583,7 @@ class ConsoleController extends AppController
     public function diary_genre_sort()
     {
         $this->Paginator->settings = array(
-            'conditions' => array('DiaryGenre.publish' => 1),
+            'conditions' => array('DiaryGenre.menu' => 1),
             'limit' => 20,
             'order' => array('DiaryGenre.sort' => 'asc')
         );

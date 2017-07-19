@@ -27,7 +27,7 @@ class DiaryGenre extends AppModel
     {
         //ジャンルメニューの作成
         $genre_lists = $this->find('list', array(
-            'conditions' => array('DiaryGenre.publish' => 1),
+            'conditions' => array('DiaryGenre.menu' => 1),
             'order' => array('DiaryGenre.sort' => 'asc'),
             'fields' => 'DiaryGenre.title'
         ));
