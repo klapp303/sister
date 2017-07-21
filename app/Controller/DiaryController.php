@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 
 class DiaryController extends AppController
 {
-    public $uses = array('Diary', 'DiaryGenre'); //使用するModel
+    public $uses = array('Diary', 'DiaryGenre', 'DiaryTag'); //使用するModel
     
     public $components = array(
         'Paginator',
@@ -186,6 +186,51 @@ class DiaryController extends AppController
         } else {
             $this->set('sub_page', $current_genre['title'] . '(' . $current_genre['count'] . ')');
         }
+        
+        $this->render('index');
+    }
+    
+    public function tag()
+    {
+        $year = date('Y');
+        $month = date('m');
+        
+        //パラメータにtag_idがあればタグ別一覧ページを表示
+        if (isset($this->request->params['tag_id']) == true) {
+            $tag_diary_id = $this->Diary->getDiaryIdFromTag(false, $this->request->params['tag_id']);
+            $this->Paginator->settings = array(
+                'limit' => 5,
+                'conditions' => array('Diary.id' => $tag_diary_id),
+                'order' => array('Diary.date' => 'desc', 'Diary.id' => 'desc')
+            );
+            $diary_lists = $this->Paginator->paginate('Diary');
+            if (!empty($diary_lists)) { //データが存在する場合
+                $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
+                $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
+                $this->set('diary_lists', $diary_lists);
+            } else { //データが存在しない場合
+                $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+                
+                $this->redirect('/diary/');
+            }
+        } else { //タグが存在しない場合
+            $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+            
+            $this->redirect('/diary/');
+        }
+        
+        //カレンダー用
+        $calendar = $this->Diary->getCalendarMenu($year, $month);
+        $this->set('calendar', $calendar);
+        
+        //ジャンルメニュー用
+        $genre_menu = $this->DiaryGenre->getGenreMenu();
+        $this->set('genre_menu', $genre_menu);
+        
+        //breadcrumbの設定
+        $tag_data = $this->DiaryTag->find('first', array('conditions' => array('DiaryTag.id' => $this->request->params['tag_id'])));
+        $diary_count = $this->params['paging']['Diary']['count'];
+        $this->set('sub_page', $tag_data['DiaryTag']['title'] . '(' . $diary_count . ')');
         
         $this->render('index');
     }
