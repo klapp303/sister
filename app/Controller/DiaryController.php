@@ -174,7 +174,18 @@ class DiaryController extends AppController
                 $current_genre['count'] = $val['count'];
             }
         }
-        $this->set('sub_page', $current_genre['title'] . '(' . $current_genre['count'] . ')');
+        //メニューにないジャンルの場合があるので
+        if (@!$current_genre) {
+            $genre_diary_lists = $this->Diary->find('all', array(
+                'conditions' => array(
+                    'Diary.publish' => 1,
+                    'DiaryGenre.title' => $diary_lists[0]['DiaryGenre']['title']
+                )
+            ));
+            $this->set('sub_page', $diary_lists[0]['DiaryGenre']['title'] . '(' . count($genre_diary_lists) . ')');
+        } else {
+            $this->set('sub_page', $current_genre['title'] . '(' . $current_genre['count'] . ')');
+        }
         
         $this->render('index');
     }
