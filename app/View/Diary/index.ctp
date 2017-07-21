@@ -47,7 +47,15 @@ if (preg_match('#/diary/past#', $_SERVER['REQUEST_URI'])) {
   <div class="art-body"><?php echo nl2br($diary_list['Diary']['text']); ?></div>
   <hr>
   <div class="art-footer">
+    <?php if (!$past): ?>
     <span><?php echo $this->Html->link($diary_list['DiaryGenre']['title'], '/diary/' . $past . 'genre/' . $diary_list['Diary']['genre_id']); ?></span>
+      <?php foreach ($diary_list['DiaryRegtag'] as $Regtag): ?>
+      <span><?php echo $this->Html->link($Regtag['DiaryTag']['title'], '/diary/tag/' . $Regtag['tag_id']); ?></span>
+      <?php endforeach; ?>
+    <?php else: //過去日記用のタグ ?>
+    <span><?php echo $this->Html->link('過去日記', '/diary/past/'); ?></span>
+    <span><?php echo $diary_list['DiaryGenre']['title']; ?></span>
+    <?php endif; ?>
     <span class="fr"><?php echo $diary_list['Diary']['date']; ?></span>
   </div>
 </div>

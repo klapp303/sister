@@ -8,11 +8,22 @@ class Diary extends AppModel
     
     public $actsAs = array('SoftDelete', 'Search.Searchable');
     
+    public $recursive = 2;
+    
     public $belongsTo = array(
         'DiaryGenre' => array(
             'className' => 'DiaryGenre', //関連付けるModel
             'foreignKey' => 'genre_id', //関連付けるためのfield、関連付け先は上記Modelのid
             'fields' => 'title' //関連付け先Modelの使用field
+        )
+    );
+    
+    public $hasMany = array(
+        'DiaryRegtag' => array(
+            'className' => 'DiaryRegtag', //関連付けるModel
+            'foreignKey' => 'diary_id', //関連付けるためのfield、関連付け先は上記Modelのid
+            'order' => array('tag_id' => 'ASC')
+//            'fields' => 'title' //関連付け先Modelの使用field
         )
     );
     
