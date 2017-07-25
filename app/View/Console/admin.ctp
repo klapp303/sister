@@ -14,7 +14,7 @@
     <tr>
     <tr>
       <td>パスワード</td>
-      <td><?php echo $this->Form->input('password', array('type' => 'text', 'label' => false, 'size' => 24)); ?></td>
+      <td><?php echo $this->Form->input('password', array('type' => 'password', 'label' => false, 'size' => 24)); ?></td>
     </tr>
     
     <tr>
