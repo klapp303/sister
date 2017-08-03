@@ -11,8 +11,15 @@ if ($mode == 'top') {
   <p><span><?php echo $link_title; ?></span></p>
   <ul>
     <?php foreach ($diary_lists as $diary_list): ?>
-    <li><a href="#diary-<?php echo $diary_list['Diary']['id']; ?>">
-      <?php echo mb_strimwidth($diary_list['Diary']['title'], 0, $strimwidth, '...', 'UTF-8'); ?></a></li>
+    <li>
+      <?php if ($mode == 'top'): //モバイルTOPの場合はタイトルの一覧を表示（一覧ページ） ?>
+      <a href="#article-<?php echo $diary_list['Diary']['id']; ?>">
+      <?php else: //それ以外はタグ毎の日記リストを表示（詳細ページ） ?>
+      <a href="/diary/<?php echo $diary_list['Diary']['id']; ?>">
+      <?php endif; ?>
+      <?php echo mb_strimwidth($diary_list['Diary']['title'], 0, $strimwidth, '...', 'UTF-8'); ?>
+      </a>
+    </li>
     <?php endforeach; ?>
   </ul>
 </div>
