@@ -9,21 +9,36 @@
 
 <?php foreach ($eventlog['schedule'] as $year => $val): ?>
 <h4><?php echo $year . '年'; ?></h4>
+
 <table class="tbl_evelog">
   <?php foreach ($val as $month => $val2): ?>
     <?php foreach ($val2 as $event): ?>
-    <tr><td class="txt-min"><?php list($yy, $mm, $dd) = explode('-', $event['date']);
-            echo $mm . '/' . $dd; ?></td>
-        <td><?php if ($event['event_title'] == $event['detail_title']) {
-                echo $event['event_title'];
-            } else {
-                echo $event['event_title'] . ' ' . $event['detail_title'];
-            } ?></td>
-        <td class="txt-min"><?php if (strpos($event['place'], 'その他') === false) {
-                echo $event['place'];
-            } else {
-                
-            } ?></td></tr>
+    <tr><td class="tbl-date_evelog txt-min">
+          <?php list($yy, $mm, $dd) = explode('-', $event['date']);
+                echo $mm . '/' . $dd; ?>
+        </td>
+        <td>
+          <?php if ($event['event_title'] == $event['detail_title']) {
+                    echo $event['event_title'];
+                } else {
+                    echo $event['event_title'] . ' ' . $event['detail_title'];
+                } ?>
+          <?php if (strpos($event['place'], 'その他') === false) { //スマホ用
+                    echo '<span class="txt-min mobile">';
+                    echo $event['place'];
+                    echo '</span>';
+                } else {
+                    
+                } ?>
+          </span>
+        </td>
+        <td class="tbl-place_evelog txt-min pc">
+          <?php if (strpos($event['place'], 'その他') === false) { //PC用
+                    echo $event['place'];
+                } else {
+                    
+                } ?>
+        </td></tr>
     <?php endforeach; ?>
     <tr><td><br></td></tr>
   <?php endforeach; ?>

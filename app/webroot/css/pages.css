@@ -58,6 +58,12 @@
 .tbl_evelog {
   width: 720px;
 }
+.tbl-date_evelog {
+  width: 50px;
+}
+.tbl-place_evelog {
+  width: 165px;
+}
 
 /* サイトリンク一覧用 */
 .tbl_link {
