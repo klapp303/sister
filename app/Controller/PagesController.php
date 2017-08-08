@@ -27,6 +27,11 @@ class PagesController extends AppController
         
     }
     
+    public function eventlog()
+    {
+        
+    }
+    
     public function link()
     {
 //        $link_lists = $this->Link->find('all', array(

@@ -21,20 +21,26 @@ if (@strstr($array_menu[4]['menu'][0]['link'], '/voice/')) {
 if (@$array_menu[1]['menu'][1]['link'] == '/information/') {
     $array_menu[1]['menu'][1]['text'] = '現在のページです。';
 }
-if (@$array_menu[1]['menu'][2]['link'] == '/author/') {
-    $array_menu[1]['menu'][2]['text'] = 'サイト管理者のプロフィールです。';
+if (@$array_menu[1]['menu'][2]['link'] == '/tools/') {
+    $array_menu[1]['menu'][2]['text'] = '自作ツールの公開スペースです。';
 }
-if (@$array_menu[1]['menu'][3]['link'] == '/tools/') {
-    $array_menu[1]['menu'][3]['text'] = '自作ツールの公開スペースです。';
+if (@$array_menu[1]['menu'][3]['link'] == '/author/') {
+    $array_menu[1]['menu'][3]['text'] = 'サイト管理者のプロフィールです。';
 }
-if (@$array_menu[1]['menu'][4]['link'] == '/link/') {
-    $array_menu[1]['menu'][4]['text'] = '外部サイトのリンク一覧です。身内と開発用が多め。';
+if (@$array_menu[1]['menu'][4]['link'] == '/eventlog/') {
+    $array_menu[1]['menu'][4]['text'] = 'サイト管理者のイベント参加履歴です。';
+}
+if (@$array_menu[1]['menu'][5]['link'] == '/link/') {
+    $array_menu[1]['menu'][5]['text'] = '外部サイトのリンク一覧です。身内と開発用が多め。';
 }
 if (@$array_menu[2]['menu'][1]['link'] == '/game/erg/') {
     $array_menu[2]['menu'][1]['text'] = 'えちぃゲームのレビューです。気まぐれ更新。';
 }
 if (@$array_menu[2]['menu'][2]['link'] == '/game/mh/') {
     $array_menu[2]['menu'][2]['text'] = 'モンハンちょっといい話。妹成分ほぼないです。';
+}
+if (@$array_menu[3]['link'] == '#') {
+    $array_menu[3]['text'] = '気が向いたら準備します。';
 }
 if (@$array_menu[5]['link'] == '/diary/') {
     $array_menu[5]['text'] = '管理人の日記です。イベントレポ多め。';

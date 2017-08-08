@@ -37,9 +37,10 @@ class AppController extends Controller
                 'link' => '#',
                 'menu' => array(
                     1 => array('label' => 'サイト紹介', 'link' => '/information/'),
-                    2 => array('label' => '管理人の紹介', 'link' => '/author/'),
-                    3 => array('label' => '自作ツール', 'link' => '/tools/'),
-                    4 => array('label' => 'リンク', 'link' => '/link/')
+                    2 => array('label' => '自作ツール', 'link' => '/tools/'),
+                    3 => array('label' => '管理人の紹介', 'link' => '/author/'),
+                    4 => array('label' => 'イベント履歴', 'link' => '/eventlog/'),
+                    5 => array('label' => 'リンク', 'link' => '/link/')
                 )
             ),
             2 => array(
