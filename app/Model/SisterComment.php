@@ -6,7 +6,7 @@ class SisterComment extends AppModel
 {
     public $useTable = 'sister_comments';
     
-    public $actsAs = array(/* 'SoftDelete', 'Search.Searchable' */);
+//    public $actsAs = array('SoftDelete');
     
 //    public $belongsTo = array(
 //        'SamplesGenre' => array(

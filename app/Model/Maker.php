@@ -6,7 +6,7 @@ class Maker extends AppModel
 {
     public $useTable = 'makers';
     
-    public $actsAs = array(/* 'SoftDelete', 'Search.Searchable' */);
+//    public $actsAs = array('SoftDelete');
     
 //    public $belongsTo = array(
 //        'SamplesGenre' => array(

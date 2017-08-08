@@ -5,7 +5,7 @@ App::uses('AppModel', 'Model');
 class Tool extends AppModel{
     public $useTable = false;
     
-//    public $actsAs = array('SoftDelete'/* , 'Search.Searchable' */);
+    public $actsAs = array(/* 'SoftDelete', 'Search.Searchable' */);
     
 //    public $belongsTo = array(
 //        'SamplesGenre' => array(

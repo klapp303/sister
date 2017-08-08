@@ -9,7 +9,7 @@ class EventerArtist extends AppModel
     
     public $useTable = 'artists';
     
-    public $actsAs = array(/*'SoftDelete' , 'Search.Searchable' */);
+//    public $actsAs = array('SoftDelete');
     
 //    public $belongsTo = array(
 //        'SamplesGenre' => array(

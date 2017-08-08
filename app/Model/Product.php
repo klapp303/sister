@@ -6,7 +6,7 @@ class Product extends AppModel
 {
     public $useTable = 'products';
     
-    public $actsAs = array(/* 'SoftDelete', 'Search.Searchable' */);
+//    public $actsAs = array('SoftDelete');
     
 //    public $belongsTo = array(
 //        'SamplesGenre' => array(

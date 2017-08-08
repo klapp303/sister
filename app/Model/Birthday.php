@@ -6,7 +6,7 @@ class Birthday extends AppModel
 {
     public $useTable = 'birthday';
     
-    public $actsAs = array(/*'SoftDelete' , 'Search.Searchable' */);
+    public $actsAs = array(/* 'SoftDelete', 'Search.Searchable' */);
     
 //    public $hasMany = array(
 //        'BirthdayBanner' => array(
