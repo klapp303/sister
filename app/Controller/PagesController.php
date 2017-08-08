@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 
 class PagesController extends AppController
 {
-    public $uses = array('Link'); //使用するModel
+    public $uses = array('JsonData', 'Link'); //使用するModel
     
     public function beforeFilter()
     {
@@ -29,7 +29,27 @@ class PagesController extends AppController
     
     public function eventlog()
     {
+        //イベント履歴のデータを取得
+        $json_data = $this->JsonData->find('first', array(
+            'conditions' => array('JsonData.title' => 'eventer_schedule'),
+            'fields' => 'JsonData.json_data'
+        ));
+        $event_data = json_decode($json_data['JsonData']['json_data'], true);
         
+        //開催日の降順に並び替え
+//        foreach ($event_data['schedule'] as $key => $val) {
+//            $sort[$key] = $val['date'];
+//        }
+//        array_multisort($sort, SORT_DESC, $event_data['schedule']);
+        
+        //データの整形
+        $eventlog['schedule'] = [];
+        foreach ($event_data['schedule'] as $key => $event) {
+            list($year, $month, $date) = explode('-', $event['date']);
+            $eventlog['schedule'][$year][$month][$key] = $event;
+        }
+        
+        $this->set('eventlog', $eventlog);
     }
     
     public function link()

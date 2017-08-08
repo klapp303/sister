@@ -54,6 +54,11 @@
   float: right;
 }
 
+/* イベント履歴用 */
+.tbl_evelog {
+  width: 720px;
+}
+
 /* サイトリンク一覧用 */
 .tbl_link {
   width: 720px;
@@ -77,6 +82,7 @@
 /* コンテンツ説明文用 */
 .intro_info,
 .intro_prof,
+.intro_evelog,
 .intro_link {
   margin: 0 20px 50px 20px;
 }
