@@ -36,11 +36,17 @@ class PagesController extends AppController
         ));
         $event_data = json_decode($json_data['JsonData']['json_data'], true);
         
+        //イベント追加データを取得
+        include('/eventlog_add.php');
+        if ($event_add_data) {
+            $event_data['schedule'] = array_merge($event_data['schedule'], $event_add_data['schedule']);
+        }
+        
         //開催日の降順に並び替え
-//        foreach ($event_data['schedule'] as $key => $val) {
-//            $sort[$key] = $val['date'];
-//        }
-//        array_multisort($sort, SORT_DESC, $event_data['schedule']);
+        foreach ($event_data['schedule'] as $key => $val) {
+            $sort[$key] = $val['date'];
+        }
+        array_multisort($sort, SORT_DESC, $event_data['schedule']);
         
         //データの整形
         $eventlog['schedule'] = [];
