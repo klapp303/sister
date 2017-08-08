@@ -10,13 +10,13 @@
 /app/tmp
 
 /app/webroot/files/banner
-/app/webroot/files/birthday
+#/app/webroot/files/birthday
 /app/webroot/files/maker
-/app/webroot/files/mh
+#/app/webroot/files/mh
 /app/webroot/files/music
 /app/webroot/files/photo
-/app/webroot/agumion_blog_backup_01.txt
-/app/webroot/agumion_blog_backup_02.txt
+#/app/webroot/agumion_blog_backup_01.txt
+#/app/webroot/agumion_blog_backup_02.txt
 /app/webroot/eventlog_add.php
 
 /backup
