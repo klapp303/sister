@@ -65,8 +65,8 @@
 .tbl-place_evelog {
   width: 165px;
 }
-.tbl-current_evelog {
-  background-color: #a9d0f5;
+.current_evelog {
+  background-color: #ebebff;
 }
 
 /* サイトリンク一覧用 */

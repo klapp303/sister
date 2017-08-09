@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 
 class PagesController extends AppController
 {
-    public $uses = array('JsonData', 'Link'); //使用するModel
+    public $uses = array('JsonData', 'Link', 'Diary'); //使用するModel
     
     public function beforeFilter()
     {
@@ -36,17 +36,16 @@ class PagesController extends AppController
         ));
         $event_data = json_decode($json_data['JsonData']['json_data'], true);
         
-        //イベント追加データを取得
-        include('/eventlog_add.php');
-        if ($event_add_data) {
-            $event_data['schedule'] = array_merge($event_data['schedule'], $event_add_data['schedule']);
-        }
-        
+        //イベント追加データを取得（イベ幸側で対応したためコメントアウト）
+//        include('/eventlog_add.php');
+//        if ($event_add_data) {
+//            $event_data['schedule'] = array_merge($event_data['schedule'], $event_add_data['schedule']);
+//        }
         //開催日の降順に並び替え
-        foreach ($event_data['schedule'] as $key => $val) {
-            $sort[$key] = $val['date'];
-        }
-        array_multisort($sort, SORT_DESC, $event_data['schedule']);
+//        foreach ($event_data['schedule'] as $key => $val) {
+//            $sort[$key] = $val['date'];
+//        }
+//        array_multisort($sort, SORT_DESC, $event_data['schedule']);
         
         //データの整形
         $eventlog['schedule'] = [];
@@ -66,6 +65,8 @@ class PagesController extends AppController
             } else {
                 $event_data['schedule'][$i]['closed'] = 0;
             }
+            //イベントレポのリンクを追加
+            $event_data['schedule'][$i] = $this->JsonData->addDiaryLink($event_data['schedule'][$i]);
             //開催の年月によって連想配列にする
             list($year, $month, $date) = explode('-', $event_data['schedule'][$i]['date']);
             $eventlog['schedule'][$year][$month][$i] = $event_data['schedule'][$i];

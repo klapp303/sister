@@ -5,6 +5,7 @@
   管理人のイベント参加履歴と参加予定です。<br>
   特に推してるのは竹達彩奈さん、内田真礼さん、麻倉ももさん（ ＾ω＾）<br>
   次回は <?php if (@$current_event): ?>
+        <!--<span class="current_evelog">-->
         <?php echo $current_event['date_m'] . '月';
               echo $current_event['date_d'] . '日 ';
               if ($current_event['event_title'] == $current_event['detail_title']) {
@@ -12,6 +13,7 @@
               } else {
                   echo $current_event['event_title'] . ' ' . $current_event['detail_title'];
               } ?>
+        <!--</span>-->
         <?php else: ?>
         未定
         <?php endif; ?> です。
@@ -23,7 +25,7 @@
 <table class="tbl_evelog">
   <?php foreach ($val as $month => $val2): ?>
     <?php foreach ($val2 as $event): ?>
-    <tr class="<?php echo ($event['closed'] == 1)? 'tbl-current_evelog' : ''; ?>">
+    <tr class="<?php echo ($event['closed'] == 1)? 'current_evelog' : ''; ?>">
       <td class="tbl-date_evelog txt-min">
         <?php list($yy, $mm, $dd) = explode('-', $event['date']);
               echo $mm . '/' . $dd; ?>
@@ -34,16 +36,25 @@
               } else {
                   echo $event['event_title'] . ' ' . $event['detail_title'];
               } ?>
-        <?php if (strpos($event['place'], 'その他') === false) { //スマホ用
+        <?php if (strpos($event['place'], 'その他') === false) { //スマホ用会場
                   echo '<span class="txt-min mobile">';
                   echo $event['place'];
                   echo '</span>';
               } else {
                   
               } ?>
+        <?php if (@$event['report']) { //レポリンク
+                  echo '<span class="icon-button-min">';
+                  echo '<a href="/diary/' . $event['report'] . '">レポ</a>';
+                  echo '</span>';
+              } elseif (@$event['comment']) { //一言リンク
+                  echo '<span class="icon-button-min">';
+                  echo '<a href="/diary/' . $event['comment'] . '">一言</a>';
+                  echo '</span>';
+              } ?>
       </td>
       <td class="tbl-place_evelog txt-min pc">
-        <?php if (strpos($event['place'], 'その他') === false) { //PC用
+        <?php if (strpos($event['place'], 'その他') === false) { //PC用会場
                   echo $event['place'];
               } else {
                   
@@ -55,3 +66,10 @@
   <?php endforeach; ?>
 </table>
 <?php endforeach; ?>
+
+<p class="intro_evelog">
+  ちなみに2014年夏に（イベントのため）関西から東京に引っ越しました。<br>
+  2013年夏以前の参加履歴は曖昧なので書いておりません（；＾ω＾）<br>
+  今の推し事現場と直接の繋がりはないからね、しかたないね。<br>
+  原点は堀江由衣さんとDreamParty。
+</p>
