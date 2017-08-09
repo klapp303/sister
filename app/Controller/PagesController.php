@@ -50,9 +50,25 @@ class PagesController extends AppController
         
         //データの整形
         $eventlog['schedule'] = [];
-        foreach ($event_data['schedule'] as $key => $event) {
-            list($year, $month, $date) = explode('-', $event['date']);
-            $eventlog['schedule'][$year][$month][$key] = $event;
+        $count = count($event_data['schedule']);
+        for ($i = 0; $i < $count; $i++) {
+            //開催完了flgを追加、0：予定、1：次回、2：完了
+            if ($event_data['schedule'][$i]['date'] < date('Y-m-d')) {
+                $event_data['schedule'][$i]['closed'] = 2;
+            } elseif ($event_data['schedule'][$i +1]['date'] < date('Y-m-d')) {
+                $event_data['schedule'][$i]['closed'] = 1;
+                //直近予定は別にviewに送っておく
+                list($yy, $mm, $dd) = explode('-', $event_data['schedule'][$i]['date']);
+                $event_data['schedule'][$i]['date_y'] = $yy;
+                $event_data['schedule'][$i]['date_m'] = ($mm < 10)? sprintf('%01d', $mm) : $mm;
+                $event_data['schedule'][$i]['date_d'] = ($dd < 10)? sprintf('%01d', $dd) : $dd;
+                $this->set('current_event', $event_data['schedule'][$i]);
+            } else {
+                $event_data['schedule'][$i]['closed'] = 0;
+            }
+            //開催の年月によって連想配列にする
+            list($year, $month, $date) = explode('-', $event_data['schedule'][$i]['date']);
+            $eventlog['schedule'][$year][$month][$i] = $event_data['schedule'][$i];
         }
         
         $this->set('eventlog', $eventlog);

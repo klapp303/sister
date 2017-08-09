@@ -57,12 +57,16 @@
 /* イベント履歴用 */
 .tbl_evelog {
   width: 720px;
+  border-collapse: collapse;
 }
 .tbl-date_evelog {
   width: 50px;
 }
 .tbl-place_evelog {
   width: 165px;
+}
+.tbl-current_evelog {
+  background-color: #a9d0f5;
 }
 
 /* サイトリンク一覧用 */
