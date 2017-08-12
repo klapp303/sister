@@ -1,10 +1,12 @@
 <h3>ダッシュボード</h3>
 
 <table class="tbl-csl_top">
-  <tr><th>コンテンツ</th>
-      <th class="tbl-num_top">登録件数</th>
-      <th class="tbl-num_top">公開件数</th>
-      <th class="tbl-date_top">最終更新</th></tr>
+  <tr>
+    <th>コンテンツ</th>
+    <th class="tbl-num_top">登録件数</th>
+    <th class="tbl-num_top">公開件数</th>
+    <th class="tbl-date_top">最終更新</th>
+  </tr>
   
   <tr>
     <td>セリフ</td>
@@ -69,3 +71,27 @@
     <td class="tbl-date_top"><?php echo $photo_lastupdate; ?></td>
   </tr>
 </table>
+
+<table class="tbl-csl_top">
+  <tr>
+    <th>コンテンツ</th>
+    <th class="tbl-num_top">action</th>
+    <th class="tbl-num_top">エラー履歴</th>
+    <th class="tbl-date_top">最終更新</th>
+  </tr>
+  
+  <tr>
+    <td>イベント履歴</td>
+    <td class="tbl-num_top"><button type="button" onclick="eventlog_update()">更新する</button></td>
+    <td class="tbl-num_top"><?php echo ($evelog_errorflg == 0)? 'エラーなし' : 'エラーあり'; ?></td>
+    <td class="tbl-date_top"><?php echo $evelog_lastupdate; ?></td>
+  </tr>
+</table>
+
+<script>
+    function eventlog_update() {
+        if (confirm('イベント履歴を更新しますか？') == true) {
+            location.href = "/console/eventlog_update/";
+        }
+    }
+</script>

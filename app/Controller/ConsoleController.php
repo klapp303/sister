@@ -8,7 +8,7 @@ class ConsoleController extends AppController
 {
     public $uses = array(
         'Diary', 'DiaryGenre', 'DiaryTag', 'DiaryRegtag', 'Photo', 'Information', 'SisterComment', 'Banner', 'Link',
-        'Administrator', 'Game', 'Maker', 'Voice', 'Birthday', 'Product', 'Music', 'Tool'
+        'Administrator', 'Game', 'Maker', 'Voice', 'Birthday', 'Product', 'Music', 'Tool', 'JsonData'
     ); //使用するModel
     
     public $components = array(
@@ -158,6 +158,26 @@ class ConsoleController extends AppController
         
         $photo_last = $this->Photo->find('first', array('order' => array('Photo.modified' => 'desc')));
         $this->set('photo_lastupdate', ($photo_last)? $photo_last['Photo']['modified'] : null);
+        
+        //イベント履歴用
+        $evelog_last = $this->JsonData->find('first', array('conditions' => array('JsonData.title' => 'eventer_schedule')));
+        $evelog_lastupdate = $evelog_last['JsonData']['modified'];
+        $evelog_errorflg = $evelog_last['JsonData']['error_flg'];
+        $this->set(compact('evelog_lastupdate', 'evelog_errorflg'));
+    }
+    
+    public function eventlog_update()
+    {
+        //イベ幸からイベントJSONデータを取得
+        $result = $this->JsonData->getEventerScheduleJson();
+        
+        if ($result == true) {
+            $this->Session->setFlash('イベント履歴を更新しました。', 'flashMessage');
+        } else {
+            $this->Session->setFlash('イベント履歴を更新できませんでした。', 'flashMessage');
+        }
+        
+        $this->redirect('/console/');
     }
     
     public function diary() {
