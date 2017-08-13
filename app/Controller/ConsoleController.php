@@ -8,7 +8,7 @@ class ConsoleController extends AppController
 {
     public $uses = array(
         'Diary', 'DiaryGenre', 'DiaryTag', 'DiaryRegtag', 'Photo', 'Information', 'SisterComment', 'Banner', 'Link',
-        'Administrator', 'Game', 'Maker', 'Voice', 'Birthday', 'Product', 'Music', 'Tool', 'JsonData'
+        'Administrator', 'Game', 'Maker', 'Voice', 'Birthday', 'Product', 'Music', 'Tool', 'EventlogLink', 'JsonData'
     ); //使用するModel
     
     public $components = array(
@@ -194,6 +194,23 @@ class ConsoleController extends AppController
             'order' => array('DiaryGenre.id' => 'asc')
         ));
         $this->set('genre_lists', $genre_lists);
+        
+        //イベント履歴リンク選択肢用
+        $json_data = $this->JsonData->find('first', array(
+            'conditions' => array('JsonData.title' => 'eventer_schedule'),
+            'fields' => 'JsonData.json_data'
+        ));
+        $event_data = json_decode($json_data['JsonData']['json_data'], true);
+        $eventlog_lists = array();
+        foreach ($event_data['schedule'] as $val) {
+            if ($val['event_title'] == $val['detail_title']) {
+                $event_title = $val['event_title'];
+            } else {
+                $event_title = $val['event_title'] . ' ' . $val['detail_title'];
+            }
+            $eventlog_lists[$val['detail_id']] = $event_title;
+        }
+        $this->set('eventlog_lists', $eventlog_lists);
     }
     
     public function diary_add()
@@ -203,6 +220,16 @@ class ConsoleController extends AppController
             if ($this->Diary->validates()) { //validate成功の処理
                 $this->Diary->save($this->request->data); //validate成功でsave
                 if ($this->Diary->save($this->request->data)) {
+                    /* イベント履歴リンクここから */
+                    if ($this->request->data['Diary']['eventlog_link']) {
+                        //データを整形して…
+                        $save_data['EventlogLink']['diary_id'] = $this->Diary->id;
+                        $save_data['EventlogLink']['events_detail_id'] = $this->request->data['Diary']['eventlog_link'];
+                        $save_data['EventlogLink']['genre_id'] = $this->request->data['Diary']['genre_id'];
+                        //データを保存する
+                        $this->EventlogLink->save($save_data);
+                    }
+                    /* イベント履歴リンクここまで */
                     $this->Session->setFlash('日記を作成しました。', 'flashMessage');
                 } else {
                     $this->Session->setFlash('作成できませんでした。', 'flashMessage');
@@ -231,12 +258,35 @@ class ConsoleController extends AppController
         ));
         $this->set('genre_lists', $genre_lists);
         
+        //イベント履歴リンク選択肢用
+        $json_data = $this->JsonData->find('first', array(
+            'conditions' => array('JsonData.title' => 'eventer_schedule'),
+            'fields' => 'JsonData.json_data'
+        ));
+        $event_data = json_decode($json_data['JsonData']['json_data'], true);
+        $eventlog_lists = array();
+        foreach ($event_data['schedule'] as $val) {
+            if ($val['event_title'] == $val['detail_title']) {
+                $event_title = $val['event_title'];
+            } else {
+                $event_title = $val['event_title'] . ' ' . $val['detail_title'];
+            }
+            $eventlog_lists[$val['detail_id']] = $event_title;
+        }
+        $this->set('eventlog_lists', $eventlog_lists);
+        
         //日記の編集用
         if (empty($this->request->data)) {
             $id = $this->request->params['id'];
             $this->request->data = $this->Diary->findById($id); //postデータがなければ$idからデータを取得
             if (!empty($this->request->data)) { //データが存在する場合
                 $this->set('id', $id); //viewに渡すために$idをセット
+                $eventlog_data = $this->EventlogLink->find('first', array(
+                    'conditions' => array('EventlogLink.diary_id' => $id)
+                ));
+                if ($eventlog_data) {
+                    $this->request->data['Diary']['eventlog_link'] = $eventlog_data['EventlogLink']['events_detail_id'];
+                }
             } else { //データが存在しない場合
                 $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
             }
@@ -246,6 +296,28 @@ class ConsoleController extends AppController
             if ($this->Diary->validates()) { //validate成功の処理
                 $this->Diary->save($this->request->data); //validate成功でsave
                 if ($this->Diary->save($id)) {
+                    /* イベント履歴リンクここから */
+                    if ($this->request->data['Diary']['eventlog_link']) {
+                        //既に登録されていないかを確認して…
+                        $eventlog_data = $this->EventlogLink->find('first', array(
+                            'conditions' => array('EventlogLink.diary_id' => $id)
+                        ));
+                        //登録されていればデータを更新
+                        if ($eventlog_data) {
+                            $save_data['EventlogLink']['id'] = $eventlog_data['EventlogLink']['id'];
+                            $save_data['EventlogLink']['events_detail_id'] = $this->request->data['Diary']['eventlog_link'];
+                            $save_data['EventlogLink']['genre_id'] = $this->request->data['Diary']['genre_id'];
+                            $save_data['EventlogLink']['modified'] = date('Y-m-d H:i:s');
+                            $this->EventlogLink->save($save_data);
+                        //登録されていなければデータを新規保存
+                        } else {
+                            $save_data['EventlogLink']['diary_id'] = $id;
+                            $save_data['EventlogLink']['events_detail_id'] = $this->request->data['Diary']['eventlog_link'];
+                            $save_data['EventlogLink']['genre_id'] = $this->request->data['Diary']['genre_id'];
+                            $this->EventlogLink->save($save_data);
+                        }
+                    }
+                    /* イベント履歴リンクここまで */
                     $this->Session->setFlash('修正しました。', 'flashMessage');
                 } else {
                     $this->Session->setFlash('修正できませんでした。', 'flashMessage');

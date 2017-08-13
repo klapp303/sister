@@ -8,13 +8,13 @@ class EventlogLink extends AppModel
     
 //    public $actsAs = array('SoftDelete');
     
-//    public $belongsTo = array(
-//        'SamplesGenre' => array(
-//            'className' => 'SamplesGenre', //関連付けるModel
-//            'foreignKey' => 'genre_id', //関連付けるためのfield、関連付け先は上記Modelのid
-//            'fields' => 'title' //関連付け先Modelの使用field
-//        )
-//    );
+    public $belongsTo = array(
+        'Diary' => array(
+            'className' => 'Diary', //関連付けるModel
+            'foreignKey' => 'diary_id', //関連付けるためのfield、関連付け先は上記Modelのid
+            'fields' => 'publish' //関連付け先Modelの使用field
+        )
+    );
     
 //    public $validate = array(
 //        'title' => array(
@@ -38,7 +38,10 @@ class EventlogLink extends AppModel
     {
         //日記のリンクを探して…
         $link_data = $this->find('first', array(
-            'conditions' => array('EventlogLink.events_detail_id' => @$event['detail_id'])
+            'conditions' => array(
+                'EventlogLink.events_detail_id' => @$event['detail_id'],
+                'Diary.publish' => 1
+            )
         ));
         
         //日記のリンクがあればイベントデータに追加

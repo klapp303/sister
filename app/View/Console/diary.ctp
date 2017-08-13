@@ -82,6 +82,11 @@
       <td>状態</td>
       <td><?php echo $this->Form->input('publish', array('type' => 'select', 'label' => false, 'options' => array(0 => '非公開', 1 => '公開'))); ?></td>
     </tr>
+    <tr>
+      <td>リンク</td>
+      <?php $eventlog_lists = ['' => ''] + $eventlog_lists; ?>
+      <td><?php echo $this->Form->input('eventlog_link', array('type' => 'select', 'label' => false, 'options' => $eventlog_lists, 'style' => 'width: 380px;')); ?></td>
+    </tr>
     
     <tr>
       <td></td>
