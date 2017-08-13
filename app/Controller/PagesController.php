@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 
 class PagesController extends AppController
 {
-    public $uses = array('JsonData', 'Link', 'Diary'); //使用するModel
+    public $uses = array('JsonData', 'EventlogLink', 'Link', 'Diary'); //使用するModel
     
     public function beforeFilter()
     {
@@ -66,7 +66,7 @@ class PagesController extends AppController
                 $event_data['schedule'][$i]['closed'] = 0;
             }
             //イベントレポのリンクを追加
-            $event_data['schedule'][$i] = $this->JsonData->addDiaryLink($event_data['schedule'][$i]);
+            $event_data['schedule'][$i] = $this->EventlogLink->addDiaryLink($event_data['schedule'][$i]);
             //開催の年月によって連想配列にする
             list($year, $month, $date) = explode('-', $event_data['schedule'][$i]['date']);
             $eventlog['schedule'][$year][$month][$i] = $event_data['schedule'][$i];
