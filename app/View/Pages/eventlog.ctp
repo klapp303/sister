@@ -86,23 +86,23 @@ if (!empty($eventlog_pre['schedule'])) {
 <table>
   <tr>
     <th>イベント参加数</th>
-    <th>あやち参加数</th>
-    <th>たそ参加数</th>
-    <th>もちょ参加数</th>
     <th>レポート数</th>
+    <th>竹達彩奈さん</th>
+    <th>内田真礼さん</th>
+    <th>麻倉ももさん</th>
   </tr>
   
   <tr>
     <td class="tbl-num"><?php echo $data['all']; ?><?php $pre = ($data_pre)? ($data['all'] - $data_pre['all']) : 0;
                                                    echo ($pre > 0)? ' (+' . $pre . ')' : ' (' . $pre . ')'; ?></td>
+    <td class="tbl-num"><?php echo $data['report']; ?><?php $pre = ($data_pre)? ($data['report'] - $data_pre['report']) : 0;
+                                                      echo ($pre > 0)? ' (+' . $pre . ')' : ' (' . $pre . ')'; ?></td>
     <td class="tbl-num"><?php echo $data['ayachi']; ?><?php $pre = ($data_pre)? ($data['ayachi'] - $data_pre['ayachi']) : 0;
                                                       echo ($pre > 0)? ' (+' . $pre . ')' : ' (' . $pre . ')'; ?></td>
     <td class="tbl-num"><?php echo $data['taso']; ?><?php $pre = ($data_pre)? ($data['taso'] - $data_pre['taso']) : 0;
                                                     echo ($pre > 0)? ' (+' . $pre . ')' : ' (' . $pre . ')'; ?></td>
     <td class="tbl-num"><?php echo $data['mocho']; ?><?php $pre = ($data_pre)? ($data['mocho'] - $data_pre['mocho']) : 0;
                                                      echo ($pre > 0)? ' (+' . $pre . ')' : ' (' . $pre . ')'; ?></td>
-    <td class="tbl-num"><?php echo $data['report']; ?><?php $pre = ($data_pre)? ($data['report'] - $data_pre['report']) : 0;
-                                                      echo ($pre > 0)? ' (+' . $pre . ')' : ' (' . $pre . ')'; ?></td>
   </tr>
 </table>
 <p class="intro_evelog txt-min">※()内は前年比</p>
@@ -135,17 +135,14 @@ function getEventlogReport($eventlog = false, $year = null, $data = [])
             if (@$event['report'] || @$event['comment']) {
                 $data['report']++;
             }
-            //キャストここから
+            //キャスト別参加数
             foreach ($event['cast'] as $cast) {
-                //あやち参加数
                 if ($cast == '竹達彩奈' || $cast == 'petit milady') {
                     $data['ayachi']++;
                 }
-                //たそ参加数
                 if ($cast == '内田真礼') {
                     $data['taso']++;
                 }
-                //もちょ参加数
                 if ($cast == '麻倉もも' || $cast == 'TrySail') {
                     $data['mocho']++;
                 }
