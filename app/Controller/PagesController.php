@@ -71,7 +71,6 @@ class PagesController extends AppController
             list($year, $month, $date) = explode('-', $event_data['schedule'][$i]['date']);
             $eventlog['schedule'][$year][$month][$i] = $event_data['schedule'][$i];
         }
-        
         $this->set('eventlog', $eventlog);
     }
     
