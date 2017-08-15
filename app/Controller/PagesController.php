@@ -73,12 +73,17 @@ class PagesController extends AppController
         }
         
         //パラメータにyearがあれば詳細ページを表示
+        $eventlog_year['schedule'] = [];
+        $eventlog_pre['schedule'] = [];
         if (isset($this->request->params['year']) == true) {
             $year = $this->request->params['year'];
-            $eventlog_year['schedule'] = [];
+            $this->set('cr_year', $year); //viewにyearを渡しておく
             foreach ($eventlog['schedule'] as $key => $val) {
                 if ($key == $year) {
-                    $eventlog_year['schedule'][$year] = $val;
+                    $eventlog_year['schedule'][$key] = $val;
+                }
+                if ($key == $year -1) {
+                    $eventlog_pre['schedule'][$key] = $val;
                 }
             }
             if (empty($eventlog_year['schedule'])) {
@@ -91,7 +96,7 @@ class PagesController extends AppController
             $description = $this->EventlogLink->getEventlogDescription();
         }
         
-        $this->set(compact('eventlog', 'description')); //一覧ページと詳細ページで渡すデータが変わるので
+        $this->set(compact('eventlog', 'eventlog_pre', 'description')); //一覧ページと詳細ページで渡すデータが変わるので
     }
     
     public function link()
