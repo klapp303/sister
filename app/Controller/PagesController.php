@@ -71,7 +71,27 @@ class PagesController extends AppController
             list($year, $month, $date) = explode('-', $event_data['schedule'][$i]['date']);
             $eventlog['schedule'][$year][$month][$i] = $event_data['schedule'][$i];
         }
-        $this->set('eventlog', $eventlog);
+        
+        //パラメータにyearがあれば詳細ページを表示
+        if (isset($this->request->params['year']) == true) {
+            $year = $this->request->params['year'];
+            $eventlog_year['schedule'] = [];
+            foreach ($eventlog['schedule'] as $key => $val) {
+                if ($key == $year) {
+                    $eventlog_year['schedule'][$year] = $val;
+                }
+            }
+            if (empty($eventlog_year['schedule'])) {
+                $this->redirect('/eventlog/');
+            } else {
+                $eventlog = $eventlog_year;
+            }
+            $description = $this->EventlogLink->getEventlogDescription($year);
+        } else {
+            $description = $this->EventlogLink->getEventlogDescription();
+        }
+        
+        $this->set(compact('eventlog', 'description')); //一覧ページと詳細ページで渡すデータが変わるので
     }
     
     public function link()

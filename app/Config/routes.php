@@ -10,8 +10,10 @@ Router::connect('/logout/', array('controller' => 'Login', 'action' => 'logout')
  */
 $array_pages = array('information', 'author', 'eventlog', 'link');
 foreach ($array_pages as $menu) {
+    Router::connect('/' . $menu, array('controller' => 'Pages', 'action' => $menu));
     Router::connect('/' . $menu . '/', array('controller' => 'Pages', 'action' => $menu));
 }
+Router::connect('/eventlog/:year', array('controller' => 'Pages', 'action' => 'eventlog'), array('year' => '[0-9]+')); //yearを数字のみに制限
 
 /**
  * contents URLs

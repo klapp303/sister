@@ -57,4 +57,21 @@ class EventlogLink extends AppModel
         
         return $event;
     }
+    
+    public function getEventlogDescription($year = null, $description = null)
+    {
+        //イベント履歴一覧ページの場合
+        if (!$year) {
+            $description = 'ちなみに2014年夏に（イベントのため）関西から東京に引っ越しました。<br>'
+                         . '2013年夏以前の参加履歴は曖昧なので書いておりません（；＾ω＾）<br>'
+                         . '今の推し事現場と直接の繋がりはないからね、しかたないね。<br>'
+                         . '原点は堀江由衣さんとDreamParty。';
+            
+        //イベント履歴詳細ページの場合
+        } else {
+            
+        }
+        
+        return $description;
+    }
 }
