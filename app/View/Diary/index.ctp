@@ -67,6 +67,11 @@ if (preg_match('#/diary/past#', $_SERVER['REQUEST_URI'])) {
       'url' => array('controller' => 'Diary', 'action' => 'genre', 'genre_id' => $this->request->params['genre_id'])
   )); ?>
   <?php endif; ?>
+  <?php if (isset($this->request->params['tag_id']) == true): //タグ別一覧時のページリンク ?>
+  <?php $this->Paginator->options(array(
+      'url' => array('controller' => 'Diary', 'action' => 'tag', 'tag_id' => $this->request->params['tag_id'])
+  )); ?>
+  <?php endif; ?>
 <?php echo $this->Paginator->numbers($paginator_option); ?>
   <?php if ($past) { //過去日記用のページリンク
       echo $this->element('sister_past_paginator');

@@ -29,10 +29,10 @@ Router::connect('/diary/:id', array('controller' => 'Diary', 'action' => 'index'
 Router::connect('/diary/:year_id/:month_id', array('controller' => 'Diary', 'action' => 'index'), array('year_id' => '[0-9]+', 'month_id' => '[0-9]+')); //idを数字のみに制限
 Router::connect('/diary/:year_id/:month_id/:date_id', array('controller' => 'Diary', 'action' => 'index'), array('year_id' => '[0-9]+', 'month_id' => '[0-9]+', 'date_id' => '[0-9]+')); //idを数字のみに制限
 Router::connect('/diary/genre/:genre_id', array('controller' => 'Diary', 'action' => 'genre'), array('genre_id' => '[0-9]+')); //idを数字のみに制限
-Router::connect('/Diary/genre/:genre_id/*', //paginator用
+Router::connect('/diary/genre/:genre_id/*', //paginator用
         array('controller' => 'Diary', 'action' => 'genre'), array('genre_id' => '[0-9]+')); //idを数字のみに制限
 Router::connect('/diary/tag/:tag_id', array('controller' => 'Diary', 'action' => 'tag'), array('tag_id' => '[0-9]+')); //idを数字のみに制限
-Router::connect('/Diary/tag/:tag_id/*', //paginator用
+Router::connect('/diary/tag/:tag_id/*', //paginator用
         array('controller' => 'Diary', 'action' => 'tag'), array('tag_id' => '[0-9]+')); //idを数字のみに制限
 
 /**
