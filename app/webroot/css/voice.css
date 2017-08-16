@@ -27,6 +27,7 @@
 /* 作品一覧用 */
 .voice-list {
   width: 740px;
+  font-size: 14px;
 }
 .voice-list >tbody >tr >th,
 .voice-list >tbody >tr >td {
