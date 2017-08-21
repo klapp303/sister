@@ -34,7 +34,7 @@ class JsonData extends AppModel
 //        'title' => array('type' => 'value')
 //    );
     
-    public function getEventerScheduleJson()
+    public function saveEventerScheduleJson()
     {
         //JSONデータを取得
         $app_url = 'http://eventer.daynight.jp/events/schedule/3/all';

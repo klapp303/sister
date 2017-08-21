@@ -169,7 +169,7 @@ class ConsoleController extends AppController
     public function eventlog_update()
     {
         //イベ幸からイベントJSONデータを取得
-        $result = $this->JsonData->getEventerScheduleJson();
+        $result = $this->JsonData->saveEventerScheduleJson();
         
         if ($result == true) {
             $this->Session->setFlash('イベント履歴を更新しました。', 'flashMessage');

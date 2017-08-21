@@ -19,7 +19,7 @@ class JsonShell extends AppShell
         $this->out('function starts');
         
         //イベ幸からイベントJSONデータを取得
-        $this->JsonData->getEventerScheduleJson();
+        $this->JsonData->saveEventerScheduleJson();
         
         $this->out('function completed');
     }
