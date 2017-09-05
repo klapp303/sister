@@ -210,7 +210,7 @@ class Diary extends AppModel
         foreach ($diary_lists as $key => $diary_list) {
             //日記の本文に画像リンクがあればLazyLoad用に変換する
             $text = str_replace('<img src=', '<img data-original=', $diary_list['Diary']['text']);
-            $text = str_replace('class="img_diary"', 'class="img_diary lazy"', $text);
+            $text = str_replace('class="img_diary', 'class="lazy img_diary', $text);
             $diary_lists[$key]['Diary']['text'] = $text;
         }
         

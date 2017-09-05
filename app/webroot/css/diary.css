@@ -59,6 +59,11 @@ pre {/* 備忘録日記用 */
   max-width: 540px;
   max-height: 540px;
 }
+.icon_diary {/* 記事内のアイコンサイズ用 */
+  width: 80px;
+  height: 80px;
+  vertical-align: middle;
+}
 
 /* 検索box用 */
 #searchbox {
