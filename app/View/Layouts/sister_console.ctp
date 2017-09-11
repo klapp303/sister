@@ -7,9 +7,7 @@
 <html lang="ja">
   <head>
     <?php echo $this->Html->charset(); ?>
-    <title>
-      <?php echo $this->element('common_tag', array('title' => 'console')); ?>
-    </title>
+    <?php echo $this->element('sister_metatag', array('title' => 'console')); ?>
     <?php
 //    echo $this->Html->meta('icon');
     

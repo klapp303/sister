@@ -43,7 +43,7 @@ class ConsoleController extends AppController
     public function beforeFilter()
     {
         parent::beforeFilter();
-        $this->layout = 'console_fullwidth';
+        $this->layout = 'sister_console';
 //        $this->Sample->Behaviors->disable('SoftDelete'); //SoftDeleteのデータも取得する
         
         /* コンソールメニューの声優データ取得ここから */
@@ -390,7 +390,7 @@ class ConsoleController extends AppController
         $this->set('genre_menu', $genre_menu);
         
         
-        $this->layout = 'sister_partition';
+        $this->layout = 'sister_2column';
         $this->render('/Diary/index');
     }
     
@@ -466,7 +466,7 @@ class ConsoleController extends AppController
     public function photo($mode = null)
     {
         if ($mode == 'sub_pop') {
-            $this->layout = 'sub_pop';
+            $this->layout = 'sister_pop';
         }
         
         $this->Paginator->settings = array(
@@ -1385,7 +1385,7 @@ class ConsoleController extends AppController
             $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
         }
         
-        $this->layout = 'sister_fullwidth';
+        $this->layout = 'sister_normal';
         $this->render('/Game/review');
     }
     
@@ -2059,7 +2059,7 @@ class ConsoleController extends AppController
             $this->set('maker_lists', $maker_lists);
             /* TOPページの設定ここまで */
             
-            $this->layout = 'sister_fullwidth';
+            $this->layout = 'sister_normal';
             $this->render('../Top/index');
             
         } else { //データが存在しない場合

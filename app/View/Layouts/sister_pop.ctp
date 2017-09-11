@@ -7,9 +7,7 @@
 <html lang="ja">
   <head>
     <?php echo $this->Html->charset(); ?>
-    <title>
-      <?php echo '虹妹ｐｒｐｒ'; ?>
-    </title>
+    <?php echo $this->element('sister_metatag'); ?>
     <?php
 //    echo $this->Html->meta('icon');
     

@@ -9,7 +9,7 @@ class TopController extends AppController
     public function beforeFilter()
     {
         parent::beforeFilter();
-        $this->layout = 'sister_fullwidth';
+        $this->layout = 'sister_normal';
     }
     
     public function index()

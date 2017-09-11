@@ -39,7 +39,7 @@ class LoginController extends AppController
     public function beforeFilter()
     {
         parent::beforeFilter();
-        $this->layout = 'sister_normal';
+        $this->layout = 'sister_simple';
         $this->Auth->allow('login', 'logout');
 //        $this->User->Behaviors->disable('SoftDelete'); //SoftDeleteのデータも取得する
     }

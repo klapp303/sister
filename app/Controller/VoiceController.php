@@ -44,7 +44,7 @@ class VoiceController extends AppController
     public function beforeFilter()
     {
         parent::beforeFilter();
-        $this->layout = 'sister_fullwidth';
+        $this->layout = 'sister_normal';
 //        $this->Sample->Behaviors->disable('SoftDelete'); //SoftDeleteのデータも取得する
         //ジャンル別一覧メニューのために定義しておく
         $array_voiceMenu = $this->setMenu();

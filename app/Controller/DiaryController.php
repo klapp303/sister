@@ -21,7 +21,7 @@ class DiaryController extends AppController
     public function beforeFilter()
     {
         parent::beforeFilter();
-        $this->layout = 'sister_partition';
+        $this->layout = 'sister_2column';
 //        $this->Sample->Behaviors->disable('SoftDelete'); //SoftDeleteのデータも取得する
     }
     
@@ -64,9 +64,7 @@ class DiaryController extends AppController
                 ));
                 $this->set('tag_diary_lists', $tag_diary_lists);
                 //OGPタグ用
-                $this->set('ogp_title', $diary_lists[0]['Diary']['title']);
                 $this->set('ogp_image', $this->Diary->getThumbnailFromText($diary_lists[0]['Diary']['text']));
-                $this->set('ogp_description', strip_tags($diary_lists[0]['Diary']['text']));
                 
             } else { //データが存在しない場合
                 $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
@@ -183,8 +181,10 @@ class DiaryController extends AppController
                 )
             ));
             $this->set('sub_page', $diary_lists[0]['DiaryGenre']['title'] . '(' . count($genre_diary_lists) . ')');
+            $this->set('metatag', $diary_lists[0]['DiaryGenre']['title']);
         } else {
             $this->set('sub_page', $current_genre['title'] . '(' . $current_genre['count'] . ')');
+            $this->set('metatag', $current_genre['title']);
         }
         
         $this->render('index');
@@ -231,6 +231,7 @@ class DiaryController extends AppController
         $tag_data = $this->DiaryTag->find('first', array('conditions' => array('DiaryTag.id' => $this->request->params['tag_id'])));
         $diary_count = $this->params['paging']['Diary']['count'];
         $this->set('sub_page', $tag_data['DiaryTag']['title'] . '(' . $diary_count . ')');
+        $this->set('metatag', $tag_data['DiaryTag']['title']);
         
         $this->render('index');
     }
@@ -313,6 +314,7 @@ class DiaryController extends AppController
         
         //breadcrumbの設定
         $this->set('sub_page', '過去日記(' . $diary_counts . ')');
+        $this->set('metatag', '過去日記');
         
         $this->render('index');
     }

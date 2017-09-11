@@ -8,26 +8,7 @@
   <head>
     <?php echo $this->Html->charset(); ?>
     <?php echo $this->Html->meta(array('name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, maximum-scale=1')); ?>
-    <title>
-      <?php
-      if (isset($this->request['id']) == true && isset($diary_lists[0]['Diary']['title']) == true) {
-          echo $this->element('common_tag', array('title' => 'short'));
-          echo ' ' . $diary_lists[0]['Diary']['title'];
-      } else {
-          echo $this->element('common_tag', array('title' => 'normal'));
-      }
-      ?>
-    </title>
-    <?php
-    $page_url = $this->Html->url('', true);
-    echo $this->element('common_tag', array(
-        'ogp' => 'article',
-        'ogp_url' => $page_url,
-        'ogp_title' => @$ogp_title,
-        'ogp_image' => @$ogp_image,
-        'ogp_description' => @$ogp_description
-    ));
-    ?>
+    <?php echo $this->element('sister_metatag', array('title' => 'diary', 'ogp' => true)); ?>
     <?php
 //    echo $this->Html->meta('icon');
     
