@@ -18,8 +18,10 @@ class JsonShell extends AppShell
     {
         $this->out('function starts');
         
-        //イベ幸からイベントJSONデータを取得
-        $this->JsonData->saveEventerScheduleJson();
+        //イベ幸からイベントスケジュールのJSONデータを取得
+        $app_url = 'http://eventer.daynight.jp/events/schedule/3/all';
+        $json_str = file_get_contents($app_url);
+        $this->JsonData->saveDataJson($json_str, 'eventer_schedule');
         
         $this->out('function completed');
     }

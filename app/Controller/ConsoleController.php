@@ -168,8 +168,10 @@ class ConsoleController extends AppController
     
     public function eventlog_update()
     {
-        //イベ幸からイベントJSONデータを取得
-        $result = $this->JsonData->saveEventerScheduleJson();
+        //イベ幸からイベントスケジュールのJSONデータを取得
+        $app_url = 'http://eventer.daynight.jp/events/schedule/3/all';
+        $json_str = file_get_contents($app_url);
+        $result = $this->JsonData->saveDataJson($json_str, 'eventer_schedule');
         
         if ($result == true) {
             $this->Session->setFlash('イベント履歴を更新しました。', 'flashMessage');
