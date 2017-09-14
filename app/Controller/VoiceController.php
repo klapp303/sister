@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 
 class VoiceController extends AppController
 {
-    public $uses = array('Voice', 'Product', 'JsonData'); //使用するModel
+    public $uses = array('Voice', 'Product', 'JsonData', 'EventlogLink'); //使用するModel
     
     public $components = array('Paginator');
     
@@ -133,7 +133,7 @@ class VoiceController extends AppController
         }
     }
     
-    public function events()
+    public function events($mode = null)
     {
         if (isset($this->request->params['actor']) == true) {
             $voice = $this->Voice->find('first', array(
@@ -148,24 +148,48 @@ class VoiceController extends AppController
                 $this->redirect('/');
             }
             
+            //modeによって取得するデータを変更する
+            if ($mode == 'all') {
+                $json_title = 'eventer_' . $this->request->params['actor'] . '_all';
+            } else {
+                $json_title = 'eventer_' . $this->request->params['actor'];
+            }
+            
             $json_data = $this->JsonData->find('first', array(
-                'conditions' => array('JsonData.title' => 'eventer_' . $this->request->params['actor']),
+                'conditions' => array('JsonData.title' => $json_title),
                 'fields' => 'JsonData.json_data'
             ));
             $event_data = json_decode($json_data['JsonData']['json_data'], true);
-            //直近予定はflgを立てて別にviewに送っておく
+            //開催日の降順に並び替え
+//            foreach ($event_data['events'] as $key => $val) {
+//                $sort[$key] = $val['date'];
+//            }
+//            array_multisort($sort, SORT_DESC, $event_data['events']);
+            //データの整形
+            $event_lists['events'] = [];
             $count = count($event_data['events']);
-            foreach ($event_data['events'] as $key => $event) {
-                if ($key +1 == $count) {
-                    $event_data['events'][$key]['current'] = 1;
-                    list($yy, $mm, $dd) = explode('-', $event['date']);
-                    $event_data['events'][$key]['date_y'] = $yy;
-                    $event_data['events'][$key]['date_m'] = ($mm < 10)? sprintf('%01d', $mm) : $mm;
-                    $event_data['events'][$key]['date_d'] = ($dd < 10)? sprintf('%01d', $dd) : $dd;
-                    $this->set('current_event', $event_data['events'][$key]);
+            for ($i = 0; $i < $count; $i++) {
+                //開催完了flgを追加、0：予定、1：次回、2：完了
+                if ($event_data['events'][$i]['date'] < date('Y-m-d')) {
+                    $event_data['events'][$i]['closed'] = 2;
+                } elseif (@$event_data['events'][$i +1]['date'] < date('Y-m-d')) {
+                    $event_data['events'][$i]['closed'] = 1;
+                    //直近予定は別にviewに送っておく
+                    list($yy, $mm, $dd) = explode('-', $event_data['events'][$i]['date']);
+                    $event_data['events'][$i]['date_y'] = $yy;
+                    $event_data['events'][$i]['date_m'] = ($mm < 10)? sprintf('%01d', $mm) : $mm;
+                    $event_data['events'][$i]['date_d'] = ($dd < 10)? sprintf('%01d', $dd) : $dd;
+                    $this->set('current_event', $event_data['events'][$i]);
+                } else {
+                    $event_data['events'][$i]['closed'] = 0;
                 }
+                //イベントレポのリンクを追加
+                $event_data['events'][$i] = $this->EventlogLink->addDiaryLink($event_data['events'][$i]);
+                //開催の年月によって連想配列にする
+                list($year, $month, $date) = explode('-', $event_data['events'][$i]['date']);
+                $event_lists['events'][$year][$month][$i] = $event_data['events'][$i];
             }
-            $this->set('event_data', $event_data);
+            $this->set('event_lists', $event_lists);
             $this->set('sub_page', 'イベント最新情報'); //breadcrumbの設定
             
         } else {

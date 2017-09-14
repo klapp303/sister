@@ -18,10 +18,23 @@
         <?php endif; ?> です。
 </p>
 
+<?php foreach ($event_lists['events'] as $year => $val): ?>
+<h4><?php echo $year . '年'; ?></h4>
+
 <table class="tbl_events">
-  <?php foreach ($event_data['events'] as $key => $event): ?>
-    <tr class="<?php echo (@$event['current'] == 1)? 'current_events' : ''; ?>">
-      <td class="tbl-date_events txt-min">
+  <?php foreach ($val as $month => $val2): ?>
+    <?php foreach ($val2 as $event): ?>
+    <tr class="<?php echo ($event['closed'] == 1)? 'current_events' : ''; ?>">
+      <?php //土日の色分け
+      $datetime = new DateTime($event['date']);
+      $ww = $datetime->format('w');
+      ?>
+      <td class="tbl-date_events txt-min
+          <?php if ($ww == 0 && $event['closed'] < 2) {
+              echo ' sun';
+          } elseif ($ww == 6 && $event['closed'] < 2) {
+              echo ' sat';
+          } ?>">
         <?php list($yy, $mm, $dd) = explode('-', $event['date']);
               echo $mm . '/' . $dd; ?>
       </td>
@@ -38,6 +51,15 @@
               } else {
                   
               } ?>
+        <?php if (@$event['report']) { //レポリンク
+                  echo '<span class="icon-button-min">';
+                  echo '<a href="/diary/' . $event['report'] . '">レポ</a>';
+                  echo '</span>';
+              } elseif (@$event['comment']) { //一言リンク
+                  echo '<span class="icon-button-min">';
+                  echo '<a href="/diary/' . $event['comment'] . '">一言</a>';
+                  echo '</span>';
+              } ?>
       </td>
       <td class="tbl-place_events txt-min pc">
         <?php if (strpos($event['place'], 'その他') === false) { //PC用会場
@@ -47,6 +69,8 @@
               } ?>
       </td>
     </tr>
+    <?php endforeach; ?>
     <tr><td><br></td></tr>
   <?php endforeach; ?>
 </table>
+<?php endforeach; ?>
