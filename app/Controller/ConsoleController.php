@@ -169,9 +169,26 @@ class ConsoleController extends AppController
     public function eventlog_update()
     {
         //イベ幸からイベントスケジュールのJSONデータを取得
-        $app_url = 'http://eventer.daynight.jp/events/schedule/3/all';
-        $json_str = file_get_contents($app_url);
-        $result = $this->JsonData->saveDataJson($json_str, 'eventer_schedule');
+        $json_str = $this->JsonData->getDataFromEventer('/events/schedule/3/all');
+        $result = $this->JsonData->saveDataJson(@$json_str, 'eventer_schedule');
+        
+        //イベ幸からアーティストに紐付くイベント一覧のJSONデータを取得
+        $voice_lists = $this->Voice->find('all', array(
+            'conditions' => array('Voice.publish' => 1)
+        ));
+        foreach ($voice_lists as $voice) {
+            $json_str = $this->JsonData->getDataFromEventer('/events/event_info/3/' . urlencode($voice['Voice']['name']));
+            $result2 = $this->JsonData->saveDataJson(@$json_str, 'eventer_' . $voice['Voice']['system_name']);
+            if ($result2 == false) {
+                $result = $result2;
+            }
+            $json_str = $this->JsonData->getDataFromEventer('/events/event_info/3/' . urlencode($voice['Voice']['name']) . '/all');
+            $result3 = $this->JsonData->saveDataJson(@$json_str, 'eventer_' . $voice['Voice']['system_name'] . '_all');
+            if ($result3 == false) {
+                $result = $result3;
+            }
+        }
+//        echo'<pre>';print_r($json_str);echo'</pre>';
         
         if ($result == true) {
             $this->Session->setFlash('イベント履歴を更新しました。', 'flashMessage');

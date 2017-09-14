@@ -7,7 +7,7 @@
 
 class JsonShell extends AppShell
 {
-    public $uses = array('JsonData'); //使用するModel
+    public $uses = array('JsonData', 'Voice'); //使用するModel
     
     public function startup()
     {
@@ -19,9 +19,19 @@ class JsonShell extends AppShell
         $this->out('function starts');
         
         //イベ幸からイベントスケジュールのJSONデータを取得
-        $app_url = 'http://eventer.daynight.jp/events/schedule/3/all';
-        $json_str = file_get_contents($app_url);
-        $this->JsonData->saveDataJson($json_str, 'eventer_schedule');
+        $json_str = $this->JsonData->getDataFromEventer('/events/schedule/3/all');
+        $this->JsonData->saveDataJson(@$json_str, 'eventer_schedule');
+        
+        //イベ幸からアーティストに紐付くイベント一覧のJSONデータを取得
+        $voice_lists = $this->Voice->find('all', array(
+            'conditions' => array('Voice.publish' => 1)
+        ));
+        foreach ($voice_lists as $voice) {
+            $json_str = $this->JsonData->getDataFromEventer('/events/event_info/3/' . urlencode($voice['Voice']['name']));
+            $this->JsonData->saveDataJson(@$json_str, 'eventer_' . $voice['Voice']['system_name']);
+            $json_str = $this->JsonData->getDataFromEventer('/events/event_info/3/' . urlencode($voice['Voice']['name']) . '/all');
+            $this->JsonData->saveDataJson(@$json_str, 'eventer_' . $voice['Voice']['system_name'] . '_all');
+        }
         
         $this->out('function completed');
     }

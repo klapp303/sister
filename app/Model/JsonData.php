@@ -34,16 +34,26 @@ class JsonData extends AppModel
 //        'title' => array('type' => 'value')
 //    );
     
+    public function getDataFromEventer($url = null, $json_str = false)
+    {
+        $app_url = 'http://eventer.daynight.jp';
+        $json_str = @file_get_contents($app_url . $url);
+        
+        return $json_str;
+    }
+    
     public function saveDataJson($data = false, $title = null)
     {
-        if (!$data || !$title) {
+        if (!$title) {
             return false;
         }
         
-        //JSONデータに変換
-//        $json_str = json_encode($data);
-        $json_str = $data;
-        $error_flg = 0;
+        if (@$data) {
+            $error_flg = 0;
+            $json_str = $data;
+        } else {
+            $error_flg = 1;
+        }
         
         //既にデータがあるかどうかを判断して…
         $existData = $this->find('first', array(
