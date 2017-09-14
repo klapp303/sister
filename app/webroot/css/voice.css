@@ -76,3 +76,18 @@
   display: block;
   padding-left: 20px;
 }
+
+/* イベント一覧ページ用 */
+.tbl_events {
+  width: 720px;
+  border-collapse: collapse;
+}
+.tbl-date_events {
+  width: 50px;
+}
+.tbl-place_events {
+  width: 165px;
+}
+.current_events {
+  background-color: #ebebff;
+}

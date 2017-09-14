@@ -9,12 +9,11 @@
   <?php echo nl2br($voice['Voice']['profile']); ?>
 </p>
 
-<!--h3>最新情報</h3>
+<h3>最新情報</h3>
 
-<table>
-  <tr><th>日付</th><th>内容</th></tr>
-  <tr><td>2015-01-01</td><td>ダミーテキストダミーテキストダミーテキスト</td></tr>
-</table-->
+<ul class="link-page">
+  <li><?php echo $this->Html->link('⇨ イベント最新情報', '/voice/' . $voice['Voice']['system_name'] . '/events'); ?></li>
+</ul>
 
 <h3>出演リスト</h3>
 

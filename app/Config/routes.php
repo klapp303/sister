@@ -22,6 +22,8 @@ Router::connect('/game/erg/:id', array('controller' => 'Game', 'action' => 'erg'
 Router::connect('/game/mh/:page', array('controller' => 'Game', 'action' => 'mh'));
 
 Router::connect('/voice/:actor', array('controller' => 'Voice', 'action' => 'voice'));
+Router::connect('/voice/:actor/events', array('controller' => 'Voice', 'action' => 'events'));
+Router::connect('/voice/:actor/events/*', array('controller' => 'Voice', 'action' => 'events'));
 Router::connect('/voice/:actor/:genre', array('controller' => 'Voice', 'action' => 'lists'));
 Router::connect('/voice/:actor/:genre/*', array('controller' => 'Voice', 'action' => 'lists')); //paginator用
 

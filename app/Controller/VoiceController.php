@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 
 class VoiceController extends AppController
 {
-    public $uses = array('Voice', 'Product'); //使用するModel
+    public $uses = array('Voice', 'Product', 'JsonData'); //使用するModel
     
     public $components = array('Paginator');
     
@@ -127,6 +127,46 @@ class VoiceController extends AppController
             $this->set('lists', $lists);
             
             $this->render('lists');
+            
+        } else {
+            $this->redirect('/');
+        }
+    }
+    
+    public function events()
+    {
+        if (isset($this->request->params['actor']) == true) {
+            $voice = $this->Voice->find('first', array(
+                'conditions' => array(
+                    'Voice.system_name' => $this->request->params['actor'],
+                    'Voice.publish' => 1)
+            ));
+            if ($voice) {
+                $this->set('voice', $voice);
+                
+            } else { //公開されたデータがない場合
+                $this->redirect('/');
+            }
+            
+            $json_data = $this->JsonData->find('first', array(
+                'conditions' => array('JsonData.title' => 'eventer_' . $this->request->params['actor']),
+                'fields' => 'JsonData.json_data'
+            ));
+            $event_data = json_decode($json_data['JsonData']['json_data'], true);
+            //直近予定はflgを立てて別にviewに送っておく
+            $count = count($event_data['events']);
+            foreach ($event_data['events'] as $key => $event) {
+                if ($key +1 == $count) {
+                    $event_data['events'][$key]['current'] = 1;
+                    list($yy, $mm, $dd) = explode('-', $event['date']);
+                    $event_data['events'][$key]['date_y'] = $yy;
+                    $event_data['events'][$key]['date_m'] = ($mm < 10)? sprintf('%01d', $mm) : $mm;
+                    $event_data['events'][$key]['date_d'] = ($dd < 10)? sprintf('%01d', $dd) : $dd;
+                    $this->set('current_event', $event_data['events'][$key]);
+                }
+            }
+            $this->set('event_data', $event_data);
+            $this->set('sub_page', 'イベント最新情報'); //breadcrumbの設定
             
         } else {
             $this->redirect('/');
