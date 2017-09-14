@@ -30,7 +30,16 @@
   <?php foreach ($val as $month => $val2): ?>
     <?php foreach ($val2 as $event): ?>
     <tr class="<?php echo ($event['closed'] == 1)? 'current_evelog' : ''; ?>">
-      <td class="tbl-date_evelog txt-min">
+      <?php //土日の色分け
+      $datetime = new DateTime($event['date']);
+      $ww = $datetime->format('w');
+      ?>
+      <td class="tbl-date_evelog txt-min
+          <?php if ($ww == 0 && $event['closed'] < 2) {
+              echo ' sun';
+          } elseif ($ww == 6 && $event['closed'] < 2) {
+              echo ' sat';
+          } ?>">
         <?php list($yy, $mm, $dd) = explode('-', $event['date']);
               echo $mm . '/' . $dd; ?>
       </td>

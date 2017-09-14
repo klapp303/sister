@@ -329,6 +329,14 @@
   display: inline;
 }
 
+/* 曜日 */
+.sun {
+  color: #0000ff;
+}
+.sat {
+  color: #ff0000;
+}
+
 /* jQuery-tmb */
 .js-tmb {
   width: auto;
