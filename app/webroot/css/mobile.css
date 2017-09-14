@@ -171,6 +171,9 @@
 .voice-list {
   width: 100%;
 }
+.tbl_events {
+  width: 98%;
+}
 
 /* diary */
 .img_diary, .img_diary_past {

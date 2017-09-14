@@ -21,7 +21,7 @@
 <table class="tbl_events">
   <?php foreach ($event_data['events'] as $key => $event): ?>
     <tr class="<?php echo (@$event['current'] == 1)? 'current_events' : ''; ?>">
-      <td class="tbl-date_evnts txt-min">
+      <td class="tbl-date_events txt-min">
         <?php list($yy, $mm, $dd) = explode('-', $event['date']);
               echo $mm . '/' . $dd; ?>
       </td>
