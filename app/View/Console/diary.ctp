@@ -84,9 +84,41 @@
     </tr>
     <tr>
       <td>リンク</td>
-      <?php $eventlog_lists = ['' => ''] + $eventlog_lists; ?>
-      <td><?php echo $this->Form->input('eventlog_link', array('type' => 'select', 'label' => false, 'options' => $eventlog_lists, 'style' => 'width: 380px;')); ?></td>
+      <td><button type="button" class="js-setlist">setlistを取得</button>
+          <?php $eventlog_lists = ['' => ''] + $eventlog_lists; ?>
+          <?php echo $this->Form->input('eventlog_link', array('type' => 'select', 'label' => false, 'options' => $eventlog_lists, 'class' => 'js-setlist_data', 'style' => 'width: 280px;')); ?></td>
     </tr>
+    <script>
+        jQuery(function($) {
+            $('.js-setlist').click(function() {
+                var setlist_id = $('.js-setlist_data option:selected').val();
+                if (!setlist_id) {
+                    alert('イベントリンクを選んでください');
+                    return false;
+                }
+                var app_url = 'http://eventer.daynight.jp/events/event_setlist/3/' + setlist_id;
+                $.getJSON(app_url + '?callback=?', function(json_data) {
+//                    console.log(json_data);
+                    //整形
+                    var data = '';
+                    var i = 1;
+                    for (var music in json_data) {
+                        var num = ('0' + i).slice(-2);
+                        var title = json_data[music].title;
+                        if (json_data[music].artist) {
+                            var artist = json_data[music].artist;
+                        } else {
+                            var artist = '';
+                        }
+                        data += num + '. ' + title + ' / ' + artist + "\n";
+                        i++;
+                    }
+                    
+                    $('.js-insert_area').insertAtCaret(data);
+                });
+            });
+        });
+    </script>
     
     <tr>
       <td></td>
