@@ -57,6 +57,7 @@ if (@$ogp) {
     if (@$title == 'diary') {
         if (isset($this->request['id']) == true && @$ogp_image) {
             //個別ページのサムネイルはcontrollerで設定
+            $ogp_image = $this->Html->url('/', true) . $ogp_image;
         } else {
             $ogp_image = $this->Html->url('/', true) . $sister_image;
         }
