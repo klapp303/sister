@@ -64,8 +64,8 @@
     echo $this->Html->script(array(
         'jquery-1.11.3.min',
         'jquery-migrate-1.2.1.min',
-        'sidemenu_fix',
-        'jquery-move_top'
+        'sidemenu_fix.min',
+        'jquery-move_top.min'
     ));
     
     echo $this->fetch('meta');
