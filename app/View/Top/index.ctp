@@ -16,7 +16,9 @@
 
 <div class="side_top">
   <?php echo $this->element('twitter'); ?>
+  <?php if (!$mobile): ?>
   <?php echo $this->element('banner_maker'); ?>
+  <?php endif; ?>
 </div>
 
 <?php if ($birthday): ?>
@@ -43,6 +45,7 @@
   } ?>
 </div>
 
+<?php if (!$mobile): ?>
 <div class="part_top pc">
   <hr class="hr_top">
   <h3 class="h_top"<?php echo (@$thema_color)? ' style="background-color: #' . $thema_color . ';"' : ''; ?>>バナー</h3>
@@ -55,3 +58,4 @@
   </a><br>
   <?php endforeach; ?>
 </div>
+<?php endif; ?>

@@ -71,7 +71,7 @@ class TopController extends AppController
         }
         $last_update = mb_strimwidth($last_update, 0, 10);
         $this->set('last_update', $last_update);
-        /* 最終更新部の取得ここまで */
+        /* 最終更新日の取得ここまで */
         $information_lists = $this->Information->find('all', array(
             'conditions' => array(
                 array('or' => array(
@@ -88,40 +88,48 @@ class TopController extends AppController
         ));
         $this->set('information_lists', $information_lists);
         
-        //バナー用
-        $banner_lists = $this->Banner->find('all', array(
-            'conditions' => array(
-                array('or' => array(
-                    'Banner.date_from <=' => date('Y-m-d'),
-                    'Banner.date_from' => null
-                )),
-                array('or' => array(
-                    'Banner.date_to >=' => date('Y-m-d'),
-                    'Banner.date_to' => null
-                )),
-                'Banner.publish' => 1
-            ),
-            'order' => array('Banner.sort' => 'desc')
-        ));
-        //バースデーバナー用
-        if ($birthday) {
-            $birthday_banner_lists = $this->Banner->find('all', array(
+        //バナーの取得はPCのみ
+        if (!$this->request->is('mobile')) {
+            //バナー用
+            $banner_lists = $this->Banner->find('all', array(
                 'conditions' => array(
-                    'Banner.birthday_id' => $birthday_data['Birthday']['id']
+                    array('or' => array(
+                        'Banner.date_from <=' => date('Y-m-d'),
+                        'Banner.date_from' => null
+                    )),
+                    array('or' => array(
+                        'Banner.date_to >=' => date('Y-m-d'),
+                        'Banner.date_to' => null
+                    )),
+                    'Banner.publish' => 1
                 ),
                 'order' => array('Banner.sort' => 'desc')
             ));
-            if ($birthday_banner_lists) {
-                $banner_lists = $birthday_banner_lists;
+            
+            //バースデーバナー用
+            if ($birthday) {
+                $birthday_banner_lists = $this->Banner->find('all', array(
+                    'conditions' => array(
+                        'Banner.birthday_id' => $birthday_data['Birthday']['id']
+                    ),
+                    'order' => array('Banner.sort' => 'desc')
+                ));
+                if ($birthday_banner_lists) {
+                    $banner_lists = $birthday_banner_lists;
+                }
             }
+            $this->set('banner_lists', $banner_lists);
+            
+            //メーカーバナー用
+            $maker_lists = $this->Maker->find('all', array(
+                'conditions' => array('Maker.publish' => 1),
+                'order' => array('Maker.title' => 'asc')
+            ));
+            $this->set('maker_lists', $maker_lists);
+            $this->set('mobile', false);
+            
+        } else {
+            $this->set('mobile', true);
         }
-        $this->set('banner_lists', $banner_lists);
-        
-        //メーカーバナー用
-        $maker_lists = $this->Maker->find('all', array(
-            'conditions' => array('Maker.publish' => 1),
-            'order' => array('Maker.title' => 'asc')
-        ));
-        $this->set('maker_lists', $maker_lists);
     }
 }
