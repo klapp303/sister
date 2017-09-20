@@ -331,10 +331,10 @@
 
 /* 曜日 */
 .sun {
-  color: #0000ff;
+  color: #ff0000;
 }
 .sat {
-  color: #ff0000;
+  color: #0000ff;
 }
 
 /* jQuery-tmb */
