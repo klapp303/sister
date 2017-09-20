@@ -1,6 +1,16 @@
 <IfModule mod_rewrite.c>
-	RewriteEngine on
-	RewriteBase /
-	RewriteRule ^$ app/webroot/ [L]
-	RewriteRule (.*) app/webroot/$1 [L]
+  RewriteEngine on
+  RewriteBase /
+  RewriteRule ^$ app/webroot/ [L]
+  RewriteRule (.*) app/webroot/$1 [L]
+</IfModule>
+
+#ブラウザキャッシュ
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 days"
+  ExpiresByType image/jpeg "access plus 1 weeks"
+  ExpiresByType image/png "access plus 1 weeks"
+  ExpiresByType image/gif "access plus 1 weeks"
+  ExpiresByType application/x-javascript "access plus 1 weeks"
 </IfModule>
