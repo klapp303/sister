@@ -13,5 +13,6 @@
   ExpiresByType image/jpeg "access plus 1 weeks"
   ExpiresByType image/png "access plus 1 weeks"
   ExpiresByType image/gif "access plus 1 weeks"
+  ExpiresByType application/javascript "access plus 1 weeks"
   ExpiresByType application/x-javascript "access plus 1 weeks"
 </IfModule>
