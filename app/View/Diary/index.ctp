@@ -44,9 +44,17 @@ if (preg_match('#/diary/past#', $_SERVER['REQUEST_URI'])) {
   <div class="art-header"><h3 id="diary-<?php echo $diary_list['Diary']['id']; ?>">
     <?php echo $this->Html->link($diary_list['Diary']['title'], '/diary/' . $past . $diary_list['Diary']['id']); ?></h3></div>
   <hr>
-  <div class="art-body"><?php echo nl2br($diary_list['Diary']['text']); ?></div>
+  <div class="art-body cf">
+    <?php if (@!$single_page): //日記一覧ページ ?>
+    <img src="<?php echo $diary_list['Diary']['thumbnail']; ?>" class="tmb_diary" align="left">
+    <p><?php echo nl2br($diary_list['Diary']['description']); ?></p>
+    <?php else: //日記singleページ ?>
+    <p><?php echo nl2br($diary_list['Diary']['text']); ?></p>
+    <?php endif; ?>
+  </div>
   <hr>
   <div class="art-footer">
+    <span class="fr"><?php echo $diary_list['Diary']['date']; ?></span>
     <?php if (!$past): ?>
     <span><?php echo $this->Html->link($diary_list['DiaryGenre']['title'], '/diary/' . $past . 'genre/' . $diary_list['Diary']['genre_id']); ?></span>
       <?php foreach ($diary_list['DiaryRegtag'] as $Regtag): ?>
@@ -56,7 +64,6 @@ if (preg_match('#/diary/past#', $_SERVER['REQUEST_URI'])) {
     <span><?php echo $this->Html->link('過去日記', '/diary/past/'); ?></span>
     <span><?php echo $diary_list['DiaryGenre']['title']; ?></span>
     <?php endif; ?>
-    <span class="fr"><?php echo $diary_list['Diary']['date']; ?></span>
   </div>
 </div>
 <?php endforeach; ?>

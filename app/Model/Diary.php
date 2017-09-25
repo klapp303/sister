@@ -154,6 +154,24 @@ class Diary extends AppModel
         return $diary_lists;
     }
     
+    public function addDiaryBox($diary_lists = false, $read_more = false)
+    {
+        $site_url = Router::url('/', true);
+        
+        foreach ($diary_lists as $key => $val) {
+            $image = $this->getThumbnailFromText($val['Diary']['text']);
+            if ($read_more) {
+                $description = $this->getDescriptionFromText($val['Diary']['text'], $val['Diary']['id']);
+            } else {
+                $description = $this->getDescriptionFromText($val['Diary']['text']);
+            }
+            $diary_lists[$key]['Diary']['thumbnail'] = $site_url . $image;
+            $diary_lists[$key]['Diary']['description'] = $description;
+        }
+        
+        return $diary_lists;
+    }
+    
     public function getThumbnailFromText($text = null, $image = null)
     {
         if ($text) {
@@ -196,6 +214,49 @@ class Diary extends AppModel
         }
         
         return $image;
+    }
+    
+    public function getDescriptionFromText($text = null, $diary_id = null, $max_line = 5, $description = null)
+    {
+        if ($text) {
+            //htmlタグは除く
+            $text = strip_tags($text);
+            
+            //行毎に分解
+            $array_text = explode(PHP_EOL, $text);
+            if (count($array_text) == 1) { //過去日記用
+                $array_text = explode("\n", $array_text[0]);
+                $past = true;
+            }
+            $array_text = array_filter($array_text);
+            $array_text = array_merge($array_text);
+            
+            //冒頭からの行数でdescriptionを作成
+            foreach ($array_text as $key => $val) {
+                if ($key >= $max_line) {
+                    break;
+                }
+                $description .= $val;
+                if ($key < $max_line -1) {
+                    $description .= PHP_EOL;
+                }
+            }
+        }
+        
+        if (!$description) {
+            
+        }
+        
+        //read_moreタグ
+        if ($diary_id) {
+            if (!@$past) {
+                $description .= ' <a href="/diary/' . $diary_id . '">...続きを表示</a>';
+            } else { //過去日記用
+                $description .= ' <a href="/diary/past/' . $diary_id . '">...続きを表示</a>';
+            }
+        }
+        
+        return $description;
     }
     
     public function formatDiaryToLazy($diary_lists = false)

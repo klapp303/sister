@@ -184,6 +184,9 @@
   max-width: 100%;
   height: auto;
 }
+.art-body >p {
+  width: 100%;
+}
 #menu_top {
   margin: 10px 0;
 }

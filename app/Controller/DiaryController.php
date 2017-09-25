@@ -61,8 +61,8 @@ class DiaryController extends AppController
                 //OGPタグ用
                 $this->set('ogp_image', $this->Diary->getThumbnailFromText($diary_lists[0]['Diary']['text']));
                 
-                //viewが異なるので
-                $single = true;
+                //singleページ用flg
+                $this->set('single_page', true);
             }
         
         //パラメータにdate_idがなくmonth_idがあれば月別一覧ページを表示
@@ -126,6 +126,7 @@ class DiaryController extends AppController
         }
         
         //日記データの整形
+        $diary_lists = $this->Diary->addDiaryBox($diary_lists, true);
 //        $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
         $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
         $this->set('diary_lists', $diary_lists);
@@ -137,11 +138,6 @@ class DiaryController extends AppController
         //ジャンルメニュー用
         $genre_menu = $this->DiaryGenre->getGenreMenu();
         $this->set('genre_menu', $genre_menu);
-        
-        //singleページ用
-        if (@$single) {
-            $this->render('single');
-        }
     }
     
     public function genre()
@@ -176,6 +172,7 @@ class DiaryController extends AppController
         }
         
         //日記データの整形
+        $diary_lists = $this->Diary->addDiaryBox($diary_lists, true);
         $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
         $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
         $this->set('diary_lists', $diary_lists);
@@ -204,10 +201,10 @@ class DiaryController extends AppController
                 )
             ));
             $this->set('sub_page', $diary_lists[0]['DiaryGenre']['title'] . '(' . count($genre_diary_lists) . ')');
-            $this->set('metatag', $diary_lists[0]['DiaryGenre']['title']);
+            $this->set('genre_metatag', $diary_lists[0]['DiaryGenre']['title']);
         } else {
             $this->set('sub_page', $current_genre['title'] . '(' . $current_genre['count'] . ')');
-            $this->set('metatag', $current_genre['title']);
+            $this->set('genre_metatag', $current_genre['title']);
         }
         
         $this->render('index');
@@ -243,6 +240,7 @@ class DiaryController extends AppController
         }
         
         //日記データの整形
+        $diary_lists = $this->Diary->addDiaryBox($diary_lists, true);
         $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
         $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
         $this->set('diary_lists', $diary_lists);
@@ -259,7 +257,7 @@ class DiaryController extends AppController
         $tag_data = $this->DiaryTag->find('first', array('conditions' => array('DiaryTag.id' => $this->request->params['tag_id'])));
         $diary_count = $this->params['paging']['Diary']['count'];
         $this->set('sub_page', $tag_data['DiaryTag']['title'] . '(' . $diary_count . ')');
-        $this->set('metatag', $tag_data['DiaryTag']['title']);
+        $this->set('tag_metatag', $tag_data['DiaryTag']['title']);
         
         $this->render('index');
     }
@@ -275,7 +273,6 @@ class DiaryController extends AppController
         $search_word = str_replace(' OR ', '|', $search_word); //or検索用
         $this->request->query['search_word'] = $search_word;
         /* search wordを整形ここまで */
-        $this->Diary->recursive = 0;
         $this->Prg->commonProcess('Diary');
 //        $this->Prg->parsedParams();
         $this->Paginator->settings = array(
@@ -297,6 +294,7 @@ class DiaryController extends AppController
         }
         
         //日記データの整形
+        $diary_lists = $this->Diary->addDiaryBox($diary_lists, true);
         $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
         $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
         $this->set('diary_lists', $diary_lists);
@@ -319,8 +317,10 @@ class DiaryController extends AppController
         
         $diary_lists = $this->Diary->formatDiaryFromFc2('agumion_blog_backup_02.txt');
         $diary_counts = count($diary_lists);
-        $diary_data = $this->Diary->selectDiaryToNew($diary_lists, @$id, @$this->request->params['named']['page']);
+        $this->set('sub_page', '過去日記(' . $diary_counts . ')'); //breadcrumbの設定
+        $this->set('genre_metatag', '過去日記'); 
         //cakeのpaginatorは使えないので日記データとpaginatorの設定を分ける
+        $diary_data = $this->Diary->selectDiaryToNew($diary_lists, @$id, @$this->request->params['named']['page']);
         $diary_lists = $diary_data['lists'];
         $paginator_setting = $diary_data['paginator'];
         
@@ -331,7 +331,18 @@ class DiaryController extends AppController
             $this->redirect('/diary/past');
         }
         
+        //パラメータにidがあれば詳細ページを表示
+        if ($id) {
+            //singleページ用flg
+            $this->set('single_page', true);
+            
+        //それ以外は日記一覧ページを表示
+        } else {
+            
+        }
+        
         //日記データの整形
+        $diary_lists = $this->Diary->addDiaryBox($diary_lists, true);
 //        $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
 //        $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
         $this->set('diary_lists', $diary_lists);
@@ -344,10 +355,6 @@ class DiaryController extends AppController
         //ジャンルメニュー用
         $genre_menu = $this->DiaryGenre->getGenreMenu();
         $this->set('genre_menu', $genre_menu);
-        
-        //breadcrumbの設定
-        $this->set('sub_page', '過去日記(' . $diary_counts . ')');
-        $this->set('metatag', '過去日記');
         
         $this->render('index');
     }

@@ -37,6 +37,9 @@ pre {/* 備忘録日記用 */
   font-size: 14px;
   padding: 10px;
 }
+.art-body >p {
+  width: 538px;
+}
 
 .art-footer {
   font-size: 12px;
@@ -63,6 +66,15 @@ pre {/* 備忘録日記用 */
   width: 80px;
   height: 80px;
   vertical-align: middle;
+}
+.tmb_diary {/* 記事のサムネイル用 */
+  width: auto;
+  height: auto;
+  max-width: 200px;
+  max-height: 200px;
+}
+.art-body >.tmb_diary {
+  margin: 0 20px 10px 0;
 }
 
 /* 検索box用 */
