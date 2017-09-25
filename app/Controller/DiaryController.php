@@ -30,17 +30,6 @@ class DiaryController extends AppController
         $year = date('Y');
         $month = date('m');
         
-        //diaryページの日記一覧を設定
-        $this->Paginator->settings = array(
-            'limit' => 5,
-            'conditions' => array('Diary.publish' => 1, 'DiaryGenre.publish' => 1),
-            'order' => array('Diary.date' => 'desc', 'Diary.id' => 'desc')
-        );
-        $diary_lists = $this->Paginator->paginate('Diary');
-//        $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
-        $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
-        $this->set('diary_lists', $diary_lists);
-        
         //パラメータにidがあれば詳細ページを表示
         if (isset($this->request->params['id']) == true) {
             $diary_lists = $this->Diary->find('all', array(
@@ -49,12 +38,18 @@ class DiaryController extends AppController
                     'Diary.publish' => 1
                 )
             ));
-            if (!empty($diary_lists)) { //データが存在する場合
+            
+            //データが存在しない場合
+            if (!$diary_lists) {
+                $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+                
+                $this->redirect('/diary/');
+                
+            //データが存在する場合
+            } else {
                 $this->set('sub_page', $diary_lists[0]['Diary']['title']); //breadcrumbの設定
                 $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
                 $diary_lists = $this->Diary->changePhotoToFull($diary_lists); //任意の日記は詳細ページのみ画像をfullsize
-                $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
-                $this->set('diary_lists', $diary_lists);
                 //サイドメニューのオススメ日記用
                 $tag_diary_id = $this->Diary->getDiaryIdFromTag($diary_lists[0]['Diary']['id'], false, false);
                 $tag_diary_lists = $this->Diary->find('all', array(
@@ -66,13 +61,12 @@ class DiaryController extends AppController
                 //OGPタグ用
                 $this->set('ogp_image', $this->Diary->getThumbnailFromText($diary_lists[0]['Diary']['text']));
                 
-            } else { //データが存在しない場合
-                $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+                //viewが異なるので
+                $single = true;
             }
-        }
         
         //パラメータにdate_idがなくmonth_idがあれば月別一覧ページを表示
-        if (isset($this->request->params['date_id']) == false && isset($this->request->params['month_id']) == true) {
+        } elseif (isset($this->request->params['date_id']) == false && isset($this->request->params['month_id']) == true) {
             $diary_lists = $this->Diary->find('all', array(
                 'conditions' => array(
                     'Diary.date >=' => date($this->request->params['year_id'] . '-' . $this->request->params['month_id'] . '-01 00:00:00'),
@@ -84,18 +78,20 @@ class DiaryController extends AppController
             ));
             $year = $this->request->params['year_id']; //カレンダー用に定義
             $month = $this->request->params['month_id']; //カレンダー用に定義
-            if (!empty($diary_lists)) { //データが存在する場合
-                $this->set('sub_page', $year . '年' . $month . '月'); //breadcrumbの設定
-//                $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
-                $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
-                $this->set('diary_lists', $diary_lists);
-            } else { //データが存在しない場合
+            //
+            //データが存在しない場合
+            if (!$diary_lists) {
                 $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+                
+//                $this->redirect('/diary/');
+                
+            //データが存在する場合
+            } else {
+                $this->set('sub_page', $year . '年' . $month . '月'); //breadcrumbの設定
             }
-        }
         
         //パラメータにdate_idがあれば日にち別一覧ページを表示
-        if (isset($this->request->params['date_id']) == true) {
+        } elseif (isset($this->request->params['date_id']) == true) {
             $diary_lists = $this->Diary->find('all', array(
                 'conditions' => array(
                     'Diary.date >=' => date($this->request->params['year_id'] . '-' . $this->request->params['month_id'] . '-' . $this->request->params['date_id'] . ' 00:00:00'),
@@ -107,15 +103,32 @@ class DiaryController extends AppController
             ));
             $year = $this->request->params['year_id']; //カレンダー用に定義
             $month = $this->request->params['month_id']; //カレンダー用に定義
-            if (!empty($diary_lists)) { //データが存在する場合
-                $this->set('sub_page', $year . '年' . $month . '月' . sprintf('%02d', $this->request->params['date_id']) . '日'); //breadcrumbの設定
-//                $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
-                $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
-                $this->set('diary_lists', $diary_lists);
-            } else { //データが存在しない場合
+            
+            //データが存在しない場合
+            if (!$diary_lists) {
                 $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
+                
+//                $this->redirect('/diary/');
+                
+            //データが存在する場合
+            } else {
+                $this->set('sub_page', $year . '年' . $month . '月' . sprintf('%02d', $this->request->params['date_id']) . '日'); //breadcrumbの設定
             }
+            
+        //それ以外は最新の日記一覧ページを表示
+        } else {
+            $this->Paginator->settings = array(
+                'limit' => 5,
+                'conditions' => array('Diary.publish' => 1, 'DiaryGenre.publish' => 1),
+                'order' => array('Diary.date' => 'desc', 'Diary.id' => 'desc')
+            );
+            $diary_lists = $this->Paginator->paginate('Diary');
         }
+        
+        //日記データの整形
+//        $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
+        $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
+        $this->set('diary_lists', $diary_lists);
         
         //カレンダー用
         $calendar = $this->Diary->getCalendarMenu($year, $month);
@@ -124,6 +137,11 @@ class DiaryController extends AppController
         //ジャンルメニュー用
         $genre_menu = $this->DiaryGenre->getGenreMenu();
         $this->set('genre_menu', $genre_menu);
+        
+        //singleページ用
+        if (@$single) {
+            $this->render('single');
+        }
     }
     
     public function genre()
@@ -142,20 +160,25 @@ class DiaryController extends AppController
                 'order' => array('Diary.date' => 'desc', 'Diary.id' => 'desc')
             );
             $diary_lists = $this->Paginator->paginate('Diary');
-            if (!empty($diary_lists)) { //データが存在する場合
-                $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
-                $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
-                $this->set('diary_lists', $diary_lists);
-            } else { //データが存在しない場合
+            
+            //データが存在しない場合
+            if (!$diary_lists) {
                 $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
                 
                 $this->redirect('/diary/');
             }
-        } else { //ジャンルが存在しない場合
+            
+        //ジャンルが存在しない場合
+        } else {
             $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
             
             $this->redirect('/diary/');
         }
+        
+        //日記データの整形
+        $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
+        $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
+        $this->set('diary_lists', $diary_lists);
         
         //カレンダー用
         $calendar = $this->Diary->getCalendarMenu($year, $month);
@@ -204,20 +227,25 @@ class DiaryController extends AppController
                 'order' => array('Diary.date' => 'desc', 'Diary.id' => 'desc')
             );
             $diary_lists = $this->Paginator->paginate('Diary');
-            if (!empty($diary_lists)) { //データが存在する場合
-                $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
-                $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
-                $this->set('diary_lists', $diary_lists);
-            } else { //データが存在しない場合
+            
+            //データが存在しない場合
+            if (!$diary_lists) {
                 $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
                 
                 $this->redirect('/diary/');
             }
-        } else { //タグが存在しない場合
+            
+        //タグが存在しない場合
+        } else {
             $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
             
             $this->redirect('/diary/');
         }
+        
+        //日記データの整形
+        $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
+        $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
+        $this->set('diary_lists', $diary_lists);
         
         //カレンダー用
         $calendar = $this->Diary->getCalendarMenu($year, $month);
@@ -260,15 +288,18 @@ class DiaryController extends AppController
         );
         $diary_lists = $this->Paginator->paginate('Diary');
         $this->request->data['Diary']['search_word'] = $search_query; //seach wordを戻しておく
-        if (!empty($diary_lists)) { //データが存在する場合
-            $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
-            $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
-            $this->set('diary_lists', $diary_lists);
-        } else { //データが存在しない場合
+        
+        //データが存在しない場合
+        if (!$diary_lists) {
             $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
             
             $this->redirect('/diary/');
         }
+        
+        //日記データの整形
+        $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
+        $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
+        $this->set('diary_lists', $diary_lists);
         
         //カレンダー用
         $calendar = $this->Diary->getCalendarMenu($year, $month);
@@ -292,6 +323,7 @@ class DiaryController extends AppController
         //cakeのpaginatorは使えないので日記データとpaginatorの設定を分ける
         $diary_lists = $diary_data['lists'];
         $paginator_setting = $diary_data['paginator'];
+        
         //データが存在しない場合
         if (!$diary_lists) {
             $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
@@ -299,6 +331,7 @@ class DiaryController extends AppController
             $this->redirect('/diary/past');
         }
         
+        //日記データの整形
 //        $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
 //        $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
         $this->set('diary_lists', $diary_lists);
