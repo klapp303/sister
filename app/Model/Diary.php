@@ -159,13 +159,18 @@ class Diary extends AppModel
         $site_url = Router::url('/', true);
         
         foreach ($diary_lists as $key => $val) {
+            //thumbnail
             $image = $this->getThumbnailFromText($val['Diary']['text']);
+            if (strpos($image, 'http://') === false) {
+                $image = $site_url . $image;
+            }
+            $diary_lists[$key]['Diary']['thumbnail'] = $image;
+            //description
             if ($read_more) {
                 $description = $this->getDescriptionFromText($val['Diary']['text'], $val['Diary']['id']);
             } else {
                 $description = $this->getDescriptionFromText($val['Diary']['text']);
             }
-            $diary_lists[$key]['Diary']['thumbnail'] = $site_url . $image;
             $diary_lists[$key]['Diary']['description'] = $description;
         }
         
@@ -182,6 +187,13 @@ class Diary extends AppModel
                 $image_array = explode('\'', $text_array[1], 2);
                 //URLから files/ を除いたので足しておく
                 $image = 'files/' . $image_array[0];
+            }
+            
+            //テキスト中に <img class="img_diary_past" src=""> がある場合
+            $text_array = explode('<img class="img_diary_past" src="', $text, 2);
+            if (@$text_array[1]) {
+                $image_array = explode('"', $text_array[1], 2);
+                $image = $image_array[0];
             }
             
             //テキスト中に <img src=""> がある場合
