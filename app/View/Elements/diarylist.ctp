@@ -1,5 +1,5 @@
 <?php if (count($diary_lists) > 1 || @count($tag_diary_lists) > 0): ?>
-<div id="diarylist" class="side-menu_block">
+<div id="diarylist" class="side-menu_block txt-min">
   <ul>
     <?php
     //タグ毎の日記リストがあればサイドメニューに表示（詳細ページ）

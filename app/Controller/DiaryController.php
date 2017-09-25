@@ -18,6 +18,12 @@ class DiaryController extends AppController
     
     public $presetVars = true;
     
+    //上書きではなく追加するため
+    public $paginate_setting = array(
+        'limit' => 8,
+        'order' => array('Diary.date' => 'desc', 'Diary.id' => 'desc')
+    );
+    
     public function beforeFilter()
     {
         parent::beforeFilter();
@@ -52,10 +58,8 @@ class DiaryController extends AppController
                 $diary_lists = $this->Diary->changePhotoToFull($diary_lists); //任意の日記は詳細ページのみ画像をfullsize
                 //サイドメニューのオススメ日記用
                 $tag_diary_id = $this->Diary->getDiaryIdFromTag($diary_lists[0]['Diary']['id'], false, false);
-                $tag_diary_lists = $this->Diary->find('all', array(
-                    'conditions' => array('Diary.id' => $tag_diary_id),
-                    'order' => array('Diary.id' => 'desc'),
-                    'limit' => 5
+                $tag_diary_lists = $this->Diary->find('all', $this->paginate_setting + array(
+                    'conditions' => array('Diary.id' => $tag_diary_id)
                 ));
                 $this->set('tag_diary_lists', $tag_diary_lists);
                 //OGPタグ用
@@ -117,10 +121,11 @@ class DiaryController extends AppController
             
         //それ以外は最新の日記一覧ページを表示
         } else {
-            $this->Paginator->settings = array(
-                'limit' => 5,
-                'conditions' => array('Diary.publish' => 1, 'DiaryGenre.publish' => 1),
-                'order' => array('Diary.date' => 'desc', 'Diary.id' => 'desc')
+            $this->Paginator->settings = $this->paginate_setting + array(
+                'conditions' => array(
+                    'Diary.publish' => 1,
+                    'DiaryGenre.publish' => 1
+                )
             );
             $diary_lists = $this->Paginator->paginate('Diary');
         }
@@ -147,13 +152,11 @@ class DiaryController extends AppController
         
         //パラメータにgenre_idがあればジャンル別一覧ページを表示
         if (isset($this->request->params['genre_id']) == true) {
-            $this->Paginator->settings = array(
-                'limit' => 5,
+            $this->Paginator->settings = $this->paginate_setting + array(
                 'conditions' => array(
-                    'Diary.publish' => 1,
-                    'Diary.genre_id' => $this->request->params['genre_id']
-                ),
-                'order' => array('Diary.date' => 'desc', 'Diary.id' => 'desc')
+                    'Diary.genre_id' => $this->request->params['genre_id'],
+                    'Diary.publish' => 1
+                )
             );
             $diary_lists = $this->Paginator->paginate('Diary');
             
@@ -196,8 +199,8 @@ class DiaryController extends AppController
         if (@!$current_genre) {
             $genre_diary_lists = $this->Diary->find('all', array(
                 'conditions' => array(
-                    'Diary.publish' => 1,
-                    'DiaryGenre.title' => $diary_lists[0]['DiaryGenre']['title']
+                    'DiaryGenre.title' => $diary_lists[0]['DiaryGenre']['title'],
+                    'Diary.publish' => 1
                 )
             ));
             $this->set('sub_page', $diary_lists[0]['DiaryGenre']['title'] . '(' . count($genre_diary_lists) . ')');
@@ -218,10 +221,11 @@ class DiaryController extends AppController
         //パラメータにtag_idがあればタグ別一覧ページを表示
         if (isset($this->request->params['tag_id']) == true) {
             $tag_diary_id = $this->Diary->getDiaryIdFromTag(false, $this->request->params['tag_id']);
-            $this->Paginator->settings = array(
-                'limit' => 5,
-                'conditions' => array('Diary.id' => $tag_diary_id),
-                'order' => array('Diary.date' => 'desc', 'Diary.id' => 'desc')
+            $this->Paginator->settings = $this->paginate_setting + array(
+                'conditions' => array(
+                    'Diary.id' => $tag_diary_id,
+//                    'Diary.publish' => 1
+                )
             );
             $diary_lists = $this->Paginator->paginate('Diary');
             
@@ -275,13 +279,11 @@ class DiaryController extends AppController
         /* search wordを整形ここまで */
         $this->Prg->commonProcess('Diary');
 //        $this->Prg->parsedParams();
-        $this->Paginator->settings = array(
-            'limit' => 5,
+        $this->Paginator->settings = $this->paginate_setting + array(
             'conditions' => array(
                 $this->Diary->parseCriteria($this->passedArgs),
                 'Diary.publish' => 1
-            ),
-            'order' => array('Diary.date' => 'desc', 'Diary.id' => 'desc')
+            )
         );
         $diary_lists = $this->Paginator->paginate('Diary');
         $this->request->data['Diary']['search_word'] = $search_query; //seach wordを戻しておく

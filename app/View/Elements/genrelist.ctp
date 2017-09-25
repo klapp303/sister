@@ -1,4 +1,4 @@
-<div id="genrelist" class="side-menu_block">
+<div id="genrelist" class="side-menu_block txt-min">
   <ul>
     <?php
     foreach ($genre_menu as $genre) {

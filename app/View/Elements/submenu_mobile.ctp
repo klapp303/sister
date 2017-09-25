@@ -3,7 +3,7 @@ if ($mode == 'top') {
     $link_title = 'ページ内リンク';
     $strimwidth = 45;
 } else {
-    $link_title = 'オススメ日記';
+    $link_title = '関連日記';
     $strimwidth = 60;
 }
 ?>

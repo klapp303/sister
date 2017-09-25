@@ -475,7 +475,7 @@ class Diary extends AppModel
         }
         
         /* paginatorの設定ここから */
-        $limit = 5;
+        $limit = 8;
         if (!$page) {
             $page = 1;
         }
