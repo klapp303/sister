@@ -46,7 +46,7 @@ if (preg_match('#/diary/past#', $_SERVER['REQUEST_URI'])) {
   <hr>
   <div class="art-body cf">
     <?php if (@!$single_page): //日記一覧ページ ?>
-    <img src="<?php echo $diary_list['Diary']['thumbnail']; ?>" class="tmb_diary" align="left">
+    <img data-original="<?php echo $diary_list['Diary']['thumbnail']; ?>" class="lazy tmb_diary" align="left">
     <p><?php echo nl2br($diary_list['Diary']['description']); ?></p>
     <?php else: //日記singleページ ?>
     <p><?php echo nl2br($diary_list['Diary']['text']); ?></p>
