@@ -30,3 +30,6 @@
   AddOutputFilterByType DEFLATE application/javascript
   AddOutputFilterByType DEFLATE application/x-javascript
 </IfModule>
+
+#Configure entity tags
+FileETag None
