@@ -375,6 +375,9 @@ class ConsoleController extends AppController
             throw new NotFoundException(__('存在しないデータです。'));
         }
         
+        $year = date('Y');
+        $month = date('m');
+        
         $diary_lists = $this->Diary->find('all', array(
             'conditions' => array(
                 'Diary.id' => $id
@@ -382,8 +385,9 @@ class ConsoleController extends AppController
         ));
         if (!empty($diary_lists)) { //データが存在する場合
             $this->set('sub_page', $diary_lists[0]['Diary']['title']); //breadcrumbの設定
-            $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
-            $this->set('diary_lists', $diary_lists);
+            //singleページ用flg
+            $this->set('single_page', true);
+            
         } else { //データが存在しない場合
             $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
         }
@@ -393,12 +397,15 @@ class ConsoleController extends AppController
         $tag_diary_lists = $this->Diary->find('all', array(
             'conditions' => array('Diary.id' => $tag_diary_id),
             'order' => array('Diary.id' => 'desc'),
-            'limit' => 5
+            'limit' => 8
         ));
         $this->set('tag_diary_lists', $tag_diary_lists);
         
-        $year = date('Y');
-        $month = date('m');
+        //日記データの整形
+//        $diary_lists = $this->Diary->addDiaryBox($diary_lists, true);
+        $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
+        $diary_lists = $this->Diary->formatDiaryToLazy($diary_lists);
+        $this->set('diary_lists', $diary_lists);
         
         //カレンダー用
         $calendar = $this->Diary->getCalendarMenu($year, $month);
@@ -407,7 +414,6 @@ class ConsoleController extends AppController
         //ジャンルメニュー用
         $genre_menu = $this->DiaryGenre->getGenreMenu();
         $this->set('genre_menu', $genre_menu);
-        
         
         $this->layout = 'sister_2column';
         $this->render('/Diary/index');
