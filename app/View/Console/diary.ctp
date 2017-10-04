@@ -100,7 +100,9 @@
                 $.getJSON(app_url + '?callback=?', function(json_data) {
 //                    console.log(json_data);
                     //整形
-                    var data = '';
+                    var data_simple = '';
+                    var data_detail = '';
+                    var mode = 'simple';
                     var i = 1;
                     for (var music in json_data) {
                         var num = ('0' + i).slice(-2);
@@ -110,10 +112,20 @@
                         } else {
                             var artist = '';
                         }
-                        data += num + '. ' + title + ' / ' + artist + "\n";
+                        //アーティストが同一かどうかを判定しておく
+                        if (i == 1) {
+                            var first_artist = artist;
+                        } else {
+                            if (artist != first_artist) {
+                                var mode = 'detail';
+                            }
+                        }
+                        data_simple += num + '. ' + title + "\n";
+                        data_detail += num + '. ' + title + ' / ' + artist + "\n";
                         i++;
                     }
                     
+                    var data = eval('data_' + mode);
                     $('.js-insert_area').insertAtCaret(data);
                 });
             });
