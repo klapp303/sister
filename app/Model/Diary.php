@@ -231,14 +231,20 @@ class Diary extends AppModel
     public function getDescriptionFromText($text = null, $diary_id = null, $max_line = 5, $description = null)
     {
         if ($text) {
+            //過去日記かどうか
+            if (preg_match('#/diary/past#', $_SERVER['REQUEST_URI'])) {
+                $past = true;
+            } else {
+                $past = false;
+            }
+            
             //htmlタグは除く
             $text = strip_tags($text);
             
             //行毎に分解
             $array_text = explode(PHP_EOL, $text);
-            if (count($array_text) == 1) { //過去日記用
+            if ($past) { //過去日記用
                 $array_text = explode("\n", $array_text[0]);
-                $past = true;
             }
             $array_text = array_filter($array_text);
             $array_text = array_merge($array_text);
@@ -261,7 +267,7 @@ class Diary extends AppModel
         
         //read_moreタグ
         if ($diary_id) {
-            if (!@$past) {
+            if (!$past) {
                 $description .= ' <a href="/diary/' . $diary_id . '">...続きを表示</a>';
             } else { //過去日記用
                 $description .= ' <a href="/diary/past/' . $diary_id . '">...続きを表示</a>';
