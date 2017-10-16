@@ -94,7 +94,8 @@ if (!empty($eventlog_pre['schedule'])) {
 ?>
 <table>
   <tr>
-    <th>イベント参加数</th>
+    <th>イベント数</th>
+    <th>内ライブ数</th>
     <th>レポート数</th>
     <th>竹達彩奈さん</th>
     <th>内田真礼さん</th>
@@ -104,6 +105,8 @@ if (!empty($eventlog_pre['schedule'])) {
   <tr>
     <td class="tbl-num"><?php echo $data['all']; ?><?php $pre = ($data_pre)? ($data['all'] - $data_pre['all']) : 0;
                                                    echo ($pre > 0)? ' (+' . $pre . ')' : ' (' . $pre . ')'; ?></td>
+    <td class="tbl-num"><?php echo $data['live']; ?><?php $pre = ($data_pre)? ($data['live'] - $data_pre['live']) : 0;
+                                                    echo ($pre > 0)? ' (+' . $pre . ')' : ' (' . $pre . ')'; ?></td>
     <td class="tbl-num"><?php echo $data['report']; ?><?php $pre = ($data_pre)? ($data['report'] - $data_pre['report']) : 0;
                                                       echo ($pre > 0)? ' (+' . $pre . ')' : ' (' . $pre . ')'; ?></td>
     <td class="tbl-num"><?php echo $data['ayachi']; ?><?php $pre = ($data_pre)? ($data['ayachi'] - $data_pre['ayachi']) : 0;
@@ -126,6 +129,7 @@ if (!empty($eventlog_pre['schedule'])) {
 function getEventlogReport($eventlog = false, $year = null, $data = [])
 {
     $data['all'] = 0;
+    $data['live'] = 0;
     $data['report'] = 0;
     $data['ayachi'] = 0;
     $data['taso'] = 0;
@@ -138,8 +142,12 @@ function getEventlogReport($eventlog = false, $year = null, $data = [])
                 continue;
             }
             
-            //イベント参加数
+            //イベント数
             $data['all']++;
+            //ライブ数
+            if ($event['genre'] == 'ライブ') {
+                $data['live']++;
+            }
             //レポ数
             if (@$event['report'] || @$event['comment']) {
                 $data['report']++;
