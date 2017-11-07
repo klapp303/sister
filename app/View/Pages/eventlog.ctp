@@ -3,7 +3,7 @@
 
 <p class="intro_evelog">
   管理人のイベント参加履歴と参加予定です。<br>
-  特に推してるのは竹達彩奈さん、内田真礼さん、麻倉ももさん（ ＾ω＾）<br>
+  特に推してるのは竹達彩奈さん、内田真礼さん、麻倉ももさん、伊藤美来さん（ ＾ω＾）<br>
   <?php if (!@$cr_year): ?>
   次回は <?php if (@$current_event): ?>
         <!--<span class="current_evelog">-->
@@ -81,6 +81,14 @@
 <?php endforeach; ?>
 
 <?php if (@$cr_year): ?>
+<?php //参加履歴データの項目を設定
+$array_data_cat_1 = array(
+    'イベント数' => 'all', '内ライブ数' => 'live', 'レポート数' => 'report'
+);
+$array_data_cat_2 = array(
+    '竹達彩奈さん' => 'ayachi', '内田真礼さん' => 'taso', '麻倉ももさん' => 'mocho', '伊藤美来さん' => 'mikku'
+);
+?>
 <h4>参加履歴データ</h4>
 
 <?php
@@ -94,29 +102,30 @@ if (!empty($eventlog_pre['schedule'])) {
 ?>
 <table>
   <tr>
-    <th>イベント数</th>
-    <th>内ライブ数</th>
-    <th>レポート数</th>
-    <th>竹達彩奈さん</th>
-    <th>内田真礼さん</th>
-    <th>麻倉ももさん</th>
+    <?php foreach ($array_data_cat_1 as $key => $val): ?>
+    <th><?php echo $key; ?></th>
+    <?php endforeach; ?>
+  </tr>
+  <tr>
+    <?php foreach ($array_data_cat_1 as $val): ?>
+    <td class="tbl-num"><?php echo $data[$val]; ?><?php $pre = ($data_pre)? ($data[$val] - $data_pre[$val]) : 0;
+                                                   echo ($pre > 0)? ' (+' . $pre . ')' : ' (' . $pre . ')'; ?></td>
+    <?php endforeach; ?>
   </tr>
   
   <tr>
-    <td class="tbl-num"><?php echo $data['all']; ?><?php $pre = ($data_pre)? ($data['all'] - $data_pre['all']) : 0;
+    <?php foreach ($array_data_cat_2 as $key => $val): ?>
+    <th><?php echo $key; ?></th>
+    <?php endforeach; ?>
+  </tr>
+  <tr>
+    <?php foreach ($array_data_cat_2 as $val): ?>
+    <td class="tbl-num"><?php echo $data[$val]; ?><?php $pre = ($data_pre)? ($data[$val] - $data_pre[$val]) : 0;
                                                    echo ($pre > 0)? ' (+' . $pre . ')' : ' (' . $pre . ')'; ?></td>
-    <td class="tbl-num"><?php echo $data['live']; ?><?php $pre = ($data_pre)? ($data['live'] - $data_pre['live']) : 0;
-                                                    echo ($pre > 0)? ' (+' . $pre . ')' : ' (' . $pre . ')'; ?></td>
-    <td class="tbl-num"><?php echo $data['report']; ?><?php $pre = ($data_pre)? ($data['report'] - $data_pre['report']) : 0;
-                                                      echo ($pre > 0)? ' (+' . $pre . ')' : ' (' . $pre . ')'; ?></td>
-    <td class="tbl-num"><?php echo $data['ayachi']; ?><?php $pre = ($data_pre)? ($data['ayachi'] - $data_pre['ayachi']) : 0;
-                                                      echo ($pre > 0)? ' (+' . $pre . ')' : ' (' . $pre . ')'; ?></td>
-    <td class="tbl-num"><?php echo $data['taso']; ?><?php $pre = ($data_pre)? ($data['taso'] - $data_pre['taso']) : 0;
-                                                    echo ($pre > 0)? ' (+' . $pre . ')' : ' (' . $pre . ')'; ?></td>
-    <td class="tbl-num"><?php echo $data['mocho']; ?><?php $pre = ($data_pre)? ($data['mocho'] - $data_pre['mocho']) : 0;
-                                                     echo ($pre > 0)? ' (+' . $pre . ')' : ' (' . $pre . ')'; ?></td>
+    <?php endforeach; ?>
   </tr>
 </table>
+
 <p class="intro_evelog txt-min">※()内は前年比</p>
 <?php endif; ?>
 
@@ -134,6 +143,7 @@ function getEventlogReport($eventlog = false, $year = null, $data = [])
     $data['ayachi'] = 0;
     $data['taso'] = 0;
     $data['mocho'] = 0;
+    $data['mikku'] = 0;
     
     foreach ($eventlog['schedule'][$year] as $month => $val) {
         foreach ($val as $event) {
@@ -162,6 +172,9 @@ function getEventlogReport($eventlog = false, $year = null, $data = [])
                 }
                 if ($cast == '麻倉もも' || $cast == 'TrySail') {
                     $data['mocho']++;
+                }
+                if ($cast == '伊藤美来' || $cast == 'Pyxis') {
+                    $data['mikku']++;
                 }
             }
         }
