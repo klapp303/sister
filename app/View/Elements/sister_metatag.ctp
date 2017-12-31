@@ -42,7 +42,7 @@ if (@$title == 'normal') {
 //OGPタグの設定
 $current_url = $this->Html->url('', true);
 $sister_image = 'files/top_maia.jpg';
-$sister_description = '声優ライブとイベントレポのサイト -虹妹ｐｒｐｒ- | 竹達彩奈さん、内田真礼さん、麻倉ももさんを特に応援しています。';
+$sister_description = '声優ライブとイベントレポのサイト -虹妹ｐｒｐｒ- | 竹達彩奈さん、内田真礼さん、麻倉ももさん、伊藤美来さんを特に応援しています。';
 if (@$ogp) {
     $birthday = $this->Session->read('birthday');
     //og:type
