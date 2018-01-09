@@ -194,7 +194,7 @@ function getEventlogReport($eventlog = false, $year = null, $data = [])
     foreach ($eventlog['schedule'][$year] as $month => $val) {
         foreach ($val as $event) {
             //開催前のイベントは入れない
-            if ($event['closed'] == 0) {
+            if ($event['closed'] == 0 || $event['closed'] == 1) {
                 continue;
             }
             
