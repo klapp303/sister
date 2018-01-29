@@ -82,12 +82,18 @@ class DiaryController extends AppController
             ));
             $year = $this->request->params['year_id']; //カレンダー用に定義
             $month = $this->request->params['month_id']; //カレンダー用に定義
-            //
+            
             //データが存在しない場合
             if (!$diary_lists) {
                 $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
                 
-//                $this->redirect('/diary/');
+                //日記の範囲外の月日だった場合のみリダイレクト
+                if ($year . '-' . $month > date('Y-m', strtotime('+3 month'))) {
+                    $this->redirect('/diary/');
+                }
+                if ($year . '-' . $month <= '2009-12') {
+                    $this->redirect('/diary/');
+                }
                 
             //データが存在する場合
             } else {
@@ -112,7 +118,13 @@ class DiaryController extends AppController
             if (!$diary_lists) {
                 $this->Session->setFlash('データが見つかりませんでした。', 'flashMessage');
                 
-//                $this->redirect('/diary/');
+                //日記の範囲外の月日だった場合のみリダイレクト
+                if ($year . '-' . $month > date('Y-m', strtotime('+3 month'))) {
+                    $this->redirect('/diary/');
+                }
+                if ($year . '-' . $month <= '2009-12') {
+                    $this->redirect('/diary/');
+                }
                 
             //データが存在する場合
             } else {
