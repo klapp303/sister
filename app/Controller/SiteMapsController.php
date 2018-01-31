@@ -5,7 +5,7 @@ App::uses('Folder', 'Utility'); //フォルダAPI用
 
 class SiteMapsController extends AppController
 {
-    public $uses = array('Link', 'Game', 'Information', 'Voice', 'Diary', 'Tool'); //使用するModel
+    public $uses = array('Information', 'Tool', 'Game', 'Voice', 'Diary', 'DiaryGenre', 'DiaryTag', 'DiaryRegtag'); //使用するModel
     
     public $helpers = array('Time');
     
@@ -21,25 +21,35 @@ class SiteMapsController extends AppController
     {
         $this->layout = '/xml/sitemap';
         
+        $site_url = 'http://klapp.crap.jp';
         $publish_date = date('2016-02-28'); //sitemap公開日を最終更新日用に設定しておく
         
-        $link_map = $this->Link->find('first', array(
-            'conditions' => array('Link.publish' => 1),
-            'order' => array('Link.modified' => 'desc')
-        ));
+        //自作ツール
+//        $tool_last = $this->Information->find('first', array(
+//            'conditions' => array(
+//                'Information.publish' => 1,
+//                'Information.title LIKE' => '%' . '自作ツール' . '%'
+//            ),
+//            'order' => array('Information.id' => 'desc')
+//        ));
+        $array_tools = $this->Tool->getArrayTools();
+        $tool_lists = $array_tools['list'];
+        
+        //エロゲレビュー
         $erg_lists = $this->Game->find('all', array(
             'conditions' => array('Game.publish' => 1),
             'order' => array('Game.modified' => 'desc'),
             'fields' => array('Game.id', 'Game.modified')
         ));
-        $mh_last = $this->Information->find('first', array(
-            'conditions' => array(
-                'Information.publish' => 1,
-                'Information.title LIKE' => '%' . 'モンハンメモ' . '%'
-            ),
-            'order' => array('Information.id' => 'desc')
-        ));
-        /* モンハンメモのページ一覧を取得ここから */
+        
+        //モンハンメモ
+//        $mh_last = $this->Information->find('first', array(
+//            'conditions' => array(
+//                'Information.publish' => 1,
+//                'Information.title LIKE' => '%' . 'モンハンメモ' . '%'
+//            ),
+//            'order' => array('Information.id' => 'desc')
+//        ));
         $folder = new Folder('../View/mh');
         $mh = $folder->read();
         foreach ($mh[1] as $key => &$value) {
@@ -50,28 +60,53 @@ class SiteMapsController extends AppController
         }
         unset($mh[1][$index_key]);
         $mh_lists = $mh[1];
-        /* モンハンメモのページ一覧を取得ここまで */
-        $tool_last = $this->Information->find('first', array(
-            'conditions' => array(
-                'Information.publish' => 1,
-                'Information.title LIKE' => '%' . '自作ツール' . '%'
-            ),
-            'order' => array('Information.id' => 'desc')
-        ));
-        /* 自作ツールのページ一覧を取得ここから */
-        $array_tools = $this->Tool->getArrayTools();
-        $tool_lists = $array_tools['list'];
-        /* 自作ツールのページ一覧を取得ここまで */
+        
+        //声優コンテンツ
         $voice_lists = $this->Voice->find('list', array(
             'conditions' => array('Voice.publish' => 1),
             'fields' => 'system_name'
         ));
+        
+        //日記
         $diary_lists = $this->Diary->find('all', array(
             'conditions' => array('Diary.publish' => 1),
             'order' => array('Diary.modified' => 'desc'),
             'fields' => array('Diary.id', 'Diary.modified')
         ));
-        $this->set(compact('publish_date', 'link_map', 'erg_lists', 'mh_last', 'mh_lists', 'tool_last', 'tool_lists', 'voice_lists', 'diary_lists'));
+        //日記ジャンル
+        $diary_genre_lists = $this->DiaryGenre->find('all', array(
+            'order' => array('DiaryGenre.sort' => 'asc')
+        ));
+        $this->Diary->recursive = -1;
+        foreach ($diary_genre_lists as $key => $val) {
+            $genre_last = $this->Diary->find('first', array(
+                'conditions' => array(
+                    'Diary.genre_id' => $val['DiaryGenre']['id'],
+                    'Diary.publish' => 1
+                ),
+                'order' => array('Diary.modified' => 'desc'),
+                'fields' => array('Diary.modified')
+            ));
+            $diary_genre_lists[$key]['DiaryGenre']['lastmod'] = $genre_last['Diary']['modified'];
+        }
+        //日記タグ
+        $diary_tag_lists = $this->DiaryTag->find('all');
+        foreach ($diary_tag_lists as $key => $val) {
+            $tag_last = $this->DiaryRegtag->find('first', array(
+                'conditions' => array(
+                    'DiaryRegtag.tag_id' => $val['DiaryTag']['id'],
+                    'Diary.publish' => 1
+                ),
+                'order' => array('Diary.modified' => 'desc'),
+                'fields' => array('Diary.modified'),
+            ));
+            $diary_tag_lists[$key]['DiaryTag']['lastmod'] = $tag_last['Diary']['modified'];
+        }
+        $this->set(compact(
+            'site_url', 'publish_date',
+            'tool_lists', 'erg_lists', 'mh_lists', 'voice_lists',
+            'diary_lists', 'diary_genre_lists', 'diary_tag_lists'
+        ));
         
         $this->RequestHandler->respondAs('xml'); //xmlファイルとして読み込む
     }

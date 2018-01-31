@@ -13,7 +13,12 @@ class DiaryRegtag extends AppModel
             'className' => 'DiaryTag', //関連付けるModel
             'foreignKey' => 'tag_id', //関連付けるためのfield、関連付け先は上記Modelのid
             'fields' => 'title' //関連付け先Modelの使用field
-        )
+        ),
+        'Diary' => array(
+            'className' => 'Diary', //関連付けるModel
+            'foreignKey' => 'diary_id', //関連付けるためのfield、関連付け先は上記Modelのid
+            'fields' => 'modified' //関連付け先Modelの使用field
+        ),
     );
     
     public function getArrayRegtag($diary_id = null, $data = ['regtag_lists' => [], 'tag_lists' => []])

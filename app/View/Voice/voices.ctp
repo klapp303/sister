@@ -12,7 +12,7 @@
 <h3>最新情報</h3>
 
 <ul class="link-page">
-  <li><?php echo $this->Html->link('⇨ イベント最新情報', '/voice/' . $voice['Voice']['system_name'] . '/events'); ?></li>
+  <li><?php echo $this->Html->link('⇨ イベント最新情報', '/voice/' . $voice['Voice']['system_name'] . '/events/'); ?></li>
 </ul>
 
 <h3>出演リスト</h3>
