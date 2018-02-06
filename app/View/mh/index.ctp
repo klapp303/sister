@@ -2,13 +2,25 @@
 <h3>モンハンメモ</h3>
 
 <p class="intro_mh">
-  最新作のMHワロスが 2015/11/28 に発売！<br>
-  主にワロスについての管理人的メモ。<br>
+  最新作のMHワーロスが 2018/01/26 に発売！<br>
+  前作のワロス（とダブルワロス）、そして今作のワーロスについての管理人的メモ。<br>
   まとまったデータとかキークエとかは各Wikiへどうぞ(´ー｀)
 </p>
 
 <ul class="link-page">
-  <li><?php echo $this->Html->link('⇨ MHX最初の20時間', '/game/mh/start/'); ?></li>
-  <li><?php echo $this->Html->link('⇨ 太刀使いによる見た目厨のためのスキル考察', '/game/mh/skill/'); ?></li>
-  <li><?php echo $this->Html->link('⇨ 太刀使いによる狩技使用感', '/game/mh/special/'); ?></li>
+  <li><?php echo $this->Html->link('⇨ モンハンスキル期待値シミュレータはこちら', '/tools/mh_skill'); ?></li>
+</ul>
+
+<h4>MHW（モンハンワールド）</h4>
+
+<ul class="link-page">
+  <li><?php echo $this->Html->link('⇨ MHW最初の20時間でのスキル考察', '/game/mh/start_mhw'); ?></li>
+</ul>
+
+<h4>MHX、MHXX（モンハンクロス）</h4>
+
+<ul class="link-page">
+  <li><?php echo $this->Html->link('⇨ MHX最初の20時間', '/game/mh/start'); ?></li>
+  <li><?php echo $this->Html->link('⇨ 太刀使いによる見た目厨のためのスキル考察', '/game/mh/skill'); ?></li>
+  <li><?php echo $this->Html->link('⇨ 太刀使いによる狩技使用感', '/game/mh/special'); ?></li>
 </ul>
