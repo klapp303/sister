@@ -7,6 +7,7 @@
 <html lang="ja">
   <head>
     <?php echo $this->Html->charset(); ?>
+    <?php echo $this->Html->meta(array('name' => 'robots', 'content' => 'noindex')); ?>
     <?php echo $this->element('sister_metatag', array('title' => 'console')); ?>
     <?php
 //    echo $this->Html->meta('icon');
