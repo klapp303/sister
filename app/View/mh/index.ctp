@@ -14,7 +14,7 @@
 <h4>MHW（モンハンワールド）</h4>
 
 <ul class="link-page">
-  <li><?php echo $this->Html->link('⇨ MHW最初の20時間でのスキル考察', '/game/mh/start_mhw'); ?></li>
+  <li><?php echo $this->Html->link('⇨ 太刀使いによるスキル考察', '/game/mh/#'); ?></li>
 </ul>
 
 <h4>MHX、MHXX（モンハンクロス）</h4>
