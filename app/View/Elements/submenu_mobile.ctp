@@ -2,7 +2,7 @@
 if ($mode == 'top') {
     $link_title = 'ページ内リンク';
     $strimwidth = 45;
-} else {
+} else { //未使用
     $link_title = '関連日記';
     $strimwidth = 60;
 }

@@ -56,12 +56,16 @@ class DiaryController extends AppController
                 $this->set('sub_page', $diary_lists[0]['Diary']['title']); //breadcrumbの設定
                 $diary_lists = $this->Diary->changeCodeToDiary($diary_lists);
                 $diary_lists = $this->Diary->changePhotoToFull($diary_lists); //任意の日記は詳細ページのみ画像をfullsize
-                //サイドメニューのオススメ日記用
+                //関連日記用
                 $tag_diary_id = $this->Diary->getDiaryIdFromTag($diary_lists[0]['Diary']['id'], false, false);
                 $tag_diary_lists = $this->Diary->find('all', $this->paginate_setting + array(
                     'conditions' => array('Diary.id' => $tag_diary_id)
                 ));
-                $this->set('tag_diary_lists', $tag_diary_lists);
+                foreach ($tag_diary_lists as $key => $val) {
+                    if ($key < 4) { //関連日記で表示する時は4記事に制限する
+                        $diary_lists[] = $val;
+                    }
+                }
                 //OGPタグ用
                 $this->set('ogp_image', $this->Diary->getThumbnailFromText($diary_lists[0]['Diary']['text']));
                 

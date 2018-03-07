@@ -77,6 +77,16 @@ pre {/* 備忘録日記用 */
   margin: 0 20px 10px 0;
 }
 
+/* 関連日記用 */
+.related-menu {
+  margin-bottom: 10px;
+  text-align: center;
+}
+.related-menu >span {
+  font-size: 20px;
+  font-weight: bold;
+}
+
 /* 検索box用 */
 #searchbox {
   padding: 10px 0;

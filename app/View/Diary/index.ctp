@@ -39,17 +39,20 @@ if (preg_match('#/diary/past#', $_SERVER['REQUEST_URI'])) {
 </div>
 <?php endif; ?>
 
-<?php foreach ($diary_lists as $diary_list): ?>
+<?php foreach ($diary_lists as $key => $diary_list): ?>
+  <?php if (@$single_page && $key == 1): //singleページは2つ目の日記から関連日記なので ?>
+  <div class="related-menu"><span>- 関連日記 -</span></div>
+  <?php endif; ?>
 <div id="article-<?php echo $diary_list['Diary']['id']; ?>" class="article"<?php echo (@$strong_color)? ' style="background-color: #' . $strong_color . ';"' : ''; ?>>
   <div class="art-header"><h3 id="diary-<?php echo $diary_list['Diary']['id']; ?>">
     <?php echo $this->Html->link($diary_list['Diary']['title'], '/diary/' . $past . $diary_list['Diary']['id']); ?></h3></div>
   <hr>
   <div class="art-body cf">
-    <?php if (@!$single_page): //日記一覧ページ ?>
+    <?php if (@$single_page && $key == 0): //singleページは1つ目の日記を全文表示 ?>
+    <p><?php echo nl2br($diary_list['Diary']['text']); ?></p>
+    <?php else: //日記一覧表示 ?>
     <img data-original="<?php echo $diary_list['Diary']['thumbnail']; ?>" class="lazy tmb_diary" align="left">
     <p><?php echo nl2br($diary_list['Diary']['description']); ?></p>
-    <?php else: //日記singleページ ?>
-    <p><?php echo nl2br($diary_list['Diary']['text']); ?></p>
     <?php endif; ?>
   </div>
   <hr>
@@ -83,10 +86,4 @@ if (preg_match('#/diary/past#', $_SERVER['REQUEST_URI'])) {
   <?php if ($past) { //過去日記用のページリンク
       echo $this->element('sister_past_paginator');
   } ?>
-<?php endif; ?>
-
-<?php if (@$tag_diary_lists): ?>
-<div id="menu_bottom" class="mobile cf">
-  <?php echo $this->element('submenu_mobile', array('diary_lists' => $tag_diary_lists, 'mode' => 'bottom')); ?>
-</div>
 <?php endif; ?>
