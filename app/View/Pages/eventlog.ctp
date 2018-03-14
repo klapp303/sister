@@ -106,6 +106,10 @@
                   echo '<span class="icon-button-min">';
                   echo '<a href="/diary/' . $event['report'] . '">レポ</a>';
                   echo '</span>';
+              } elseif (@$event['blog']) { //レポリンク
+                  echo '<span class="icon-button-min">';
+                  echo '<a href="/diary/' . $event['blog'] . '">レポ</a>';
+                  echo '</span>';
               } elseif (@$event['comment']) { //一言リンク
                   echo '<span class="icon-button-min">';
                   echo '<a href="/diary/' . $event['comment'] . '">一言</a>';

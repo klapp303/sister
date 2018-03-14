@@ -49,6 +49,9 @@ class EventlogLink extends AppModel
             //イベントレポ
             if ($link_data['EventlogLink']['genre_id'] == 3) {
                 $event['report'] = $link_data['EventlogLink']['diary_id'];
+            //徒然
+            } elseif ($link_data['EventlogLink']['genre_id'] == 2) {
+                $event['blog'] = $link_data['EventlogLink']['diary_id'];
             //レポでない何か
             } elseif ($link_data['EventlogLink']['genre_id'] == 7) {
                 $event['comment'] = $link_data['EventlogLink']['diary_id'];
