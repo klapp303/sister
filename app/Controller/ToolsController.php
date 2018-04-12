@@ -370,4 +370,81 @@ class ToolsController extends AppController
         
         $this->render('mh_skill');
     }
+    
+    public function mhw_skill()
+    {
+        $tool_data = $this->Tool->getToolName('mhw_skill');
+        $this->set('tool_data', $tool_data);
+        //breadcrumbの設定
+        $this->set('sub_page', $tool_data['name']);
+        
+        //前に計算したログのsessionデータが残っていれば削除
+        if (@$this->Session->read('weapon_logs')) {
+            $this->Session->delete('weapon_logs');
+        }
+    }
+    
+    public function mhw_skill_sim()
+    {
+        $tool_data = $this->Tool->getToolName('mh_skill');
+        $this->set('tool_data', $tool_data);
+        //breadcrumbの設定
+        $this->set('sub_page', $tool_data['name']);
+        
+        if (!$this->request->is('post')) {
+            $this->redirect('/tools/mh_skill/');
+        }
+        
+        //武器とスキルを取得
+        $weapon_data = $this->request->data['weapon'];
+        $skill_data = $this->request->data['skill'];
+        
+        //スキル計算
+        $weapon_sim = $this->Tool->MHWSkillSim($weapon_data, $skill_data);
+        $this->set('weapon_sim', $weapon_sim);
+//        echo'<pre>';print_r($weapon_sim);echo'</pre>';
+        
+        //ここからログの保存用
+        if (@$this->Session->read('weapon_logs')) {
+            $weapon_logs = $this->Session->read('weapon_logs');
+        } else {
+            $weapon_logs = array();
+        }
+        $this->set('weapon_logs', $weapon_logs);
+        //結果を新しくログに追加
+        $attack_log = ($this->request->data['weapon']['attack'])? $this->request->data['weapon']['attack'] : 0;
+        $element_log = ($this->request->data['weapon']['element'])? $this->request->data['weapon']['element'] : 0;
+        $current_logs = array(
+            array(
+                'name' => '攻撃力' . $attack_log . ' / 属性値' . $element_log,
+                'attack' => $weapon_sim['attack'],
+                'element' => $weapon_sim['element']
+            )
+        );
+        $weapon_logs = array_merge($current_logs, $weapon_logs);
+        //ログの保持は最大4件にしておく
+        if (count($weapon_logs) > 4) {
+            unset($weapon_logs[4]);
+        }
+        $this->Session->write('weapon_logs', $weapon_logs);
+        
+        //値の引き継ぎに応じて、選択済みスキルの背景色を予め変えておく
+        //有効スキル
+        $array_checked = array();
+        foreach ($skill_data as $key => $val) {
+            if ($val >0) {
+                $skillId = 'js-skill-' . $key . '-' . $val;
+                $array_checked[] = $skillId;
+            }
+        }
+        //無効スキル
+        $array_invalid = array();
+        foreach ($weapon_sim['skill_invalid'] as $key => $val) {
+            $invalidId = 'js-skill-' . $key . '-' . $val;
+            $array_invalid[] = $invalidId;
+        }
+        $this->set(compact('array_checked', 'array_invalid'));
+        
+        $this->render('mhw_skill');
+    }
 }

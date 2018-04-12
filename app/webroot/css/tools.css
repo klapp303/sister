@@ -80,3 +80,13 @@
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
 }
+
+/* mhw_skillページ用 */
+.table_mh_sim >tbody >tr >td >label,
+.table_mh_sim >tbody >tr >td >div >label {
+  display: block;
+  float: left;
+  width: 80px;
+  text-align: center;
+  padding-top: 5px;
+}
