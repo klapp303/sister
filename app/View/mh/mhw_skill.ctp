@@ -1,3 +1,4 @@
+<?php return; ?>
 <?php echo $this->Html->css('mh', array('inline' => false)); ?>
 <h3>MHW太刀使いによるスキル考察</h3>
 
