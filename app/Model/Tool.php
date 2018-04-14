@@ -50,7 +50,7 @@ class Tool extends AppModel{
                 'name' => 'MHWスキル期待値シミュレータ',
                 'url' => 'mhw_skill',
                 'version' => array(
-                    '1.0' => array('2018-04-01', 'ツール公開')
+                    '1.0' => array('2018-04-14', 'ツール公開')
                 )
             ),
             2 => array(
@@ -809,10 +809,6 @@ class Tool extends AppModel{
 //        } elseif ($skill_data[17] == 2) {
 //            $weapon_data['attack'] += 20*0.5;
 //        }
-        //飛燕
-        if ($skill_data['22'] == 1) {
-            
-        }
         //剣士用
         if (!in_array($weapon_data['category'], array(12, 13, 14))) {
             //鈍器使い(固定)
@@ -858,11 +854,8 @@ class Tool extends AppModel{
             if ($skill_data[14]) { //力の解放は無効なスキルとして処理
                 $skill_invalid[14] = $skill_data[14];
             }
-            if ($skill_data[23]) { //滑走強化は無効なスキルと処理
-                $skill_invalid[23] = $skill_data[23];
-            }
-            if ($skill_data[24]) { //達人の煙筒は無効なスキルと処理
-                $skill_invalid[24] = $skill_data[24];
+            if ($skill_data[22]) { //達人の煙筒は無効なスキルと処理
+                $skill_invalid[22] = $skill_data[22];
             }
         }
         //見切り
@@ -899,11 +892,8 @@ class Tool extends AppModel{
             if ($skill_data[14]) { //力の解放は無効なスキルとして処理
                 $skill_invalid[14] = $skill_data[14];
             }
-            if ($skill_data[23]) { //滑走強化は無効なスキルと処理
-                $skill_invalid[23] = $skill_data[23];
-            }
-            if ($skill_data[24]) { //達人の煙筒は無効なスキルと処理
-                $skill_invalid[24] = $skill_data[24];
+            if ($skill_data[22]) { //達人の煙筒は無効なスキルと処理
+                $skill_invalid[22] = $skill_data[22];
             }
         }
         //渾身
@@ -929,11 +919,8 @@ class Tool extends AppModel{
             if ($skill_data[14]) { //力の解放は無効なスキルとして処理
                 $skill_invalid[14] = $skill_data[14];
             }
-            if ($skill_data[23]) { //滑走強化は無効なスキルと処理
-                $skill_invalid[23] = $skill_data[23];
-            }
-            if ($skill_data[24]) { //達人の煙筒は無効なスキルと処理
-                $skill_invalid[24] = $skill_data[24];
+            if ($skill_data[22]) { //達人の煙筒は無効なスキルと処理
+                $skill_invalid[22] = $skill_data[22];
             }
         }
         //連撃
@@ -952,11 +939,8 @@ class Tool extends AppModel{
 //            if ($skill_data[14]) { //力の解放は無効なスキルとして処理
 //                $skill_invalid[14] = $skill_data[14];
 //            }
-//            if ($skill_data[23]) { //滑走強化は無効なスキルと処理
-//                $skill_invalid[23] = $skill_data[23];
-//            }
-//            if ($skill_data[24]) { //達人の煙筒は無効なスキルと処理
-//                $skill_invalid[24] = $skill_data[24];
+//            if ($skill_data[22]) { //達人の煙筒は無効なスキルと処理
+//                $skill_invalid[22] = $skill_data[24];
 //            }
 //        }
         //挑戦者
@@ -1292,28 +1276,16 @@ class Tool extends AppModel{
                 }
             }
         }
-        //滑走強化
-        if ($skill_data[23] == 1) {
-            if ($weapon_data['critical'] >= 100) {
-                //既に100%以上ならば処理はしない
-            }  elseif ($weapon_data['critical'] +30 >= 100) {
-                //発動すると100%を超えるならば差の会心率をスキル値に適用
-                
-            } else {
-                //通常の処理
-                
-            }
-        }
         //達人の煙筒
-        if ($skill_data[24] == 1) {
+        if ($skill_data[22] == 1) {
             if ($weapon_data['critical'] >= 100) {
                 //既に100%以上ならば処理はしない
             }  elseif ($weapon_data['critical'] +50 >= 100) {
                 //発動すると100%を超えるならば差の会心率をスキル値に適用
-                
+                $weapon_data['critical'] += (100 - $weapon_data['critical'])*60/240;
             } else {
                 //通常の処理
-                
+                $weapon_data['critical'] += 50*60/240;
             }
         }
         //会心率の上限を判定
@@ -1497,11 +1469,15 @@ class Tool extends AppModel{
         //ここから属性値の計算
         if ($weapon_data['element'] > 0) {
             //各属性攻撃強化
-            if ($skill_data[11] == 1) {
-                $weapon_data['element'] = $weapon_data['element'] *1.05 +4;
-            } elseif ($skill_data[11] == 2 && $skill_data[12] == 0) {
-                $weapon_data['element'] = $weapon_data['element'] *1.1 +6;
+            $element_data = $this->MHWgetElementData($weapon_data['element'], $skill_data[11]);
+            if ($skill_data[11] >= 2) {
+                //1ランク下の属性攻撃強化と変わらなければ無効なスキルとして処理
+                $element_data2 = $this->MHWgetElementData($weapon_data['element'], $skill_data[11] -1);
+                if ($element_data <= $element_data2) {
+                    $skill_invalid[11] = $skill_data[11];
+                }
             }
+            $weapon_data['element'] = $element_data;
             //属性攻撃強化
 //            if ($skill_data[12] == 1 && $skill_data[11] != 2) {
 //                $weapon_data['element'] *= 1.1;
@@ -1509,9 +1485,8 @@ class Tool extends AppModel{
 //            } elseif ($skill_data[12] == 1 && $skill_data[11] == 2) {
 //                $weapon_data['element'] = $weapon_data['element'] *1.2 +6;
 //            }
-            //属性強化の上限
             
-            //属性会心強化
+            //属性会心
             if ($skill_data[13] == 1) {
                 if ($weapon_data['critical'] > 0) {
                     //大剣は会心時に属性値1.2倍
@@ -1562,9 +1537,9 @@ class Tool extends AppModel{
             if ($skill_data[11]) {
                 $skill_invalid[11] = $skill_data[11];
             }
-            if ($skill_data[12]) {
-                $skill_invalid[12] = $skill_data[12];
-            }
+//            if ($skill_data[12]) {
+//                $skill_invalid[12] = $skill_data[12];
+//            }
             if ($skill_data[13]) {
                 $skill_invalid[13] = $skill_data[13];
             }
@@ -1579,5 +1554,35 @@ class Tool extends AppModel{
         $weapon_sim['skill_invalid'] = $skill_invalid;
         
         return $weapon_sim;
+    }
+    
+    public function MHWgetElementData($element = 0, $skill_Lv = false)
+    {
+        if ($element == 0 || !$skill_Lv) {
+            return $element;
+        }
+        
+        //属性値の上限を計算しておく
+        $element_limit = round($element *1.3, -1);
+        
+        //各属性攻撃強化の計算
+        if ($skill_Lv == 1) {
+            $element = $element +30;
+        } elseif ($skill_Lv == 2) {
+            $element = $element +60;
+        } elseif ($skill_Lv == 3) {
+            $element = $element +100;
+        } elseif ($skill_Lv == 4) {
+            $element = round($element *1.05 +100, -1);
+        } elseif ($skill_Lv == 5) {
+            $element = round($element *1.1 +100, -1);
+        }
+        
+        //属性値の上限
+        if ($element > $element_limit) {
+            $element = $element_limit;
+        }
+        
+        return $element;
     }
 }

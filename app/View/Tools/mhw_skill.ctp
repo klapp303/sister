@@ -259,10 +259,11 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
         <span id="js-skill-11-4"><?php echo $this->Form->input('skill.11', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-11-4 js-check-7', 'value' => 4, 'hiddenField' => false)); ?>Lv4</span>
         <span id="js-skill-11-5"><?php echo $this->Form->input('skill.11', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-11-5 js-check-7', 'value' => 5, 'hiddenField' => false)); ?>Lv5</span>
         <br>
-        <!--<span id="js-skill-12-1"><?php echo $this->Form->input('skill.12', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-12-1', 'value' => 1)); ?>属性攻撃強化</span>-->
+        <!--<span id="js-skill-12-1"><?php // echo $this->Form->input('skill.12', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-12-1', 'value' => 1)); ?>属性攻撃強化</span>-->
         <!--<br>-->
-        <!--<span id="js-skill-13-1"><?php echo $this->Form->input('skill.13', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-13-1', 'value' => 1)); ?>属性会心強化</span>-->
-        <!--<br>-->
+        <label>属性会心</label>
+        <span id="js-skill-13-1"><?php echo $this->Form->input('skill.13', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-13-1', 'value' => 1)); ?>Lv1</span>
+        <br>
         <label>無属性強化</label>
         <span id="js-skill-21-1"><?php echo $this->Form->input('skill.21', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-21-1', 'value' => 1)); ?>Lv1</span>
         <br>
@@ -280,14 +281,8 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
         <span id="js-skill-16-5"><?php echo $this->Form->input('skill.16', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-16-5 js-check-9', 'value' => 5, 'hiddenField' => false)); ?>Lv5</span>
         <span id="js-skill-16-6"><?php echo $this->Form->input('skill.16', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-16-6 js-check-9', 'value' => 6, 'hiddenField' => false)); ?>ネコ火事場</span>
         <br><br>
-        <label>飛燕</label>
-        <span id="js-skill-22-1"><?php echo $this->Form->input('skill.22', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-22-1', 'value' => 1)); ?>Lv1</span>
-        <br>
-        <label>滑走強化</label>
-        <span id="js-skill-23-1"><?php echo $this->Form->input('skill.23', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-23-1', 'value' => 1)); ?>Lv1</span>
-        <br><br>
         <label>達人の煙筒</label>
-        <span id="js-skill-24-1"><?php echo $this->Form->input('skill.24', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-24-1', 'value' => 1)); ?>60/240s</span>
+        <span id="js-skill-22-1"><?php echo $this->Form->input('skill.22', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-22-1', 'value' => 1)); ?>60/240s</span>
       </td>
     </tr>
     

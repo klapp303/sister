@@ -386,13 +386,13 @@ class ToolsController extends AppController
     
     public function mhw_skill_sim()
     {
-        $tool_data = $this->Tool->getToolName('mh_skill');
+        $tool_data = $this->Tool->getToolName('mhw_skill');
         $this->set('tool_data', $tool_data);
         //breadcrumbの設定
         $this->set('sub_page', $tool_data['name']);
         
         if (!$this->request->is('post')) {
-            $this->redirect('/tools/mh_skill/');
+            $this->redirect('/tools/mhw_skill/');
         }
         
         //武器とスキルを取得
