@@ -7,8 +7,11 @@
   まとまったデータとかキークエとかは各Wikiへどうぞ(´ー｀)
 </p>
 
+<h4>モンハンスキル期待値シミュレータ</h4>
+
 <ul class="link-page">
-  <li><?php echo $this->Html->link('⇨ モンハンスキル期待値シミュレータはこちら', '/tools/mh_skill'); ?></li>
+  <li><?php echo $this->Html->link('⇨ モンハンワールド用（MHW）期待値シミュレータはこちら', '/tools/mhw_skill'); ?></li>
+  <li><?php echo $this->Html->link('⇨ モンハンダブルクロス用（MHXX）期待値シミュレータはこちら', '/tools/mh_skill'); ?></li>
 </ul>
 
 <h4>MHW（モンハンワールド）</h4>

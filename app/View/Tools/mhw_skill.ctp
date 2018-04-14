@@ -34,7 +34,7 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
   条件の設定入力はできるだけ少なくしています。<br>
   細かい設定をせずとも概算してくれるので、さくっと較べたい人向け。<br>
   <br>
-  正確なダメージ計算をしたい人は他サイトにいけばいいんじゃないかな。
+  ※ガンナー関係はMHXX時代から更新してないです、ごめんね。そのうちやるよ。
 </p>
 
   <table class="table_mh_sim">
@@ -44,7 +44,7 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
         'inputDefaults' => array('div' => '')
     )); ?><!-- form start -->
     <tr>
-      <td rowspan="2"><label>武器</label></td>
+      <td rowspan="2"><label class="label_mh_sim">武器</label></td>
       <td><?php // echo $this->Form->input('weapon.name', array('type' => 'text', 'label' => false, 'placeholder' => '例）鉄刀')); ?></td>
     </tr>
     <tr>
@@ -148,14 +148,14 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
       </td>
     </tr>
     <tr>
-      <td><label>スキル</label></td>
+      <td><label class="label_mh_sim">スキル</label></td>
       <td>
         <div class="js-bullet-form" style="display: <?php echo ($weapon_mode == 'sharp')? 'none' : 'block'; ?>;">
           <span id="js-skill-101-1"><?php echo $this->Form->input('skill.101', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-101-1', 'value' => 1)); ?>通常弾・連射矢UP</span>
           <span id="js-skill-102-1"><?php echo $this->Form->input('skill.102', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-102-1', 'value' => 1)); ?>貫通弾・貫通矢UP</span>
           <span id="js-skill-103-1"><?php echo $this->Form->input('skill.103', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-103-1', 'value' => 1)); ?>散弾・拡散矢UP</span>
-          <br>
-          <span id="js-skill-104-1"><?php echo $this->Form->input('skill.104', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-104-1', 'value' => 1)); ?>弾導強化</span>
+          <!--<br>-->
+          <!--<span id="js-skill-104-1"><?php // echo $this->Form->input('skill.104', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-104-1', 'value' => 1)); ?>弾導強化</span>-->
           <br><br>
         </div>
         <label>攻撃</label>
@@ -401,7 +401,7 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
     力の解放（笑）は300s経過後に90s発動を想定、計算が面倒な割に期待値はあっ…（察し）<br>
     挑戦者やフルチャージ、力の解放の被りも考慮しています（重複発動なし）。<br>
     弱点特効（プロハン）は100%発動を想定、頑張って狙ってください。<br>
-    連撃は一律25%会心率アップとして計算、多分実際との誤差は微々たる範囲です。<br>
+    渾身は常時発動として計算、双剣？弓？知らんがな(´･ω･｀)<br>
     スキルの横の「常時」や「半分」は文字通り全体のどれだけ発動しているかで参考までに分けています。<br>
     火山でドリンク飲まないと逆恨みは常時だぞー！<br>
     <br>
@@ -409,7 +409,6 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
     抜刀会心は大剣のみ、3回に1回発動として計算。<br>
     W属性の上限対応、会心率が100%を超える場合にも一応は対応しています。<br>
     貫通弾・貫通矢は一律4hitと想定して、クリティカル距離は3hit分のみで計算。<br>
-    弾導強化があれば全4hit分をクリティカル距離として計算。<br>
     また弱点特効は1hit分にのみ適用しています。概算だからね、しかたないね。
   </p>
   <script>
