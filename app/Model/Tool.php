@@ -656,46 +656,7 @@ class Tool extends AppModel{
     public function MHWSkillSim($weapon_data = false, $skill_data = false, $skill_invalid = [])
     {
         //基礎攻撃力に変換
-        switch ($weapon_data['category']) {
-            case 1: //大剣
-                $weapon_data['attack'] = $weapon_data['attack'] /4.8;
-                break;
-            case 2: //太刀
-                $weapon_data['attack'] = $weapon_data['attack'] /3.3;
-                break;
-            case 3: //片手剣
-            case 4: //双剣
-                $weapon_data['attack'] = $weapon_data['attack'] /1.4;
-                break;
-            case 5: //ハンマー
-                $weapon_data['attack'] = $weapon_data['attack'] /5.2;
-                break;
-            case 6: //狩猟笛
-                $weapon_data['attack'] = $weapon_data['attack'] /4.2;
-                break;
-            case 7: //ランス
-            case 8: //ガンランス
-                $weapon_data['attack'] = $weapon_data['attack'] /2.3;
-                break;
-            case 9: //ｽﾗｯｼｭｱｯｸｽ
-                $weapon_data['attack'] = $weapon_data['attack'] /3.5;
-                break;
-            case 10: //ﾁｬｰｼﾞｱｯｸｽ
-                $weapon_data['attack'] = $weapon_data['attack'] /3.6;
-                break;
-            case 11: //操虫棍
-                $weapon_data['attack'] = $weapon_data['attack'] /3.1;
-                break;
-            case 12: //ﾗｲﾄﾎﾞｳｶﾞﾝ
-                $weapon_data['attack'] = $weapon_data['attack'] /1.3;
-                break;
-            case 13: //ﾍﾋﾞｨﾎﾞｳｶﾞﾝ
-                $weapon_data['attack'] = $weapon_data['attack'] /1.5;
-                break;
-            case 14: //弓
-                $weapon_data['attack'] = $weapon_data['attack'] /1.2;
-                break;
-        }
+        $weapon_data['attack'] = $this->MHWconvertAttackData($weapon_data['attack'], $weapon_data['category']);
         
         //スキル
         //ここから攻撃力の計算
@@ -1545,6 +1506,9 @@ class Tool extends AppModel{
             }
         }
         
+        //基礎攻撃力から変換
+        $weapon_data['attack'] = $this->MHWconvertAttackData($weapon_data['attack'], $weapon_data['category'], 'invert');
+        
 //        echo'<pre>';print_r($weapon_data);echo'</pre>';
         
         //小数点以下を切り捨て
@@ -1556,6 +1520,104 @@ class Tool extends AppModel{
         return $weapon_sim;
     }
     
+    //基礎攻撃力の変換
+    public function MHWconvertAttackData($attack = 0, $weapon_Cat = false, $mode = 'convert')
+    {
+        if ($attack == 0 || !$weapon_Cat) {
+            return $attack;
+        }
+        
+        //基礎攻撃力に変換
+        if ($mode == 'convert') {
+            switch ($weapon_Cat) {
+                case 1: //大剣
+                    $attack = $attack /4.8;
+                    break;
+                case 2: //太刀
+                    $attack = $attack /3.3;
+                    break;
+                case 3: //片手剣
+                case 4: //双剣
+                    $attack = $attack /1.4;
+                    break;
+                case 5: //ハンマー
+                    $attack = $attack /5.2;
+                    break;
+                case 6: //狩猟笛
+                    $attack = $attack /4.2;
+                    break;
+                case 7: //ランス
+                case 8: //ガンランス
+                    $attack = $attack /2.3;
+                    break;
+                case 9: //ｽﾗｯｼｭｱｯｸｽ
+                    $attack = $attack /3.5;
+                    break;
+                case 10: //ﾁｬｰｼﾞｱｯｸｽ
+                    $attack = $attack /3.6;
+                    break;
+                case 11: //操虫棍
+                    $attack = $attack /3.1;
+                    break;
+                case 12: //ﾗｲﾄﾎﾞｳｶﾞﾝ
+                    $attack = $attack /1.3;
+                    break;
+                case 13: //ﾍﾋﾞｨﾎﾞｳｶﾞﾝ
+                    $attack = $attack /1.5;
+                    break;
+                case 14: //弓
+                    $attack = $attack /1.2;
+                    break;
+            }
+        
+        //基礎攻撃力から変換
+        } elseif ($mode == 'invert') {
+            switch ($weapon_Cat) {
+                case 1: //大剣
+                    $attack = $attack *4.8;
+                    break;
+                case 2: //太刀
+                    $attack = $attack *3.3;
+                    break;
+                case 3: //片手剣
+                case 4: //双剣
+                    $attack = $attack *1.4;
+                    break;
+                case 5: //ハンマー
+                    $attack = $attack *5.2;
+                    break;
+                case 6: //狩猟笛
+                    $attack = $attack *4.2;
+                    break;
+                case 7: //ランス
+                case 8: //ガンランス
+                    $attack = $attack *2.3;
+                    break;
+                case 9: //ｽﾗｯｼｭｱｯｸｽ
+                    $attack = $attack *3.5;
+                    break;
+                case 10: //ﾁｬｰｼﾞｱｯｸｽ
+                    $attack = $attack *3.6;
+                    break;
+                case 11: //操虫棍
+                    $attack = $attack *3.1;
+                    break;
+                case 12: //ﾗｲﾄﾎﾞｳｶﾞﾝ
+                    $attack = $attack *1.3;
+                    break;
+                case 13: //ﾍﾋﾞｨﾎﾞｳｶﾞﾝ
+                    $attack = $attack *1.5;
+                    break;
+                case 14: //弓
+                    $attack = $attack *1.2;
+                    break;
+            }
+        }
+        
+        return $attack;
+    }
+    
+    //属性攻撃強化の計算
     public function MHWgetElementData($element = 0, $skill_Lv = false)
     {
         if ($element == 0 || !$skill_Lv) {
