@@ -59,9 +59,9 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
         ?>
         <?php $array_category = array(1 => '大剣', 2 => '太刀', 3 => '片手剣', 4 => '双剣', 5 => 'ハンマー', 6 => '狩猟笛', 7 => 'ランス', 8 => 'ガンランス', 9 => 'ｽﾗｯｼｭｱｯｸｽ', 10 => 'ﾁｬｰｼﾞｱｯｸｽ', 11 => '操虫棍', 12 => 'ﾗｲﾄﾎﾞｳｶﾞﾝ', 13 => 'ﾍﾋﾞｨﾎﾞｳｶﾞﾝ', 14 => '弓'); ?>
         <?php echo $this->Form->input('weapon.category', array('type' => 'select', 'label' => false, 'id' => 'js-pulldown_1', 'options' => $array_category)); ?>　
-        <span>攻撃力</span><?php echo $this->Form->input('weapon.attack', array('type' => 'text', 'label' => false, 'placeholder' => '例）300', 'size' => 3, 'required')); ?>　
-        <span>会心率</span><?php echo $this->Form->input('weapon.critical', array('type' => 'text', 'label' => false, 'placeholder' => '例）10', 'size' => 2)); ?>　
-        <span>属性値</span><?php echo $this->Form->input('weapon.element', array('type' => 'text', 'label' => false, 'placeholder' => '例）30', 'size' => 2)); ?>　
+        <span>攻撃力</span><?php echo $this->Form->input('weapon.attack', array('type' => 'text', 'label' => false, 'placeholder' => '例）594', 'size' => 3, 'required')); ?>　
+        <span>会心率</span><?php echo $this->Form->input('weapon.critical', array('type' => 'text', 'label' => false, 'placeholder' => '例）15', 'size' => 2)); ?>　
+        <span>属性値</span><?php echo $this->Form->input('weapon.element', array('type' => 'text', 'label' => false, 'placeholder' => '例）180', 'size' => 2)); ?>　
         <?php // $array_sharp = array(6 => '紫', 5 => '白', 4 => '青', 3 => '緑', 2 => '黄'); ?>
         <!--斬れ味--><?php // echo $this->Form->input('weapon.sharp', array('type' => 'select', 'label' => false, 'options' => $array_sharp)); ?>
         <span class="js-sharp-form" style="display: <?php echo ($weapon_mode == 'sharp')? 'inline' : 'none'; ?>;">斬れ味</span>
