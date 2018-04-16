@@ -50,7 +50,8 @@ class Tool extends AppModel{
                 'name' => 'MHWスキル期待値シミュレータ',
                 'url' => 'mhw_skill',
                 'version' => array(
-                    '1.0' => array('2018-04-14', 'ツール公開')
+                    '1.0' => array('2018-04-14', 'ツール公開'),
+                    '1.1' => array('2018-04-16', '結果を攻撃力の表示に変更')
                 )
             ),
             2 => array(
