@@ -82,6 +82,7 @@
         }
     }
     ?>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   </head>
   <body>
     <div id="container">
@@ -103,6 +104,16 @@
           <?php echo $this->element('calendar'); ?>
           <?php echo $this->element('diarylist'); ?>
           <?php echo $this->element('genrelist'); ?>
+          <!-- Google AdSense Start サイドバー -->
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-8547890407483708"
+               data-ad-slot="6375367207"
+               data-ad-format="rectangle"></ins>
+          <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+          <!-- Google AdSense End -->
         </div>
       </div>
       

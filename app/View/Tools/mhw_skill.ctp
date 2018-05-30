@@ -37,6 +37,18 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
   ※ガンナー関係はMHXX時代から更新してないです、ごめんね。そのうちやるよ。
 </p>
 
+<!-- Google AdSense Start モンハン1 -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-8547890407483708"
+     data-ad-slot="6218334974"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<!-- Google AdSense End -->
+
   <table class="table_mh_sim">
     <?php echo $this->Form->create('Tool', array( //使用するModel
         'type' => 'post', //デフォルトはpost送信
@@ -390,6 +402,17 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
         });
     </script>
   </table>
+
+<!-- Google AdSense Start モンハン2 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-8547890407483708"
+     data-ad-slot="1614829263"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<!-- Google AdSense End -->
 
 <h4 class="h4_tools shiyou-h">仕様の詳細とか（クリックで表示）</h4>
   
