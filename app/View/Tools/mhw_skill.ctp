@@ -213,9 +213,9 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
         <span id="js-skill-4-6"><?php echo $this->Form->input('skill.4', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-4-6 js-check-4', 'value' => 6, 'hiddenField' => false)); ?>Lv3</span>
         <br>
         <label>渾身</label>
-        <span id="js-skill-20-1"><?php echo $this->Form->input('skill.20', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-20-1 js-check-20', 'value' => 1)); ?>Lv1</span>
-        <span id="js-skill-20-2"><?php echo $this->Form->input('skill.20', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-20-2 js-check-20', 'value' => 2, 'hiddenField' => false)); ?>Lv2</span>
-        <span id="js-skill-20-3"><?php echo $this->Form->input('skill.20', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-20-3 js-check-20', 'value' => 3, 'hiddenField' => false)); ?>Lv3</span>
+        <span id="js-skill-20-1"><?php echo $this->Form->input('skill.20', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-20-1 js-check-13', 'value' => 1)); ?>Lv1</span>
+        <span id="js-skill-20-2"><?php echo $this->Form->input('skill.20', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-20-2 js-check-13', 'value' => 2, 'hiddenField' => false)); ?>Lv2</span>
+        <span id="js-skill-20-3"><?php echo $this->Form->input('skill.20', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-20-3 js-check-13', 'value' => 3, 'hiddenField' => false)); ?>Lv3</span>
         <br>
         <!--<span id="js-skill-5-1"><?php // echo $this->Form->input('skill.5', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-5-1', 'value' => 1)); ?>連撃</span>-->
         <!--<br>-->
@@ -225,9 +225,9 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
         <span id="js-skill-15-3"><?php echo $this->Form->input('skill.15', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-15-3', 'value' => 3, 'hiddenField' => false)); ?>Lv3</span>
         <br>
         <label>超会心</label>
-        <span id="js-skill-8-1"><?php echo $this->Form->input('skill.8', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-8-1 js-check-8', 'value' => 1)); ?>Lv1</span>
-        <span id="js-skill-8-2"><?php echo $this->Form->input('skill.8', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-8-2 js-check-8', 'value' => 2, 'hiddenField' => false)); ?>Lv2</span>
-        <span id="js-skill-8-3"><?php echo $this->Form->input('skill.8', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-8-3 js-check-8', 'value' => 3, 'hiddenField' => false)); ?>Lv3</span>
+        <span id="js-skill-8-1"><?php echo $this->Form->input('skill.8', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-8-1 js-check-12', 'value' => 1)); ?>Lv1</span>
+        <span id="js-skill-8-2"><?php echo $this->Form->input('skill.8', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-8-2 js-check-12', 'value' => 2, 'hiddenField' => false)); ?>Lv2</span>
+        <span id="js-skill-8-3"><?php echo $this->Form->input('skill.8', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-8-3 js-check-12', 'value' => 3, 'hiddenField' => false)); ?>Lv3</span>
         <!--<span id="js-skill-19-1"><?php // echo $this->Form->input('skill.19', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-19-1', 'value' => 1)); ?>痛恨会心</span>-->
         <br>
         <label>ﾌﾙﾁｬｰｼﾞ<br>(常時)</label><br>
