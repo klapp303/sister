@@ -36,3 +36,15 @@
   <?php endif; ?>
   <span class="link-page"><?php echo $this->Html->link('⇨ 最初からランキングを作成する', '/tools/ranking/'); ?></span>
 </div>
+
+<!-- Google AdSense Start ランキング2 -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-8547890407483708"
+     data-ad-slot="6862716662"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<!-- Google AdSense End -->

@@ -20,6 +20,18 @@
   データとデータの間は改行してください。
 </p>
 
+<!-- Google AdSense Start ランキング1 -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-8547890407483708"
+     data-ad-slot="1329234676"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<!-- Google AdSense End -->
+
   <table>
     <?php echo $this->Form->create('Tool', array( //使用するModel
         'type' => 'post', //デフォルトはpost送信
