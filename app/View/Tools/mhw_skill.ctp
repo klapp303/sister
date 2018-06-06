@@ -1,8 +1,8 @@
 <!-- nend.AD Start -->
-<script type="text/javascript">
+<!--<script type="text/javascript">
 var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented":1};
 </script>
-<script type="text/javascript" src="https://js1.nend.net/js/nendAdLoader.js"></script>
+<script type="text/javascript" src="https://js1.nend.net/js/nendAdLoader.js"></script>-->
 <!-- nend.AD End -->
 <?php echo $this->Html->css('tools', array('inline' => false)); ?>
 <h3><?php echo $tool_data['name']; ?> <span class="txt-min">ver<?php echo $tool_data['version_latest']; ?></span></h3>
@@ -453,8 +453,8 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
   </div>
 
 <!-- nend.AD Start -->
-<script type="text/javascript">
+<!--<script type="text/javascript">
 var nend_params = {"media":52850,"site":289717,"spot":848035,"type":1,"oriented":1};
 </script>
-<script type="text/javascript" src="https://js1.nend.net/js/nendAdLoader.js"></script>
+<script type="text/javascript" src="https://js1.nend.net/js/nendAdLoader.js"></script>-->
 <!-- nend.AD End -->
