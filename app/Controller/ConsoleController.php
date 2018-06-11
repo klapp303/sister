@@ -669,7 +669,6 @@ class ConsoleController extends AppController
     {
         $this->Paginator->settings = array(
             'conditions' => array('DiaryGenre.menu' => 1),
-            'limit' => 20,
             'order' => array('DiaryGenre.sort' => 'asc')
         );
         $diary_genre_lists = $this->Paginator->paginate('DiaryGenre');
@@ -775,6 +774,31 @@ class ConsoleController extends AppController
             
             $this->redirect('/console/diary_tag/');
         }
+    }
+    
+    public function diary_tag_sort()
+    {
+        $this->Paginator->settings = array(
+            'order' => array('DiaryTag.sort' => 'asc')
+        );
+        $diary_tag_lists = $this->Paginator->paginate('DiaryTag');
+        $this->set('diary_tag_lists', $diary_tag_lists);
+        
+        if ($this->request->is('post')) {
+            $sort_id['DiaryTag'] = array_values($this->request->data['DiaryTag']);
+            foreach ($sort_id['DiaryTag'] as $key => $value) {
+                $sort_id['DiaryTag'][$key]['sort'] = $key +1;
+            }
+            if ($this->DiaryTag->saveMany($sort_id['DiaryTag'])) {
+                $this->Session->setFlash('並び順を変更しました。', 'flashMessage');
+            } else {
+                $this->Session->setFlash('並び順を変更できませんでした。', 'flashMessage');
+            }
+            
+            $this->redirect('/console/diary_tag_sort/');
+        }
+        
+        $this->render('diary_tag_sort');
     }
     
     public function information()
