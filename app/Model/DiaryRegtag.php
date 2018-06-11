@@ -12,7 +12,7 @@ class DiaryRegtag extends AppModel
         'DiaryTag' => array(
             'className' => 'DiaryTag', //関連付けるModel
             'foreignKey' => 'tag_id', //関連付けるためのfield、関連付け先は上記Modelのid
-            'fields' => 'title' //関連付け先Modelの使用field
+            'fields' => array('title', 'sort') //関連付け先Modelの使用field
         ),
         'Diary' => array(
             'className' => 'Diary', //関連付けるModel

@@ -70,6 +70,16 @@ if (preg_match('#/diary/past#', $_SERVER['REQUEST_URI'])) {
     <span class="fr"><?php echo $diary_list['Diary']['date']; ?></span>
     <?php if (!$past): ?>
     <span><?php echo $this->Html->link($diary_list['DiaryGenre']['title'], '/diary/' . $past . 'genre/' . $diary_list['Diary']['genre_id']); ?></span>
+      <?php
+      //タグをsortの昇順に並び替える
+      if (count($diary_list['DiaryRegtag']) > 1) {
+          foreach ($diary_list['DiaryRegtag'] as $key2 => $val2) {
+              $sort[$key2] = $val2['DiaryTag']['sort'];
+          }
+          array_multisort($sort, SORT_ASC, $diary_list['DiaryRegtag']);
+          unset($sort);
+      }
+      ?>
       <?php foreach ($diary_list['DiaryRegtag'] as $Regtag): ?>
       <span><?php echo $this->Html->link($Regtag['DiaryTag']['title'], '/diary/tag/' . $Regtag['tag_id']); ?></span>
       <?php endforeach; ?>
