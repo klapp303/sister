@@ -47,6 +47,13 @@ class Tool extends AppModel{
                 )
             ),
             1 => array(
+                'name' => '厳正な抽選をするツール',
+                'url' => 'lot',
+                'version' => array(
+                    '1.0' => array('2018-06-15', 'ツール公開')
+                )
+            ),
+            2 => array(
                 'name' => 'MHWスキル期待値シミュレータ',
                 'url' => 'mhw_skill',
                 'version' => array(
@@ -56,7 +63,7 @@ class Tool extends AppModel{
                     '1.3' => array('2018-6-15', '渾身、超会心、抜刀会心を選択時の挙動バグを修正')
                 )
             ),
-            2 => array(
+            3 => array(
                 'name' => 'MHXXスキル期待値シミュレータ',
                 'url' => 'mh_skill',
                 'version' => array(

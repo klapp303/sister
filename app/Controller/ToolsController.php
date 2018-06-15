@@ -294,6 +294,53 @@ class ToolsController extends AppController
         $this->Session->write('sort_data', $sort_data);
     }
     
+    public function lot()
+    {
+        $tool_data = $this->Tool->getToolName('lot');
+        $this->set('tool_data', $tool_data);
+        //breadcrumbの設定
+        $this->set('sub_page', $tool_data['name']);
+        
+        //postデータがあれば抽選を実行
+        if ($this->request->is('post')) {
+            //申込者と当選数を取得
+            $data = $this->request->data['Tool']['data'];
+            $lot_number = $this->request->data['Tool']['number'];
+            
+            //postデータを改行毎の配列にする
+            $array_data = explode(PHP_EOL, $data);
+            $array_data = array_map('trim', $array_data);
+            $array_data = array_filter($array_data, 'strlen'); //改行のみ空白のみのデータは配列から削除
+            $lot_data = array_values($array_data);
+            
+            //抽選数が多すぎる場合
+            if (count($lot_data) > 100) {
+                $this->Session->setFlash('抽選数が多すぎます。<br>申込者は100までにしてください。', 'flashMessage');
+                $this->render('lot');
+                return;
+            }
+            
+            //抽選の実行
+            //当選数が申込数より多い場合は申込数を当選数にする
+            if (count($lot_data) <= $lot_number) {
+                $lot_number = count($lot_data);
+            //当選数が申込数より少ない場合は抽選を実行する
+            } else {
+                shuffle($lot_data);
+            }
+//            echo'<pre>';print_r($lot_data);echo'</pre>';
+            $result_data = [];
+            $result_data_text = '';
+            for ($i = 0; $i < $lot_number; $i++) {
+                $result_data[$i] = $lot_data[$i];
+                $result_data_text .= $lot_data[$i] . '&#13'; 
+            }
+            
+            $this->Session->setFlash('抽選が実行されました。', 'flashMessage');
+            $this->set(compact('result_data', 'result_data_text'));
+        }
+    }
+    
     public function mh_skill()
     {
         $tool_data = $this->Tool->getToolName('mh_skill');
