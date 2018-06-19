@@ -22,14 +22,14 @@ if (preg_match('#/diary/past#', $_SERVER['REQUEST_URI'])) {
 }
 ?>
 <!-- Google AdSense Start ヘッダー下 -->
-<ins class="adsbygoogle"
+<!--<ins class="adsbygoogle"
      style="display:block"
      data-ad-client="ca-pub-8547890407483708"
      data-ad-slot="1192690260"
      data-ad-format="auto"></ins>
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+</script>-->
 <!-- Google AdSense End -->
 <div id="menu_top" class="mobile cf">
   <?php echo $this->element('submenu_mobile', array('diary_lists' => $diary_lists, 'mode' => 'top')); ?>
@@ -108,12 +108,12 @@ if (preg_match('#/diary/past#', $_SERVER['REQUEST_URI'])) {
   } ?>
 <?php endif; ?>
 <!-- Google AdSense Start フッター上 -->
-<ins class="adsbygoogle"
+<!--<ins class="adsbygoogle"
      style="display:block"
      data-ad-client="ca-pub-8547890407483708"
      data-ad-slot="6066577142"
      data-ad-format="rectangle"></ins>
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+</script>-->
 <!-- Google AdSense End -->
