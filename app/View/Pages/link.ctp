@@ -46,7 +46,7 @@
 
 <p class="intro_link">
   このサイトはリンクフリーです。<br>
-  お問い合わせは klapp303<?php echo $this->Html->image('../atmark.png', array('alt' => 'atmark')) ?>gmail.com まで。
+  お問い合わせは info<?php echo $this->Html->image('../atmark.png', array('alt' => 'atmark')) ?>klapp.crap.jp まで。
 </p>
 <?php if (@$strong_color): ?>
 <script>
