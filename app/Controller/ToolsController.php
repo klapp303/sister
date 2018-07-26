@@ -331,13 +331,19 @@ class ToolsController extends AppController
                 foreach ($lot_data as $val) {
                     $str .= $val;
                 }
-                $seed = md5($str);
-                $seed = str_replace(
-                        array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'),
-                        array(00, 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26),
-                        $seed);
+                $str = md5($str);
+                $str = str_replace(
+                        array('a', 'b', 'c', 'd', 'e', 'f'),
+                        array(1, 2, 3, 4, 5, 6),
+                        $str);
+                //intの最大値を越えないように
+                $arr_seed = str_split($str, 8);
+                $seed = 0;
+                foreach ($arr_seed as $val) {
+                    $seed += $val;
+                }
                 //抽選結果は日替わりにする
-                $seed = date('Ymd') . $seed;
+                $seed += date('Ymd');
                 srand($seed);
                 shuffle($lot_data);
             }
