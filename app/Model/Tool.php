@@ -50,7 +50,8 @@ class Tool extends AppModel{
                 'name' => '厳正な抽選をするツール',
                 'url' => 'lot',
                 'version' => array(
-                    '1.0' => array('2018-06-15', 'ツール公開')
+                    '1.0' => array('2018-06-15', 'ツール公開'),
+                    '1.1' => array('2018-07-26', '抽選結果を日替わりにする')
                 )
             ),
             2 => array(

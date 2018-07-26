@@ -326,6 +326,19 @@ class ToolsController extends AppController
                 $lot_number = count($lot_data);
             //当選数が申込数より少ない場合は抽選を実行する
             } else {
+                //入力された値を元にseed値を生成
+                $str = "";
+                foreach ($lot_data as $val) {
+                    $str .= $val;
+                }
+                $seed = md5($str);
+                $seed = str_replace(
+                        array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'),
+                        array(00, 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26),
+                        $seed);
+                //抽選結果は日替わりにする
+                $seed = date('Ymd') . $seed;
+                srand($seed);
                 shuffle($lot_data);
             }
 //            echo'<pre>';print_r($lot_data);echo'</pre>';
