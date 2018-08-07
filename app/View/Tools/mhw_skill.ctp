@@ -34,7 +34,7 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
   条件の設定入力はできるだけ少なくしています。<br>
   細かい設定をせずとも概算してくれるので、さくっと較べたい人向け。<br>
   <br>
-  ※ガンナー関係はMHXX時代から更新してないです、ごめんね。そのうちやるよ。
+  弾・矢強化をMHWに対応させました。
 </p>
 
 <!-- Google AdSense Start モンハン1 -->
@@ -163,9 +163,9 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
       <td><label class="label_mh_sim">スキル</label></td>
       <td>
         <div class="js-bullet-form" style="display: <?php echo ($weapon_mode == 'sharp')? 'none' : 'block'; ?>;">
-          <span id="js-skill-101-1"><?php echo $this->Form->input('skill.101', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-101-1', 'value' => 1)); ?>通常弾・連射矢UP</span>
-          <span id="js-skill-102-1"><?php echo $this->Form->input('skill.102', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-102-1', 'value' => 1)); ?>貫通弾・貫通矢UP</span>
-          <span id="js-skill-103-1"><?php echo $this->Form->input('skill.103', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-103-1', 'value' => 1)); ?>散弾・拡散矢UP</span>
+          <span id="js-skill-101-1"><?php echo $this->Form->input('skill.101', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-101-1', 'value' => 1)); ?>通常弾・通常矢強化</span>
+          <span id="js-skill-102-1"><?php echo $this->Form->input('skill.102', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-102-1', 'value' => 1)); ?>貫通弾・竜の一矢強化</span>
+          <span id="js-skill-103-1"><?php echo $this->Form->input('skill.103', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-103-1', 'value' => 1)); ?>散弾・剛射強化</span>
           <!--<br>-->
           <!--<span id="js-skill-104-1"><?php // echo $this->Form->input('skill.104', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-104-1', 'value' => 1)); ?>弾導強化</span>-->
           <br><br>

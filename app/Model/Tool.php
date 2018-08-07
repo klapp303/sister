@@ -61,7 +61,8 @@ class Tool extends AppModel{
                     '1.0' => array('2018-04-14', 'ツール公開'),
                     '1.1' => array('2018-04-16', '結果を攻撃力の表示に変更'),
                     '1.2' => array('2018-06-04', '超会心と力の解放を同時に選択できないバグを修正'),
-                    '1.3' => array('2018-6-15', '渾身、超会心、抜刀会心を選択時の挙動バグを修正')
+                    '1.3' => array('2018-06-15', '渾身、超会心、抜刀会心を選択時の挙動バグを修正'),
+                    '1.4' => array('2018-08-07', 'ガンナースキルをMHWに対応')
                 )
             ),
             3 => array(
@@ -1355,9 +1356,9 @@ class Tool extends AppModel{
             //弾・矢補正
             if ($weapon_data['sharp'] == 101) { //通常弾・連射矢
                 $weapon_data['attack'] = $weapon_data['attack'] *1.5; //クリティカル距離
-                if ($skill_data[104] == 1) { //弾導強化があれば無効なスキルとして処理
-                    $skill_invalid[104] = 1;
-                }
+//                if ($skill_data[104] == 1) { //弾導強化があれば無効なスキルとして処理
+//                    $skill_invalid[104] = 1;
+//                }
                 if ($skill_data[101] == 1) {
                     $weapon_data['attack'] = $weapon_data['attack'] *1.1;
                 }
@@ -1369,12 +1370,12 @@ class Tool extends AppModel{
                 }
             } elseif ($weapon_data['sharp'] == 102) { //貫通弾・貫通矢
                 //クリティカル距離
-                if ($skill_data[104] == 1) { //弾導強化ならば全4hit分を1.5倍
+//                if ($skill_data[104] == 1) { //弾導強化ならば全4hit分を1.5倍
                     $weapon_data['attack'] = $weapon_data['attack'] *1.5;
-                } else { //通常は4hit中3hit分のみクリティカル距離判定
-                    $weapon_data['attack'] = $weapon_data['attack'] *3*1.5 + $weapon_data['attack'] *1;
-                    $weapon_data['attack'] = $weapon_data['attack'] /4;
-                }
+//                } else { //通常は4hit中3hit分のみクリティカル距離判定
+//                    $weapon_data['attack'] = $weapon_data['attack'] *3*1.5 + $weapon_data['attack'] *1;
+//                    $weapon_data['attack'] = $weapon_data['attack'] /4;
+//                }
                 if ($skill_data[102] == 1) {
                     $weapon_data['attack'] = $weapon_data['attack'] *1.1;
                 }
@@ -1386,15 +1387,16 @@ class Tool extends AppModel{
                 }
             } elseif ($weapon_data['sharp'] == 103) { //散弾・拡散矢
                 $weapon_data['attack'] = $weapon_data['attack'] *1.5; //クリティカル距離
-                if ($skill_data[104] == 1) { //弾導強化があれば無効なスキルとして処理
-                    $skill_invalid[104] = 1;
-                }
+//                if ($skill_data[104] == 1) { //弾導強化があれば無効なスキルとして処理
+//                    $skill_invalid[104] = 1;
+//                }
                 if ($skill_data[103] == 1) {
-                    if ($weapon_data['category'] == 14) { //拡散矢は1.3倍
-                        $weapon_data['attack'] = $weapon_data['attack'] *1.3;
-                    } else { //散弾は1.2倍
-                        $weapon_data['attack'] = $weapon_data['attack'] *1.2;
-                    }
+//                    if ($weapon_data['category'] == 14) { //拡散矢は1.3倍
+//                        $weapon_data['attack'] = $weapon_data['attack'] *1.3;
+//                    } else { //散弾は1.2倍
+//                        $weapon_data['attack'] = $weapon_data['attack'] *1.2;
+//                    }
+                    $weapon_data['attack'] = $weapon_data['attack'] *1.1;
                 }
                 if ($skill_data[101] == 1) { //通常弾・連射矢UPがあれば無効なスキルとして処理
                     $skill_invalid[101] = 1;
