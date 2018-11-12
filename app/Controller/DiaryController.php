@@ -376,4 +376,43 @@ class DiaryController extends AppController
         
         $this->render('index');
     }
+    
+    //TODO
+//    public function past_change()
+//    {
+//        //過去日記をtextlogから取得
+//        $diary_lists = $this->Diary->formatDiaryFromFc2('agumion_blog_backup_02.txt');
+//        
+//        //昇順に直しておく
+//        sort($diary_lists);
+//        
+//        //DBに合わせて整形
+//        $saveData = array();
+//        foreach ($diary_lists as $key => $val) {
+//            //本文の画像リンクは修正しておく
+//            $text = preg_replace(
+//                    '/<a href="http:\/\/blog-imgs-.*?k\/l\/a\/klapp\/(.*?)" target="_blank">.*?<\/a>/',
+//                    '<img src="/files/photo/2010/01/$1" alt="" class="img_diary">',
+//                    $val['Diary']['text']);
+//            
+//            $data = array(
+//                'title' => $val['Diary']['title'],
+//                'date' => $val['Diary']['date'],
+//                'text' => $text,
+//                'genre_id' => $val['Diary']['genre_id'],
+//                'publish' => 0,
+//                'deleted' => 0,
+//                'deleted_date' => null,
+//                'created' => $val['Diary']['date'] . ' 00:00:00',
+//                'modified' => $val['Diary']['date'] . ' 00:00:00'
+//            );
+//            $saveData[] = $data;
+//        }
+//        $this->Diary->saveMany($saveData);
+//        
+////        echo'<meta charset="utf-8" /><pre>';print_r($diary_lists);echo'</pre>';
+////        echo'<meta charset="utf-8" /><pre>';print_r($saveData);echo'</pre>';
+//        echo'ok';
+//        exit;
+//    }
 }
