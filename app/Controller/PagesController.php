@@ -51,6 +51,11 @@ class PagesController extends AppController
         $eventlog['schedule'] = [];
         $count = count($event_data['schedule']);
         for ($i = 0; $i < $count; $i++) {
+            //非公開のイベントは表示しない
+            if ($event_data['schedule'][$i]['publish'] == 0) {
+                unset($event_data['schedule'][$i]);
+                continue;
+            }
             //開催完了flgを追加、0：予定、1：次回、2：完了
             if ($event_data['schedule'][$i]['date'] < date('Y-m-d')) {
                 $event_data['schedule'][$i]['closed'] = 2;
