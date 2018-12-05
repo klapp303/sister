@@ -141,7 +141,7 @@ class Diary extends AppModel
     public function changePhotoToFull($diary_lists = false)
     {
         //画像のfullsizeを適用する日記idを設定
-        $array_id = [92];
+        $array_id = [92, 242];
         
         foreach ($diary_lists as $key => $diary_list) {
             if (in_array($diary_list['Diary']['id'], $array_id)) {
