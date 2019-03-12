@@ -413,9 +413,18 @@ class Diary extends AppModel
             $diary = explode('EXTENDED', $diary[1]);
             $body = ltrim($diary[0]);
             $body = substr($body, 0, -6);
-            $body = str_replace('<img src=', '<img class="img_diary_past" src=', $body);
             //画像の表示サイズ指定を削除
             $body = preg_replace('/ border="[0-9]*" width="[0-9]*" height="[0-9]*"/', '', $body);
+            //画像のファイル名を取得しておく
+            preg_match_all('/<img src=".*" alt=".*" \/>/', $body, $fc2_photos);
+            //画像のURLを新しいものにする
+            foreach ($fc2_photos[0] as $key2 => $val2) {
+                list($imgsrc, $photo_url) = explode('"', $val2);
+                $photo_name = preg_replace('/http:\/\/blog-imgs-[0-9][0-9]\.fc2\.com\/k\/l\/a\/klapp\//', '', $photo_url);
+                $new_photo = '<img src="/files/photo/fc2/' . $photo_name. '" alt="" class="img_diary_past">';
+                $body = preg_replace('#<a href=".*".*><img src="' . $photo_url . '" alt=".*" /></a>#', $new_photo, $body);
+            }
+//            $body = str_replace('<img src=', '<img class="img_diary_past" src=', $body);
             
             //debug用
 //            $diary_lists[$key]['title'] = $title;
