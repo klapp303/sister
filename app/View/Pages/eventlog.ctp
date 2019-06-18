@@ -6,8 +6,9 @@
 
 <p class="intro_evelog">
   管理人のイベント参加履歴と参加予定です。<br>
-  特に推してるのは竹達彩奈さん、内田真礼さん、麻倉ももさん、伊藤美来さん（ ＾ω＾）<br>
+  特に推してるのは竹達彩奈さん、内田真礼さん、麻倉ももさん、伊藤美来さん、山崎エリイさん。<br>
   <?php if (!@$cr_year): ?>
+  単推しが少しばかり多いだけです（ ＾ω＾）<br>
   次回は <?php if (@$current_event): ?>
         <!--<span class="current_evelog">-->
         <?php echo $current_event['date_m'] . '月';
@@ -136,7 +137,7 @@ $array_data_cat_1 = array(
     'イベント数' => 'all', '内ライブ数' => 'live', 'レポート数' => 'report'
 );
 $array_data_cat_2 = array(
-    '竹達彩奈さん' => 'ayachi', '内田真礼さん' => 'taso', '麻倉ももさん' => 'mocho', '伊藤美来さん' => 'mikku'
+    '竹達彩奈さん' => 'ayachi', '内田真礼さん' => 'taso', '麻倉ももさん' => 'mocho', '伊藤美来さん' => 'mikku', '山崎エリイさん' => 'erii'
 );
 ?>
 <h4>参加履歴データ</h4>
@@ -151,6 +152,7 @@ if (!empty($eventlog_pre['schedule'])) {
 }
 ?>
 <table>
+  <!-- イベントデータ -->
   <tr>
     <?php foreach ($array_data_cat_1 as $key => $val): ?>
     <th><?php echo $key; ?></th>
@@ -163,6 +165,7 @@ if (!empty($eventlog_pre['schedule'])) {
     <?php endforeach; ?>
   </tr>
   
+  <!-- 推しデータ -->
   <tr>
     <?php foreach ($array_data_cat_2 as $key => $val): ?>
     <th><?php echo $key; ?></th>
@@ -194,6 +197,7 @@ function getEventlogReport($eventlog = false, $year = null, $data = [])
     $data['taso'] = 0;
     $data['mocho'] = 0;
     $data['mikku'] = 0;
+    $data['erii'] = 0;
     
     foreach ($eventlog['schedule'][$year] as $month => $val) {
         foreach ($val as $event) {
@@ -225,6 +229,9 @@ function getEventlogReport($eventlog = false, $year = null, $data = [])
                 }
                 if ($cast == '伊藤美来' || $cast == 'Pyxis') {
                     $data['mikku']++;
+                }
+                if ($cast == '山崎エリイ' || $cast == 'every❤ing') {
+                    $data['erii']++;
                 }
             }
         }
