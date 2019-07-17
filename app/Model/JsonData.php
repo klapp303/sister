@@ -36,7 +36,7 @@ class JsonData extends AppModel
     
     public function getDataFromEventer($url = null, $json_str = false)
     {
-        $app_url = 'http://eventer.daynight.jp';
+        $app_url = 'http://yumea.sakura.ne.jp/eventer';
         $json_str = @file_get_contents($app_url . $url);
         
         return $json_str;
