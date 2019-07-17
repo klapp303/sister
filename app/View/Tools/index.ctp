@@ -10,5 +10,4 @@
   <?php foreach ($array_tools['list'] as $tool): ?>
   <li><?php echo $this->Html->link('⇨ ' . $tool['name'], '/tools/' . $tool['url']); ?></li>
   <?php endforeach; ?>
-  <li><?php echo $this->Html->link('⇨ イベントスケジュール管理ツール', 'http://eventer.daynight.jp/', array('target' => '_blank')); ?></li>
 </ul>
