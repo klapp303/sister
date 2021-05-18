@@ -237,7 +237,7 @@ class ConsoleController extends AppController
         if ($this->request->is('post')) {
             $this->Diary->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->Diary->validates()) { //validate成功の処理
-                $this->Diary->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->Diary->save($this->request->data)) {
                     /* イベント履歴リンクここから */
                     if ($this->request->data['Diary']['eventlog_link']) {
@@ -313,7 +313,7 @@ class ConsoleController extends AppController
             $id = $this->request->data['Diary']['id'];
             $this->Diary->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->Diary->validates()) { //validate成功の処理
-                $this->Diary->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->Diary->save($id)) {
                     /* イベント履歴リンクここから */
                     if ($this->request->data['Diary']['eventlog_link']) {
@@ -595,7 +595,7 @@ class ConsoleController extends AppController
         if ($this->request->is('post')) {
             $this->DiaryGenre->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->DiaryGenre->validates()) { //validate成功の処理
-                $this->DiaryGenre->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->DiaryGenre->save($this->request->data)) {
                     $this->Session->setFlash('ジャンルを追加しました。', 'flashMessage');
                 } else {
@@ -631,7 +631,7 @@ class ConsoleController extends AppController
             $id = $this->request->data['DiaryGenre']['id'];
             $this->DiaryGenre->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->DiaryGenre->validates()) { //validate成功の処理
-                $this->DiaryGenre->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->DiaryGenre->save($id)) {
                     $this->Session->setFlash('修正しました。', 'flashMessage');
                 } else {
@@ -706,7 +706,7 @@ class ConsoleController extends AppController
         if ($this->request->is('post')) {
             $this->DiaryTag->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->DiaryTag->validates()) { //validate成功の処理
-                $this->DiaryTag->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->DiaryTag->save($this->request->data)) {
                     $this->Session->setFlash('タグを追加しました。', 'flashMessage');
                 } else {
@@ -742,7 +742,7 @@ class ConsoleController extends AppController
             $id = $this->request->data['DiaryTag']['id'];
             $this->DiaryTag->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->DiaryTag->validates()) { //validate成功の処理
-                $this->DiaryTag->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->DiaryTag->save($id)) {
                     $this->Session->setFlash('修正しました。', 'flashMessage');
                 } else {
@@ -816,7 +816,7 @@ class ConsoleController extends AppController
         if ($this->request->is('post')) {
             $this->Information->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->Information->validates()) { //validate成功の処理
-                $this->Information->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->Information->save($this->request->data)) {
                     $this->Session->setFlash('お知らせを追加しました。', 'flashMessage');
                 } else {
@@ -857,7 +857,7 @@ class ConsoleController extends AppController
             /* nullにチェック時の処理ここまで */
             $this->Information->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->Information->validates()) { //validate成功の処理
-                $this->Information->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->Information->save($id)) {
                     $this->Session->setFlash('修正しました。', 'flashMessage');
                 } else {
@@ -908,7 +908,7 @@ class ConsoleController extends AppController
         if ($this->request->is('post')) {
             $this->SisterComment->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->SisterComment->validates()) { //validate成功の処理
-                $this->SisterComment->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->SisterComment->save($this->request->data)) {
                     $this->Session->setFlash('セリフを登録しました。', 'flashMessage');
                 } else {
@@ -944,7 +944,7 @@ class ConsoleController extends AppController
             $id = $this->request->data['SisterComment']['id'];
             $this->SisterComment->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->SisterComment->validates()) { //validate成功の処理
-                $this->SisterComment->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->SisterComment->save($id)) {
                     $this->Session->setFlash('修正しました。', 'flashMessage');
                 } else {
@@ -1006,7 +1006,8 @@ class ConsoleController extends AppController
                 $upload_pass = $upload_dir . basename($this->data['Banner']['file']['name']);
                 if (move_uploaded_file($this->data['Banner']['file']['tmp_name'], $upload_pass)) { //ファイルを保存
                 /* ファイルの保存ここまで */
-                    $this->Banner->save($this->request->data); //validate成功でsave
+                    //validate成功でsave
+                    $this->Banner->save($this->request->data);
                 } else {
                     $this->Session->setFlash('画像ファイルに不備があります。', 'flashMessage');
                 }
@@ -1072,7 +1073,7 @@ class ConsoleController extends AppController
                     }
                 }
                 /* ファイルの保存ここまで */
-                $this->Banner->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->Banner->save($id)) {
                     $this->Session->setFlash('修正しました。', 'flashMessage');
                 } else {
@@ -1157,7 +1158,7 @@ class ConsoleController extends AppController
         if ($this->request->is('post')) {
             $this->Link->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->Link->validates()) { //validate成功の処理
-                $this->Link->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->Link->save($this->request->data)) {
                     $this->Session->setFlash('リンクを追加しました。', 'flashMessage');
                 } else {
@@ -1193,7 +1194,7 @@ class ConsoleController extends AppController
             $id = $this->request->data['Link']['id'];
             $this->Link->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->Link->validates()) { //validate成功の処理
-                $this->Link->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->Link->save($id)) {
                     $this->Session->setFlash('修正しました。', 'flashMessage');
                 } else {
@@ -1244,7 +1245,7 @@ class ConsoleController extends AppController
         if ($this->request->is('post')) {
             $this->Administrator->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->Administrator->validates()) { //validate成功の処理
-                $this->Administrator->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->Administrator->save($this->request->data)) {
                     $this->Session->setFlash('管理者を追加しました。', 'flashMessage');
                 } else {
@@ -1280,7 +1281,7 @@ class ConsoleController extends AppController
 //            $id = $this->request->data['Administrator']['id'];
 //            $this->Administrator->set($this->request->data); //postデータがあればModelに渡してvalidate
 //            if ($this->Administrator->validates()) { //validate成功の処理
-//                $this->Administrator->save($this->request->data); //validate成功でsave
+//                //validate成功でsave
 //                if ($this->Administrator->save($id)) {
 //                    $this->Session->setFlash('修正しました。', 'flashMessage');
 //                } else {
@@ -1338,7 +1339,7 @@ class ConsoleController extends AppController
         if ($this->request->is('post')) {
             $this->Game->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->Game->validates()) { //validate成功の処理
-                $this->Game->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->Game->save($this->request->data)) {
                     $this->Session->setFlash('レビューを作成しました。', 'flashMessage');
                 } else {
@@ -1381,7 +1382,7 @@ class ConsoleController extends AppController
             $id = $this->request->data['Game']['id'];
             $this->Game->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->Game->validates()) { //validate成功の処理
-                $this->Game->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->Game->save($id)) {
                     $this->Session->setFlash('修正しました。', 'flashMessage');
                 } else {
@@ -1459,7 +1460,8 @@ class ConsoleController extends AppController
                 $upload_pass = $upload_dir . basename($this->data['Maker']['file']['name']);
                 if (move_uploaded_file($this->data['Maker']['file']['tmp_name'], $upload_pass)) { //ファイルを保存
                 /* ファイルの保存ここまで */
-                    $this->Maker->save($this->request->data); //validate成功でsave
+                    //validate成功でsave
+                    $this->Maker->save($this->request->data);
                 } else {
                     $this->Session->setFlash('画像ファイルに不備があります。', 'flashMessage');
                 }
@@ -1515,7 +1517,7 @@ class ConsoleController extends AppController
                     }
                 }
                 /* ファイルの保存ここまで */
-                $this->Maker->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->Maker->save($id)) {
                     $this->Session->setFlash('修正しました。', 'flashMessage');
                 } else {
@@ -1590,7 +1592,7 @@ class ConsoleController extends AppController
         if ($this->request->is('post')) {
             $this->Voice->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->Voice->validates()) { //validate成功の処理
-                $this->Voice->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->Voice->save($this->request->data)) {
                     $this->Session->setFlash($this->request->data['Voice']['name'] . ' を登録しました。', 'flashMessage');
                     
@@ -1626,7 +1628,7 @@ class ConsoleController extends AppController
             $id = $this->request->data['Voice']['id'];
             $this->Voice->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->Voice->validates()) { //validate成功の処理
-                $this->Voice->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->Voice->save($id)) {
                     $this->Session->setFlash('修正しました。', 'flashMessage');
                 } else {
@@ -1738,7 +1740,7 @@ class ConsoleController extends AppController
             
             $this->Birthday->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->Birthday->validates()) { //validate成功の処理
-                $this->Birthday->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->Birthday->save($this->request->data)) {
                     $this->Session->setFlash($voice_data['Voice']['nickname'] . ' のバースデー仕様を設定しました。', 'flashMessage');
                     
@@ -1839,7 +1841,7 @@ class ConsoleController extends AppController
             
             $this->Birthday->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->Birthday->validates()) { //validate成功の処理
-                $this->Birthday->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->Birthday->save($id)) {
                     $this->Session->setFlash('変更しました。', 'flashMessage');
                 } else {
@@ -2127,7 +2129,7 @@ class ConsoleController extends AppController
             /* checkedならばdate_toをnullにする処理ここまで */
             $this->Product->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->Product->validates()) { //validate成功の処理
-                $this->Product->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->Product->save($this->request->data)) {
                     /* product_idを取得してmusicデータを保存ここから */
                     if ($this->request->data['Product']['hard'] == 'sg' || $this->request->data['Product']['hard'] == 'al') {
@@ -2266,7 +2268,7 @@ class ConsoleController extends AppController
         if ($this->request->is('post')) {
             $this->Music->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->Music->validates()) { //validate成功の処理
-                $this->Music->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->Music->save($this->request->data)) {
                     $this->Session->setFlash('楽曲を登録しました。', 'flashMessage');
                 } else {
@@ -2302,7 +2304,7 @@ class ConsoleController extends AppController
             $id = $this->request->data['Music']['id'];
             $this->Music->set($this->request->data); //postデータがあればModelに渡してvalidate
             if ($this->Music->validates()) { //validate成功の処理
-                $this->Music->save($this->request->data); //validate成功でsave
+                //validate成功でsave
                 if ($this->Music->save($id)) {
                     $this->Session->setFlash('修正しました。', 'flashMessage');
                 } else {
