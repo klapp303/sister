@@ -34,7 +34,7 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
   条件の設定入力はできるだけ少なくしています。<br>
   細かい設定をせずとも概算してくれるので、さくっと較べたい人向け。<br>
   <br>
-  弾・矢強化をMHWに対応させました。
+  今更ですが、MHWIに対応させました。
 </p>
 
 <!-- Google AdSense Start モンハン1 -->
@@ -83,7 +83,7 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
           @$sharp_val = $this->request->data['weapon']['sharp'];
           ?>
           <?php if ($weapon_mode == 'sharp'): //初期表示：剣士 ?>
-          <?php $array_sharp = array(5 => '白', 4 => '青', 3 => '緑', 2 => '黄', 1 => '赤'); ?>
+          <?php $array_sharp = array(6 => '紫', 5 => '白', 4 => '青', 3 => '緑', 2 => '黄', 1 => '赤'); ?>
             <?php foreach ($array_sharp as $value => $label): ?>
             <option value="<?php echo $value; ?>" class="js-sharp"<?php echo ($value == $sharp_val)? ' selected="selected"' : ''; ?>>
               <?php echo $label; ?></option>
@@ -97,7 +97,7 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
           <?php endif; ?>
         </select>
         <select name="" id="js-pulldown_op" disabled="disabled" style="display: none;">
-          <?php $array_sharp = array(5 => '白', 4 => '青', 3 => '緑', 2 => '黄', 1 => '赤'); ?>
+          <?php $array_sharp = array(6 => '紫', 5 => '白', 4 => '青', 3 => '緑', 2 => '黄', 1 => '赤'); ?>
           <?php foreach ($array_sharp as $value => $label): ?>
           <option value="<?php echo $value; ?>" class="js-sharp"<?php echo ($value == 6)? ' selected="selected"' : ''; ?>>
             <?php echo $label; ?></option>
@@ -194,6 +194,8 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
         <span id="js-skill-3-3"><?php echo $this->Form->input('skill.3', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-3-3 js-check-3', 'value' => 3, 'hiddenField' => false)); ?>Lv3</span>
         <span id="js-skill-3-4"><?php echo $this->Form->input('skill.3', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-3-4 js-check-3', 'value' => 4, 'hiddenField' => false)); ?>Lv4</span>
         <span id="js-skill-3-5"><?php echo $this->Form->input('skill.3', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-3-5 js-check-3', 'value' => 5, 'hiddenField' => false)); ?>Lv5</span>
+        <span id="js-skill-3-6"><?php echo $this->Form->input('skill.3', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-3-6 js-check-3', 'value' => 6, 'hiddenField' => false)); ?>Lv6</span>
+        <span id="js-skill-3-7"><?php echo $this->Form->input('skill.3', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-3-7 js-check-3', 'value' => 7, 'hiddenField' => false)); ?>Lv7</span>
         <br>
         <label>力の解放</label>
         <span id="js-skill-14-1"><?php echo $this->Form->input('skill.14', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-14-1 js-check-8', 'value' => 1)); ?>Lv1</span>
@@ -201,6 +203,8 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
         <span id="js-skill-14-3"><?php echo $this->Form->input('skill.14', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-14-3 js-check-8', 'value' => 3, 'hiddenField' => false)); ?>Lv3</span>
         <span id="js-skill-14-4"><?php echo $this->Form->input('skill.14', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-14-4 js-check-8', 'value' => 4, 'hiddenField' => false)); ?>Lv4</span>
         <span id="js-skill-14-5"><?php echo $this->Form->input('skill.14', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-14-5 js-check-8', 'value' => 5, 'hiddenField' => false)); ?>Lv5</span>
+        <span id="js-skill-14-6"><?php echo $this->Form->input('skill.14', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-14-6 js-check-8', 'value' => 6, 'hiddenField' => false)); ?>Lv6</span>
+        <span id="js-skill-14-7"><?php echo $this->Form->input('skill.14', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-14-7 js-check-8', 'value' => 7, 'hiddenField' => false)); ?>Lv7</span>
         <br>
         <label>弱点特効<br>(プロハン)</label><br>
         <span id="js-skill-4-1"><?php echo $this->Form->input('skill.4', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-4-1 js-check-4', 'value' => 1)); ?>Lv1</span>
@@ -216,6 +220,8 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
         <span id="js-skill-20-1"><?php echo $this->Form->input('skill.20', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-20-1 js-check-14', 'value' => 1)); ?>Lv1</span>
         <span id="js-skill-20-2"><?php echo $this->Form->input('skill.20', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-20-2 js-check-14', 'value' => 2, 'hiddenField' => false)); ?>Lv2</span>
         <span id="js-skill-20-3"><?php echo $this->Form->input('skill.20', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-20-3 js-check-14', 'value' => 3, 'hiddenField' => false)); ?>Lv3</span>
+        <span id="js-skill-20-4"><?php echo $this->Form->input('skill.20', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-20-4 js-check-14', 'value' => 4, 'hiddenField' => false)); ?>Lv4</span>
+        <span id="js-skill-20-5"><?php echo $this->Form->input('skill.20', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-20-5 js-check-14', 'value' => 5, 'hiddenField' => false)); ?>Lv5</span>
         <br>
         <!--<span id="js-skill-5-1"><?php // echo $this->Form->input('skill.5', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-5-1', 'value' => 1)); ?>連撃</span>-->
         <!--<br>-->
@@ -270,6 +276,7 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
         <span id="js-skill-11-3"><?php echo $this->Form->input('skill.11', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-11-3 js-check-7', 'value' => 3, 'hiddenField' => false)); ?>Lv3</span>
         <span id="js-skill-11-4"><?php echo $this->Form->input('skill.11', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-11-4 js-check-7', 'value' => 4, 'hiddenField' => false)); ?>Lv4</span>
         <span id="js-skill-11-5"><?php echo $this->Form->input('skill.11', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-11-5 js-check-7', 'value' => 5, 'hiddenField' => false)); ?>Lv5</span>
+        <span id="js-skill-11-6"><?php echo $this->Form->input('skill.11', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-11-6 js-check-7', 'value' => 6, 'hiddenField' => false)); ?>Lv6</span>
         <br>
         <!--<span id="js-skill-12-1"><?php // echo $this->Form->input('skill.12', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-12-1', 'value' => 1)); ?>属性攻撃強化</span>-->
         <!--<br>-->
@@ -291,7 +298,9 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
         <span id="js-skill-16-3"><?php echo $this->Form->input('skill.16', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-16-3 js-check-9', 'value' => 3, 'hiddenField' => false)); ?>Lv3</span>
         <span id="js-skill-16-4"><?php echo $this->Form->input('skill.16', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-16-4 js-check-9', 'value' => 4, 'hiddenField' => false)); ?>Lv4</span>
         <span id="js-skill-16-5"><?php echo $this->Form->input('skill.16', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-16-5 js-check-9', 'value' => 5, 'hiddenField' => false)); ?>Lv5</span>
-        <span id="js-skill-16-6"><?php echo $this->Form->input('skill.16', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-16-6 js-check-9', 'value' => 6, 'hiddenField' => false)); ?>ネコ火事場</span>
+        <span id="js-skill-16-6"><?php echo $this->Form->input('skill.16', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-16-6 js-check-9', 'value' => 6, 'hiddenField' => false)); ?>Lv6</span>
+        <span id="js-skill-16-7"><?php echo $this->Form->input('skill.16', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-16-7 js-check-9', 'value' => 7, 'hiddenField' => false)); ?>Lv7</span>
+        <span id="js-skill-16-8"><?php echo $this->Form->input('skill.16', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-16-8 js-check-9', 'value' => 8, 'hiddenField' => false)); ?>ネコ火事場</span>
         <br><br>
         <label>達人の煙筒</label>
         <span id="js-skill-22-1"><?php echo $this->Form->input('skill.22', array('type' => 'checkbox', 'label' => false, 'class' => 'js-skill-22-1', 'value' => 1)); ?>60/240s</span>
@@ -421,7 +430,7 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
     護符爪ネコ飯、怪力の種 or 鬼人笛、斬れ味補正を考慮した結果が表示されます。<br>
     <br>
     挑戦者は2/3で発動を想定（モンスターの怒り時間は2/3を想定）。<br>
-    力の解放（笑）は300s経過後に90s発動を想定、計算が面倒な割に期待値はあっ…（察し）<br>
+    力の解放（笑）は300s経過後に120s発動を想定、計算が面倒な割に期待値はあっ…（察し）<br>
     挑戦者やフルチャージ、力の解放の被りも考慮しています（重複発動なし）。<br>
     弱点特効（プロハン）は100%発動を想定、頑張って狙ってください。<br>
     渾身は常時発動として計算、双剣？弓？知らんがな(´･ω･｀)<br>
@@ -432,7 +441,7 @@ var nend_params = {"media":52850,"site":289717,"spot":854944,"type":1,"oriented"
     抜刀会心は大剣のみ、3回に1回発動として計算。<br>
     属性強化の上限対応、会心率が100%を超える場合にも一応は対応しています。<br>
     貫通弾・貫通矢は一律4hitと想定して、クリティカル距離は3hit分のみで計算。<br>
-    また弱点特効は1hit分にのみ適用しています。概算だからね、しかたないね。
+    また弱点特効は2hit分にのみ適用しています。概算だからね、しかたないね。
   </p>
   <script>
       jQuery(function($) {

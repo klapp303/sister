@@ -55,14 +55,15 @@ class Tool extends AppModel{
                 )
             ),
             2 => array(
-                'name' => 'MHWスキル期待値シミュレータ',
+                'name' => 'MHWIスキル期待値シミュレータ',
                 'url' => 'mhw_skill',
                 'version' => array(
                     '1.0' => array('2018-04-14', 'ツール公開'),
                     '1.1' => array('2018-04-16', '結果を攻撃力の表示に変更'),
                     '1.2' => array('2018-06-04', '超会心と力の解放を同時に選択できないバグを修正'),
                     '1.3' => array('2018-06-15', '渾身、超会心、抜刀会心を選択時の挙動バグを修正'),
-                    '1.4' => array('2018-08-07', 'ガンナースキルをMHWに対応')
+                    '1.4' => array('2018-08-07', 'ガンナースキルをMHWに対応'),
+                    '2.0' => array('2021-06-13', '既存スキルをMHWIに対応')
                 )
             ),
             3 => array(
@@ -1094,7 +1095,7 @@ class Tool extends AppModel{
                 $skill_invalid[15] = $skill_data[15];
             }
         }
-        //力の解放 TODO
+        //力の解放
         if ($skill_data[14] == 1) {
             //スキルが発動した場合に会心率の上限を判定
             if ($weapon_data['critical'] >= 100) {
@@ -1448,6 +1449,14 @@ class Tool extends AppModel{
 //                $weapon_data['attack'] = $weapon_data['attack'] *1.05;
 //            }
 //        }
+        
+        //攻めの守勢
+        if (in_array($weapon_data['category'], array(7, 8))) { //ランス、ガンランスは常時発動として処理
+            
+        } elseif (in_array($weapon_data['category'], array(10, 13))) { //チャージアックス、ヘビィボウガンは3回に1回発動として処理
+            
+        }
+        
         //火事場
         if ($skill_data[16] == 1) {
 //            $weapon_data['attack'] = $weapon_data['attack'] *1;
@@ -1490,21 +1499,17 @@ class Tool extends AppModel{
             //属性会心
             if ($skill_data[13] == 1) {
                 if ($weapon_data['critical'] > 0) {
-                    //大剣は会心時に属性値1.2倍
-                    if ($weapon_data['category'] == 1) {
-                        $weapon_data['element'] = $weapon_data['element'] *1.2 *$weapon_data['critical'] + $weapon_data['element'] *1 *(100 - $weapon_data['critical']);
-                        $weapon_data['element'] = $weapon_data['element'] /100;
-                    //ライトボウガン、ヘビィボウガンは会心時に属性値1.3倍
-                    } elseif (in_array($weapon_data['category'], array(12, 13))) {
-                        $weapon_data['element'] = $weapon_data['element'] *1.3 *$weapon_data['critical'] + $weapon_data['element'] *1 *(100 - $weapon_data['critical']);
-                        $weapon_data['element'] = $weapon_data['element'] /100;
-                    //片手剣、双剣、弓は会心時に属性値1.35倍
-                    } elseif (in_array($weapom_data['category'], array(3, 4, 14))) {
-                        $weapon_data['element'] = $weapon_data['element'] *1.35 *$weapon_data['critical'] + $weapon_data['element'] *1 *(100 - $weapon_data['critical']);
-                        $weapon_data['element'] = $weapon_data['element'] /100;
-                    //それ以外は会心時に属性値1.25倍
-                    } else {
+                    //ライトボウガンは会心時に属性値1.25倍
+                    if ($weapon_data['category'] == 12) {
                         $weapon_data['element'] = $weapon_data['element'] *1.25 *$weapon_data['critical'] + $weapon_data['element'] *1 *(100 - $weapon_data['critical']);
+                        $weapon_data['element'] = $weapon_data['element'] /100;
+                    //大剣、ハンマー、狩猟笛、ヘビィボウガンは会心時に属性値1.5倍
+                    } elseif (in_array($weapom_data['category'], array(1, 5, 6, 13))) {
+                        $weapon_data['element'] = $weapon_data['element'] *1.5 *$weapon_data['critical'] + $weapon_data['element'] *1 *(100 - $weapon_data['critical']);
+                        $weapon_data['element'] = $weapon_data['element'] /100;
+                    //それ以外は会心時に属性値1.35倍
+                    } else {
+                        $weapon_data['element'] = $weapon_data['element'] *1.35 *$weapon_data['critical'] + $weapon_data['element'] *1 *(100 - $weapon_data['critical']);
                         $weapon_data['element'] = $weapon_data['element'] /100;
                     }
                 } else { //会心率がマイナスの場合は無効なスキルとして処理
@@ -1525,9 +1530,9 @@ class Tool extends AppModel{
                 } elseif ($weapon_data['sharp'] == 4) { //青
                     $weapon_data['element'] = $weapon_data['element'] *1.0625;
                 } elseif ($weapon_data['sharp'] == 5) { //白
-                    $weapon_data['element'] = $weapon_data['element'] *1.125;
+                    $weapon_data['element'] = $weapon_data['element'] *1.15;
                 } elseif ($weapon_data['sharp'] == 6) { //紫
-                    $weapon_data['element'] = $weapon_data['element'] *1.2;
+                    $weapon_data['element'] = $weapon_data['element'] *1.25;
                 }
             //ガンナー用
             } else {
@@ -1665,7 +1670,11 @@ class Tool extends AppModel{
         }
         
         //属性値の上限を計算しておく
-        $element_limit = round($element *1.3, -1);
+        if ($element <= 240) {
+            $element_limit = $element +150;
+        } else {
+            $element_limit = round($element *1.6, -1);
+        }
         
         //各属性攻撃強化の計算
         if ($skill_Lv == 1) {
@@ -1678,6 +1687,8 @@ class Tool extends AppModel{
             $element = round($element *1.05 +100, -1);
         } elseif ($skill_Lv == 5) {
             $element = round($element *1.1 +100, -1);
+        } elseif ($skill_Lv == 6) {
+            $element = round($element *1.2 +100, -1);
         }
         
         //属性値の上限
