@@ -699,6 +699,10 @@ class Tool extends AppModel{
             $weapon_data['attack'] += 16*0.67;
         } elseif ($skill_data[3] == 5) {
             $weapon_data['attack'] += 20*0.67;
+        } elseif ($skill_data[3] == 6) {
+            $weapon_data['attack'] += 24*0.67;
+        } elseif ($skill_data[3] == 7) {
+            $weapon_data['attack'] += 28*0.67;
         }
         //フルチャージ
         if ($skill_data[16]) { //火事場がある場合は無効なスキルとして処理
@@ -833,19 +837,19 @@ class Tool extends AppModel{
         }
         //見切り
         if ($skill_data[2] == 1) {
-            $weapon_data['critical'] += 3;
+            $weapon_data['critical'] += 5;
         } elseif($skill_data[2] == 2) {
-            $weapon_data['critical'] += 6;
-        } elseif ($skill_data[2] == 3) {
             $weapon_data['critical'] += 10;
-        } elseif ($skill_data[2] == 4) {
+        } elseif ($skill_data[2] == 3) {
             $weapon_data['critical'] += 15;
-        } elseif ($skill_data[2] == 5) {
+        } elseif ($skill_data[2] == 4) {
             $weapon_data['critical'] += 20;
-        } elseif ($skill_data[2] == 6) {
+        } elseif ($skill_data[2] == 5) {
             $weapon_data['critical'] += 25;
-        } elseif ($skill_data[2] == 7) {
+        } elseif ($skill_data[2] == 6) {
             $weapon_data['critical'] += 30;
+        } elseif ($skill_data[2] == 7) {
+            $weapon_data['critical'] += 40;
         }
         //会心率の上限による無効なスキルの判定その2
         if ($weapon_data['critical'] >= 100) {
@@ -876,6 +880,10 @@ class Tool extends AppModel{
             $weapon_data['critical'] += 20;
         } elseif ($skill_data[20] == 3) {
             $weapon_data['critical'] += 30;
+        } elseif ($skill_data[20] == 4) {
+            $weapon_data['critical'] += 40;
+        } elseif ($skill_data[20] == 5) {
+            $weapon_data['critical'] += 40;
         }
         //会心率の上限による無効なスキルの判定その3
         if ($weapon_data['critical'] >= 100) {
@@ -918,15 +926,19 @@ class Tool extends AppModel{
 //        }
         //挑戦者
         if ($skill_data[3] == 1) {
-            $weapon_data['critical'] += 3*0.67;
+            $weapon_data['critical'] += 5*0.67;
         } elseif ($skill_data[3] == 2) {
-            $weapon_data['critical'] += 6*0.67;
+            $weapon_data['critical'] += 5*0.67;
         } elseif ($skill_data[3] == 3) {
-            $weapon_data['critical'] += 9*0.67;
+            $weapon_data['critical'] += 7*0.67;
         } elseif ($skill_data[3] == 4) {
-            $weapon_data['critical'] += 12*0.67;
+            $weapon_data['critical'] += 7*0.67;
         } elseif ($skill_data[3] == 5) {
+            $weapon_data['critical'] += 10*0.67;
+        } elseif ($skill_data[3] == 6) {
             $weapon_data['critical'] += 15*0.67;
+        } elseif ($skill_data[3] == 7) {
+            $weapon_data['critical'] += 20*0.67;
         }
         //攻撃力UP
         if ($skill_data[1] >= 4) {
@@ -990,60 +1002,60 @@ class Tool extends AppModel{
                     $weapon_data['critical'] += 50*0.5;
                 }
             }
-        } else { //貫通弾・貫通矢は4hit中1hitにのみ適用
+        } else { //貫通弾・貫通矢は4hit中2hitにのみ適用
             if ($skill_data[4] == 1) {
                 if ($weapon_data['critical'] >= 100) {
                     //既に100%以上ならば処理はしない
                 }  elseif ($weapon_data['critical'] +15 >= 100) {
                     //発動すると100%を超えるならば差の会心率をスキル値に適用
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])/4;
+                    $weapon_data['critical'] += (100 - $weapon_data['critical'])/2;
                 } else {
-                    $weapon_data['critical'] += 15/4;
+                    $weapon_data['critical'] += 15/2;
                 }
             } elseif ($skill_data[4] == 2) {
                 if ($weapon_data['critical'] >= 100) {
                     //既に100%以上ならば処理はしない
                 }  elseif ($weapon_data['critical'] +30 >= 100) {
                     //発動すると100%を超えるならば差の会心率をスキル値に適用
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])/4;
+                    $weapon_data['critical'] += (100 - $weapon_data['critical'])/2;
                 } else {
-                    $weapon_data['critical'] += 30/4;
+                    $weapon_data['critical'] += 30/2;
                 }
             } elseif ($skill_data[4] == 3) {
                 if ($weapon_data['critical'] >= 100) {
                     //既に100%以上ならば処理はしない
                 }  elseif ($weapon_data['critical'] +50 >= 100) {
                     //発動すると100%を超えるならば差の会心率をスキル値に適用
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])/4;
+                    $weapon_data['critical'] += (100 - $weapon_data['critical'])/2;
                 } else {
-                    $weapon_data['critical'] += 50/4;
+                    $weapon_data['critical'] += 50/2;
                 }
             } elseif ($skill_data[4] == 4) {
                 if ($weapon_data['critical'] >= 100) {
                     //既に100%以上ならば処理はしない
                 }  elseif ($weapon_data['critical'] +15 >= 100) {
                     //発動すると100%を超えるならば差の会心率をスキル値に適用
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])/4*0.5;
+                    $weapon_data['critical'] += (100 - $weapon_data['critical'])/2*0.5;
                 } else {
-                    $weapon_data['critical'] += 15/4*0.5;
+                    $weapon_data['critical'] += 15/2*0.5;
                 }
             } elseif ($skill_data[4] == 5) {
                 if ($weapon_data['critical'] >= 100) {
                     //既に100%以上ならば処理はしない
                 }  elseif ($weapon_data['critical'] +30 >= 100) {
                     //発動すると100%を超えるならば差の会心率をスキル値に適用
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])/4*0.5;
+                    $weapon_data['critical'] += (100 - $weapon_data['critical'])/2*0.5;
                 } else {
-                    $weapon_data['critical'] += 30/4*0.5;
+                    $weapon_data['critical'] += 30/2*0.5;
                 }
             } elseif ($skill_data[4] == 6) {
                 if ($weapon_data['critical'] >= 100) {
                     //既に100%以上ならば処理はしない
                 }  elseif ($weapon_data['critical'] +50 >= 100) {
                     //発動すると100%を超えるならば差の会心率をスキル値に適用
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])/4*0.5;
+                    $weapon_data['critical'] += (100 - $weapon_data['critical'])/2*0.5;
                 } else {
-                    $weapon_data['critical'] += 50/4*0.5;
+                    $weapon_data['critical'] += 50/2*0.5;
                 }
             }
         }
@@ -1082,39 +1094,39 @@ class Tool extends AppModel{
                 $skill_invalid[15] = $skill_data[15];
             }
         }
-        //力の解放
+        //力の解放 TODO
         if ($skill_data[14] == 1) {
             //スキルが発動した場合に会心率の上限を判定
             if ($weapon_data['critical'] >= 100) {
                 //既に100%以上ならば処理はしない
             }  elseif ($weapon_data['critical'] +10 >= 100) {
                 //発動すると100%を超えるならば差の会心率をスキル値に適用
-                if ($skill_data[6] == 1 || $skill_data[6] == 2 || $skill_data[6] == 3) { //フルチャージ（常時）がある場合は無効なスキルとして処理
-                    $skill_invalid[14] = 1;
-                    $skill_data[14] = 0;
-                } elseif ($skill_data[3] && $skill_data[6] >= 4) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*90/390*0.17;
-                } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*90/390*0.33;
-                } elseif ($skill_data[6] >= 4) { //フルチャージ（半分）がある場合は残りの1/2として計算
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*90/390*0.5;
-                } else {
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*90/390;
-                }
+//                if ($skill_data[6] == 1 || $skill_data[6] == 2 || $skill_data[6] == 3) { //フルチャージ（常時）がある場合は無効なスキルとして処理
+//                    $skill_invalid[14] = 1;
+//                    $skill_data[14] = 0;
+//                } elseif ($skill_data[3] && $skill_data[6] >= 4) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
+//                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*120/420*0.17;
+//                } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
+//                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*120/420*0.33;
+//                } elseif ($skill_data[6] >= 4) { //フルチャージ（半分）がある場合は残りの1/2として計算
+//                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*120/420*0.5;
+//                } else {
+                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*120/420;
+//                }
             } else {
                 //通常の処理
-                if ($skill_data[6] == 1 || $skill_data[6] == 2 || $skill_data[6] == 3) { //フルチャージ（常時）がある場合は無効なスキルとして処理
-                    $skill_invalid[14] = 1;
-                    $skill_data[14] = 0;
-                } elseif ($skill_data[3] && $skill_data[6] >= 4) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
-                    $weapon_data['critical'] += 10*90/390*0.17;
-                } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
-                    $weapon_data['critical'] += 10*90/390*0.33;
-                } elseif ($skill_data[6] >= 4) { //フルチャージ（半分）がある場合は残りの1/2として計算
-                    $weapon_data['critical'] += 10*90/390*0.5;
-                } else {
-                    $weapon_data['critical'] += 10*90/390;
-                }
+//                if ($skill_data[6] == 1 || $skill_data[6] == 2 || $skill_data[6] == 3) { //フルチャージ（常時）がある場合は無効なスキルとして処理
+//                    $skill_invalid[14] = 1;
+//                    $skill_data[14] = 0;
+//                } elseif ($skill_data[3] && $skill_data[6] >= 4) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
+//                    $weapon_data['critical'] += 10*120/420*0.17;
+//                } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
+//                    $weapon_data['critical'] += 10*120/420*0.33;
+//                } elseif ($skill_data[6] >= 4) { //フルチャージ（半分）がある場合は残りの1/2として計算
+//                    $weapon_data['critical'] += 10*120/420*0.5;
+//                } else {
+                    $weapon_data['critical'] += 10*120/420;
+//                }
             }
         } elseif ($skill_data[14] == 2) {
             //スキルが発動した場合に会心率の上限を判定
@@ -1122,32 +1134,32 @@ class Tool extends AppModel{
                 //既に100%以上ならば処理はしない
             }  elseif ($weapon_data['critical'] +20 >= 100) {
                 //発動すると100%を超えるならば差の会心率をスキル値に適用
-                if ($skill_data[6] == 1 || $skill_data[6] == 2 || $skill_data[6] == 3) { //フルチャージ（常時）がある場合は無効なスキルとして処理
-                    $skill_invalid[14] = 1;
-                    $skill_data[14] = 0;
-                } elseif ($skill_data[3] && $skill_data[6] >= 4) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*90/390*0.17;
-                } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*90/390*0.33;
-                } elseif ($skill_data[6] >= 4) { //フルチャージ（半分）がある場合は残りの1/2として計算
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*90/390*0.5;
-                } else {
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*90/390;
-                }
+//                if ($skill_data[6] == 1 || $skill_data[6] == 2 || $skill_data[6] == 3) { //フルチャージ（常時）がある場合は無効なスキルとして処理
+//                    $skill_invalid[14] = 1;
+//                    $skill_data[14] = 0;
+//                } elseif ($skill_data[3] && $skill_data[6] >= 4) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
+//                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*120/420*0.17;
+//                } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
+//                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*120/420*0.33;
+//                } elseif ($skill_data[6] >= 4) { //フルチャージ（半分）がある場合は残りの1/2として計算
+//                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*120/420*0.5;
+//                } else {
+                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*120/420;
+//                }
             } else {
                 //通常の処理
-                if ($skill_data[6] == 1 || $skill_data[6] == 2 || $skill_data[6] == 3) { //フルチャージ（常時）がある場合は無効なスキルとして処理
-                    $skill_invalid[14] = 1;
-                    $skill_data[14] = 0;
-                } elseif ($skill_data[3] && $skill_data[6] >= 4) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
-                    $weapon_data['critical'] += 20*90/390*0.17;
-                } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
-                    $weapon_data['critical'] += 20*90/390*0.33;
-                } elseif ($skill_data[6] >= 4) { //フルチャージ（半分）がある場合は残りの1/2として計算
-                    $weapon_data['critical'] += 20*90/390*0.5;
-                } else {
-                    $weapon_data['critical'] += 20*90/390;
-                }
+//                if ($skill_data[6] == 1 || $skill_data[6] == 2 || $skill_data[6] == 3) { //フルチャージ（常時）がある場合は無効なスキルとして処理
+//                    $skill_invalid[14] = 1;
+//                    $skill_data[14] = 0;
+//                } elseif ($skill_data[3] && $skill_data[6] >= 4) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
+//                    $weapon_data['critical'] += 20*120/420*0.17;
+//                } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
+//                    $weapon_data['critical'] += 20*120/420*0.33;
+//                } elseif ($skill_data[6] >= 4) { //フルチャージ（半分）がある場合は残りの1/2として計算
+//                    $weapon_data['critical'] += 20*120/420*0.5;
+//                } else {
+                    $weapon_data['critical'] += 20*120/420;
+//                }
             }
         } elseif ($skill_data[14] == 3) {
             //スキルが発動した場合に会心率の上限を判定
@@ -1155,32 +1167,32 @@ class Tool extends AppModel{
                 //既に100%以上ならば処理はしない
             }  elseif ($weapon_data['critical'] +30 >= 100) {
                 //発動すると100%を超えるならば差の会心率をスキル値に適用
-                if ($skill_data[6] == 1 || $skill_data[6] == 2 || $skill_data[6] == 3) { //フルチャージ（常時）がある場合は無効なスキルとして処理
-                    $skill_invalid[14] = 1;
-                    $skill_data[14] = 0;
-                } elseif ($skill_data[3] && $skill_data[6] >= 4) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*90/390*0.17;
-                } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*90/390*0.33;
-                } elseif ($skill_data[6] >= 4) { //フルチャージ（半分）がある場合は残りの1/2として計算
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*90/390*0.5;
-                } else {
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*90/390;
-                }
+//                if ($skill_data[6] == 1 || $skill_data[6] == 2 || $skill_data[6] == 3) { //フルチャージ（常時）がある場合は無効なスキルとして処理
+//                    $skill_invalid[14] = 1;
+//                    $skill_data[14] = 0;
+//                } elseif ($skill_data[3] && $skill_data[6] >= 4) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
+//                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*120/420*0.17;
+//                } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
+//                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*120/420*0.33;
+//                } elseif ($skill_data[6] >= 4) { //フルチャージ（半分）がある場合は残りの1/2として計算
+//                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*120/420*0.5;
+//                } else {
+                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*120/420;
+//                }
             } else {
                 //通常の処理
-                if ($skill_data[6] == 1 || $skill_data[6] == 2 || $skill_data[6] == 3) { //フルチャージ（常時）がある場合は無効なスキルとして処理
-                    $skill_invalid[14] = 1;
-                    $skill_data[14] = 0;
-                } elseif ($skill_data[3] && $skill_data[6] >= 4) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
-                    $weapon_data['critical'] += 30*90/390*0.17;
-                } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
-                    $weapon_data['critical'] += 30*90/390*0.33;
-                } elseif ($skill_data[6] >= 4) { //フルチャージ（半分）がある場合は残りの1/2として計算
-                    $weapon_data['critical'] += 30*90/390*0.5;
-                } else {
-                    $weapon_data['critical'] += 30*90/390;
-                }
+//                if ($skill_data[6] == 1 || $skill_data[6] == 2 || $skill_data[6] == 3) { //フルチャージ（常時）がある場合は無効なスキルとして処理
+//                    $skill_invalid[14] = 1;
+//                    $skill_data[14] = 0;
+//                } elseif ($skill_data[3] && $skill_data[6] >= 4) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
+//                    $weapon_data['critical'] += 30*120/420*0.17;
+//                } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
+//                    $weapon_data['critical'] += 30*120/420*0.33;
+//                } elseif ($skill_data[6] >= 4) { //フルチャージ（半分）がある場合は残りの1/2として計算
+//                    $weapon_data['critical'] += 30*120/420*0.5;
+//                } else {
+                    $weapon_data['critical'] += 30*120/420;
+//                }
             }
         } elseif ($skill_data[14] == 4) {
             //スキルが発動した場合に会心率の上限を判定
@@ -1188,65 +1200,76 @@ class Tool extends AppModel{
                 //既に100%以上ならば処理はしない
             }  elseif ($weapon_data['critical'] +40 >= 100) {
                 //発動すると100%を超えるならば差の会心率をスキル値に適用
-                if ($skill_data[6] == 1 || $skill_data[6] == 2 || $skill_data[6] == 3) { //フルチャージ（常時）がある場合は無効なスキルとして処理
-                    $skill_invalid[14] = 1;
-                    $skill_data[14] = 0;
-                } elseif ($skill_data[3] && $skill_data[6] >= 4) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*90/390*0.17;
-                } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*90/390*0.33;
-                } elseif ($skill_data[6] >= 4) { //フルチャージ（半分）がある場合は残りの1/2として計算
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*90/390*0.5;
-                } else {
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*90/390;
-                }
+//                if ($skill_data[6] == 1 || $skill_data[6] == 2 || $skill_data[6] == 3) { //フルチャージ（常時）がある場合は無効なスキルとして処理
+//                    $skill_invalid[14] = 1;
+//                    $skill_data[14] = 0;
+//                } elseif ($skill_data[3] && $skill_data[6] >= 4) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
+//                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*120/420*0.17;
+//                } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
+//                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*120/420*0.33;
+//                } elseif ($skill_data[6] >= 4) { //フルチャージ（半分）がある場合は残りの1/2として計算
+//                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*120/420*0.5;
+//                } else {
+                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*120/420;
+//                }
             } else {
                 //通常の処理
-                if ($skill_data[6] == 1 || $skill_data[6] == 2 || $skill_data[6] == 3) { //フルチャージ（常時）がある場合は無効なスキルとして処理
-                    $skill_invalid[14] = 1;
-                    $skill_data[14] = 0;
-                } elseif ($skill_data[3] && $skill_data[6] >= 4) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
-                    $weapon_data['critical'] += 40*90/390*0.17;
-                } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
-                    $weapon_data['critical'] += 40*90/390*0.33;
-                } elseif ($skill_data[6] >= 4) { //フルチャージ（半分）がある場合は残りの1/2として計算
-                    $weapon_data['critical'] += 40*90/390*0.5;
-                } else {
-                    $weapon_data['critical'] += 40*90/390;
-                }
+//                if ($skill_data[6] == 1 || $skill_data[6] == 2 || $skill_data[6] == 3) { //フルチャージ（常時）がある場合は無効なスキルとして処理
+//                    $skill_invalid[14] = 1;
+//                    $skill_data[14] = 0;
+//                } elseif ($skill_data[3] && $skill_data[6] >= 4) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
+//                    $weapon_data['critical'] += 40*120/420*0.17;
+//                } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
+//                    $weapon_data['critical'] += 40*120/420*0.33;
+//                } elseif ($skill_data[6] >= 4) { //フルチャージ（半分）がある場合は残りの1/2として計算
+//                    $weapon_data['critical'] += 40*120/420*0.5;
+//                } else {
+                    $weapon_data['critical'] += 40*120/420;
+//                }
             }
-        } elseif ($skill_data[14] == 5) {
+        } elseif ($skill_data[14] == 5 || $skill_data[14] == 6) {
             //スキルが発動した場合に会心率の上限を判定
             if ($weapon_data['critical'] >= 100) {
                 //既に100%以上ならば処理はしない
             }  elseif ($weapon_data['critical'] +50 >= 100) {
                 //発動すると100%を超えるならば差の会心率をスキル値に適用
-                if ($skill_data[6] == 1 || $skill_data[6] == 2 || $skill_data[6] == 3) { //フルチャージ（常時）がある場合は無効なスキルとして処理
-                    $skill_invalid[14] = 1;
-                    $skill_data[14] = 0;
-                } elseif ($skill_data[3] && $skill_data[6] >= 4) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*90/390*0.17;
-                } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*90/390*0.33;
-                } elseif ($skill_data[6] >= 4) { //フルチャージ（半分）がある場合は残りの1/2として計算
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*90/390*0.5;
-                } else {
-                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*90/390;
-                }
+//                if ($skill_data[6] == 1 || $skill_data[6] == 2 || $skill_data[6] == 3) { //フルチャージ（常時）がある場合は無効なスキルとして処理
+//                    $skill_invalid[14] = 1;
+//                    $skill_data[14] = 0;
+//                } elseif ($skill_data[3] && $skill_data[6] >= 4) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
+//                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*120/420*0.17;
+//                } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
+//                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*120/420*0.33;
+//                } elseif ($skill_data[6] >= 4) { //フルチャージ（半分）がある場合は残りの1/2として計算
+//                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*120/420*0.5;
+//                } else {
+                    $weapon_data['critical'] += (100 - $weapon_data['critical'])*120/420;
+//                }
             } else {
                 //通常の処理
-                if ($skill_data[6] == 1 || $skill_data[6] == 2 || $skill_data[6] == 3) { //フルチャージ（常時）がある場合は無効なスキルとして処理
-                    $skill_invalid[14] = 1;
-                    $skill_data[14] = 0;
-                } elseif ($skill_data[3] && $skill_data[6] >= 4) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
-                    $weapon_data['critical'] += 50*90/390*0.17;
-                } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
-                    $weapon_data['critical'] += 50*90/390*0.33;
-                } elseif ($skill_data[6] >= 4) { //フルチャージ（半分）がある場合は残りの1/2として計算
-                    $weapon_data['critical'] += 50*90/390*0.5;
-                } else {
-                    $weapon_data['critical'] += 50*90/390;
-                }
+//                if ($skill_data[6] == 1 || $skill_data[6] == 2 || $skill_data[6] == 3) { //フルチャージ（常時）がある場合は無効なスキルとして処理
+//                    $skill_invalid[14] = 1;
+//                    $skill_data[14] = 0;
+//                } elseif ($skill_data[3] && $skill_data[6] >= 4) { //挑戦者とフルチャージ（半分）がある場合は残りの1/6として計算
+//                    $weapon_data['critical'] += 50*120/420*0.17;
+//                } elseif ($skill_data[3]) { //挑戦者がある場合は残りの1/3として計算
+//                    $weapon_data['critical'] += 50*120/420*0.33;
+//                } elseif ($skill_data[6] >= 4) { //フルチャージ（半分）がある場合は残りの1/2として計算
+//                    $weapon_data['critical'] += 50*120/420*0.5;
+//                } else {
+                    $weapon_data['critical'] += 50*120/420;
+//                }
+            }
+        } elseif ($skill_data[14] == 7) {
+            //スキルが発動した場合に会心率の上限を判定
+            if ($weapon_data['critical'] >= 100) {
+                //既に100%以上ならば処理はしない
+            }  elseif ($weapon_data['critical'] +60 >= 100) {
+                //発動すると100%を超えるならば差の会心率をスキル値に適用
+                $weapon_data['critical'] += (100 - $weapon_data['critical'])*120/420;
+            } else {
+                //通常の処理
+                $weapon_data['critical'] += 60*120/420;
             }
         }
         //達人の煙筒
@@ -1411,7 +1434,7 @@ class Tool extends AppModel{
             if ($weapon_data['element']) { //属性値があれば無効なスキルとして処理
                 $skill_invalid[21] = 1;
             } else {
-                $weapon_data['attack'] = $weapon_data['attack'] *1.1;
+                $weapon_data['attack'] = $weapon_data['attack'] *1.05;
             }
         }
         //龍気活性
@@ -1427,16 +1450,20 @@ class Tool extends AppModel{
 //        }
         //火事場
         if ($skill_data[16] == 1) {
-            $weapon_data['attack'] = $weapon_data['attack'] *1.05;
+//            $weapon_data['attack'] = $weapon_data['attack'] *1;
         } elseif ($skill_data[16] == 2) {
-            $weapon_data['attack'] = $weapon_data['attack'] *1.1;
+            $weapon_data['attack'] = $weapon_data['attack'] *1.05;
         } elseif ($skill_data[16] == 3) {
-            $weapon_data['attack'] = $weapon_data['attack'] *1.15;
+            $weapon_data['attack'] = $weapon_data['attack'] *1.05;
         } elseif ($skill_data[16] == 4) {
-            $weapon_data['attack'] = $weapon_data['attack'] *1.2;
+            $weapon_data['attack'] = $weapon_data['attack'] *1.1;
         } elseif ($skill_data[16] == 5) {
-            $weapon_data['attack'] = $weapon_data['attack'] *1.3;
+            $weapon_data['attack'] = $weapon_data['attack'] *1.15;
         } elseif ($skill_data[16] == 6) {
+            $weapon_data['attack'] = $weapon_data['attack'] *1.25;
+        } elseif ($skill_data[16] == 7) {
+            $weapon_data['attack'] = $weapon_data['attack'] *1.4;
+        } elseif ($skill_data[16] == 8) { //ネコ火事場
             $weapon_data['attack'] = $weapon_data['attack'] *1.35;
         }
         
