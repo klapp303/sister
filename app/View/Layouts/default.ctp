@@ -7,7 +7,7 @@
 <html lang="ja">
   <head>
     <?php echo $this->Html->charset(); ?>
-    <title><?php echo $this->element('sister_metatag', array('title' => false)); ?></title>
+    <?php echo $this->element('sister_metatag', array('title' => false)); ?>
     <?php
 //    echo $this->Html->meta('icon');
     
