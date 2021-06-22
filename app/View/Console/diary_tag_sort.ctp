@@ -1,4 +1,4 @@
-<?php echo $this->Html->script('http://code.jquery.com/ui/1.11.3/jquery-ui.js', array('inline' => false)); ?>
+<?php echo $this->Html->script('https://code.jquery.com/ui/1.11.3/jquery-ui.js', array('inline' => false)); ?>
 <h3>タグ一覧</h3>
 
   <div class="detail-title-min_tag">

@@ -1,5 +1,5 @@
 <?php // echo $this->Html->script('jquery-tmb', array('inline' => false)); ?>
-<?php echo $this->Html->script('http://code.jquery.com/ui/1.11.3/jquery-ui.js', array('inline' => false)); ?>
+<?php echo $this->Html->script('https://code.jquery.com/ui/1.11.3/jquery-ui.js', array('inline' => false)); ?>
 <h3>バースデー仕様の設定<span class="txt-min txt-n">　　（各項目は任意です）</span></h3>
 
   <table>
